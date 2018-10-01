@@ -248,7 +248,7 @@ so ist es auch hier der Fall. An dieser Stelle finden wir die
 Informationen, die wir benötigen, um die Funktion zu nutzen. Wir sehen
 
 [^`r incfnc()`]: Viele Funktionen können auf verschiedene Arten
-aufgerufen werden. Das heißt: sie können mit unterschiedlichen
+aufgerufen werden. Das heißt: Sie können mit unterschiedlichen
 `R`-Objekten als Eingabe genutzt werden.
 
 - die Namen der Argumente

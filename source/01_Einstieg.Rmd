@@ -294,7 +294,7 @@ häufigsten Fall seid ihr selbst in zwei Wochen diese "andere" Person.
 [^`r incfnc()`]: Codeblöcke im Skript bestehen immer aus dem
 eigentlichen Code (dieser ist leicht grau hinterlegt) und der *Ausgabe*,
 die bei Eingabe des Codes auch so in der `R`-Konsole erscheinen
-würde. Den Code könnt ihr auch selbst per *Copy-&-Paste* nachvollziehen
+würde. Den Code könnt ihr auch selbst per Copy & Paste nachvollziehen
 (was ich auch empfehle). Die Ausgabe des Codes erkennt ihr meistens
 daran, dass sie mit `[1]` startet; so wird in der `R`-Konsole das erste
 Element der Ausgabe eines Vektors gekennzeichnet (siehe Kapitel 2).
