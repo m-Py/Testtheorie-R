@@ -1,0 +1,1093 @@
+
+# Arbeiten mit psychometrischen Daten {#psychometrie}
+
+Dieses Kapitel arbeitet einige Kennwerte der klassischen Testtheorie auf
+und bespricht wie wir diese in `R` berechnen können. Dabei werden folgende
+Konzepte behandelt:
+
+- Testscores
+- Item-Schwierigkeit
+- Item-Trennschärfe
+- Item-Interkorrelation
+- Reliabilität
+    + Interne Konsistenz ("Cronbachs Alpha")
+    + Split-Half/Odd-Even-Reliabilität
+- Spearman-Brown-Formel
+
+Ein weiterer Teil des Kapitels beschäftigt sich mit der Aufbereitung von
+Rohdaten, die im Normalfall leider nicht in der Form vorliegen, die wir
+für unsere Analysen benötigen. Wir lernen
+
+- Antworten umzukodieren
+- Antworten zu invertieren
+- Fälle mit fehlenden Werten auszuschließen
+
+## Ausgedehntes Beispiel zum Einstieg{#kap4einstieg}
+
+Es folgt ein Beispiel zur Berechnung einiger grundlegender
+psychometrischer Kennwerte. Angenommen, uns liegt eine Datentabelle vor,
+die die Punktzahlen der Antworten von 10 Schulkindern auf 5 Aufgaben
+einer Klassenarbeit beinhaltet. Diese kann man gut in einer $10 \times
+5$ (Reihe $\times$ Spalten) Datentabelle darstellen. Ein Eintrag
+kodiert, ob das Kind (*Reihe*) die Aufgabe (*Spalte*) korrekt gelöst
+hat. Korrekte Antworten werden mit 1 kodiert, falsche Antworten mit 0 --
+ein typisches Datenformat in der psychologischen Diagnostik.
+
+Um das fortführende Beispiel selbst nachzuvollziehen, müsst ihr den
+folgenden `data.frame` erstellen:
+
+
+```{r}
+test_data <- data.frame(Item_1 = c(1, 1, 1, 0, 0, 0, 1, 1, 1, 0),
+                        Item_2 = c(0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+                        Item_3 = c(1, 0, 1, 0, 1, 1, 1, 0, 1, 0),
+                        Item_4 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0),
+                        Item_5 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0))
+```
+
+Die Variable `test_data` enthält nun die folgende Tabelle:
+
+&nbsp;
+
+```{r, echo = FALSE}
+
+kable(test_data, row.names= TRUE)
+
+```
+
+&nbsp;
+
+&nbsp;
+
+Wenn uns Daten in diesem Format vorliegen,[^`r incref()`] können wir auf
+viele Funktionen in `R` zurückgreifen, um grundlegende psychometrische
+Auswertungen durchzuführen. Dies sind etwa die Bestimmung der
+Schwierigkeit und der Trennschärfe von Items, sowie die Bestimmung einer
+Split-Half Reliabilität. Für fortgeschrittenere Auswertungen -- wie etwa
+die Berechnung von Cronbachs Alpha oder einer Faktorenanalyse -- werden
+wir auf Pakete zurückgreifen, die uns über die Basics in `R` hinaus
+weitere Funktionalitäten bieten. Aber auch für diese Analysen benötigen
+wir genau dieses Datenformat!
+
+[^`r incfnc()`]: **Merke**: Das ist das Standard-Datenformat für all
+unsere psychometrischen Berechnungen: (a) Zeilen sind Fälle; (b) Spalten
+sind Items bzw. Messvariablen; (c) Zellen enthalten Datenpunkte, etwa
+die Korrektheit von Antworten (kodiert mit 1/0). Datenpunkte müssen
+nicht unbedingt -- wie es in diesem Beispiel der Fall ist -- dichotom
+sein, sondern können beispielsweise auch die Antworten in einem
+Persönlichkeitsfragebogen auf einer Likert-Skala repräsentieren.
+
+### Testscores
+
+Wir bestimmen zunächst die Testscores der 10 Kinder. Da jede Zeile ein
+Kind repräsentiert, ist der Gesamt-Testscore ist die Summe der Werte in
+jeder Reihe. Die Summe der Reihen eines `data.frames` (engl: *rows*)
+kann man mit der Funktion `rowSums` bestimmen:
+
+```{r}
+
+rowSums(test_data) # test_data ist die Tabelle von oben.
+
+```
+
+Es ist manchmal praktisch Berechnungen, die pro Fall einen Wert ergeben,
+direkt an den ursprünglichen `data.frame` anzuhängen. Wie in Kapitel 3
+erklärt, ist das mit der `$`-Notation möglich:
+
+```{r}
+test_data$score <- rowSums(test_data)
+```
+
+### Item-Schwierigkeiten
+
+Die Schwierigkeit eines Items ist die mittlere Punktzahl aller Personen
+in diesem Item.[^`r incref()`] Das ist somit also einfach der Mittelwert
+der Einträge in jeder Spalte (engl: *column*) in unserem
+Standardformat. Den Mittelwert pro Spalte kann ich mit der Funktion
+`colMeans` bestimmen (analog gibt es auch die Funktionen `colSums` und
+`rowMeans`):
+
+[^`r incfnc()`]: Auch bei Items, die nicht Korrektheit kodieren, kann
+man von Item-Schwierigkeit sprechen. Beispielsweise wäre dann die
+Item-Schwierigkeit die mittlere Zustimmungsrate für ein Item in einem
+Persönlichkeitsinventar, in dem Antworten auf einer 5-stufigen
+Likert-Skala gegeben werden.
+
+```{r}
+
+colMeans(test_data)
+
+```
+
+Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe,
+bekomme ich die mittlere Punktzahl der Schüler/innen in den 5 Testitems
+direkt mitgeliefert. Beachtet, dass ich hier eine numerische Funktion
+auf den ganzen `data.frame` angewendet habe. Hätte ich beispielsweise
+auch Spalten vom Typ `factor` oder `numeric` im `data.frame` gehabt,
+hätte ich Funktionen wie `rowSums` und `colMeans` nicht einfach auf den
+ganzen `data.frame` anwenden können.[^`r incref()`]
+
+[^`r incfnc()`]: In dem Fall könnte man mit `subset` nur die gewünschten
+Spalten auswählen.
+
+### Item-Interkorrelationen
+
+Als nächstes geben wir die Korrelationen zwischen allen Items als
+Korrelationsmatrix aus. Dies funktioniert mit der Funktion `cor`. Wenn
+`cor` als Argument einen `data.frame` erhält, wird eine Tabelle
+ausgegeben, die die Korrelation zwischen allen Spalten -- d.h. Items --
+des `data.frames` enthält.
+
+```R
+round(cor(test_data), 2)
+```
+
+```{r, echo = FALSE}
+item_correlations <- cor(test_data)
+kable(round(item_correlations, 2))
+```
+
+&nbsp;
+
+&nbsp;
+
+Die Korrelationen wurden aus Darstellungszwecken auf zwei
+Nachkommastellen gerundet, was mit der Funktion `round` erreicht
+wurde. 
+
+### Item-Trennschärfen
+
+Interessant ist die letzte Spalte (bzw. genauso die letzte Zeile) der
+Tabelle der Item-Korrelationen. Diese gibt an, wie stark die Korrelation
+zwischen jedem Item und dem Testscore ausfällt. Dieser Kennwert ist die
+(unkorrigierte) Trennschärfe der Items; wir erhalten sie, da wir oben
+den Testscore als Spalte an unseren `data.frame` angehängt haben. Die
+Item-Trennschärfe macht eine Aussage darüber, wie stark das Abschneiden
+in einem Item mit dem Gesamt-Testscore zusammenhängt. Je höher die
+Trennschärfe, desto besser vermag das Item zwischen Schüler/innen mit
+viel und wenig Wissen (also einem hohen bzw. einem niedrigen
+Gesamt-Testscore) zu trennen. Die Trennschärfe ist ein Kennwert, der zur
+Beurteilung der Güte eines Items dienen kann.
+
+Oftmals wird die "part-whole" korrigierte Trennschärfe berechnet, bei
+der zur Berechnung der Trennschärfe jedes Items der Itemscore dieses
+Items aus der Gesamtpunktzahl ausgelassen wird. Somit wird eine
+"Kriterienkontamination" vermieden, die zu einer Erhöhung der
+Trennschärfe führt. Diese Kriterienkontamination ergibt sich bei der
+unkorrigierten Trennschärfe daraus, dass der Itemscore selbst in das
+"Kriterium" -- also den Gesamt-Testscore -- eingeht.[^`r incref()`] Eine
+Möglichkeit, die "part-whole" korrigierte Trennschärfe für eine Item
+(hier: Item 2) zu berechnen, bietet der folgende Code:
+
+[^`r incfnc()`]: Praktisch gesehen werden unkorrigierte und korrigierte
+Trennschärfe dieselbe relative Rangreihe zwischen den Items hinsichtlich
+ihrer Diskriminationsgüte abbilden.
+
+```{r}
+
+## Zunächst erstelle ich einen Vektor zur Auswahl der Items, die ich zur
+## Berechnung des Testscores heranziehe. Dabei wird Item 2
+## ausgelassen. An dieser Stelle müssen wir die Namen der Spalten
+## kennen, die wir auswählen wollen. Diese lassen sich mit dem Befehl
+## `names` herausfinden:
+
+names(test_data)
+
+```
+
+
+```{r}
+## Wähle nun Antworten auf Items 1, 3, 4, 5 aus:
+select_items   <- paste0("Item_", (1:5)[-2])
+responses_no_item2 <- subset(test_data, select = select_items)
+
+## Betrachte die Tabelle:
+responses_no_item2
+
+## Berechne den Testscore über Items 1, 3, 4 und 5:
+corrected_score <- rowSums(responses_no_item2)
+```
+
+`corrected_score` ist nun der Testscore ohne Beachtung des zweiten
+Items. Das Vorgehen zur Berechnung der bereinigten Scores mithilfe der
+Funktionen `paste0`, `subset` und `rowSums` lässt sich allgemein mit
+beliebig vielen Items durchführen. Da wir an dieser Stelle nur eine
+Summe über vier Items bilden, hätte auch der folgende -- simplere --
+Code funktioniert:
+
+```R
+corrected_score <- test_data$Item_1 + test_data$Item_3 +
+    test_data$Item_4 + test_data$Item_5
+```
+
+Wie folgt können wir nun mithilfe der Funktion `cor` die "part-whole"
+korrigierte Trennschärfe für Item 2 bestimmen:
+
+```{r}
+cor(test_data$Item_2, corrected_score)
+```
+
+Wie wir sehen, liegt die korrigierte Trennschärfe von
+`r round(cor(test_data$Item_2, corrected_score), 2)` unter der
+unkorrigierten Trennschärfe von `r round(item_correlations[6,2], 2)`. Je
+weniger Items der Test hat, desto mehr Gewicht hat das einzelne Item für
+den Testscore, und umso stärker weichen korrigierte und unkorrigierte
+Trennschärfe voneinander ab. Bei nur 5 Items kann der Effekt
+substantiell sein.
+
+Es ist zu beachten, dass die Funktion `cor` an dieser Stelle anders
+verwendet wird als oben: Hier übergebe ich der Funktion `cor` mit dem
+Befehl `cor(test_data$Item_2, corrected_score)` zwei Vektoren gleicher
+Länge. Ein Vektor enthält die Korrektheiten der Antworten auf Item 2,
+der andere Vektor enthält den um Item 2 bereinigten Testscore. Oben habe
+ich der Funktion `cor` nur ein Argument übergeben, nämlich den
+`data.frame` `test_data`. In dem Fall wurde eine Tabelle ausgegeben --
+eine *Korrelationsmatrix* --, die die Korrelationen zwischen allen
+Spalten enthält.
+
+```{marginfigure}
+**Merke**: Man kann `cor` statt eines `data.frames` auch zwei gleich
+lange Vektoren übergeben, die beispielsweise die Punktzahlen in zwei
+Tests enthalten. Dann berechnet `cor` die Korrelationen zwischen den
+Punktzahlen.
+```
+
+Ich empfehle den Code-Block zur Berechnung der korrigierten Trennschärfe
+genau zu studieren. Darin finden sich viele der Grundlagen aus Kapitel 2
+und 3 wieder:
+
+- Die Erstellung von Vektoren mit der `1:n`-Notation
+- Die Negativ-Auswahl von Elementen aus Vektoren mit der `[·]`-Notation
+- Die Generierung eines "character"-Vektors mithilfe der Funktion
+  `paste0`
+- Die Auswahl von Spalten in einem `data.frame` mit der Funktion
+  `subset`
+
+Wir merken, dass es mühsamer ist, die korrigierte Trennschärfe zu
+berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhalte
+ich einfach, indem ich einen `data.frame` an die Funktion `cor`
+übergebe. Ich muss nur einen einzigen Funktionsaufruf---oder eine Zeile
+Code---investieren. Um jedoch die korrigierte Trennschärfe zu bestimmen,
+muss ich bei *n* Items *n* Mal einen korrigierten Gesamtscore
+berechnen. Für jedes Item muss ich dann jeweils die Item-Antworten mit
+diesem korrigierten Score korrelieren. Wenn wir das für jedes Item
+"händisch" machen, wäre das sehr aufwendig (beispielsweise könnten wir
+den Code oben *n* Mal kopieren und jeweils die Itemnummern anpassen --
+das wäre sehr fehleranfällig). Einer der Hauptgründe, aus denen wir `R`
+lernen, ist dass wir uns solche Arbeit nicht machen wollen. Stattdessen
+wollen wir lernen, wie wir repetitive Arbeiten automatisieren können. Im
+nächsten Kapitel werden wir Programmierelemente von `R` kennenlernen,
+die uns ermöglichen, ohne wesentlich mehr Aufwand für beliebig viele
+Items korrigierte Trennschärfen zu bestimmen. So sparen wir gleichzeitig
+Aufwand und arbeiten weniger fehleranfällig.
+
+### Cronbachs Alpha
+
+Als Nächstes bestimmen wir "Cronbachs Alpha" als Maß für die interne
+Konsistenz der Antworten der Schüler/innen. Cronbachs Alpha ist ein
+Schätzer für die Reliabilität eines Tests. Im Falle eines Leistungstest
+mit dichotomer Bepunktung gibt es eine Antwort auf die Frage: Haben
+Kinder, die ein Item richtig beantworten, auch eine erhöhte
+Wahrscheinlichkeit, andere Items richtig zu beantworten?  (Ebenso: haben
+Kinder, die ein Item falsch beantworten, auch eine erhöhte
+Wahrscheinlichkeit, andere Items falsch zu beantworten?). Je näher
+Cronbachs Alpha an 1 ist, desto stärker ist das der Fall -- desto
+stärker ist die interne Konsistenz der Punktwerte. Ein Wert von 0
+spricht dafür, dass gar keine Systematik in den Punktzahlen liegt -- ob
+ich viele oder wenig Punkte bekommen habe, ist gänzlich zufällig.
+
+`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu
+bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
+Cronbachs Alpha umsetzt.[^`r incref()`] Wir machen uns aber zunutze,
+dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt
+haben, und diese in einem *Paket* zur Verfügung gestellt haben. Mit der
+Funktion `library` kann ich Pakete laden, die nicht zur Grundausstattung
+von `R` gehören.[^`r incref()`] Voraussetzung ist, dass ich das Paket
+auf meinem Rechner installiert habe.
+
+
+[^`r incfnc()`]: Das wäre sogar eine gute Übung. Die Formel findet sich
+unter
+[https://de.wikipedia.org/wiki/Cronbachs_Alpha](https://de.wikipedia.org/wiki/Cronbachs_Alpha)
+
+
+[^`r incfnc()`]: Die Erweiterbarkeit mit Paketen ist eine der großen
+Stärken von `R`.
+
+
+```{r}
+
+## Das Paket `psychometric` enthält eine Funktion, die Cronbachs Alpha
+## berechnet
+library("psychometric")
+
+```
+
+Falls das Paket nicht installiert ist, kann ich es mit dem folgenden
+Befehl installieren:
+
+```R
+install.packages("psychometric")
+```
+
+Praktischerweise arbeitet die Funktion `alpha` aus dem `psychometric`
+Paket genau mit dem Standard-Datenformat, das uns vorliegt: Zeilen
+kennzeichnen Testteilnehmer, Spalten kennzeichnen Items. **Wichtig ist
+aber nun**: Wir haben soeben den Testscore als zusätzliche Spalte an die
+Testdatentabelle angehängt. Diese geht aber nicht in die Berechnung von
+Cronbachs Alpha ein, sondern nur die Punktzahlen für die Items. Deswegen
+entferne ich die Spalte `score` wie folgt wieder:[^`r incref()`]
+
+[^`r incfnc()`]: Wir haben gelernt, dass wir Variablen mit der Funktion
+`rm` löschen können. `rm` können wir aber nicht nutzen, wenn wir Spalten
+aus `data.frames` entfernen wollen. Das liegt daran, dass die Spalte
+selber keine Variable ist, sondern zu einem `data.frame`
+gehört. Deswegen muss man Spalten mit dem Befehl
+`data.frame$spalte <- NULL` entfernen. `NULL` ist in `R` ein Wert, der
+für "Nicht-Existenz" steht.
+
+
+```{r}
+
+test_data$score <- NULL
+
+## Prüfe, dass die Spalte wirklich weg ist:
+names(test_data)
+```
+
+Nachdem wir das Paket `psychometric` geladen haben, können wir
+Cronbachs Alpha mit der Funktion `alpha` bestimmen:
+
+```{r}
+alpha(test_data) # erfordert Laden des Pakets psychometric
+```
+
+### Split-Half-Reliabilität
+
+Cronbachs Alpha ist ein Schätzer für die Reliabilität eines
+Tests.[^`r incref()`] Andere mögliche Schätzer sind die
+Retest-Reliabilität und die Split-Half-Reliabilität. Diese basieren auf
+der Berechnung einer Korrelation zwischen zwei Punktwerten. Für die
+Bestimmung der Retest-Reliabilität lassen wir Testteilnehmer zweimal
+denselben Test bearbeiten und korrelieren die Punktwerte, die sich zu
+den zwei Testzeitpunkten ergeben.
+
+[^`r incfnc()`]: Eigentlich sprechen wir von der Reliabilität von
+Testpunkten und nicht von der Reliabilität von Tests.
+
+Noch leichter ist die Bestimmung der Split-Half-Reliabilität, welche
+nicht das mehrmalige Bearbeiten desselben Tests erfordert. Dabei teilen
+wir die Items des Tests in zwei Gruppen ein und bilden Summenwerte für
+die beiden Testhälften, welche wir dann miteinander korrelieren.  Wir
+müssen dabei berücksichtigen, dass wir nur die Hälfte des Tests zur
+Schätzung der Reliabilität verwenden. Dies kann mithilfe der
+*Spearman-Brown-Formel* korrigiert werden.
+
+Die Spearman-Brown-Formel schätzt die Reliabilität eines Tests für den
+hypothetischen Fall, dass man diesen um einen bestimmten Faktor
+verlängern würde (d.h. man würde die bestehenden Items replizieren). Man
+kann sie verwenden, um den Reliabilitätsschätzer einer
+Split-Half-Korrelation zu korrigieren, da in diesen nur die Hälfte der
+Items eingehen. Die Spearman-Brown Formel ist diese:
+
+&nbsp;
+      
+$$r' = \frac{r \, n}{1 + (n - 1) r}$$
+
+&nbsp;
+    
+Hierbei ist *r'* die um die Testlänge korrigierte Reliabilität. *r* ist
+der derzeitige Reliabilitätsschätzer, also beispielsweise die
+Korrelation von zwei Testhälften. *n* ist der Faktor, um den der Test
+hypothetisch verlängert wird.
+
+Für die Schätzung der Split-Half-Reliabilität muss man einen
+Verlängerungsfaktor von 2 annehmen, da man die Reliabilität nur mit
+einem halbierten Test schätzt (im Vergleich dazu geht bei der Bestimmung
+der Retest-Reliabilität zweimal der gesamte Test in die Korrelation
+ein). Folgender Code berechnet eine Split-Half-Reliabilität:
+
+```{r}
+
+## Wähle (a) die ersten drei und (b) die letzten zwei Items aus:
+
+first_half  <- subset(test_data, select = paste0("Item_", 1:3))
+second_half <- subset(test_data, select = paste0("Item_", 4:5))
+
+## Berechne die Korrelation zwischen den beiden Testhälften
+cor_halfs <- cor(rowSums(first_half), rowSums(second_half))
+cor_halfs
+
+## Führe die Spearman-Brown Korrektur durch:
+
+## Hier ist ein erstes Beispiel einer selbst geschriebenen Funktion. Es
+## reicht, das Konzept zur Kenntnis zu nehmen -- es wird in Kap. 5
+## wieder aufgegriffen:
+
+## SPEARMAN-BROWN Funktion. Nimmt zwei Argumente an: (a) einen
+## Reliabilitäts-Schätzer; (b) einen Verlängerungsfaktor
+
+spearman_brown <- function(reliability, factor) {
+    numerator  <- reliability * factor
+    denominator <- 1 + (factor-1) * reliability
+    corrected_reliability <- numerator / denominator
+    return(corrected_reliability)
+}
+
+## Rufe die selbst geschriebene SPEARMAN-BROWN Funktion auf. Unser
+## initialer Schätzer der Reliabilität ist die Korrelation zwischen den
+## zwei Testhälften.  Der Verlängerungsfaktor ist 2, da wir die
+## Reliabilität für die doppelte Testlänge schätzen wollen:
+split_half <- spearman_brown(cor_halfs, 2)
+split_half
+
+## Vergleiche mit Cronbachs Alpha:
+alpha(test_data)
+
+```
+
+Wie wir sehen, liegt die Spearman-Brown-korrigierte
+Split-Half-Reliabilität näher an Cronbachs Alpha als die unkorrigierte
+Korrelation der zwei Testhälften. Das liegt daran, dass die Korrelation
+der zwei Testhälften die Reliabilität systematisch unterschätzt, da
+dieser Schätzer nur auf der Hälfte der Items beruht. Es ist sogar so,
+dass Cronbachs Alpha genau der Mittelwert aller möglichen Spearman-Brown
+korrigierten Split-Half-Koeffizienten ist.
+
+Alternativ hätten wir auch die Odd-Even-Reliabilität berechnen können,
+die die Testitems in gerade und ungerade Items einteilt, also hier zwei
+Testscores einerseits für die Items 1, 3 und 5, und andererseits für die
+Items 2 und 4 berechnet. Diese lässt sich mit nur wenig Änderungen am
+Code oben umsetzen -- ich schlage vor, dies als Übung zu machen.
+
+## Umgang mit echten Daten
+
+Unser Ziel ist die Auswertung echter Daten von
+Persönlichkeits-Inventaren wie den BIG-5 und dem Narcissistic
+Personality Inventory. Leider liegen in echten Daten die Werte oftmals
+nicht in der Form vor, die wir brauchen. In dem vorherigen Beispiel habe
+ich die Daten selber generiert und konnte deswegen direkt mit der
+Analyse starten. Echte Daten jedoch enthalten in Rohform unter Umständen
+gar nicht die Informationen, die ich benötige oder haben fehlende
+Werte. Deswegen werden wir uns als nächstes mit den folgenden Themen
+beschäftigen:
+
+1. Umkodierung von Antworten
+2. Invertierung von Antworten
+3. Umgang mit fehlenden Werten
+
+### Umkodierung von Variablen
+
+Eine wichtige Voraussetzung für eine psychometrische Analyse war im
+Beispiel oben bereits gegeben: Jeder Wert kodierte genau die
+Information, die wir brauchten -- nämlich ob Schüler/innen eine Aufgabe
+korrekt gelöst haben oder nicht (dargestellt durch `1` und `0`). In
+echten Daten muss die relevante Information jedoch häufig erst noch aus
+den dokumentierten Werten "abgeleitet" werden. Die Antwort der
+Schüler/innen im Test könnte beispielsweise ein Kreuz in einem
+Multiple-Choice-Item sein:
+
+> Aus wie vielen Bundesländern besteht die Bundesrepublik Deutschland?
+
+> (1) 14  
+> (2) 16  
+> (3) 19  
+> (4) 21  
+
+Ob ein Kreuz bei (1), (2), (3) oder (4) gesetzt wird, ist für die
+Auswertung nicht von Belang. Relevant ist, ob die Frage richtig
+beantwortet wurde -- wir benötigen also die folgende Umkodierung der
+Daten:
+
+> `1` $\to$ `0`  
+> `2` $\to$ `1`  
+> `3` $\to$ `0`  
+> `4` $\to$ `0`
+
+In psychometrischem Jargon: Für diese Aufgabe ist der Wert `2` der
+*Schlüssel* (engl.: *key*). Ein Schlüssel kodiert den Eingabewert der
+richtigen Antwort.[^`r incref()`] Wir lernen jetzt, wie wir solche
+Umkodierungen in `R` umsetzen. Die Stärke einer Programmiersprache wie
+`R`: Wenn wir einmal gelernt haben, wie wir für eine
+Item-Schlüssel-Kombination Daten als richtig und falsch umkodieren,
+können wir mit nur ein wenig mehr Aufwand diesen Prozess für beliebig
+viele Items wiederholen. Das *Narcissistic Personality Inventory* etwa
+hat 40 Items und wir haben keine Lust, 40 Mal eine Umkodierung
+"händisch" neu durchzuführen.
+
+[^`r incfnc()`]: Im Allgemeinen muss ein Schlüssel nicht Korrektheit
+anzeigen, sondern kann auch Merkmalsausprägung in einem
+Persönlichkeitsinventar kodieren. Wir werden das im Narcissistic
+Personality Inventory kennenlernen.
+
+&nbsp;
+
+**Die Funktion `ifelse`**
+
+&nbsp;
+
+Mit der Funktion `ifelse` lassen sich Transformationen, die anhand
+eines Schlüssels Korrektheit kodieren, bequem durchführen. Das folgende
+Beispiel basiert auf dem obigen Multiple-Choice-Item:
+
+```{r}
+
+# Hypothetische Antworten auf das Bundesland Multiple-Choice-Item:
+bundesland_answers <- c(1, 2, 1, 3, 2, 4, 2)
+bundesland_key     <- 2
+
+bundesland_score   <- ifelse(test = bundesland_answers == bundesland_key,
+                             yes = 1, no = 0)
+bundesland_score
+
+```
+
+Was ist hier passiert? Ich habe im Vektor `bundesland_answers`
+hypothetische Antworten generiert; die Variable `bundesland_key` enthält
+den Schlüssel, d.h. die korrekte Antwort. Mithilfe der Funktion `ifelse`
+gleiche ich die Antworten mit dem Schlüssel ab.  `ifelse` nimmt drei
+Argumente entgegen. Diese heißen `test`, `yes`, und `no`:[^`r incref()`]
+
+[^`r incfnc()`]: Wie wir gesehen haben, können wir Argumente in
+Funktionen per Name und per Position ansteuern.
+
+- `test`: Vergleicht jede Antwort mit dem Schlüssel, hier:
+  `bundesland_answers == bundesland_key`. Ergebnis dieses Vergleichs ist
+  der folgende logische Vektor (im Allgemeinen kann `test` einen
+  beliebigen logischen Vektor als Argument annehmen):
+
+
+```{r, echo = FALSE}
+bundesland_answers == bundesland_key
+```
+
+- `yes`: Der Wert, der angenommen werden soll für Elemente, für die der
+  `test` `TRUE` ergab (hier: `1`)
+- `no`: Der Wert, der angenommen werden soll für Elemente, für die der
+  `test` `FALSE` ergab (hier: `0`)
+    + praktisch: ich muss nicht angeben, welche falschen Werte alle
+      möglich sind; es reicht aus, den richtigen Wert anzugeben, alle
+      anderen sind automatisch falsch
+
+Nach der Umkodierung können wir beispielsweise die Schwierigkeit des
+Bundesland-Items mit der `mean` Funktion berechnen:
+
+```{r}
+mean(bundesland_score)
+```
+
+In diesem Fall hätten `r round(mean(bundesland_score)*100)`% der
+Testteilnehmer das Bundesland-Item korrekt beantwortet. Diese
+Information konnten wir aus den ursprünglichen Antwortkategorien 1, 2, 3
+und 4 nicht herleiten.
+
+`ifelse` ist eine sehr nützliche Funktion, mit der wir Antworten
+umkodieren können. Später lernen wir, wie wir mithilfe von `ifelse`
+ganze Tests und nicht nur einzelne Items bepunkten können.  Bevor wir
+das jedoch effizient machen können, werden wir im nächsten Kapitel noch
+ein paar Grundlagen zur Programmierung mit `R` lernen.
+
+### Invertierung von Antworten
+
+Eine mögliche Umkodierung von Antworten ist das Abgleichen mit einem
+Schlüssel, etwa zur Feststellung der Korrektheit von Antworten. Eine
+weitere häufig auftretende Variante ist die *Invertierung* von
+Antworten. Betrachten wir folgende zwei Items, die in einer Big-5
+Kurzskala den Aspekt Extraversion messen:
+
+> 1. Ich bin eher zurückhaltend, reserviert.
+> 2. Ich gehe aus mir heraus, bin gesellig.
+
+Beide Items werden auf einer Likertskala mit fünf Abstufungen gemessen,
+das heißt es werden Punktzahlen von 1 bis 5 vergeben. Das Problem ist,
+dass in Item 1 ein hoher Punktwert für wenig Extraversion steht, in Item
+2 ein hoher Punktwert hingegen für eine hohe Ausprägung in
+Extraversion. Generell wollen wir einen *Summenwert* berechnen, also
+einen Wert, der die Extraversion eines jeden Testteilnehmers kodiert --
+und zwar über beide Items hinweg. Im vorliegenden Fall macht es aber
+keinen Sinn, die Punktzahlen beider Items zu addieren. Die höchste
+Ausprägung in Extraversion würde sich dann ergeben, wenn ein Item
+extravertiert beantwortet wird, aber das andere introvertiert. Damit die
+Punktzahlen in beiden Items "in dieselbe Richtung" zu verstehen sind,
+wollen wir die Antworten auf Item 1 *invertieren*, sodass auch hier eine
+hohe Punktzahl für eine hohe Merkmalsausprägung in Extraversion
+steht. Das heißt, wir wollen die folgende Abbildung durchführen:
+
+> `1` $\to$ `5`  
+> `2` $\to$ `4`  
+> `3` $\to$ `3`  
+> `4` $\to$ `2`  
+> `5` $\to$ `1`
+
+Wir könnten dies mit mehrfacher Anwendung von `ifelse` hinbekommen,
+was jedoch mühsam wäre. Es gibt eine mathematische Umformung, welche wir
+auch mit nur wenig Code umsetzen können:
+
+> Invertierter Wert = Ursprungswert * (-1) + Höchster Skalenwert + 1
+
+Diese funktioniert, wenn unsere Punktzahlen zwischen 1 und dem
+höchstmöglichen Skalenwert liegen. Probieren wir es mit ein paar
+hypothetischen Antworten aus:
+
+```{r}
+big5 <- data.frame(item1 = c(2, 3, 2, 1, 4, 2, 1, 5),
+                   item2 = c(5, 3, 3, 4, 3, 5, 3, 2))
+
+## Betrachte den data.frame:
+big5
+```
+
+Wir können uns mit der `cor` Funktion die Korrelation zwischen den
+zwei Items ausgeben lassen:
+
+```{r}
+round(cor(big5), 2)
+```
+
+Ich habe die Antwortwerte absichtlich so gewählt, dass sich hier ein
+typisches Muster ergibt: Antworten auf unterschiedlich gepolte Items --
+die zur selbem Skala gehören -- korrelieren typischerweise negativ
+miteinander. Das heißt: Hohe Antwortwerte im einen Item gehen
+tendenziell mit niedrigen Werten im anderen Item einher -- wenn die
+unterschiedlich gepolten Items dasselbe Konstrukt erfassen. Durch die
+Invertierung erhalten wir Daten, die positiv miteinander
+korrelieren. Folgender Code führt die Invertierung durch:
+
+```{r}
+# 5 ist der höchst-mögliche Skalenwert
+big5$item1_inv <- big5$item1 * (-1) + 6 
+```
+
+Schauen wir uns die Daten an, um zu prüfen, ob die Transformation
+funktioniert hat:
+
+```{r}
+subset(big5, select = c("item1", "item1_inv"))
+```
+
+Das hat geklappt! Schauen wir uns nun auch noch einmal die
+Inter-Itemkorrelationen an:
+
+```{r}
+round(cor(big5), 2)
+```
+
+Wie wir sehen, korrelieren die Spalten `item2` und `item1_inv` genau wie
+`item2` und `item1` -- nur mit positivem Vorzeichen. Ebenfalls
+interessant: `item1` und `item1_inv` korrelieren perfekt negativ -- und
+das ist genau das, was wir mit der Invertierung erreichen wollten: Einen
+Punktwert errechnen, der genau in die entgegengesetzte Richtung zu
+interpretieren ist wie der ursprüngliche Wert.
+
+### Umgang mit fehlenden Werten
+
+> Real data have missing values. Missing values are an integral part of
+> the R language.  Many functions have arguments that control how
+> missing values are to be handled. -- Patrick Burns[^`r incref()`]
+
+[^`r incfnc()`]:
+http://www.burns-stat.com/documents/tutorials/why-use-the-r-language/
+
+Wir lernen nun den rudimentären Umgang mit fehlenden Werten in `R`
+kennen. Dabei könnte man vermutlich beliebig sophistiziert vorgehen,
+jedoch werden wir nur einen basalen und wichtigen Spezialfall
+kennenlernen:
+
+1. Wir wandeln alle Werte in `NA` um, die als fehlend zu klassifizieren
+   sind
+2. Danach schließen wir alle Fälle mit fehlenden Werten aus
+
+Für dieses Beispiel laden wir Daten des Narcissistic Personality
+Inventory [NPI; @raskin1988] ein. Die Daten von mehr als 11,000
+Bearbeitungen des NPI sind erfreulicherweise über das "Open Source
+Psychometrics Project" unter
+[https://openpsychometrics.org/_rawdata](https://openpsychometrics.org/_rawdata)
+abrufbar. Wenn wir die Daten heruntergeladen haben und die Datei
+"data.csv" in unserem RStudio-Projektordner liegt (siehe
+[Anhang](#datenEinlesen)), können wir den Datensatz wie folgt einlesen:
+
+```{r}
+## Lese Daten ein
+npi <- read.csv("data.csv")
+```
+
+Wie folgt verschaffen wir uns einen Überblick über die Daten:
+
+```{r}
+nrow(npi) # Wie viele Fälle
+ncol(npi) # Wie viele Spalten
+names(npi) # wie heißen die Messvariablen
+head(npi, n = 3) # Wie sehen die Daten aus
+```
+
+Wir bemerken, dass keine Variable als "Fallnummer" fungiert.  Generell
+ist es **immer** wichtig, dass jeder Datensatz durch eine eindeutige
+Fallnummer zu identifizieren ist. Da eine solche in den eingelesenen
+Daten jedoch nicht enthalten ist, fügen wir selber eine Fallnummer
+hinzu:
+
+```{r}
+npi$casenum <- 1:nrow(npi)
+```
+
+Eine weitere nützliche Funktion zum Betrachten von `data.frames` ist die
+Funktion `summary`, die uns einen schnellen Überblick über die Werte in
+allen Spalten des `data.frames` bietet:
+
+```R
+summary(npi)
+```
+
+Die Funktion `summary` ergibt für jede Spalte eine Tabelle. Wegen der
+Länge des Outputs von `summary(npi)` ist nicht der gesamte Output im
+Skript abgebildet.[^`r incref()`] Für die Variable `score` erhalten wir
+folgende Informationen zum Narzissmus-Gesamtscore:
+
+[^`r incfnc()`]: Ich schlage vor, die Funktion selber auf den Datensatz
+aufzurufen, um die Zusammenfassung für alle Spalten zu betrachten.
+
+&nbsp;
+
+&nbsp;
+
+```{r, echo = FALSE}
+kable(summary(npi)[,1], col.names = "score")
+```
+
+&nbsp;
+
+&nbsp;
+
+**Identifikation von fehlenden Werten im NPI Datensatz**
+
+&nbsp;
+
+Das NPI besteht aus 40 Items. Aus dem *Codebuch* des NPI
+Datensatzes[^`r incref()`] wissen wir, dass Antworten auf die NPI Items
+die Werte 1 und 2 annehmen können.  Die Antwort auf jedes Item des NPI
+besteht aus einer "forced choice" zwischen zwei Aussagen; eine davon
+steht für Narzissmus. Item 1 besteht beispielsweise aus den folgenden
+beiden Aussagen:
+
+[^`r incfnc()`]: Dieses wird gemeinsam mit den Daten des "Open Source
+Psychometrics Project"
+[https://openpsychometrics.org/_rawdata](https://openpsychometrics.org/_rawdata)
+runtergeladen.
+
+> 1. I have a natural talent for influencing people.
+> 2. I am not good at influencing people.
+
+Die Wahl von Aussage 1 wird mit 1 kodiert, die Wahl von Aussage 2
+mit 2. Nachgeschaltet wird folgende Umkodierung vorgenommen, die die
+Item-Scores berechnet: Wird die "narzisstische Aussage" ausgewählt (hier
+Aussage 1: "I have a natural talent for influencing people."), wird das
+Item mit 1 bepunktet. Wird die Aussage gewählt, die nicht für Narzissmus
+steht (hier Aussage 2: "I am not good at influencing people."), wird
+eine 0 vergeben. Wie wir zu Beginn des Abschnitts gelernt haben, könnten
+wir Item 1 deswegen wie folgt bepunkten:
+
+```R
+npi$Q1_score <- ifelse(npi$Q1 == 1, 1, 0)
+``` 
+
+**Aber Vorsicht: so würden wir einen Fehler machen**! Die Spalte
+`npi$Q1` enthält nicht nur die Werte 1 und 2, sondern auch 0-Werte, wie
+wir mit dem Befehl `table(npi$Q1)` prüfen können:[^`r incref()`]
+
+[^`r incfnc()`]: **Merke**: Es ist wichtig, sich einen Überblick über
+Daten zu verschaffen und unplausible und fehlende Werte zu
+identifizieren. Die Funktionen `summary` und `table` sind dabei
+hilfreich.
+
+```{r}
+table(npi$Q1)
+```
+
+Wie wir sehen, wurden die Antwortkategorien 0, 1 und 2 vergeben. Es
+kommt sogar `r table(npi$Q1)[1]` Mal die Antwortkategorie 0 vor --
+**obwohl Antworten nur die Werte 1 und 2 annehmen dürfen**. Wie kommt
+das?  Die Antwort ist: Bei der Bearbeitung des NPI-Fragebogens -- welche
+im Rahmen einer Online-Studie stattfand -- konnten Teilnehmer/innen
+Items unbeantwortet lassen. Fehlende Werte in den Antworten wurden mit
+einer 0 kodiert.[^`r incref()`]
+
+[^`r incfnc()`]: Ich halte dies für kein gutes Vorgehen. Der Wert 0 ist
+nicht ausreichend unterschiedlich von anderen "legalen" Werten in den
+anderen Spalten. Der Gesamt-Testscore (`npi$score`) kann beispielsweise
+wirklich den Wert 0 annehmen, wenn Teilnehmer/innen kein einziges Mal
+der narzisstischen Aussage zugestimmt haben -- und dies kam tatsächlich
+73 Mal vor. Der Wert `-99` wäre beispielsweise ein besserer Wert
+gewesen, um fehlende Werte zu kodieren.
+
+&nbsp;
+
+**Ausschluss von Fällen mit fehlenden Werten**
+
+&nbsp;
+
+Wir wollen als nächstes alle Fälle ausschließen, bei denen mindestens
+ein fehlender Wert in den Antworten auf die 40 NPI Items vorliegt,
+d.h. für mindestens eine der Spalten `npi$Q1`, ..., `npi$Q40` der Wert 0
+ist. Erst danach können wir die Itemscores berechnen.
+
+Zu diesem Zweck speichern wir zunächst die Antworten auf die 40 Items
+und die Fallnummer in einem neuen `data.frame` ab. Anhand dieses
+`data.frames` werden wir die Fallausschlüsse durchführen:
+
+```{r}
+item_responses <- subset(npi, select = c("casenum", paste0("Q", 1:40)))
+```
+
+Wir können jetzt 0-Werte in `NA` umkodieren, indem wir ein Vorgehen
+verwenden, das wir in [Kapitel 2](#vektorAendern) für Vektoren
+kennengelernt haben. Dieses Vorgehen funktioniert bei `data.frames`
+tatsächlich genauso:[^`r incref()`]
+
+[^`r incfnc()`]: Der Befehl sieht recht harmlos aus, aber tatsächlich
+steckt hier etwas mehr drin als wir bislang behandelt haben. Wir nehmen
+zunächst einmal einfach hin, dass man die Umkodierung von fehlenden
+Werten in `data.frames` genauso durchführen kann wie in
+Vektoren. Beachtet, dass hier ein Zugriff auf `data.frames` mit eckigen
+Klammern stattfindet (siehe [Kapitel 3.5](#fortgeschritten); tatsächlich
+ist dieser Zugriff aber sogar noch etwas spezieller als der in Kapitel
+3.5 beschriebene -- hier ist das Objekt in den eckigen Klammern eine
+*Matrix* vom Typ "logical").
+
+```{r}
+item_responses[item_responses == 0] <- NA
+```
+
+Für einzelne Spalten kann man mithilfe der Funktion `is.na`
+überprüfen, ob diese fehlende Werte enthalten. `is.na` ergibt einen
+logischen Vektor, der kodiert, ob jedes Element des übergebenen Vektors
+-- also etwa eine Spalte, die wir mit der `$`-Notation ausgelesen haben
+-- `NA` ist. Mit diesem Wissen können wir etwa für einzelne Items
+überprüfen, wie viele Personen keine Antwort angegeben haben:
+
+```{r}
+sum(is.na(item_responses$Q1))
+sum(is.na(item_responses$Q40))
+```
+
+**Wichtig**: Man **muss** `is.na` verwenden, um zu prüfen, ob Werte `NA`
+sind; Folgendes geht schief:[^`r incref()`]
+
+[^`r incfnc()`]: Ein logischer Vergleich mit `NA` ergibt immer `NA`, da
+beim fehlenden Wert keine Aussage darüber gemacht werden kann, ob er
+einem anderen Wert entspricht. Man kennt ihn ja nicht. Auch der Befehl
+`TRUE & NA` ergibt `NA`.
+
+```{r}
+## Nutze head, um nicht alle 11,000 Vergleiche auszugeben
+head(item_responses$Q1 == NA) 
+```
+
+Um insgesamt einen Überblick über die Verteilung der fehlenden Fälle zu
+erhalten, bietet sich eine erneute Anwendung der Funktion `summary`
+an. Diese gibt nämlich direkt für jede Spalte eines `data.frames` die
+Zahl der fehlenden Fälle an. Folgende Information gibt es zum ersten
+Item:
+
+&nbsp;
+
+```{r, echo = FALSE}
+kable(summary(item_responses)[,2], col.names = "Q1")
+```
+
+&nbsp;
+
+Jetzt, da wir fehlende Antworten per `NA` als fehlend gekennzeichnet
+haben, gibt es verschiedene Möglichkeiten, die zugehörigen Fälle
+auszuschließen. Eine Möglichkeit wäre eine Aneinanderreihung von vielen
+ODER-Verknüpfungen, an die wir eine Auswahl mit `subset`
+anschließen. Dies könnte wie folgt funktionieren:
+
+```R
+
+## Identifiziere Fälle, die in irgendeinem Item einen
+## fehlenden Wert haben (hier nur exemplarisch, kein
+## legaler R-Code, da Items 4 bis 39 nicht ausgeschrieben
+## sind):
+irgendwo_na <- is.na(item_responses$Q1) |
+    is.na(item_responses$Q2) |
+    is.na(item_responses$Q3) |
+    ... |
+    is.na(item_responses$Q40)
+
+## Negation durchführen, um die Fälle zu erwischen, die
+## *keinen* fehlenden Wert enthalten
+nirgendwo_na <- !irgendwo_na
+
+## Wähle diese Fälle aus:
+item_responses <- subset(item_responses, nirgendwo_na)
+
+```
+
+Durch die Verknüpfung der ODER-Operatoren werden alle Fälle
+identifiziert, die mindestens eine fehlende Antwort enthalten. Diese
+Aneinanderreihung ist jedoch mühselig und fehleranfällig. Diese Arbeit
+wollen wir uns nicht machen.
+
+Eine weitere Methode, fehlende Werte zu identifizieren nutzt aus, dass
+die Funktion `rowSums`[^`r incref()`] `NA` ausgibt, wenn mindestens ein
+Wert aus einer Zeile `NA` enthält -- zumindest wenn wir nicht das
+optionale Argument `na.rm` auf `TRUE` setzen. Dies ist analog zu der
+Funktion `sum`, die für einen einzelnen Vektor eine Summe bestimmt. Die
+Funktion `sum` gibt ebenfalls `NA` aus, wenn mindestens ein Element des
+übergebenen Vektors `NA` ist und `na.rm` nicht auf `TRUE` gesetzt
+wurde. Die Funktion `rowSums` erweitert also auch im Hinblick auf den
+Umgang mit fehlenden Werten das Verhalten von `sum` auf alle Zeilen
+eines `data.frames`. Aus diesem Grund funktioniert das hier:
+
+[^`r incfnc()`]: siehe Abschnitt [Ausgedehntes Beispiel zum
+Einstieg](#kap4einstieg)
+
+```R
+## Identifiziere Fälle, die in irgendeinem Item einen
+## fehlenden Wert haben:
+irgendwo_na <- is.na(rowSums(item_responses))
+```
+
+Am bequemsten ist es jedoch, wenn wir die Funktion `na.omit` nutzen, die
+uns einfach so alle Fälle ausschließt, die fehlende Werte enthalten:
+
+```{r}
+item_responses <- na.omit(item_responses)
+```
+
+Die Funktion `na.omit` gibt einen `data.frame` aus, der keine der Zeilen
+enthält, in denen mindestens ein `NA`-Wert vorlag. So müssen wir nicht
+selber die Zeilen identifizieren, die fehlende Werte enthalten.
+
+Vergleichen wir nun den ursprünglichen `data.frame` `npi` mit der
+"bereinigten" Tabelle:[^`r incref()`]
+
+[^`r incfnc()`]: Es ist immer wichtig, solche
+Plausibilitätsüberprüfungen durchzuführen, nachdem man Daten geändert
+hat.
+
+```{r}
+nrow(npi)
+nrow(item_responses)
+```
+
+Wie wir sehen, haben wir `r nrow(npi) - nrow(item_responses)` Fälle
+wegen fehlender Werte ausgeschlossen. Etwas unschön ist, dass in unseren
+bereinigten Daten einige Variablen -- wie das Geschlecht und das Alter
+-- fehlen. Das liegt daran, dass wir für den Ausschluss von Fällen nur
+die Item-Antworten berücksichtigt haben, die wir zuvor im `data.frame`
+`item_responses` abgespeichert haben. Vergleichen wir:
+
+```{r}
+names(npi)
+names(item_responses)
+```
+
+Um einen `data.frame` zu erhalten, in dem alle Informationen zu den
+vollständigen Fällen enthalten sind, machen wir uns zunutze, dass die
+relevanten Informationen noch im Urspungs-`data.frame` `npi`
+abgespeichert sind. Wie folgt können wir mit der Funktion `merge` die
+ursprüngliche Tabelle `npi` mit der um fehlende Fälle bereinigten
+Tabelle `item_responses` zusammenführen.
+
+```{r}
+npi_clean <- merge(npi, item_responses)
+```
+
+Wir erhalten in der Variablen `npi_clean` einen Datensatz, der nur Fälle
+mit vollständigen Antworten enthält -- und für diese Fälle auch alle
+Werte abspeichert. Prüfe:
+
+```{r}
+nrow(npi_clean)
+names(npi_clean)
+```
+
+Die Funktionsweise der Funktion `merge` soll hier nicht tiefergehend
+betrachtet werden. Es reicht zu wissen, dass sie Fälle aus zwei
+`data.frames` anhand ihrer Werte zuordnet.[^`r incref()`] Dabei werden
+Fälle weggelassen, die keinen "Partner" haben -- also hier Fälle, zu
+denen nur in einer Tabelle eine Fallnummer vorliegt. Die Fälle ohne
+Partner sind hierbei genau die Fälle, die aus `npi_clean` wegen
+fehlender Werte ausgeschlossen wurden.
+
+[^`r incfnc()`]: Hierfür war es wichtig, dass wir vorher eine eindeutige
+Fallnummer vergeben haben. Anhand dieser Fallnummer können wir nun die
+Fälle beider Tabellen eindeutig einander zuordnen.
+
+Die Anwendung der Funktion `merge` hat die Reihenfolge unserer Daten
+durcheinander gebracht. Es ist nicht so wichtig, warum das so ist, aber
+wir wollen diesen Nebeneffekt wieder rückgängig machen. Deswegen nutzen
+wir die Funktion `arrange` aus dem Paket `dplyr`, um die Daten wieder
+anhand der Fallnummer zu sortieren:
+
+```{r}
+library("dplyr") # falls noch nicht geladen
+npi_clean <- arrange(npi_clean, casenum)
+```
+
+Voilá -- `npi_clean` ist der Datensatz, mit dem wir nun psychometrische
+Berechnungen durchführen können.[^`r incref()`] Dabei ist unser nächstes
+Ziel für alle 40 Items eine dichotome Bepunktung durchzuführen. Wir
+wissen bereits, wie wir das machen könnten, nämlich indem wir mit
+`ifelse` die Antworten auf jedes Item mit dem Schlüssel
+abgleichen. Der Schlüssel für den das NPI kodiert für jedes der 40 Items
+den Wert, der für Narzissmus steht. Dies wäre wie folgt möglich:
+
+[^`r incfnc()`]: Es ist zu bemerken, dass wir noch nicht alle Variablen
+auf ihre Plausibilität überprüft haben. Die Spalte `age` enthält
+ebenfalls noch fehlende sowie auch gänzlich unplausible Werte (etwa 366
+oder 509). Auch die Spalte `elapse`, die die Bearbeitungszeit
+abspeichert, enthält teilweise unplausible Werte; das Maximum der
+gespeicherten Bearbeitungszeit liegt bei über 40 Jahren. Doch darauf
+soll erst einmal nicht unser Augenmerk liegen.
+
+```R
+# Hier kein legaler R-Code, nur exemplarisch:
+npi_key <- c(1, 1, ..., 2) # 40 Schlüsselemente
+
+npi$Q1_score <- ifelse(npi$Q1 == npi_key[1], 1, 0)
+npi$Q2_score <- ifelse(npi$Q2 == npi_key[2], 1, 0)
+
+...
+...
+...
+
+npi$Q40_score <- ifelse(npi$Q40 == npi_key[40], 1, 0)
+``` 
+
+Da wir nicht denselben Code -- mit leichten Abwandlungen -- 40 Mal
+wiederholen wollen, werden wir in Kapitel 6 lernen, diese Umkodierungen
+effizient durchzuführen. Anschließend werden wir die psychometrischen
+Eigenschaften des NPI untersuchen.
+
+## Zusammenfassung
+
+- Wir haben das Standard-Datenformat der psychometrischen
+  Datenauswertung kennengelernt: Zeilen repräsentieren Fälle, Spalten
+  repräsentieren Items
+- Wir haben einige grundlegende psychometrische Berechnungen
+  durchgeführt
+- Wir haben gelernt, wie wir Antworten umkodieren und invertieren können
+- Wir haben gelernt, wie wir Fälle mit fehlenden Werten identifizieren
+  und aus `data.frames` ausschließen können
+
+## Fragen zum vertiefenden Verständnis
+
+1. Gegeben ist der Antwortvektor `c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3)` und
+   der Schlüssel `2`. Wie kann ich die Item-Schwierigkeit ohne Anwendung
+   der Funktion `ifelse()` bestimmen? Was ist die Item-Schwierigkeit?
+```{r, eval = FALSE, echo = FALSE}
+mean(c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3) == 2)
+```
+
+3. Gegeben ist der Antwortvektor `c(2, 3, 2, 4, 5, 6, 2, 3)`, der die
+   Antworten auf das Item eines Persönlichkeitsinventars enthält. Die
+   Antworten wurden auf einer Likertskala gegeben, die zwischen 1 und 6
+   kodiert war.  Da das Item negativ gepolt ist, müssen die Antworten
+   vor der Analyse invertiert werden. Was ist der Mittelwert der
+   umgepolten Antworten (d.h. die Item-Schwierigkeit)?
+```{r, eval = FALSE, echo = FALSE}
+mean(c(2, 3, 2, 4, 5, 6, 2, 3) * (-1) + 7)
+```
+
