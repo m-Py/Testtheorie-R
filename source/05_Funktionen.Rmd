@@ -585,18 +585,35 @@ durchgeführt. Ein wichtiger Punkt an diesen Berechnungen ist jedoch,
 dass sie nur innerhalb der Funktion stattfinden und keine Wirkungen 
 "nach außen" haben. Was heißt das konkret? Beispielsweise sind alle 
 Variablen, die innerhalb der Funktion definiert werden, sogenannte 
-*lokale* Variablen. Das heißt: Sie sind außerhalb der Funktion nicht 
-sichtbar und verschwinden nach Aufruf der Funktion wieder. Es ist also 
-nicht so, dass bei Aufruf der Funktion die Variablen `numerator`, 
-`denominator` und `corrected_reliability` in die `R`-Umgebung 
-geschrieben werden.[^`r incref()`] Nur der Rückgabewert dringt nach 
-außen; ich kann ihn abfangen, indem ich ihn in einer Variablen 
-abspeichere, etwa wie folgt:
+*lokale* Variablen. Im Gegensatz zu den lokalen Variablen stehen globale 
+Variablen. Global waren alle Variablen, die wir bislang per `<-` 
+definiert haben. Solche globalen Variablen werden uns in RStudio im 
+Panel oben rechts unter "Global Environment" angezeigt. 
 
-[^`r incfnc()`]: Dies ist ein weiterer Vorteil der Verwendung
-von Funktionen. Viele Variablen, die ich schreibe, brauche ich nicht
-unbedingt in meiner Umgebung; sie sind nur Mittel zum Zweck. Durch die
-Verwendung von Funktionen bleiben solche Hilfsvariablen verdeckt.
+Lokale Variablen sind außerhalb der Funktion nicht sichtbar und 
+verschwinden nach Aufruf der Funktion wieder.[^`r incref()`] Es ist also 
+nicht so, dass die Variablen `numerator`, `denominator` und 
+`corrected_reliability` in die globale `R`-Umgebung geschrieben werden, 
+wenn ich die Funktion `spearman_brown` aufrufe. Das ist extrem nützlich: 
+Ich habe die Variablen `numerator` und `denominator` nur definiert, 
+damit mein Code gut lesbar ist und die einzelnen Code-Zeilen nicht zu 
+lang werden.[^`r incref()`] Am Ende interessiert mich aber nur der 
+Spearman-Brown-Schätzer als Ergebnis der Berechnung; Variablen, die ich 
+als Zwischenergebnisse abspeichere, interessieren mich hingegen nicht. 
+Wenn ich eine Funktion schreibe, bleiben solche Hilfsvariablen 
+verborgen und nur der Rückgabewert dringt nach außen. Ich kann den 
+Rückgabewert abfangen, indem ich ihn in einer Variablen abspeichere:
+
+[^`r incfnc()`]: Umgekehrt gilt hingegen: Innerhalb einer Funktion kann 
+man auf Variablen der globalen `R`-Umgebung zugreifen. Ignoriert das 
+jedoch bitte. Werte, mit denen eine Funktion arbeitet, sollten der 
+Funktion per Argument übergeben werden.
+
+[^`r incfnc()`]: Es ist guter Stil, die Menge von Code pro Zeile zu 
+begrenzen. Eine Daumenregel ist die Verwendung von nicht mehr als 80 
+Zeichen Code pro Zeile. Dafür kann es beispielsweise helfen, 
+Zwischenberechnungen in Variablen abzuspeichern. Eigene Funktionen 
+helfen ebenfall dabei, Code lesbar zu gestalten. 
 
 ```{r}
 split_half_correct <- spearman_brown(0.63, 2)
@@ -621,7 +638,7 @@ Bei der Definition einer Funktion können wir Standardwerte vergeben und
 somit optionale Argumente definieren. Wenn wir beispielsweise davon
 ausgehen, dass wir die Spearman-Brown-Korrektur meistens verwenden, um
 eine Split-Half-Korrelation zu korrigieren, könnten wir das Argument
-`factor` per default wie folgt auf 2 setzen:
+`factor` per default auf 2 setzen. Das funktioniert wie folgt:
 
 ```R
 spearman_brown <- function(reliability, factor = 2) {
