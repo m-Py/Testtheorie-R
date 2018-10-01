@@ -36,21 +36,21 @@ Funktionen nehmen Argumente an, die ihr Verhalten steuern. Sie geben
 genau ein `R`-Objekt zurück, das Rückgabewert genannt wird. Wenn der 
 Aufruf einer Funktion außer dieser Rückgabe weitere Auswirkung auf die 
 "Umgebung" hat, nennt man das einen Seiteneffekt. Als `R`-Neuling ist 
-es manchmal wichtig einzusehen, was der Unterschied zwischen den 
+es manchmal wichtig zu verstehen, was der Unterschied zwischen den 
 Seiteneffekten und der Rückgabe einer Funktion ist.
 
 Die innere Arbeitsweise von Funktionen wird als "Black Box" betrachtet. 
 Wir wissen nicht unbedingt, wie eine Funktion intern funktioniert, was 
 uns aber auch nicht interessiert. So lange uns `mean` den korrekten 
 Mittelwert ausgibt, ist uns egal, wie `mean` den Mittelwert 
-berechnet.[^`r incref()`] Von Funktionen interessiert uns in erster 
+berechnet.[^`r incref()`] Bei Funktionen interessiert uns in erster 
 Linie, welche Daten wir einer Funktion als Argumente übergeben müssen 
 und was sie uns dafür in Austausch zurückgeben. Die folgenden 
 Abschnitte befassen sich mit den einzelnen Bestandteilen des 
 "Black-Box-Modells".
 
 [^`r incfnc()`]: Das ist natürlich zunächst einmal anders, wenn wir
-selbst neue Funktionen schreiben. Aber auch dann gilt: wenn ich die
+selbst neue Funktionen schreiben. Aber auch dann gilt: Wenn ich die
 Funktion geschrieben habe und der Berechnung vertraue, kann ich später
 auf sie zugreifen, ohne mir jedes Mal über die interne Funktionsweise
 Gedanken zu machen. Das kann eine enorme Arbeitserleichterung sein.
@@ -83,7 +83,7 @@ Argumente*.
 2. Wenn Argumente keinen Standardwert haben, **müssen** wir dem Argument
    einen Wert übergeben, da die Funktion sonst eine Fehlermeldung und
    kein Ergebnis ausgibt.
-3. Argumente haben Namen, die wir verwenden können, um mit der Form
+3. Argumente haben Namen, die wir verwenden können, um sie in der Form 
    "`Argumentname = Wert`" zu adressieren.
 4. Wenn wir für ein Argument nicht explizit den Namen angeben, wird das
    Argument nach seiner Position in der Liste aller angegeben Argumente
@@ -104,8 +104,7 @@ Argumente annimmt. Beide Argumente haben Namen:
 Da der Aufruf `mean` ohne Angabe eines numerischen oder logischen
 Vektors einen Fehler ergibt, ist uns klar, dass `x` kein optionales
 Argument ist. Wir **müssen** einen Vektor übergeben, für den wir einen
-Mittelwert bestimmen können. Sonst würde es auch keinen Sinn machen,
-`mean` überhaupt aufzurufen.
+Mittelwert bestimmen können. Wieso `mean` auch sonst aufrufen?
 
 Auf der anderen Seite wissen wir auch, dass wir das Argument `na.rm`
 nicht unbedingt angeben müssen -- das würden wir normalerweise nur dann
@@ -122,7 +121,7 @@ mean(1:10)
 Doch was passiert mit `na.rm`, wenn wir es nicht explizit angeben? 
 Hierbei nehmen wir folgende Regel zur Kenntnis: **optionale Argumente 
 sind deswegen optional, da ihnen von der Funktion ein Wert zugewiesen 
-wird, wenn wir das Argument nicht selber übergeben**. Das Argument 
+wird, wenn wir das Argument nicht selbst übergeben**. Das Argument 
 `na.rm` hat den Standardwert `FALSE`, weswegen `NA`-Werte im 
 Normalfall nicht von der Berechnung ausgeschlossen werden. Stattdessen 
 wird uns `NA` zurückgegeben, wenn `x` mindestens einen fehlenden Wert 
@@ -164,7 +163,7 @@ Das hat aber nicht funktioniert. Diese Fehlermeldung informiert uns
 darüber, dass `mean` an der zweiten Position ein Argument mit dem Namen
 "`trim`" erwartet. Offensichtlich hat `mean` mit `trim` noch ein
 weiteres optionales Argument, das wir bislang gar nicht kannten.  Das
-heißt für uns: solange wir für `trim` -- was auch immer das ist --
+heißt für uns: Solange wir für `trim` -- was auch immer das ist --
 keinen Wert angeben, müssen wir `na.rm` per Namen ansprechen.
 
 Wenn wir Argumente mit Namen ansteuern, brauchen wir uns über die
@@ -175,8 +174,8 @@ hilfreich. Deswegen funktioniert folgender Aufruf:
 mean(na.rm = FALSE, x = 1:10)
 ```
 
-Unter Berücksichtigung unseres Wissens über die Vergabe von Namen bei
-Funktionsargumenten erweitern wir nun das Beispiel von oben -- folgende
+Wir erweitern nun das Beispiel von oben unter Berücksichtigung unseres
+Wissens über die Vergabe von Namen bei Funktionsargumenten. Folgende 
 Aufrufe sind alle äquivalent:
 
 ```R
@@ -187,8 +186,8 @@ mean(x = 1:10, na.rm = FALSE)
 mean(na.rm = FALSE, x = 1:10)
 ```
 
-Nicht äquivalent zu den obigen Aufrufen sind jedoch folgende Aufrufe,
-die zu Fehlermeldungen führen, da `na.rm` nicht das zweite Argument von
+Nicht äquivalent zu den obigen Aufrufen sind jedoch folgende Befehle, 
+die zu Fehlermeldungen führen, da `na.rm` nicht das zweite Argument von 
 `mean` ist:
 
 
@@ -197,26 +196,23 @@ mean(1:10, FALSE)
 mean(x = 1:10, FALSE)
 ```
 
-Wir haben nun gelernt wie wir Argumente an Funktionen übergeben
+Wir haben nun gelernt, wie wir Argumente an Funktionen übergeben
 können. Dieses Wissen hilft uns jedoch nur, wenn wir folgende Frage
 beantworten können:
 
 &nbsp;
 
-**Wie finden wir heraus, was für Argumente eine Funktion annimmt?**
+**Wie finden wir heraus, welche Argumente eine Funktion annimmt?**
 
 ### Die `R`-Hilfe{#help}
 
-Wenn wir effektiv herausfinden können, wie wir `R`-Funktionen 
-bedienen -- welche Argumente wir ihnen also übergeben müssen -- sind wir
-als `R` Nutzer in einer sehr komfortablen Position. Für sehr viele
-statistische und testtheoretische Analysen wurden bereits Funktionen
-geschrieben, die uns frei zugänglich sind. Wenn diese Funktionen noch
-nicht in der Basisversion von `R` enthalten sind, sind sie stattdessen
-häufig in externen Paketen verfügbar. So können wir beispielsweise
-ANOVAs, explorative oder konfirmatorische Faktorenanalysen und viele
-andere Auswertungen durchführen -- wenn wir denn wollen. Wir benötigen
-dabei nur das folgende Wissen:
+In `R` sind bereits sehr viele statistische und testtheoretische 
+Analysen als Funktionen verfügbar. Wenn diese Funktionen noch nicht in 
+der Basisversion von `R` enthalten sind, sind sie stattdessen häufig in 
+externen Paketen verfügbar. So können wir beispielsweise ANOVAs, 
+explorative oder konfirmatorische Faktorenanalysen und viele andere 
+Auswertungen durchführen -- wenn wir denn wollen. Wir benötigen dabei 
+nur das folgende Wissen:
 
 1. Welche Funktion führt die gewünschte Berechnung aus?
 2. Wie können wir diese Funktionen bedienen?
@@ -252,17 +248,17 @@ so ist es auch hier der Fall. An dieser Stelle finden wir die
 Informationen, die wir benötigen, um die Funktion zu nutzen. Wir sehen
 
 [^`r incfnc()`]: Viele Funktionen können auf verschiedene Arten
-aufgerufen werden können. Das heißt: sie können mit unterschiedlichen
+aufgerufen werden. Das heißt: sie können mit unterschiedlichen
 `R`-Objekten als Eingabe genutzt werden.
 
-- die Namen der Argumente,
-- die Reihenfolge der Argumente,
-- welche Argumente optional sind,
-- was die Standardwerte der optionalen Argumente sind.
+- die Namen der Argumente
+- die Reihenfolge der Argumente
+- welche Argumente optional sind
+- was die Standardwerte der optionalen Argumente sind
 
 Die Standardwerte der optionalen Argumente lassen sich dadurch ablesen,
 dass in der Argumentliste in der Form "`Argumentname = Wert`" schon ein
-Wert angegeben ist. Das Argument `trim` hat etwa den Standardwert
+Wert angegeben ist. Das Argument `trim` etwa hat den Standardwert
 `0`. Wie wir bereits wissen, hat das Argument `na.rm` hat den
 Standardwert `FALSE`. Bei nicht-optionalen Argumenten ist kein
 Standardwert, sondern nur der Name des Arguments angegeben.
@@ -271,10 +267,11 @@ Wenn wir mehr über die Argumente erfahren wollen, müssen wir den
 Abschnitt "Arguments" der `R`-Hilfe konsultieren. Folgende Punkte
 interessieren uns bei der Beschreibung:
 
-1. Was ist die inhaltliche Bedeutung eines Arguments
-2. Was für ein `R`-Objekt muss ich übergeben, um ein Argument
-   anzusteuern (z.B. Vektor; `data.frame`; `matrix`; `list`; oder sogar
-   eine Funktion -- siehe [Kapitel 3: Funktion tapply](#tapply)).
+1. Was ist die inhaltliche Bedeutung eines Arguments?
+2. Was für ein `R`-Objekt muss ich übergeben, um ein Argument 
+anzusteuern? (Z.B. einen Vektor, einen `data.frame`, eine `matrix`, 
+eine `list` oder sogar eine Funktion -- siehe [Kapitel 3: Funktion 
+tapply](#tapply))
 
 
 Die Beschreibung der Argumente achtet sehr auf Prägnanz und technische 
@@ -305,7 +302,7 @@ einer Funktion meistern will. Mehr Hilfe zur Nutzung einer Funktion
 finden wir im Abschnitt "Examples" der `R`-Hilfe. Hier können wir am 
 konkreten Beispiel betrachten, wie die Funktion angewendet werden kann. 
 Wenn wir Glück haben, ist genau das dabei, was wir brauchen. Der Code 
-ist dabei so gewählt, dass man ihn *Copy-&-Paste* auch selber in der 
+ist dabei so gewählt, dass man ihn per Copy & Paste auch selbst in der 
 Konsole ausführen kann. Bei `mean` finden wir etwa den folgenden 
 Beispiel-Code:
 
@@ -319,20 +316,20 @@ Examples:
 ### Namenlose Argumente
 
 In der Einführung in die Arbeitsweise von Funktionsargumenten habe ich 
-behauptet, dass Argumente Namen haben. Wie bei fast jeder allgemeinen 
-Regel, hat auch diese Regel Ausnahmen -- Argumente haben nämlich gar 
-nicht immer einen Namen. Das ist für uns zwar nicht ganz so wichtig, 
-aber wir können es hier zur Kenntnis nehmen. Wir haben sogar schon mit 
-Funktionen gearbeitet, die namenlose Argumente annehmen können. Das ist 
+behauptet, dass Argumente Namen haben. Wie fast jede allgemeine Regel 
+hat auch diese Regel Ausnahmen -- Argumente haben nämlich gar nicht 
+immer einen Namen. Das ist für uns zwar nicht ganz so wichtig, aber wir 
+können es hier zur Kenntnis nehmen. Wir haben sogar schon mit Funktionen 
+gearbeitet, die namenlose Argumente annehmen können. Das ist 
 beispielsweise immer dann notwendig, wenn Funktionen eine beliebige 
-Anzahl von Argumenten annehmen. Die Funktion `c` nimmt zum Beispiel 
-beliebig viele Vektoren entgegen, die dann zu einem Vektor 
-zusammengefügt werden. Auch andere Funktionen wie `table` -- die 
-beliebig viele Vektoren zur Erstellung von Kreuztabellen annimmt -- und 
-`dplyr::arrange` -- die beliebig viele Kriterien zur Sortierung eines 
-`data.frames` annimmt -- haben unbenannte Argumente. In der `R`-Hilfe 
-ist dies oftmals an dem Platzhalterargument "..."  (lies: *ellipsis*) 
-zu erkennen, siehe:[^`r incref()`]
+Anzahl von Argumenten annehmen. Die Funktion `c` nimmt beliebig viele 
+Vektoren entgegen, die dann zu einem Vektor zusammengefügt werden. Auch 
+andere Funktionen wie `table` -- die beliebig viele Vektoren zur 
+Erstellung von Kreuztabellen annimmt -- und `dplyr::arrange` -- die 
+beliebig viele Kriterien zur Sortierung eines `data.frames` annimmt -- 
+haben unbenannte Argumente. In der `R`-Hilfe ist dies oftmals an dem 
+Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:[^`r 
+incref()`]
 
 [^`r incfnc()`]: Wir nehmen interessiert zur Kenntnis, dass `c` zwei
 Argumente mit Standardwerten hat: `recursive` und `use.names`. Mit
@@ -389,18 +386,18 @@ Wir erhalten folgende Ausgabe in der Konsole:
 t.test(npi$score[npi$gender == 1], npi$score[npi$gender == 2])
 ```
 
-Hier werden uns alle relevanten Aspekte der *t*-Test-Berechnung
-ausgegeben. Ein erster interessanter Hinweis ist, dass kein klassischer
-*t*-Test, sondern ein "Welch Two Sample t-test" gerechnet
-wurde.[^`r incref()`] Weiterhin werden uns t-Wert, Freiheitsgrade,
-p-Wert ("`p-value < 2.2e-16`" bedeutet: der p-Wert ist so klein, dass
-vor dem ersten Wert hinter dem Komma, der **nicht** Null ist, mindestens
-16 Nullen stehen), das 95%-Konfidenzintervall der Differenz der
-mittleren Werte, sowie die Mittelwerte selbst ausgegeben. Insgesamt kann
-man interpretieren, dass Männer im Mittel signifikant höhere
-Narzissmuswerte aufweisen als Frauen. Aber dieser Befund ist für uns in
-diesem Fall uninteressant -- wir wollen uns ja mit dem Rückgabewert
-befassen. Was für ein `R`-Objekt wurde uns denn ausgegeben? 
+Hier werden uns alle relevanten Aspekte der *t*-Test-Berechnung 
+ausgegeben. Ein erster interessanter Hinweis ist, dass kein klassischer 
+*t*-Test, sondern ein "Welch Two Sample t-test" gerechnet wurde.[^`r 
+incref()`] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert 
+("`p-value < 2.2e-16`" bedeutet, dass der p-Wert so klein ist, dass vor 
+dem ersten Wert hinter dem Komma, der **nicht** Null ist, mindestens 16 
+Nullen stehen), das 95%-Konfidenzintervall der Differenz der mittleren 
+Werte, sowie die Mittelwerte selbst ausgegeben. Insgesamt kann man 
+interpretieren, dass Männer im Mittel signifikant höhere Narzissmuswerte 
+aufweisen als Frauen. Aber dieser Befund ist für uns in diesem Fall 
+uninteressant -- wir wollen uns ja mit dem Rückgabewert befassen. Was 
+für ein `R`-Objekt wurde uns denn ausgegeben? 
 
 Was in der Konsole angezeigt wird, stellt nicht direkt das `R`-Objekt
 dar, das die Funktion `t.test` ausgibt. Es handelt sich hierbei um eine
@@ -433,7 +430,7 @@ str(test)
 
 Das von `t.test` ausgegebene Objekt ist eine "List of 9", also eine 
 Liste mit 9 Einträgen. Listen sind sehr allgemeine Datencontainer, die 
-Elemente von beliebigem Typ und beliebiger Zahl beinhalten können.[^`r 
+Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.[^`r 
 incref()`] Listen stellen eine wichtige Datenstruktur in `R` dar -- 
 vielleicht ist es sogar die wichtigste Datenstruktur, da `data.frames` 
 spezielle Listen sind, in denen jeder Eintrag (d.h., jede Spalte) ein 
@@ -511,12 +508,12 @@ spearman_brown(0.68, 4)
 
 In der ersten Variante sind nur ein paar Zahlen und arithmetische 
 Operationen zu sehen, die Semantik der Berechnung ist jedoch vollkommen 
-unklar. Durch das copy-pasten des Codes ist mir sogar ein Fehler 
+unklar. Durch das Copy-Pasten des Codes ist mir sogar ein Fehler 
 unterlaufen, denn ich habe in der zweiten Zeile einmal vergessen den 
 Wert 0.23 durch 0.47 auszutauschen -- solche Fehler passieren häufig 
 und sind sehr schwierig zu entdecken [siehe @li2006]. Durch die Nutzung 
 der Funktion, die ich in Kapitel 4 definiert habe, ist der Code 
-lesbarer geworden und einfach interpretierbar: ich möchte drei 
+lesbarer geworden und einfach interpretierbar: Ich möchte drei 
 Reliabilitätsschätzer um die Faktoren 2, 3 bzw. 4 korrigieren. Sofern 
 ich bei der Definition meiner Funktion keinen Fehler gemacht habe, sind 
 diese Aufrufe auch robuster gegenüber Copy-Paste-Fehlern.
@@ -551,7 +548,7 @@ definiert habe:
 Um die Funktion zu definieren, führe ich diese sechs Zeilen Code 
 einfach in der `R`-Konsole aus. In RStudio reicht es sogar, STRG-Enter 
 zu drücken, wenn sich mein Cursor in Zeile 1 befindet. In dieser Zeile 
-beginnt die Definition der Funktion: ich erstelle eine Variable, der 
+beginnt die Definition der Funktion: Ich erstelle eine Variable, der 
 ich mit "`<-`" eine Funktion zuweise. Die Funktion `spearman_brown` 
 wird also mit der Funktion `function` erstellt (kein Witz). Die 
 Funktion `function` nimmt die Argumente entgegen, die auch meine neu 
@@ -583,12 +580,12 @@ die Alternative auch nicht.
 
 Werfen wir noch einmal einen Blick auf den Körper der Funktion 
 `spearman_brown`. Wir sehen hier bereits gewohnten `R`-Code -- nichts 
-besonderes: Variablen werden geschrieben und Berechnungen werden 
+Besonderes: Variablen werden geschrieben und Berechnungen werden 
 durchgeführt. Ein wichtiger Punkt an diesen Berechnungen ist jedoch, 
 dass sie nur innerhalb der Funktion stattfinden und keine Wirkungen 
 "nach außen" haben. Was heißt das konkret? Beispielsweise sind alle 
 Variablen, die innerhalb der Funktion definiert werden, sogenannte 
-*lokale* Variablen. Das heißt: sie sind außerhalb der Funktion nicht 
+*lokale* Variablen. Das heißt: Sie sind außerhalb der Funktion nicht 
 sichtbar und verschwinden nach Aufruf der Funktion wieder. Es ist also 
 nicht so, dass bei Aufruf der Funktion die Variablen `numerator`, 
 `denominator` und `corrected_reliability` in die `R`-Umgebung 
@@ -649,14 +646,14 @@ häufiger die Antwort auf die Frage, wann ich tatsächlich eine Funktion
 schreiben will. Darauf gibt es keine einzige richtige Antwort, und am 
 Ende muss jeder für sich selbst entscheiden. Generell ist eine 
 sinnvolle Daumenregel, dann eine Funktion zu schreiben, wenn man 
-denselben Code mehrfach geschrieben hat. Häufiges *copy-&-pasten* kann 
+denselben Code mehrfach geschrieben hat. Häufiges Copy & Paste kann 
 da ein guter Indikator sein. In dem Fall solltet ihr identifizieren, 
 welche Details sich jeweils bei den verschiedenen Varianten des Codes 
 geändert haben, und diese in Argumente umwandeln.
 
 Um zu erkennen, wann Funktionen nützlich sind und welche Variablen man 
 als Argumente umsetzen will, bedarf es sicherlich einiger Erfahrung mit 
-`R`. Mein Tipp für Anfänger ist deswegen vor allem: erst mal einfach 
+`R`. Mein Tipp für Anfänger ist deswegen vor allem: Erst mal einfach 
 "coden" -- später Funktionen schreiben. Mit mehr Erfahrung kann sich 
 diese Vorgehensweise ändern. Ich überlege oftmals schon in der 
 Planungsphase eines Projekts, welche Funktionen sich sinnvollerweise 
@@ -664,8 +661,8 @@ anbieten und wie diese zusammen arbeiten sollten. Aber das Vorgehen
 hängt auch stark  von der Art des Projekts ab. Wenn ich bloß Daten 
 einlese und einen t-Test oder eine ANOVA rechne, muss ich dafür keine 
 Funktion schreiben. Wenn ich hingegen viel mit Daten an sich arbeite -- 
-also oft Daten auswähle, transformiere, etc. --, machen eigene 
-Funktionen oftmals mehr Sinn.
+also oft Daten auswähle, transformiere und aus bestehenden Werten neue 
+Werte ableite -- machen eigene Funktionen oftmals mehr Sinn.
 
 ## Fragen zum vertiefenden Verständnis
 
