@@ -156,7 +156,8 @@ werden.
 
 Zur Erstellung des Skripts wurden `R` [3.4.4, @R-base] und die
 `R`-Pakete *bookdown* [0.5, @R-bookdown], *knitr* [1.18, @R-knitr],
-*rmarkdown* [1.8, @R-rmarkdown], und *tufte* [0.2, @R-tufte] genutzt.
+*rmarkdown* [1.8, @R-rmarkdown], *tufte* [0.2, @R-tufte] und 
+*tint* [0.1.0, @R-tint] genutzt.
 
 Ich danke Juliane Tkotz für ihr nützliches Feedback zum Skript. Hanna
 Siegers, Marlene Wettstein und Frank Calio danke ich ebenfalls für ihre

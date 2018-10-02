@@ -347,9 +347,7 @@ ich damit weiter rechnen.
 ### Variablennamen
 
 Generell bestehen Variablennamen in `R` aus Buchstaben und Zahlen und
-den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten; wenn
-diese Anforderungen nicht berücksichtigt werden, wird `R` eine
-Variablenzuweisung nicht akzeptieren.
+den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten:
 
 - Variablennamen dürfen keine Leerzeichen enthalten
     + `bla bla <- c(1, 2)` funktioniert nicht
@@ -366,6 +364,8 @@ Variablenzuweisung nicht akzeptieren.
   `R` "case-sensitive" sind)
     + "`bla <- 1`" ist nicht das Gleiche wie "`Bla <- 1`" oder gar
       "`BLA <- 1`"
+- Vermeidet Umlaute in Variablennamen. `R` wird diese zwar akzeptieren, 
+aber ich würde von deren Nutzung abraten.
 
 Eine fundamentale Schwierigkeit beim Programmieren ist das Finden
 *guter* Variablennamen. `bla` und `blabla` sind denkbar schlechte
