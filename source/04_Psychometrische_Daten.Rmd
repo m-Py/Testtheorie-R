@@ -296,14 +296,15 @@ stärker ist die interne Konsistenz der Punktwerte. Ein Wert von 0
 spricht dafür, dass gar keine Systematik in den Punktzahlen liegt -- ob
 ich viele oder wenig Punkte bekommen habe, ist gänzlich zufällig.
 
-`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu
-bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
-Cronbachs Alpha umsetzt.[^`r incref()`] Wir machen uns aber zunutze,
-dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt
-haben, und diese in einem *Paket* zur Verfügung gestellt haben. Mit der
-Funktion `library` kann ich Pakete laden, die nicht zur Grundausstattung
-von `R` gehören.[^`r incref()`] Voraussetzung ist, dass ich das Paket
-auf meinem Rechner installiert habe.
+`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu 
+bestimmen. Man könnte sich eine eigene Berechnung programmieren, die 
+Cronbachs Alpha umsetzt.[^`r incref()`] Wir machen uns aber zunutze, 
+dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt 
+haben, und diese in einem *Paket* zur Verfügung gestellt haben. Eine 
+Umsetzung von Cronbach's Alpha findet sich im Paket `psychometric` 
+[@R-psychometric]. Mit der Funktion `library` kann ich Pakete laden, die 
+nicht zur Grundausstattung von `R` gehören.[^`r incref()`] Voraussetzung 
+ist, dass ich das Paket auf meinem Rechner installiert habe.
 
 
 [^`r incfnc()`]: Das wäre sogar eine gute Übung. Die Formel findet sich

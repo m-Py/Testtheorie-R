@@ -746,7 +746,7 @@ Im letzteren Fall werden einfach alle Zeilen zurückgegeben, da unser
 
 Oftmals wollen wir Datentabellen nach einer oder mehreren Variablen
 sortieren. Dies funktioniert am bequemsten, wenn wir das *Paket* `dplyr`
-laden:
+laden [@R-dplyr]:
 
 ```{r}
 library("dplyr")
