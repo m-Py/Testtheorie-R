@@ -1,0 +1,392 @@
+
+# Schleifen
+
+Ein Hinweis zu Beginn: Dieses Kapitel nutzt einige Grundlagen, die im
+Abschnitt [Fortgeschrittene Zugriffe](#fortgeschritten) im Kapitel zu
+`data.frames` eingeführt werden, insbesondere die `[[·]]`- und
+`[·,·]`-Zugriffe. Dieser Abschnitt sollte also spätestens jetzt gelesen
+werden.
+
+Schleifen spielen in allen Programmiersprachen eine wichtige Rolle. Im
+Allgemeinen ermöglichen uns Schleifen, eine Aufgabe mehrfach
+durchzuführen. Beispielsweise können wir Umkodierungen von Items, die
+wir aus Kapitel 4 kennen, nicht nur für ein einzelnes Item, sondern
+"gleichzeitig" für alle Items eines Tests durchführen. Wie auch eigene
+Funktionen helfen uns Schleifen bei der Automatisierung unserer
+Arbeit. Sie helfen uns, `R` als Programmiersprache zu nutzen.
+
+Im Allgemeinen und in `R` im Speziellen gibt es mehrere schleifen-artige
+Gebilde; in diesem Kapitel lernen wir die häufig gebrauchte
+`for`-Schleife kennen.[^`r incref()`] Das logische Prinzip einer
+`for`-Schleifen ist recht simpel: Sie führt einen Code-Block mehrfach
+durch. Wie wir festlegen, wie oft der Code durchgeführt wird und wie wir
+es schaffen, dass nicht einfach jedes Mal dasselbe passiert, lernen wir
+im Folgenden. Dies ist die Syntax einer `for`-Schleife:
+
+[^`r incfnc()`]: Wer nach dem Durcharbeiten des Kapitels noch nicht
+genug von Schleifen hat, kann sich mithilfe einer Google-Suche mit der
+`while`-Schleife vertraut machen. 
+
+```R
+for (Schleifenvariable in vector) {
+  ... # hier steht beliebiger R-Code
+}
+```
+
+Das sieht erst einmal etwas beunruhigend aus. Gehen wir die 
+einzelnen Bestandteile der Schleife einmal durch; danach schauen uns 
+eine `for`-Schleife in Aktion an. 
+
+Den Anfang der Schleife definieren wir mit dem Schlagwort `for`. Die
+eigentliche Musik spielt in der darauf folgenden Klammer
+`(Schleifenvariable in vector)`. Der Ausdruck `vector` kann dabei ein
+beliebiger Vektor sein, etwa einer der folgenden:
+
+```R
+c(83, 45, 12, -99) # die Schleife würde 4x laufen
+c("Cronbach", "Spearman", "Brown")  # 3x
+1:10 # 10x
+```
+
+Wie oft der Körper der Schleife -- eingeschlossen in den geschwungenen
+Klammern `{·}` -- ausgeführt wird, hängt von der Länge des Vektors ab,
+der ihr übergeben wird. In den vorliegenden drei Beispielen würde die
+Schleife viermal, dreimal, oder zehnmal durchgeführt werden.
+
+Um zu verstehen, warum es überhaupt Sinn macht, denselben Code-Block
+mehrfach durchzuführen -- das klingt ja erst mal etwas seltsam --
+betrachten wir den Ausdruck `Schleifenvariable`. Hier offenbart sich die
+Magie der `for`-Schleife: **Der `Schleifenvariable` wird in jedem neuen
+Schleifendurchlauf sukzessive das nächste Element von `vector`
+zugeordnet.** `Schleifenvariable` ist also eine `R`-Variable, auf die
+wir im Körper der Schleife zugreifen können. Ihr Inhalt ändert sich in
+jeden Durchlauf der Schleife. Betrachten wir folgendes
+Spielzeug-Beispiel, das das Konzept der `for`-Schleife verdeutlicht:
+
+```{r}
+
+for (name in c('Cronbach', 'Spearman', 'Brown')) {
+  print(name)
+}
+```
+
+Die Funktion `print` ist die explizite Anweisung, ein `R`-Objekt in der
+Konsole auszugeben. Wir sehen, dass uns die Schleife in ihren drei
+Durchläufen drei verschiedene Texte ausgibt, nämlich sequentiell den
+Inhalt des Vektors `c('Cronbach', 'Spearman', 'Brown')`. Beachtet, dass
+`print` in jedem Durchlauf auf die Variable `name` zugreift, die ihren
+Inhalt also in jedem Durchlauf geändert hat. Wir sehen somit, dass
+`for`-Schleifen die folgenden zwei Eigenschaften haben:
+
+- Sie führen einen Code-Block genauso oft aus, wie ein übergebener
+  Vektor lang ist.
+- Eine Schleifenvariable nimmt in jedem Durchlauf den nächsten Wert des
+  übergebenen Vektors an.
+
+Das ist tatsächlich schon alles! Dadurch, dass die Schleifenvariable in
+jedem Durchlauf einen anderen Wert annehmen kann, können wir
+sicherstellen, dass nicht in jedem Durchlauf der Schleife das exakt
+selbe passiert. Stattdessen führen wir zwar in jedem Durchlauf dieselbe
+Aufgabe durch, aber mit anderen Daten. Im folgenden lernen wir zwei
+konkrete Anwendungen von `for`-Schleifen kennen.
+
+## Sequentielle Bepunktung von Testitems
+
+In Kapitel 4 haben wir gelernt, wie wir mithilfe eines Schlüssels
+Testfragen aus einem psychologischen Test bepunkten können. Im NPI
+hatten wir den Fall, dass jedes Item aus einer narzisstischen und einer
+nicht-narzisstischen Aussage bestand; wir haben für ein Item genau dann
+einen Punkt vorgeben, wenn die narzisstische Aussage gewählt wurde.
+
+Wir wollen im Folgenden diese Bepunktung mithilfe einer `for`-Schleife
+automatisieren, das heißt für alle Items des NPI durchführen. Im
+folgenden Code nehme ich an, dass die Daten schon eingelesen wurden und
+die Datenbereinigung aus Kapitel 4 durchgeführt wurde. Zunächst muss ich
+für jedes Item den Schlüssel kennen. Für die Daten des NPI können wir
+diese Information aus dem Codebuch entnehmen. Wir schreiben die 40
+Schlüssel in einen Vektor:
+
+```{r}
+## Schlüssel aller 40 Items in einen Vektor
+keys <- c(1, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2,
+          1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2)
+```
+
+Als nächstes führe ich mit einer `for`-Schleife die Bepunktung aller
+Items durch; keine Sorge, wir werden diesen Code noch Schritt für
+Schritt durchgehen.
+
+```{r}
+## Die Variable `npi_clean` enthält die Antworten für das NPI, siehe
+## Kapitel 4
+
+# for-Schleife für die Kodierung:
+for (i in 1:40) {
+    # 1. Wähle Spaltenname des i'ten Items aus:
+    colname <- paste0("Q", i)
+    # 2. Wähle aus Spalte die Antworten aus:
+    ith_item <- npi_clean[[colname]]
+    # 3. Führe Umkodierung durch:
+    narcissistic_response <- ifelse(ith_item == keys[i], 1, 0)
+    # 4. Erstelle Namen für neue Spalte:
+    new_colname  <- paste0("coded", colname)
+    # 5. Hänge kodierte Werte an data.frame an:
+    npi_clean[[new_colname]] <- narcissistic_response
+}
+```
+
+Der erste Befehl im Körper der Schleife generiert mit der Funktion
+`paste0` den Namen der Spalte, der adressiert werden soll. Im ersten
+Durchgang der `for`-Schleife wird also die Spalte `Q1` adressiert, da
+die Schleifenvariable `i` den ersten Wert des Vektors `1:40` angenommen
+hat. Dann folgen `Q2`, `Q3`, usw. Als Namen von Schleifenvariablen
+werden häufig kurze Namen wie `i` oder `j` verwendet, insbesondere wenn
+es sich um *Indexvariablen* handelt, sie also eine numerische Sequenz der
+Form `1:n` durchlaufen.
+
+Der zweite Befehl im Körper der Schleife wählt die zuvor definierte
+Spalte von `npi_clean` als Vektor aus. Ich benutze dabei die
+`[[·]]`-Notation, da sie mir erlaubt eine Variable vom Typ `character`
+in den Klammern zu übergeben. Der folgende Aufruf mit der `$`-Notation
+würde nicht funktionieren: `npi_clean$colname` -- hierbei würde `R` nach
+einer Spalte mit dem Namen `colname` suchen, aber `colname` ist ja die
+Variable, die den eigentlichen Spaltennamen (etwa `Q23`) enthält.
+
+Der dritte Befehl im Körper der Schleife führt mit einem Aufruf der
+Funktion `ifelse` die eigentliche Umkodierung durch. Es wird kodiert, ob
+Probanden beim i'ten Item die narzisstische Aussage ausgewählt
+haben. Eine 1 wird vergeben, wenn das der Fall war, andernfalls eine
+Null. Ich speichere diesen numerischen Vektor aus Einsen und Nullen in
+der Variablen `narcissistic_response` zwischen. Beachtet, dass diese
+Variable in jedem Durchlauf der Schleife neu geschrieben wird (dasselbe
+gilt für die Variablen `colname`, `ith_item` und `new_colname`) .
+
+Der vierte Befehl im Körper der Schleife generiert neuen Spaltennamen,
+um die 1/0-Vektoren, die die Auswahl narzisstischer Aussagen kodieren,
+als Spalten meines `data.frames`, abzuspeichern. So stelle ich sicher,
+dass ich auch später darauf zugreifen kann, etwa um Summenwerte über
+alle Items oder Item-Trennschärfen zu bestimmen. Die Funktion `paste0`
+generiert die neuen Spaltennamen in der Form `codedQ1`, `codedQ2`, usw.
+
+Der fünfte Befehl im Körper der Schleife fügt mit der `[[·]]`-Notation
+die umkodierten Narzissmus-Werte als Spalte an `npi_clean` zu.
+
+Beachtet, dass ich die `for`-Schleife auch mit weniger
+"zwischenspeichern" hätte umsetzen können; folgender Code würde in
+weniger Zeilen dasselbe Ergebnis erzielen:
+
+```R
+for (i in 1:40) {
+    colname <- paste0("Q", i)
+    npi_clean[[paste0("coded", colname)]] <- 
+        ifelse(npi_clean[[colname]] == keys[i], 1, 0)
+}
+```
+
+Weiter oben habe ich jedoch jeden Zwischenschritt in einer eigenen
+Variablen abgespeichert, um den Code besser verständlich zu machen. Aus
+meiner Sicht ist das Zwischenspeichern in Variablen gut geeignet, um zu
+kommunizieren, was Code macht -- insbesondere, wenn die Variablen gut
+benannt sind. Außerdem war es so leichter, die einzelnen Arbeitsschritte
+der Schleife zu erläutern.
+
+## Berechnung von  part-whole korrigierten Trennschärfen
+
+Nachdem ich mit der letzten `for`-Schleife die rohen Antwortdaten in die
+angemessene Form umkodiert habe, kann ich mit meiner Analyse
+starten. Ein wichtiger Teil einer Item-Analyse ist die Berechnung von
+Item-Trennschärfen. Dieser Abschnitt behandelt die Frage, wie wir
+mithilfe einer `for`-Schleife korrigierte Item-Trennschärfen für alle 40
+Items des NPI berechnen können. Wir nutzen diesen Code:
+
+```R
+
+## Wir nutzen die umkodierten NPI-Werte: speichere diese
+## zunächst in einem separaten data.frame ab:
+columns <- paste0("codedQ", 1:40) 
+items <- subset(npi_clean, select = columns)
+
+## Berechne die Trennschärfen in Schleife
+for (name in columns) {
+    # 1. Summenwert unter Ausschluss eines Items
+    scores <- rowSums(items[, name != colnames(items)])
+    # 2. Korreliere damit den Item-Score
+    part_whole <- cor(items[[name]], scores)
+    # 3. Gib die Trennschärfe aus
+    print(paste(name, part_whole))
+}
+
+```
+
+```
+[1] "codedQ1 0.355867432450542"
+[1] "codedQ2 0.420153514142554"
+[1] "codedQ3 0.332171636290989"
+...
+```
+
+
+Mithilfe der Funktion `print` gebe ich nacheinander die 40 Trennschärfen
+aus, die ich in den Durchläufen der Schleife berechne; um nicht eine
+ganze Seite mit Trennschärfen vollzumachen, habe ich hier aber nur drei
+davon angezeigt. Um ein Objekt während des Laufs einer Schleife in der
+Konsole auszugeben, muss man `print` explizit auf das auszugebende
+Objekt aufrufen; das Objekt ohne `print` anzusteuern würde in keiner
+Reaktion resultieren.[^`r incref()`]
+
+[^`r incfnc()`]: Beachtet, dass ich innerhalb der Funktion `print` die
+Funktion `paste` aufrufe -- was ist der Unterschied zur Funktion
+`paste0`? $\to$ betrachtet `?paste`
+
+Nun aber zur Logik des Codes: Vor dem Durchlauf der Schleife wähle ich
+genau die Spalten aus `npi_clean` aus, die die zuvor erstellten
+Item-Scores enthalten und speichere sie in der Variablen `items`
+ab. Danach startet die Schleife. In diesem Beispiel habe ich die
+Schleifenvariable `name` genannt. Das war recht willkürlich -- ich kann
+der Schleifenvariable irgendeinen Namen geben, den ich möchte. Hier habe
+ich mich anders als im vorherigen Beispiel nicht für den Namen `i`
+entschieden, da die Schleifenvariable keine Indexvariable ist und keine
+Sequenz von ganzen Zahlen der Form `1:n` durchläuft. Stattdessen
+durchläuft sie einen Vektor, der die Spaltennamen enthält, auf die ich
+zugreifen möchte. Deswegen erschien mir der Variablenname `name`
+passend.
+
+Der erste Befehl im Schleifenkörper berechnet einen Summenwert über 39
+Items. Dabei wird jeweils das Item nicht berücksichtigt, das in der
+Spalte mit dem Namen abgespeichert ist, der sich gerade in der Variablen
+`name` befindet. Betrachtet den Code genau: Mithilfe der `[·,·]`-Notation
+werden genau die 39 anderen Spalten ausgewählt (siehe [Kapitel
+3.5](#fortgeschritten)). Dafür wird hinter dem Komma der
+`[·,·]`-Notation ein logischer Vektor der Länge 40 übergeben, der nur an
+einer Stelle `FALSE` enthält und sonst `TRUE`. Dieser Vektor wird mit
+dem Befehl `name != colnames(items)` erstellt.
+
+Der zweite Befehl im Schleifenkörper berechnet die korrigierte
+Trennschärfe. Hier wird der Summenscore über 39 Items mit dem
+verbleibenden Item korreliert und der resultierende
+Korrelationskoeffizient wird in der Variablen `part_whole`
+abgespeichert. Der dritte Befehl gibt lediglich die Trennschärfe in der
+Konsole aus.
+
+## Datenspeicherung in einer Schleife
+
+Im vorherigen Beispiel habe ich Item-Trennschärfen berechnet und dann
+mit dem `print`-Befehl in der Konsole ausgegeben. Oftmals möchte ich die
+Ergebnisse von Berechnungen, die während einer Schleife anfallen, aber
+nicht nur ausgeben, sondern auch abspeichern. Im ersten
+Anwendungsbeispiel einer `for`-Schleife -- Umkodierung von Items --
+hatten wir uns zunutze gemacht, dass man mit der `[[·]]`-Notation neue
+Spalten an an `data.frames` anhängen kann.  Wenn ich in jedem Durchgang
+einer Schleife genau einen Wert berechne, macht es aber Sinn die Werte
+in einem Vektor abzuspeichern. Im folgenden sehen wir uns an, wie wir
+das zur Speicherung der Trennschärfen machen können. Dabei betrachten
+wir zwei Fälle: Einmal adressieren adressieren wir Vektorelemente per
+Name und einmal per Index (siehe [Kapitel 3.5](#nameindex)).
+    
+### Adressierung per Name
+
+Zunächst erstelle ich wie folgt einen leeren[^`r incref()`] Vektor der
+Länge 40:
+
+[^`r incfnc()`]: Tatsächlich ist der Vektor nicht wirklich leer. Schaut
+ihn euch einmal nach der Erstellung an (d.h., gebt ihn in der Konsole
+aus).
+
+```{r}
+discriminations <- vector(length = 40)
+```
+
+Mithilfe der Funktion `vector`[^`r incref()`] erstelle ich einen Vektor;
+das Argument `length` bestimmt dabei die Länge des Vektors. Darin möchte
+ich im Verlauf der 40 Durchläufe der Schleife die Trennschärfen der 40
+Items abspeichern. Um eine Adressierung per Name zu ermöglichen, gebe
+ich den Elementen des Vektors wie folgt Namen:
+
+[^`r incfnc()`]: Es ist allgemein so, dass Funktionen mit dem Namen
+einer Datenstruktur besagte Datenstruktur erstellen. Erinnern wir uns an
+die Funktion `data.frame`. Ebenso gibt es die Funktion `list`, die eine
+Liste erstellt, oder die Funktion `matrix`, die eine Matrix
+erstellt. Diese Funktionen sind oft nützlich, um leere Datencontainer zu
+erstellen, die im Verlaufe einer `for`-Schleife gefüllt werden.
+
+```{r}
+names(discriminations) <- paste0("codedQ", 1:40)
+## Teste:
+discriminations[1:3]
+```
+
+So haben die Elemente meines leeren Vektors dieselben Namen wie die
+Spalten des `data.frames` `items`, den ich verwendet habe zur Berechnung
+der Trennschärfen. Dass ich ausgerechnet diese Namen vergeben habe, hat
+zur Folge, dass ich recht einfach den obigen Code zur Berechnung der
+Trennschärfen umwandeln kann, um die Trennschärfen auch noch
+abzuspeichern. Dies ist der leicht angepasste Code:
+
+```{r}
+
+## Wähle Items aus:
+columns <- paste0("codedQ", 1:40)
+items <- subset(npi_clean, select = columns)
+
+## Erstelle leeren Vektor-Container und benenne ihn:
+discriminations <- vector(length = 40)
+names(discriminations) <- columns
+
+for (name in columns) {
+    # 1. Summenwert unter Ausschluss eines Items
+    scores <- rowSums(items[, name != colnames(items)])
+    # 2. Korreliere damit den Item-Score
+    part_whole <- cor(items[[name]], scores)
+    # 3. Speichere Trennschärfe ab
+    discriminations[name] <- part_whole
+}
+## Voilá:
+head(discriminations)
+
+```
+
+### Vektorspeicherung -- Adressierung per Index
+
+Oftmals wird die Schleifenvariable in `for`-Schleifen als
+*Indexvariable* verwendet, d.h., sie durchläuft einen Vektor der Form
+`1:n`. So war es beispielsweise der Fall, als ich die 40 Items des NPI
+umkodiert habe. Das ist oft dann nützlich, wenn man auf mehrere
+Datenstrukturen zugreifen möchte -- etwa auf einen `data.frame`, der
+Antworten enthält, und einen Vektor, der Schlüssel enthält. Da dieser
+Spezialfall wichtig ist, zeige ich auch für die Berechnung der
+Item-Trennschärfen, wie man die `for`-Schleife mit einer
+Index-Schleifenvariablen umsetzen kann:
+
+```{r}
+## Wähle Items aus:
+columns <- paste0("codedQ", 1:40)
+items <- subset(npi_clean, select = columns)
+
+## Erstelle leeren Vektor-Container:
+discriminations <- vector(length = 40)
+
+## Erstelle Index-Vektor:
+indices <- 1:40
+## Berechne Trennschärfen in Schleife
+for (i in indices) {
+    # 1. Summenwert unter Ausschluss eines Items
+    scores <- rowSums(items[, indices[-i]])
+    # 2. Korreliere damit den Item-Score
+    part_whole <- cor(items[, i], scores)
+    # 3. Speichere Trennschärfe ab
+    discriminations[i] <- part_whole
+}
+## Voilá:
+head(discriminations) 
+```
+
+Hier wird die Index-Variable `i` gleich mehrfach verwendet: (a) zur
+Auswahl der Spalten, die den jeweiligen Testwert berechnen; (b) zur
+Auswahl der Spalte des Items, für das die Trennschärfe bestimmt wird;
+(c) zum Abspeichern der Trennschärfe im Vektor `discriminations`. Diese
+Art der `for`-Schleife ist eine recht klassische Anwendung; vermutlich
+wird man solche Schleifen ab und zu zu Gesicht bekommen.
+
+## for-loops are evil -- oder nicht?
+
+Inhalt folgt.
