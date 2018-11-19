@@ -82,7 +82,7 @@ Funktion nicht explizit angeben. Diese Argumente heißen *optionale
 Argumente*.
 2. Wenn Argumente keinen Standardwert haben, **müssen** wir dem Argument
    einen Wert übergeben, da die Funktion sonst eine Fehlermeldung und
-   kein Ergebnis ausgibt.
+   kein Ergebnis ausgibt.[^`r incref()`]
 3. Argumente haben Namen, die wir verwenden können, um sie in der Form 
    "`Argumentname = Wert`" zu adressieren.
 4. Wenn wir für ein Argument nicht explizit den Namen angeben, wird das
@@ -92,6 +92,12 @@ Argumente*.
    Funktionen annehmen, wie diese heißen, und welche davon optional bzw.
    verpflichtend sind.
 
+
+[^`r incfnc()`]: Das ist streng genommen auch wieder eine Vereinfachung, 
+aber für uns reicht dieses Konzept: Hat ein Argument einen Standardwert, 
+ist es optional; hat ein Argument keinen Standardwert, ist es 
+verpflichtend.
+   
 Wir werden diese Punkte nun exemplarisch anhand der Funktion `mean`
 nachvollziehen. Wir wissen bereits, dass `mean` mindestens zwei
 Argumente annimmt. Beide Argumente haben Namen:

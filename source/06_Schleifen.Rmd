@@ -198,12 +198,12 @@ insbesondere, wenn die Variablen gut benannt sind.
 
 ## Berechnung von  part-whole korrigierten Trennschärfen
 
-Nachdem ich mit der letzten `for`-Schleife die rohen Antwortdaten in die 
-angemessene Form umkodiert habe, kann ich mit meiner Analyse starten. 
-Ein wichtiger Teil einer Item-Analyse ist die Berechnung von 
-Item-Trennschärfen (siehe Kapitel 4). Dieser Abschnitt behandelt die 
-Frage, wie wir mithilfe einer `for`-Schleife korrigierte 
-Item-Trennschärfen für alle 40 Items des NPI berechnen können. Wir 
+Nachdem ich mit der letzten `for`-Schleife die rohen Antwortdaten in die
+angemessene Form umkodiert habe, kann ich mit meiner Analyse starten.
+Ein wichtiger Teil einer Item-Analyse ist die Berechnung von
+Item-Trennschärfen (siehe [Kapitel 4](#trennschaerfe)). Dieser Abschnitt
+behandelt die Frage, wie wir mithilfe einer `for`-Schleife korrigierte
+Item-Trennschärfen für alle 40 Items des NPI berechnen können. Wir
 nutzen diesen Code:
 
 ```R
@@ -247,7 +247,7 @@ Funktion `paste` aufrufe -- was ist der Unterschied zur Funktion
 
 Nun aber zur Logik des Codes: Vor dem Durchlauf der Schleife wähle ich
 genau die Spalten aus `npi_clean` aus, die die zuvor erstellten
-Item-Scores enthalten und speichere sie in der Variablen `items`
+Item-Scores enthalten und speichere sie in der Variable `items`
 ab. Danach startet die Schleife. In diesem Beispiel habe ich die
 Schleifenvariable `name` genannt. Das war recht willkürlich -- ich kann
 der Schleifenvariable irgendeinen Namen geben, den ich möchte. Hier habe
@@ -258,15 +258,16 @@ durchläuft sie einen Vektor, der die Spaltennamen enthält, auf die ich
 zugreifen möchte. Deswegen erschien mir der Variablenname `name`
 passend.
 
-Der erste Befehl im Schleifenkörper berechnet einen Summenwert über 39 
-Items. Dabei wird jeweils das Item nicht berücksichtigt, das in der 
-Spalte des `data.frames` `items` mit dem Namen abgespeichert ist, der 
-sich gerade in der Variablen `name` befindet. Betrachtet den Code genau: 
-Mithilfe der `[·,·]`-Notation werden genau die 39 anderen Spalten 
-ausgewählt (siehe [Kapitel 3.5](#fortgeschritten)). Dafür wird hinter 
-dem Komma der `[·,·]`-Notation ein logischer Vektor der Länge 40 
-übergeben, der nur an einer Stelle `FALSE` enthält und sonst `TRUE`. 
-Dieser Vektor wird mit dem Befehl `name != colnames(items)` erstellt.
+Der erste Befehl im Schleifenkörper berechnet einen Summenwert über 39
+Items. Dabei wird jeweils das Item nicht berücksichtigt, das in der
+Spalte des `data.frames` `items` mit dem Namen abgespeichert ist, der
+sich gerade in der Variablen `name` befindet. Betrachtet den Code genau:
+Mithilfe der `[·,·]`-Notation werden genau die 39 anderen Spalten
+ausgewählt (siehe [Kapitel 3.5](#fortgeschritten)). Dafür wird hinter
+dem Komma der `[·,·]`-Notation ein logischer Vektor der Länge 40
+übergeben, der nur an einer Stelle `FALSE` enthält und sonst `TRUE`.
+Dieser logische Vektor wird mit dem Befehl `name != colnames(items)`
+erstellt.
 
 Der zweite Befehl im Schleifenkörper berechnet die korrigierte
 Trennschärfe. Hier wird der Summenscore über 39 Items mit dem

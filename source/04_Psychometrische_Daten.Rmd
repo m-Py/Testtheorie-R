@@ -155,7 +155,7 @@ Die Korrelationen wurden aus Darstellungszwecken auf zwei
 Nachkommastellen gerundet, was mit der Funktion `round` erreicht
 wurde. 
 
-### Item-Trennschärfen
+### Item-Trennschärfen {#trennschaerfe}
 
 Interessant ist die letzte Spalte (bzw. genauso die letzte Zeile) der
 Tabelle der Item-Korrelationen. Diese gibt an, wie stark die Korrelation
@@ -301,7 +301,7 @@ bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
 Cronbachs Alpha umsetzt.[^`r incref()`] Wir machen uns aber zunutze, 
 dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt 
 haben, und diese in einem *Paket* zur Verfügung gestellt haben. Eine 
-Umsetzung von Cronbach's Alpha findet sich im Paket `psychometric` 
+Umsetzung von Cronbachs Alpha findet sich im Paket `psychometric` 
 [@R-psychometric]. Mit der Funktion `library` kann ich Pakete laden, die 
 nicht zur Grundausstattung von `R` gehören.[^`r incref()`] Voraussetzung 
 ist, dass ich das Paket auf meinem Rechner installiert habe.
