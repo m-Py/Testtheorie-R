@@ -364,8 +364,8 @@ den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten:
   `R` "case-sensitive" sind)
     + "`bla <- 1`" ist nicht das Gleiche wie "`Bla <- 1`" oder gar
       "`BLA <- 1`"
-- Vermeidet Umlaute in Variablennamen. `R` wird diese zwar akzeptieren, 
-aber ich würde von deren Nutzung abraten.
+- Vermeidet Umlaute in Variablennamen. `R` wird diese zwar 
+akzeptieren, aber ich würde dennoch davon abraten, sie zu nutzen.
 
 Eine fundamentale Schwierigkeit beim Programmieren ist das Finden
 *guter* Variablennamen. `bla` und `blabla` sind denkbar schlechte
@@ -952,10 +952,7 @@ c(2, 3) %in% 3:5
 
 Der Zugriff auf Daten ist ein wichtiger Abschnitt unserer Einleitung in
 die Grundlagen `R`s. In diesem Abschnitt lernen wir, wie wir Elemente
-aus einfachen Vektoren "herausgreifen" können.  Allgemein ist das
-gezielte Auswählen von Daten ein wichtiger Bestandteil von `R`, häufig
-etwa von Zeilen und Spalten aus Datentabellen, wie wir auch im nächsten
-Kapitel lernen werden.
+aus einfachen Vektoren "herausgreifen" können.
 
 ### Der `[·]`-Zugriff {#veczugriff}
 
@@ -1025,8 +1022,8 @@ auswahl
 ```
 
 `auswahl` ist ein logischer Vektor, der kodiert, welche Elemente des
-Vektors `meinVektor` größer als 5 sind (spezifisch: welche Positionen
-des Vektors `meinVektor` ein Element enthalten, das größer ist als
+Vektors `meinVektor` größer als 5 sind (spezifisch: an welchen
+Positionen ist in `meinVektor` ein Element enthalten, das größer ist als
 5). Ich kann nun den `[·]`-Zugriff mithilfe von `auswahl` verwenden, um
 nur die Elemente auszuwählen, die größer sind als 5:
 
@@ -1190,3 +1187,5 @@ paste0("item_", 1:10)[-c(1, 3, 9)]
 6. Was sind plausible Ergebnisse von `sum(rnorm(100) > 1.645)`? (Erst
    überlegen, dann mehrfach in der `R`-Konsole ausführen!)
 7. Was sind die Ausgaben von `mode(2)` und `mode(mode(2))`. Warum?
+8. Was ist der Unterschied zwischen `sum(c(TRUE, FALSE, TRUE))` und 
+   `length(c(TRUE, FALSE, TRUE))`?
