@@ -58,7 +58,7 @@ paste0("item", 1:50) # 50x
 
 Wäre `vector` einer dieser vier Vektoren, würde die Schleife also 
 viermal, dreimal, zehnmal, oder 50 Mal durchgeführt werden. Um zu 
-verstehen, warum es überhaupt Sinn mafcht, denselben Code-Block mehrfach 
+verstehen, warum es überhaupt Sinn macht, denselben Code-Block mehrfach 
 durchzuführen -- das klingt ja erst mal etwas seltsam -- betrachten wir 
 den Ausdruck `Schleifenvariable`. Hier offenbart sich die Magie der 
 `for`-Schleife: **Der `Schleifenvariable` wird in jedem neuen 
@@ -234,7 +234,7 @@ for (name in columns) {
 
 
 Mithilfe der Funktion `print` gebe ich nacheinander die 40 Trennschärfen 
-aus, die ich in den Durchläufen der Schleife berechne; die Seite nicht 
+aus, die ich in den Durchläufen der Schleife berechne; um die Seite nicht 
 mit einer ausufernden Liste an Trennschärfen zu fluten, habe ich hier 
 aber nur drei davon angezeigt. Um ein Objekt während des Laufs einer 
 Schleife in der Konsole auszugeben, muss man `print` explizit auf das 
