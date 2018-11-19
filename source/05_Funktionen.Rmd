@@ -236,7 +236,7 @@ diese heißt und in welchem Paket ich sie finde.
 ?mean
 ```
 
-Interessant ist für erst einmal der obere Abschnitt "Usage":
+Interessant ist für uns erst einmal der obere Abschnitt "Usage":
 
 ```R
 Usage:
