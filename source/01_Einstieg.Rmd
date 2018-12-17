@@ -133,9 +133,9 @@ dass -- wenn angemessen -- Kompromisse bei der technischen Genauigkeit
 eingegangen werden.[^`r incref()`] Für so gut wie jede allgemeine Regel
 gibt es Spezialfälle, die eine Ausnahme bilden. Auf solche Spezialfälle
 werde ich bei der Beschreibung allgemeiner Grundsätze der
-Programmiersprache `R` nicht immer Rücksicht nehmen. Das Skript so
-ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch die
-Meisterung von `R` noch weitere eigenständige Einarbeitung erfordert.
+Programmiersprache `R` nicht immer Rücksicht nehmen.  Das Skript ist so
+ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch
+erfordert die Meisterung von `R` noch weitere eigenständige Einarbeitung
 
 [^`r incfnc()`]: Kapitel 2 enthält beispielsweise eine Beschreibung
 verschiedener Datentypen in `R` (Zahlen, Text, etc.). Diese Liste deckt
