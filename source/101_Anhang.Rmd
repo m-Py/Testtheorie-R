@@ -96,7 +96,7 @@ Wenn man RStudio beendet, wird einem von RStudio die Frage gestellt, ob
 man seinen "workspace" abspeichern will. Das kann etwa so aussehen, bei
 euch sieht es gegebenenfalls ein wenig anders aus:
 
-![](../images/SaveWorkspace.png)
+![](./images/SaveWorkspace.png)
 
 Wenn man in diesem Fall zustimmt, wird im derzeitigen "working
 directory" -- für uns heißt das: der Ordner unseres RStudio Projekts --
