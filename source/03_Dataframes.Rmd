@@ -845,29 +845,7 @@ arrange(meinDataFrame, Geschlecht, -Testscore)
 
 ## Fragen zum vertiefenden Verständnis
 
-1. Vergleicht die folgenden Aufrufe der Funktion `subset`. Warum
-   funktionieren der erste und der zweite Aufruf, aber nicht der dritte
-   und vierte?  Wie kann es überhaupt sein, dass die ersten beiden
-   Funktionsaufrufe funktionieren, obwohl Argumente unbenannt an der
-   "falschen" Position stehen?
-
-```R
-subset(meinDataFrame, select = "Item1", Augenfarbe == "blau")
-```
-
-```R
-subset(select = "Item1", meinDataFrame, Augenfarbe == "blau")
-```
-
-```R
-subset(meinDataFrame, "Item1", Augenfarbe == "blau")
-```
-
-```R
-subset("Item1", meinDataFrame, Augenfarbe == "blau")
-```
-
-2. Worin unterscheiden sich die folgenden Aufrufe? Welche Aufrufe sind
+1. Worin unterscheiden sich die folgenden Aufrufe? Welche Aufrufe sind
    zueinander äquivalent?
 
 ```R
@@ -892,4 +870,26 @@ meinDataFrame[["Item1"]]
 
 ```R
 meinDataFrame$Item1
+```
+
+2. Vergleicht die folgenden Aufrufe der Funktion `subset`. Warum
+   funktionieren der erste und der zweite Aufruf, aber nicht der dritte
+   und vierte?  Wie kann es überhaupt sein, dass die ersten beiden
+   Funktionsaufrufe funktionieren, obwohl Argumente unbenannt an der
+   "falschen" Position stehen?
+
+```R
+subset(meinDataFrame, select = "Item1", Augenfarbe == "blau")
+```
+
+```R
+subset(select = "Item1", meinDataFrame, Augenfarbe == "blau")
+```
+
+```R
+subset(meinDataFrame, "Item1", Augenfarbe == "blau")
+```
+
+```R
+subset("Item1", meinDataFrame, Augenfarbe == "blau")
 ```
