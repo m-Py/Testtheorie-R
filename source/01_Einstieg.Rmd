@@ -194,13 +194,14 @@ Hier könnt ihr beispielsweise über "Download R for Windows" $\to$
 
 ### Die `R`-Konsole
 
-Die ersten Schritte mit `R` als Programmiersprache nehmen wir, indem wir
-**`R`-Code** in die sogenannte Konsole eingeben. Im Normalfall finden
-wir die `R`Konsole in RStudio im Panel auf der linken Seite (je nachdem,
-wie ihr RStudio geöffnet habt, befindet sich die Konsole auch unten
-links). Wir erkennen die Konsole daran, dass die Zeile, in die wir Text
-eintragen können, mit einem `>` beginnt. Um euren  ersten `R`-Befehl
-auszuführen, schreibt Folgendes in die Konsole und drückt `Enter`:
+Wenn wir `R` und RStudio installiert haben, können wir unsere ersten
+Schritte mit `R` nehmen. Dafür geben wir **`R`-Code** in die sogenannte
+Konsole ein. Im Normalfall finden wir in RStudio die Konsole in der
+Anzeige auf der linken Seite (je nachdem, wie ihr RStudio geöffnet habt,
+befindet sich die Konsole auch links unten). Wir erkennen die Konsole
+daran, dass die Zeile, in die wir unsere `R`-Befehle eintragen, mit
+einem `>` beginnt. Um den ersten `R`-Befehl auszuführen, schreiben wir
+Folgendes in die Konsole und drücken `Enter`:
 
 ```{marginfigure}
 ![](./images/Konsole.jpg) So sieht die `R`-Konsole in RStudio aus.
