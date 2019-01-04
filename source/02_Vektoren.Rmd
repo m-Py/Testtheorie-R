@@ -131,7 +131,7 @@ ganzer Zahlen zu erstellen ist folgende:
 ```
 
 So lässt sich beispielsweise sehr einfach die Summe aller Zahlen von 1
-bis 1,000 berechnen: 
+bis 1,000 berechnen:
 
 ```{r}
 sum(1:1000)
@@ -199,7 +199,7 @@ in `R` arbeiten **komponentenweise**, wenn zwei Vektoren gleicher Länge
 mit dem Element an Position 1 im anderen Vektor gepaart, das Element an
 Position 2 im einen Vektor mit dem Element an Position 2 im anderen
 Vektor -- und so weiter.
-   
+
 Werden ein ein-elementiger Vektor und ein mehr-elementiger Vektor mit
 einer Berechnung (etwa einer Addition) verknüpft, wird normalerweise das
 einzelne Element mit allen Elementen des anderen Vektors
@@ -270,7 +270,7 @@ jeglicher Berechnung als Input einer anderen Berechnung dienen.
 \fbox{ \parbox{\textwidth}{
 
   \textbf{\\ Merke}
-  
+
   In \texttt{R} kann (fast) alles in einer Variablen gespeichert und
   weiter verwendet werden.  } }
 
@@ -358,13 +358,13 @@ den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten:
 - Variablennamen dürfen keine Sonderzeichen außer `_` oder `.` enthalten
     + `bla-bla <- c(1, 2)` funktioniert nicht
     + `bla%bla <- c(1, 2)` funktioniert nicht
-    + `bla_bla <- c(1, 2)` funktioniert 
-    + `bla.bla <- c(1, 2)` funktioniert 
+    + `bla_bla <- c(1, 2)` funktioniert
+    + `bla.bla <- c(1, 2)` funktioniert
 - Groß- / Kleinschreibung ist relevant (man sagt, dass Variablennamen in
   `R` "case-sensitive" sind)
     + "`bla <- 1`" ist nicht das Gleiche wie "`Bla <- 1`" oder gar
       "`BLA <- 1`"
-- Vermeidet Umlaute in Variablennamen. `R` wird diese zwar 
+- Vermeidet Umlaute in Variablennamen. `R` wird diese zwar
 akzeptieren, aber ich würde dennoch davon abraten, sie zu nutzen.
 
 Eine fundamentale Schwierigkeit beim Programmieren ist das Finden
@@ -468,14 +468,14 @@ Fehler in "bla" * 2 : nicht-numerisches Argument
 für binären Operator
 ```
 
-In diesem Skript spielen Texte keine allzu große Rolle. Eine nützliche
-Funktion, die Vektoren vom Typ `character` generiert, sei hier jedoch
-kurz vorgestellt, da wir von ihr Gebrauch machen werden. Die Funktion
-`paste0` kann verwendet werden, um mehrere Vektoren als Text
-zusammenzufügen. Das wird nützlich sein, wenn wir in Datentabellen auf
-bestimmte Spalten zugreifen wollen, denn dort gilt: Jedes Item steht in
-einer Spalte. So lassen sich beispielsweise bequem 10 durchnummerierte
-Itemnamen als `character`-Vektor zusammenfügen:
+In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
+werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden,
+zumeist um Spalten in Datentabelle zu adressieren (siehe Kapitel 3 und
+4).  Eine nützliche Funktion, die Vektoren vom Typ `character`
+generiert, sei hier deswegen kurz vorgestellt, da wir sie genau zu
+diesem Zweck nutzen werden: die Funktion `paste0`. Sie fügt mehrere
+Vektoren als Text zusammen. So lassen sich beispielsweise bequem 10
+durchnummerierte Itemnamen als `character`-Vektor generieren:
 
 ```{r}
 
@@ -484,8 +484,8 @@ items <- paste0("item_", 1:10)
 ```
 
 Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das
-Ergebnis ist ein 10-elementiger Vektor, wie wir auch so überprüfen
-können:
+Ergebnis des Befehls ist ein 10-elementiger Vektor, das wir auch wie
+folgt wie überprüfen können:
 
 ```{r}
 
@@ -495,8 +495,20 @@ items
 
 ```
 
-Mit der Funktion `mode` können wir überprüfen, dass der Vektor
-tatsächlich vom Typ `character` ist:[^`r incref()`] 
+Wie man sich vorstellen kann, wäre ein solcher Aufruf der Funktion
+`paste0` nützlich, um gezielt Items aus Datentabellen auszuwählen. Denn
+in solchen Tabellen gilt: Jedes Item steht in einer Spalte. Es ist
+beispielsweise vorstellbar, dass wir mit dem folgenden Antworten auf die
+Items einer Extraversions-Subskala aus einem BIG-5-Fragebogens
+auswählen, um Summenwert für diese Subskala zu berechnen:
+
+```{r}
+paste0("Extraversion", 1:5)
+```
+
+Mit der Funktion `mode` können wir überprüfen, welchen Datentyp ein
+Vektor hat, also ob er beispielsweise tatsächlich vom Typ `character`
+ist:[^`r incref()`]
 
 [^`r incfnc()`]: Die Ausgabe des Vektors macht uns auch schon eindeutig
 klar, dass es sich hier um einen Vektor vom Typ `character` handelt; die
@@ -544,7 +556,7 @@ Mit logischen Werten kann man die logischen Operationen UND (in `R`: `&`
 ), ODER (in `R`: `|` ) und NICHT (in `R`: `!` )
 durchführen:[^`r incref()`]
 
-[^`r incfnc()`]: 
+[^`r incfnc()`]:
 https://de.wikipedia.org/wiki/Boolesche_Algebra# Zweielementige_boolesche_Algebra
 
 
@@ -880,7 +892,7 @@ Analog können wir mit `mean` den relativen Anteil der Daten bestimmen,
 die größer als 1 sind:
 
 ```{r}
-mean(zufallsdaten > 1) 
+mean(zufallsdaten > 1)
 ```
 
 Der Erwartungswert, dass eine zufällige Zahl aus einer
@@ -909,7 +921,7 @@ näher an 15.9% als der Schätzer, der auf 1,000 Zufallszahlen basiert:
 
 ## 100,000 Zufallsdaten sind für R kein Problem
 zufallsdaten <- rnorm(100000) # 100000
-mean(zufallsdaten > 1) 
+mean(zufallsdaten > 1)
 
 ```
 
@@ -930,23 +942,23 @@ einfache verbale Interpretation: Ist A in Vektor B?
 
 2 %in% 1:3
 
-``` 
+```
 
 
 ```{r}
 
 4 %in% 1:3
 
-``` 
+```
 
 `%in%` testet für jedes der Elemente *vor* dem `%in%`-Operator, ob
 dieses im Vektor *nach* dem `%in%`-Operator enthalten ist:
 
 ```{r}
 
-c(2, 3) %in% 3:5 
+c(2, 3) %in% 3:5
 
-``` 
+```
 
 ## Zugriff auf Vektorelemente
 
@@ -1169,7 +1181,7 @@ fehlende Werte gekennzeichnet werden.
 1. Wie berechnet man den Standardfehler von `1:10`?
 2. Was für Objekte nimmt die Funktion `c` entgegen, und was gibt sie
    zurück?
-3. Was ergibt `1:6 + 1:2`? Was passiert? Warum gibt `1:4 + 1:3` eine 
+3. Was ergibt `1:6 + 1:2`? Was passiert? Warum gibt `1:4 + 1:3` eine
 Warnmeldung aus?
 4. Nutzt `paste0`, den `:`-Operator und den `[·]`-Negativ-Zugriff, um
    den folgenden Vektor zu erstellen:
@@ -1187,5 +1199,5 @@ paste0("item_", 1:10)[-c(1, 3, 9)]
 6. Was sind plausible Ergebnisse von `sum(rnorm(100) > 1.645)`? (Erst
    überlegen, dann mehrfach in der `R`-Konsole ausführen!)
 7. Was sind die Ausgaben von `mode(2)` und `mode(mode(2))`. Warum?
-8. Was ist der Unterschied zwischen `sum(c(TRUE, FALSE, TRUE))` und 
+8. Was ist der Unterschied zwischen `sum(c(TRUE, FALSE, TRUE))` und
    `length(c(TRUE, FALSE, TRUE))`?
