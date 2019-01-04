@@ -29,7 +29,6 @@ institute: |
  | Institut für Experimentelle Psychologie
 
 bibliography: referenzen.bib
-csl: "../apa.csl"
 fontsize: 12pt
 
 ---
