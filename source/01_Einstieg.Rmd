@@ -1,5 +1,5 @@
 ---
-output: 
+output:
   bookdown::pdf_book:
     keep_tex: yes
     pandoc_args: [
@@ -39,7 +39,7 @@ fontsize: 12pt
 library("knitr")
 library("tufte")
 opts_chunk$set(message=FALSE, warning=FALSE, comment = "",
-               fig.align = "center", 
+               fig.align = "center",
                fig.cap="")
 
 
@@ -98,7 +98,7 @@ https://stackoverflow.blog/2017/10/10/impressive-growth-r/
 https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
-Diagnostik bzw. der Testtheorie kennen. Dabei werden auch echte
+Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch echte
 Datensätze verwendet, beispielsweise ein Datensatz zum *Narcissistic
 Personality Inventory*, der online frei verfügbar ist über das “Open
 Source Psychometrics Project”
@@ -135,7 +135,7 @@ gibt es Spezialfälle, die eine Ausnahme bilden. Auf solche Spezialfälle
 werde ich bei der Beschreibung allgemeiner Grundsätze der
 Programmiersprache `R` nicht immer Rücksicht nehmen.  Das Skript ist so
 ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch
-erfordert die Meisterung von `R` noch weitere eigenständige Einarbeitung
+erfordert die Meisterung von `R` noch weitere eigenständige Einarbeitung.
 
 [^`r incfnc()`]: Kapitel 2 enthält beispielsweise eine Beschreibung
 verschiedener Datentypen in `R` (Zahlen, Text, etc.). Diese Liste deckt
@@ -156,7 +156,7 @@ werden.
 
 Zur Erstellung des Skripts wurden `R` [3.4.4, @R-base] und die
 `R`-Pakete *bookdown* [0.5, @R-bookdown], *knitr* [1.18, @R-knitr],
-*rmarkdown* [1.8, @R-rmarkdown], *tufte* [0.2, @R-tufte] und 
+*rmarkdown* [1.8, @R-rmarkdown], *tufte* [0.2, @R-tufte] und
 *tint* [0.1.0, @R-tint] genutzt.
 
 Ich danke Juliane Tkotz für ihr nützliches Feedback zum Skript. Hanna
@@ -215,8 +215,8 @@ Wenn folgende Ausgabe erscheint, hat die Installation funktioniert:
 Befehle können wir in `R` in die Konsole eingeben. Wir können das als
 Kommunikation verstehen: Wir teilen `R` etwas mit, und `R` gibt uns dazu
 passend etwas zurück -- **wenn unsere Anfrage ein *syntaktisch*
-korrekter `R`-Befehl war**. Andernfalls gibt uns `R` eine Fehlermeldung
-zurück. Zum Beispiel können wir die `R`-Konsole als Taschenrechner
+korrekter `R`-Befehl war**. Andernfalls gibt `R` eine Fehlermeldung aus.
+Zum Beispiel können wir die `R`-Konsole als Taschenrechner
 benutzen:
 
 ```{r}
@@ -275,7 +275,7 @@ interpretiert, d.h.: nicht als R-Code ausgeführt. Beispiel:
 
 ```R
 
-# 5 + 5 
+# 5 + 5
 # nichts ist passiert - `R` gibt mir nicht 10 aus
 
 ```
@@ -331,4 +331,3 @@ zuvor erworben haben.
 
 ```{r child = '101_Anhang.Rmd'}
 ```
-
