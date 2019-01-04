@@ -360,7 +360,7 @@ den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten:
     + `bla%bla <- c(1, 2)` funktioniert nicht
     + `bla_bla <- c(1, 2)` funktioniert
     + `bla.bla <- c(1, 2)` funktioniert
-- Groß- / Kleinschreibung ist relevant (man sagt, dass Variablennamen in
+- Groß-/Kleinschreibung ist relevant (man sagt, dass Variablennamen in
   `R` "case-sensitive" sind)
     + "`bla <- 1`" ist nicht das Gleiche wie "`Bla <- 1`" oder gar
       "`BLA <- 1`"
@@ -471,7 +471,7 @@ für binären Operator
 In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
 werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden,
 zumeist um Spalten in Datentabelle zu adressieren (siehe Kapitel 3 und
-4).  Eine nützliche Funktion, die Vektoren vom Typ `character`
+4). Eine nützliche Funktion, die Vektoren vom Typ `character`
 generiert, sei hier deswegen kurz vorgestellt, da wir sie genau zu
 diesem Zweck nutzen werden: die Funktion `paste0`. Sie fügt mehrere
 Vektoren als Text zusammen. So lassen sich beispielsweise bequem 10
@@ -484,8 +484,8 @@ items <- paste0("item_", 1:10)
 ```
 
 Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das
-Ergebnis des Befehls ist ein 10-elementiger Vektor, das wir auch wie
-folgt wie überprüfen können:
+Ergebnis des Befehls ist ein 10-elementiger Vektor, was wir auch wie
+folgt überprüfen können:
 
 ```{r}
 
@@ -495,11 +495,11 @@ items
 
 ```
 
-Wie man sich vorstellen kann, wäre ein solcher Aufruf der Funktion
+Wie man sich vorstellen kann, ist ein solcher Aufruf der Funktion
 `paste0` nützlich, um gezielt Items aus Datentabellen auszuwählen. Denn
 in solchen Tabellen gilt: Jedes Item steht in einer Spalte. Es ist
-beispielsweise vorstellbar, dass wir mit dem folgenden Antworten auf die
-Items einer Extraversions-Subskala aus einem BIG-5-Fragebogens
+beispielsweise vorstellbar, dass wir mit dem folgenden Befehl Antworten auf die
+(fünf) Items einer Extraversions-Subskala aus einem BIG-5-Fragebogen
 auswählen, um Summenwert für diese Subskala zu berechnen:
 
 ```{r}
@@ -1140,7 +1140,7 @@ Semantisch ist dieser Vorgang gut zu verstehen: Setze alle Werte, die
 einen fehlenden Wert enthalten -- d.h. mit -99 kodiert wurden -- auf
 `NA`, damit `R` für weitere Berechnungen weiß, dass diese Werte als
 fehlend zu verstehen sind. Technisch umgesetzt wird dies mit einem
-`TRUE` / `FALSE` Vektor, den wir mithilfe der Anweisung `daten == -99`
+`TRUE`/`FALSE` Vektor, den wir mithilfe der Anweisung `daten == -99`
 erstellt haben.
 
  &nbsp;
@@ -1148,7 +1148,7 @@ erstellt haben.
 Wir werden wohl selten "händisch" per Index oder logischem
 `TRUE`/`FALSE` Vektor eine Auswahl/Änderung von Daten durchführen. Aber
 in Zusammenarbeit mit den logischen Operatoren (`>`, `<`, `==`, `&`,
-`|`, etc.) ist die Auswahl von Elementen aus Vektoren -- und auch die
+`|` etc.) ist die Auswahl von Elementen aus Vektoren -- und auch die
 Auswahl von Daten aus Tabellen -- eine häufige Anwendung. Diese werden
 wir bei der gezielten Auswahl von Zeilen aus Datentabellen (siehe
 Kapitel 3) wiederfinden und uns zunutze machen. Das gegebene Beispiel
@@ -1164,13 +1164,13 @@ fehlende Werte gekennzeichnet werden.
     + Zahlen ("numeric")
     + Texte ("character")
     + Kategorielle Daten ("factor")
-    + `TRUE/FALSE` ("logical")
+    + `TRUE`/`FALSE` ("logical")
 - Mit dem `[·]`-Zugriff kann man Elemente aus Vektoren auswählen
     a. indem man die Position der Elemente angibt, die man auswählen
     will ("Positivauswahl")
 	b. indem man die Position der Elemente angibt, die man **nicht**
     auswählen will ("Negativauswahl")
-	c. indem man einen `TRUE/FALSE` Vektor angibt
+	c. indem man einen `TRUE`/`FALSE` Vektor angibt
 - Man kann mit logischen Vergleichen die Eigenschaften von Vektoren
   überprüfen
     + diese Operation lässt sich gut mit der `[·]`-Auswahl verbinden
