@@ -13,7 +13,7 @@ Testteilnehmerin sein, für die in mehreren Spalten ihre Punktzahlen in
 allen Aufgaben abgespeichert sind.[^`r incref()`] In `R` speichert man
 solche Datentabellen in `data.frames` ab. Ein `data.frame` ist --
 vereinfacht gesagt -- eine Sammlung von Vektoren; jede Spalte, d.h. jede
-Messvariable ist ein Vektor. 
+Messvariable ist ein Vektor.
 
 [^`r incfnc()`]: Andere Formate sind auch denkbar, etwa eines in dem
 jede Zeile eine Aufgabe darstellt. Bei uns wird aber im Normalfall
@@ -41,7 +41,7 @@ meinDataFrame
 
 Bei dieser Erstellung des `data.frames` wird deutlich, dass Spalten
 Vektoren enthalten, da wir für jede Spalte einen Vektor mit der Funktion
-`c` bzw. mit dem `:`-Operator erstellen. Auch sehen wir, dass die
+`c` bzw. mit dem `:`-Operator erstellen. Wir sehen auch, dass die
 Spalten bei der Erstellung des `data.frames` benannt werden können.
 **Dieser Punkt ist sehr wichtig, da wir Spalten anhand ihres Namens
 gezielt auswählen können**. Wenn ich die Spaltennamen, also die Namen
@@ -68,7 +68,7 @@ punkte # `punkte` ist ein Vektor
 ```
 
 Der `$`-Zugriff ist eine grundlegende Operation auf `data.frames`. Sie
-liest die Spalte eines `data.frames` als Vektor aus.  Ich kann den
+liest die Spalte eines `data.frames` **als Vektor** aus.  Ich kann den
 `$`-Zugriff aber nicht nur verwenden, um Spalten aus einem `data.frame`
 auszulesen, sondern kann damit auch neue Spalten zum `data.frame`
 hinzufügen, indem ich einer neuen Spalte mit "`<-`" einen neuen Vektor
@@ -208,7 +208,7 @@ einen ganzen `data.frame` zurück.
 [^`r incfnc()`]: Der Abschnitt zur Funktion `subset` ist ein besonders
 wichtiger Abschnitt, da hier nicht nur die spezielle Funktionalität
 einer einzelnen Funktion erläutert wird, sondern auch an ihrem Beispiel
-allgemeine Eigenschaften von Funktionen in `R` dargestellt werden. 
+allgemeine Eigenschaften von Funktionen in `R` dargestellt werden.
 
 Mit `subset` können wir beispielsweise nur eine Teilmenge aller Fälle
 auswählen; etwa nur die Personen mit blauen Augen. Für diese Auswahl
@@ -302,7 +302,7 @@ subset(meinDataFrame, c("Item1", "Augenfarbe"),
        Augenfarbe == "blau")
 
 Fehler in subset.data.frame(meinDataFrame,
-c("Item1", "Augenfarbe"), Augenfarbe ==  : 'subset' muss 
+c("Item1", "Augenfarbe"), Augenfarbe ==  : 'subset' muss
 boolesch sein
 ```
 
@@ -422,16 +422,16 @@ erwartet hätte.
   \parbox{\textwidth}{
 
   \textbf{\\ Merke}
-  
+
    In \texttt{R} können Funktionsargumente per Position und per Namen
    identifiziert werden. Die Identifikation per Name schlägt dabei die
    Identifikation per Position.
-   
+
   }
 }
 
  &nbsp;
- 
+
  &nbsp;
 
 ### Ausnahmeregeln für die Funktion `subset`
@@ -528,14 +528,14 @@ subset(meinDataFrame, select = c("Item1", "Augenfarbe"))
 
 \fbox{
   \parbox{\textwidth}{
-  
+
   \textbf{\\ Merke:}
-  
+
   Man kann mit \texttt{\$}, \texttt{[[·]]} und \texttt{[·]} auf
   Spalten in \texttt{data.frames} zugreifen; dabei ergeben \texttt{\$}
   und \texttt{[[·]]} einen Vektor, \texttt{[·]} einen
   \texttt{data.frame}.
-  
+
   }
 }
 
@@ -675,14 +675,14 @@ aus und führt oft zu besser lesbarem Code.
 
 \fbox{
   \parbox{\textwidth}{
-  
+
   \textbf{\\ Merke:}
-  
+
   Mit dem \texttt{[·,·]} Zugriff wird zuerst -- vor dem Komma -- die
   Reihe und dann -- nach dem Komma -- die Spalte adressiert. Man kann
   die Auswahl nach numerischem Index, mit einem logischen Vektor, oder
   mit einem \texttt{character} Vektor durchführen.
-  
+
   }
 }
 
@@ -811,33 +811,33 @@ arrange(meinDataFrame, Geschlecht, -Testscore)
 &nbsp;
 &nbsp;
 
-## Abschließender Hinweis 
+## Abschließender Hinweis
 
 \fbox{
   \parbox{\textwidth}{
-  
+
   \texttt{vector} und \texttt{data.frame} sind die einzigen
   Datenstrukturen, mit denen wir zunächst arbeiten werden. Früher oder
   später wird man sich mit jedoch mit weiteren Datenstrukturen aus
   \texttt{R} auseinandersetzen müssen. Einige wichtige seien deswegen
   schon einmal an dieser Stelle genannt:
-  
+
   \begin{itemize} \tightlist \item \texttt{matrix}: von der Struktur her
   wie ein \texttt{data.frame}, aber alle Werte müssen denselben Datentyp
   haben
-  
+
   \item \texttt{list}: ein „Container“, der beliebige andere Daten
   enthalten kann; Zugriffe funktionieren zumeist wie in einem
   \texttt{data.frame}, da \texttt{data.frames} technisch gesehen auch
   Listen sind
-  
+
   \item \texttt{array}: eine mehrdimensionale Matrix; etwa kann
   \texttt{tapply} einen Array zurückgegeben \end{itemize}
-  
+
   Häufig kann man die \textit{Klasse}, also die Art der Datenstruktur
   eines Objekts, mit der Funktion \texttt{class} herausfinden (probiert
   den Befehl \texttt{class(data.frame(foo = 1:3))})
-  
+
   }
 }
 
@@ -893,4 +893,3 @@ meinDataFrame[["Item1"]]
 ```R
 meinDataFrame$Item1
 ```
-
