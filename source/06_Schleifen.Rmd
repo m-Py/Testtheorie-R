@@ -4,7 +4,7 @@
 Ein Hinweis zu Beginn: Dieses Kapitel nutzt einige Grundlagen, die im
 Abschnitt [Fortgeschrittene Zugriffe](#fortgeschritten) im Kapitel zu
 `data.frames` eingeführt werden, insbesondere die `[[·]]`- und
-`[·,·]`-Zugriffe. Wer mit den dort behandelten Themen noch nicht 
+`[·,·]`-Zugriffe. Wer mit den dort behandelten Themen noch nicht
 vertraut genug ist, sollte sich den Abschnitt vor dem Weiterlesen ansehen.
 
 Schleifen spielen in allen Programmiersprachen eine wichtige Rolle. Im
@@ -29,7 +29,7 @@ einfach dasselbe passiert. Dies ist die Syntax einer `for`-Schleife:
 
 [^`r incfnc()`]: Wer nach dem Durcharbeiten des Kapitels noch nicht
 genug von Schleifen hat, kann sich mithilfe einer Google-Suche mit der
-`while`-Schleife vertraut machen. 
+`while`-Schleife vertraut machen.
 
 ```R
 for (Schleifenvariable in vector) {
@@ -37,9 +37,9 @@ for (Schleifenvariable in vector) {
 }
 ```
 
-Das sieht erst einmal etwas beunruhigend aus. Gehen wir die einzelnen 
-Bestandteile der Schleife einmal durch; danach schauen wir uns eine 
-`for`-Schleife in Aktion an. 
+Das sieht erst einmal etwas beunruhigend aus. Gehen wir die einzelnen
+Bestandteile der Schleife einmal durch; danach schauen wir uns eine
+`for`-Schleife in Aktion an.
 
 Den Anfang der Schleife definieren wir mit dem Schlagwort `for`. Die
 eigentliche Musik spielt in der darauf folgenden Klammer
@@ -56,16 +56,16 @@ c("Cronbach", "Spearman", "Brown")  # 3x
 paste0("item", 1:50) # 50x
 ```
 
-Wäre `vector` einer dieser vier Vektoren, würde die Schleife also 
-viermal, dreimal, zehnmal, oder 50 Mal durchgeführt werden. Um zu 
-verstehen, warum es überhaupt Sinn macht, denselben Code-Block mehrfach 
-durchzuführen -- das klingt ja erst mal etwas seltsam -- betrachten wir 
-den Ausdruck `Schleifenvariable`. Hier offenbart sich die Magie der 
-`for`-Schleife: **Der `Schleifenvariable` wird in jedem neuen 
-Schleifendurchlauf schrittweise das nächste Element von `vector` 
-zugeordnet.** `Schleifenvariable` ist also eine `R`-Variable, auf die 
-wir im Körper der Schleife zugreifen können. Ihr Inhalt ändert sich in 
-jedem Durchlauf der Schleife. Betrachten wir folgendes 
+Wäre `vector` einer dieser vier Vektoren, würde die Schleife also
+viermal, dreimal, zehnmal, oder 50 Mal durchgeführt werden. Um zu
+verstehen, warum es überhaupt Sinn macht, denselben Code-Block mehrfach
+durchzuführen -- das klingt ja erst mal etwas seltsam -- betrachten wir
+den Ausdruck `Schleifenvariable`. Hier offenbart sich die Magie der
+`for`-Schleife: **Der `Schleifenvariable` wird in jedem neuen
+Schleifendurchlauf schrittweise das nächste Element von `vector`
+zugeordnet.** `Schleifenvariable` ist also eine `R`-Variable, auf die
+wir im Körper der Schleife zugreifen können. Ihr Inhalt ändert sich in
+jedem Durchlauf der Schleife. Betrachten wir folgendes
 Spielzeug-Beispiel, das das Konzept der `for`-Schleife verdeutlicht:
 
 ```{r}
@@ -88,11 +88,11 @@ Inhalt also in jedem Durchlauf geändert hat. Wir sehen somit, dass
 - Eine Schleifenvariable nimmt in jedem Durchlauf den nächsten Wert des
   übergebenen Vektors an.
 
-Das ist tatsächlich schon alles! Dadurch, dass die Schleifenvariable in 
-jedem Durchlauf einen anderen Wert annehmen kann, können wir 
-sicherstellen, dass nicht in jedem Durchlauf der Schleife das exakt 
-Selbe passiert. Stattdessen führen wir zwar in jedem Durchlauf dieselbe 
-Aufgabe durch, aber mit anderen Daten. Im Folgenden lernen wir zwei 
+Das ist tatsächlich schon alles! Dadurch, dass die Schleifenvariable in
+jedem Durchlauf einen anderen Wert annehmen kann, können wir
+sicherstellen, dass nicht in jedem Durchlauf der Schleife das exakt
+Selbe passiert. Stattdessen führen wir zwar in jedem Durchlauf dieselbe
+Aufgabe durch, aber mit anderen Daten. Im Folgenden lernen wir zwei
 konkrete Anwendungen von `for`-Schleifen kennen.
 
 ## Sequentielle Bepunktung von Testitems
@@ -140,39 +140,39 @@ for (i in 1:40) {
 }
 ```
 
-Der erste Befehl im Körper der Schleife generiert mit der Funktion 
-`paste0` den Namen der Spalte, der adressiert werden soll. Im ersten 
-Durchgang der `for`-Schleife wird also die Spalte `Q1` adressiert, da 
-die Schleifenvariable `i` den ersten Wert des Vektors `1:40` angenommen 
-hat. Dann folgen `Q2`, `Q3` und so weiter. Als Namen von 
-Schleifenvariablen werden häufig kurze Namen wie `i` oder `j` verwendet, 
-insbesondere wenn es sich um *Indexvariablen* handelt, sie also eine 
+Der erste Befehl im Körper der Schleife generiert mit der Funktion
+`paste0` den Namen der Spalte, der adressiert werden soll. Im ersten
+Durchgang der `for`-Schleife wird also die Spalte `Q1` adressiert, da
+die Schleifenvariable `i` den ersten Wert des Vektors `1:40` angenommen
+hat. Dann folgen `Q2`, `Q3` und so weiter. Als Namen von
+Schleifenvariablen werden häufig kurze Namen wie `i` oder `j` verwendet,
+insbesondere wenn es sich um *Indexvariablen* handelt, sie also eine
 numerische Sequenz der Form `1:n` durchlaufen.
 
-Der zweite Befehl im Körper der Schleife wählt die zuvor definierte 
-Spalte von `npi_clean` als Vektor aus. Ich benutze dabei die 
-`[[·]]`-Notation, da sie mir erlaubt, eine Variable vom Typ `character` 
-in den Klammern zu übergeben. Der folgende Aufruf mit der `$`-Notation 
-würde nicht funktionieren: `npi_clean$colname` -- hierbei würde `R` nach 
-einer Spalte mit dem Namen `colname` suchen, aber wir wollen hier ja 
-stattdessen eigentlich den in der Variable `colname` enthaltenen 
+Der zweite Befehl im Körper der Schleife wählt die zuvor definierte
+Spalte von `npi_clean` als Vektor aus. Ich benutze dabei die
+`[[·]]`-Notation, da sie mir erlaubt, eine Variable vom Typ `character`
+in den Klammern zu übergeben. Der folgende Aufruf mit der `$`-Notation
+würde nicht funktionieren: `npi_clean$colname` -- hierbei würde `R` nach
+einer Spalte mit dem Namen `colname` suchen, aber wir wollen hier ja
+stattdessen eigentlich den in der Variable `colname` enthaltenen
 Spaltennamen (etwa `Q23`) verwenden.
 
-Der dritte Befehl im Körper der Schleife führt mit einem Aufruf der 
-Funktion `ifelse` die eigentliche Umkodierung durch. Es wird kodiert, ob 
-Probanden beim i'ten Item die narzisstische Aussage ausgewählt haben. 
-Eine 1 wird vergeben, wenn das der Fall war, andernfalls eine Null. Ich 
-speichere diesen numerischen Vektor aus Einsen und Nullen in der 
-Variablen `narcissistic_response` zwischen. Beachtet, dass diese 
-Variable in jedem Durchlauf der Schleife überschrieben wird (dasselbe 
+Der dritte Befehl im Körper der Schleife führt mit einem Aufruf der
+Funktion `ifelse` die eigentliche Umkodierung durch. Es wird kodiert, ob
+Probanden beim i'ten Item die narzisstische Aussage ausgewählt haben.
+Eine 1 wird vergeben, wenn das der Fall war, andernfalls eine Null. Ich
+speichere diesen numerischen Vektor aus Einsen und Nullen in der
+Variablen `narcissistic_response` zwischen. Beachtet, dass diese
+Variable in jedem Durchlauf der Schleife überschrieben wird (dasselbe
 gilt für die Variablen `colname`, `ith_item` und `new_colname`) .
 
-Der vierte Befehl im Körper der Schleife generiert neue Spaltennamen, um 
-die Vektoren, die mit 1 und 0 die Auswahl narzisstischer Aussagen 
-kodieren, als Spalten meines `data.frames` abzuspeichern. So stelle ich 
-sicher, dass ich auch später darauf zugreifen kann, etwa um Summenwerte 
-über alle Items oder Item-Trennschärfen zu bestimmen. Die Funktion 
-`paste0` generiert die neuen Spaltennamen in der Form `codedQ1`, 
+Der vierte Befehl im Körper der Schleife generiert neue Spaltennamen, um
+die Vektoren, die mit 1 und 0 die Auswahl narzisstischer Aussagen
+kodieren, als Spalten meines `data.frames` abzuspeichern. So stelle ich
+sicher, dass ich auch später darauf zugreifen kann, etwa um Summenwerte
+über alle Items oder Item-Trennschärfen zu bestimmen. Die Funktion
+`paste0` generiert die neuen Spaltennamen in der Form `codedQ1`,
 `codedQ2` und so weiter.
 
 Der fünfte Befehl im Körper der Schleife fügt mit der `[[·]]`-Notation
@@ -185,16 +185,16 @@ weniger Zeilen dasselbe Ergebnis erzielen:
 ```R
 for (i in 1:40) {
     colname <- paste0("Q", i)
-    npi_clean[[paste0("coded", colname)]] <- 
+    npi_clean[[paste0("coded", colname)]] <-
         ifelse(npi_clean[[colname]] == keys[i], 1, 0)
 }
 ```
 
-Weiter oben habe ich jedoch jeden Zwischenschritt in einer eigenen 
-Variablen abgespeichert, um den Code besser verständlich zu machen und 
-alle Schritte zu erklären. Aus meiner Sicht ist das Zwischenspeichern in 
-Variablen gut geeignet, um zu kommunizieren, was Code macht -- 
-insbesondere, wenn die Variablen gut benannt sind. 
+Weiter oben habe ich jedoch jeden Zwischenschritt in einer eigenen
+Variablen abgespeichert, um den Code besser verständlich zu machen und
+alle Schritte zu erklären. Aus meiner Sicht ist das Zwischenspeichern in
+Variablen gut geeignet, um zu kommunizieren, was Code macht --
+insbesondere, wenn die Variablen gut benannt sind.
 
 ## Berechnung von  part-whole korrigierten Trennschärfen
 
@@ -210,7 +210,7 @@ nutzen diesen Code:
 
 ## Wir nutzen die umkodierten NPI-Werte: speichere diese
 ## zunächst in einem separaten data.frame ab:
-columns <- paste0("codedQ", 1:40) 
+columns <- paste0("codedQ", 1:40)
 items <- subset(npi_clean, select = columns)
 
 ## Berechne die Trennschärfen in Schleife
@@ -233,12 +233,12 @@ for (name in columns) {
 ```
 
 
-Mithilfe der Funktion `print` gebe ich nacheinander die 40 Trennschärfen 
-aus, die ich in den Durchläufen der Schleife berechne; um die Seite nicht 
-mit einer ausufernden Liste an Trennschärfen zu fluten, habe ich hier 
-aber nur drei davon angezeigt. Um ein Objekt während des Laufs einer 
-Schleife in der Konsole auszugeben, muss man `print` explizit auf das 
-auszugebende Objekt aufrufen; das Objekt ohne `print` anzusteuern würde 
+Mithilfe der Funktion `print` gebe ich nacheinander die 40 Trennschärfen
+aus, die ich in den Durchläufen der Schleife berechne; um die Seite nicht
+mit einer ausufernden Liste an Trennschärfen zu fluten, habe ich hier
+aber nur drei davon angezeigt. Um ein Objekt während des Laufs einer
+Schleife in der Konsole auszugeben, muss man `print` explizit auf das
+auszugebende Objekt aufrufen; das Objekt ohne `print` anzusteuern würde
 in keiner Reaktion resultieren.[^`r incref()`]
 
 [^`r incfnc()`]: Beachtet, dass ich innerhalb der Funktion `print` die
@@ -278,19 +278,19 @@ Konsole aus.
 
 ## Datenspeicherung in einer Schleife
 
-Im vorherigen Beispiel habe ich Item-Trennschärfen berechnet und dann 
-mit dem `print`-Befehl in der Konsole ausgegeben. Oftmals möchte ich die 
-Ergebnisse von Berechnungen, die während einer Schleife anfallen, aber 
-nicht nur ausgeben, sondern auch abspeichern. Im ersten 
-Anwendungsbeispiel einer `for`-Schleife -- Umkodierung von Items -- 
-hatten wir uns zunutze gemacht, dass man mit der `[[·]]`-Notation neue 
-Spalten an an `data.frames` anhängen kann.  Wenn ich in jedem Durchgang 
-einer Schleife genau einen Wert berechne, macht es aber Sinn die Werte 
-in einem Vektor abzuspeichern. Im Folgenden sehen wir uns an, wie wir 
-das zur Speicherung der Trennschärfen machen können. Dabei betrachten 
-wir zwei Fälle: Einmal adressieren wir Vektorelemente per Name und 
+Im vorherigen Beispiel habe ich Item-Trennschärfen berechnet und dann
+mit dem `print`-Befehl in der Konsole ausgegeben. Oftmals möchte ich die
+Ergebnisse von Berechnungen, die während einer Schleife anfallen, aber
+nicht nur ausgeben, sondern auch abspeichern. Im ersten
+Anwendungsbeispiel einer `for`-Schleife -- Umkodierung von Items --
+hatten wir uns zunutze gemacht, dass man mit der `[[·]]`-Notation neue
+Spalten an an `data.frames` anhängen kann.  Wenn ich in jedem Durchgang
+einer Schleife genau einen Wert berechne, macht es aber Sinn die Werte
+in einem Vektor abzuspeichern. Im Folgenden sehen wir uns an, wie wir
+das zur Speicherung der Trennschärfen machen können. Dabei betrachten
+wir zwei Fälle: Einmal adressieren wir Vektorelemente per Name und
 einmal per Index (siehe [Kapitel 3.5](#nameindex)).
-    
+
 ### Adressierung per Name
 
 Zunächst erstelle ich wie folgt einen leeren[^`r incref()`] Vektor der
@@ -323,11 +323,11 @@ names(discriminations) <- paste0("codedQ", 1:40)
 discriminations[1:3]
 ```
 
-So haben die Elemente meines leeren Vektors dieselben Namen wie die 
-Spalten des `data.frames` `items`, den ich zur Berechnung der 
-Trennschärfen verwendet habe. Dass ich ausgerechnet diese Namen vergeben 
-habe, hat zur Folge, dass ich recht einfach den obigen Code zur 
-Berechnung der Trennschärfen umwandeln kann, um die Trennschärfen auch 
+So haben die Elemente meines leeren Vektors dieselben Namen wie die
+Spalten des `data.frames` `items`, den ich zur Berechnung der
+Trennschärfen verwendet habe. Dass ich ausgerechnet diese Namen vergeben
+habe, hat zur Folge, dass ich recht einfach den obigen Code zur
+Berechnung der Trennschärfen umwandeln kann, um die Trennschärfen auch
 noch abzuspeichern. Dies ist der leicht angepasste Code:
 
 ```{r}
@@ -385,7 +385,7 @@ for (i in indices) {
     discriminations[i] <- part_whole
 }
 ## Voilá:
-head(discriminations) 
+head(discriminations)
 ```
 
 Hier wird die Index-Variable `i` gleich mehrfach verwendet: (a) zur
@@ -397,4 +397,111 @@ wird man solche Schleifen ab und zu zu Gesicht bekommen.
 
 ## for-loops are evil -- oder nicht?
 
-Inhalt folgt.
+Häufiges credo in der `R`-Gemeinschaft: `for`-loops = evil. Warum? Der
+einzige Grund - meiner Lesart zufolge - ist, dass for-Schleifen oft
+langsamer als mögliche Alternativen sind. Was könnten mögliche
+Alternativen sein?  Betrachten wir den folgenden Code zur Berechnung der
+Summe der Elemente eines Vektors:
+
+```{r}
+zahlen <- 1:10
+summe  <- 0
+for (i in 1:length(zahlen)) {
+  summe <- summe + zahlen[i]
+}
+```
+
+Betrachten wir folgende Alternative:
+
+```{r}
+sum(1:10)
+```
+
+Letztere Variante ist nicht nur besser lesbar, sondern sogar
+effizienter, was bei nur 10 Elementen aber noch nicht ins Gewicht
+fällt. Hierbei ist die Alternative zur for-Schleife sehr naheliegend, da
+viele Funktionen und Operationen in `R` direkt *vektorbasiert*
+arbeiten. Aber nicht immer ist eine bessere Alternative zu einer
+Schleife naheliegend oder überhaupt existent.  Insgesamt können wir auf
+der Suche nach besseren Alternativen zu for-Schleifen mindestens auf die
+folgenden drei Probleme stoßen:
+
+1. Was ist die Alternative?
+2. Lohnt sich der Aufwand, die for-Schleife zu ersetzen? Ist sie
+wirklich zu langsam? Was heißt langsam? `for`-Schleifen werden in den
+meisten Fällen unser Problem auch schnell. Wenn ich wie im Beispiel oben
+40 Spalten mit einer for-Schleife abarbeite, ist es vollkommen egal, ob
+ich eine for-Schleife oder eine total tolle Alternative verwende. Lass
+uns bei 4,000 Spalten noch mal über Alternativen reden.
+3. Alternativen sind oft problemspezifisch (siehe `sum`),
+`for`-Schleifen können ganz allgemein genutzt werden, um verschiedene
+Problem zu lösen
+
+Aber: oftmals gibt es Alternativen.  Wenn man sie kennt, lohnt es sich
+oft, auf die Alternative auszuweichen. Problem: man kennt nicht immer
+die Alternative; außerdem ist eine for Schleife oftmals nützlich, um
+eine Problemlösung überhaupt einmal zu überprüfen. Denn: Code, der ein
+Problem löst, ist immer besser als kein Code.
+
+Beispiele: rowSums
+
+Betrachten wir die folgende Schleife, die für jeden Teilnehmenden des
+NPI einen Summenwert berechnet:
+
+```{r}
+
+## Meine eigene for-Schleife: pro Zeile ein Durchlauf der Schleife
+slowRowSums <- function(df) {
+  sums <- vector(length = nrow(df))
+  for (j in 1:nrow(df)) {
+    sums[i] <- sum(df[i, ]) # Summe der i'te Zeile
+  }
+}
+
+#system.time(slowRowSums(npi_recoded))
+#system.time(rowSums(npi_recoded))
+
+```
+
+Kann meine eigene Funktion `slowRowSums` mit `rowSums` mithalten (der
+Name würde suggerieren: nein)?  Funktional macht sie offensichtlich
+dasselbe. Die Funktion `system.time` berechnet für mich die Laufzeit
+beider Funktionen:
+
+```R
+## Teste die Laufzeiten von rowSums und slowRowSums
+system.time(slowRowSums(items))
+     User      System verstrichen
+    3.608       0.000       3.610
+system.time(rowSums(items))
+     User      System verstrichen
+    0.008       0.000       0.005
+```
+
+Lassen wir die drei verschiedenen Zeiten einmal außer Acht. Der
+Unterschied ist in diesem Fall dramatisch: Etwa 3.5 Sekunden vs. < .01
+Sekunde. Obwohl `rowSums`, genauso wie meine for-Schleife, für alle
+Zeilen den Summenwert berechnet, ist sie um einen Faktor zwischen
+`r round(3.528 / 0.004)` und `r round(3.529 / 0.005)` schneller. Das ist
+schwer zu glauben -- wie kann das sein? Ich werde auf die Antwort nicht
+allzu detailliert eingehen. Beachtet, dass `rowSums` eine sogenannte
+"vektorisierte" Funktion ist. Sie läuft intern mit schnellen Operationen
+der `C`-Programmiersprache. `R` selbst ist etwas langsamer, weswegen
+Durchläufe der `R`-eigenen for-Schleife etwas länger dauern.
+
+Vektorisiert sind beispielsweise auch arithmetische Operationen (plus,
+minus, geteilt...), logische Operationen (UND, ODER), und viele der
+grundlegenden Vektorfunktionen (mean, sum, usw).
+
+Ich werde das Thema Effizienz von Schleifen und vektorisierten
+Funktionen nicht weiter ausführen, aber es ist gut, zumindest grob über
+das Thema Bescheid zu wissen. Im Zweifelsfall hilft in der konkreten
+Anwendung eine Google-Suche nach dem Schema "Gibt es für mein Problem
+eine schnelle vektorisierte Variante in `R`?". Aus meiner Sicht lohnt
+sich das aber nur, wenn der Code wirklich merklich langsam ist. Nicht
+immer lohnt sich der Zusatzaufwand.
+
+Lasst euch auf jeden Fall erst einmal nicht davon abhalten, eine
+for-Schleife zu schreiben. Eine for-Schleife, die ein Problem löst, ist
+immer besser, als gar keine Lösung zu haben bzw. Copy & Paste zu
+betreiben. Optimieren kann man später bei Bedarf immer noch.
