@@ -163,36 +163,43 @@ table(mdf$Augenfarbe, mdf$Geschlecht)
 Einzelne Spalten können wir aus `data.frames` mit dem `$`-Zugriff
 auslesen. Wir lernen nun den `[·,·]`-Zugriff kennen, mit dem wir nicht
 nur einzelne Spalten, sondern beliebige Spalten und Zeilen auswählen
-können.[^`r incref()`] 
+können.[^`r incref()`] Wie wir sehen werden, funktioniert der
+`[·,·]`-Zugriff ähnlich wie der `[·]`-Zugriff, den wir zur Auswahl von
+Daten aus Vektoren kennengelernt haben.
 
 [^`r incfnc()`]: Während uns der `$`-Zugriff uns immer genau einen
 Vektor zurückgibt, werden wir mit dem `[·,·]`-Zugriff **zumeist** einen
 ganzen `data.frame` auslesen.
 
-Wir könnten beispielsweise nur eine Teilmenge aller Fälle aus
-`mdf` auswählen; etwa nur die Personen mit blauen Augen, oder
-alle Personen, die den maximalen Testwert erreicht haben. Für solche
-Auswahlen hilft uns unser Wissen über logische Vergleiche aus dem
+Mit dem `[·,·]`-Zugriff könnten wir beispielsweise nur eine Teilmenge
+aller Fälle aus `mdf` auswählen; etwa nur die Personen mit blauen Augen,
+oder alle Personen, die den maximalen Testwert erreicht haben. Für
+solche Auswahlen hilft uns unser Wissen über logische Vergleiche aus dem
 letzten Kapitel. Betrachten wir zunächst ein Beispiel:[^`r incref()`]
 
-[^`r incfnc()`]: Beachtet, dass durch diesen Aufruf die Tabelle
-`mdf` nicht verändert wird. Die Funktion gibt stattdessen eine
-neue Tabelle zurück, die nur die Fälle enthält, bei denen
-`mdf$Augenfarbe == "blau"` gilt. Wir müssten das Ergebnis der
-Funktion in einer Variablen speichern, wenn wir damit weiter arbeiten
-wollen (Erinnerung: [Kapitel 2](#ausgabevsabspeichern)).
+[^`r incfnc()`]: Beachtet, dass durch diesen Aufruf der `data.frame`,
+der in der Variablen `mdf` abgespeichert ist, nicht verändert wird. Der
+`[·,·]`-Zugriff gibt stattdessen einen neuen `data.frame` zurück, der
+nur die Fälle enthält, bei denen `mdf$Augenfarbe == "blau"` `TRUE`
+ergibt. Wir müssten das Ergebnis der Funktion in einer Variablen
+speichern, wenn wir damit weiter arbeiten wollen (Erinnerung: [Kapitel
+2](#ausgabevsabspeichern)).
 
 ```{r}
 mdf[mdf$Augenfarbe == "blau", ]
 ```
 
-Auf diese Weise haben wir mit einem logischen Vergleich aus der Tabelle
-nur zwei Zeilen ausgewählt, nämlich die der Personen mit blauen Augen.
+Wie das folgende Beispiel zeigt, können wir mit der `[·,·]`-Notation
+auch gezielt Spalten aus `data.frames` auswählen:
 
+```{r}
+mdf[, c("Augenfarbe", "Alter")]
+```
 
-
-Allgemein ist die Syntax zum Ansprechen von `data.frames` mit dem
-`[·,·]`-Operator die Folgende:
+Wir erkennen, dass das Komma in der `[·,·]`-Notation bewirkt, ob eine
+Auswahl nach Zeilen oder Spalten stattfindet. **Vor dem Komma werden
+Zeilen adressiert, nach dem Komma Spalten.** Allgemein ist die Syntax
+zum Ansprechen von `data.frames` mit dem `[·,·]`-Zugriff die Folgende:
 
 ```
 data.frame[Reihenvektor, Spaltenvektor]
@@ -200,35 +207,34 @@ data.frame[Reihenvektor, Spaltenvektor]
 
 Dabei ist *Reihenvektor*/*Spaltenvektor* entweder ein (a) numerischer
 Vektor, der die Indexe der Reihen/Spalten enthält, die ausgewählt werden
-sollen, oder (b) ein logischer Vektor, der für jede Reihe/Spalte
-kodiert, ob diese in der Ausgabe enthalten sein soll (vgl. Kapitel
-[2](#logischerZugriff)), oder (c) ein "character" Vektor, der die
-Zeilen/Spalten, die ausgegeben werden sollen, nach Namen
-auswählt.[^`r incref()`]
+sollen, (b) ein logischer Vektor, der für jede Reihe/Spalte kodiert, ob
+diese in der Ausgabe enthalten sein soll (vgl. Kapitel
+[2](#logischerZugriff)), oder (c) Vektor vom Typ `character`, der die
+Namen der Zeilen/Spalten enthält, die ausgegeben werden sollen.[^`r
+incref()`]
 
-[^`r incfnc()`]: Es ist möglich, dass auch Zeilen Namen haben. Häufig
-sind Zeilen aber nur nummeriert und nicht explizit benannt.
+[^`r incfnc()`]: Es ist möglich, dass auch Zeilen Namen haben. Den Fall
+hatten wir bislang aber nicht und es ist auch häufig so, dass Zeilen
+nicht explizit benannt sind.
+
+Es ist möglich in einem Befehl sowohl nach Spalten als auch Zeilen
+auswählen. Oftmals wird aber entweder der Spaltenvektor oder der
+Reihenvektor leer ist. Dann findet die Auswahl nur entweder nach Zeilen
+beziehungsweise Spalten statt, wie es auch in den obigen Beispielen der
+Fall war.
+
+Häufig werden wir zur Auswahl der gewünschten Spalten einen Vektor vom
+Typ `character` angeben -- also die Spaltennamen. Zur Auswahl von Zeilen
+wird man häufig einen logischen Vektor verwenden, der die Eigenschaften
+der Fälle kodiert, die die auszuwählenden Fälle haben sollen. Aber: Alle
+Möglichkeiten sind denkbar, etwa auch, dass ein logischer Vektor zur
+Auswahl der Spalten verwendet wird oder wir die Nummern der Zeilen
+angeben, die ausgewählt werden sollen.
 
 &nbsp;
 
-Es ist möglich, dass entweder der Spaltenvektor oder der Reihenvektor
-leer ist; in dem Fall findet die Auswahl nur nach Reihe bzw. Spalte
-statt. Das ist analog dazu, dass wir mit der Funktion `subset` eines der
-Argumente `subset` oder `select` auslassen. Das führt zu einer
-gewöhnungsbedürftig aussehenden Syntax:
-
-```
-data.frame[Reihenvektor, ]
-data.frame[, Spaltenvektor]
-```
-
-Tatsächlich wird man häufig nur entweder nach Spalte oder nach Zeile
-auswählen und nicht unbedingt beides kombinieren. Wie und ob ich an
-dieser Stelle vor oder nach dem Komma Leerzeichen setze, hat keine
-Bedeutung.
-
 Durch die UND bzw. ODER Operationen können wir auch komplexere
-Anforderungen an die Auswahl stellen:
+Anforderungen an die Auswahl der Zeilen stellen:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau" | Augenfarbe == "grün")
