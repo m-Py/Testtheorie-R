@@ -46,7 +46,7 @@ Spalten bei der Erstellung des `data.frames` benannt werden können.
 **Dieser Punkt ist sehr wichtig, da wir Spalten anhand ihres Namens
 gezielt auswählen können**. Wenn ich die Spaltennamen, also die Namen
 der Messvariablen eines `data.frames` nicht weiß -- etwa weil ich die
-Daten aus einer Datei eingelesen habe -- kann ich diese mit dem Befehl
+Daten aus einer Datei eingelesen habe -- kann ich diese mit der Funktion
 `names` herausfinden:
 
 ```{r}
@@ -60,25 +60,23 @@ Großteil des Kapitels begleiten, um Grundlagen von
 ## Datenzugriffe
 
 Wir lernen in diesem Abschnitt die wichtigsten Möglichkeiten kennen,
-aus `data.frames` Daten auszuwählen. Dabei lernen wir Zeilen und Spalten
-separat auszulesen.
+Daten aus Spalten und Zeilen von `data.frames` auszuwählen.
 
 ### Zugriff auf eine einzelne Spalte: die `$`-Notation
 
-Ich kann auf eine einzelne Spalte eines `data.frame` mit der
-`$`-Notation zugreifen:
+Der `$`-Zugriff ist für uns die grundlegendste Operation auf
+`data.frames`. Mit der `$`-Notation auf eine einzelne Spalte eines
+`data.frames` zugreifen und diese **als Vektor** auslesen:
 
 ```{r}
 punkte <- meinDataFrame$Item1
 punkte # `punkte` ist ein Vektor
 ```
 
-Der `$`-Zugriff ist für uns die grundlegendste Operation auf
-`data.frames`. Er liest eine einzelne Spalte eines `data.frames` **als
-Vektor** aus.  Ich kann den `$`-Zugriff nicht nur verwenden, um eine
-Spalte aus einem `data.frame` auszulesen, sondern kann damit auch neue
-Spalten zum `data.frame` hinzufügen, indem ich einer neuen Spalte mit
-"`<-`" einen neuen Vektor zuweise:
+Ich kann den `$`-Zugriff nicht nur verwenden, um eine Spalte aus einem
+`data.frame` auszulesen, sondern kann damit auch neue Spalten zum
+`data.frame` hinzufügen, indem ich der neu zu erstellenden Spalte per
+"`<-`" einen Vektor zuweise:
 
 ```{r}
 meinDataFrame$Augenfarbe <- c("blau", "grau", "blau", "braun", "grün")
@@ -109,11 +107,11 @@ Beispiel verwenden, um den Testscore zu berechnen "wohnen" in
 werden. Das hier geht schief:
 
 [^`r incfnc()`]: Es ist etwas unglücklich, dass der Begriff "Variable"
-eine doppeldeutige Verwendung hat: (1) In `R`
-sind Variablen die Speicherorte von Objekten, die ich mit der "`<-`"
-Zuweisung erstelle. (2) Andererseits bezeichnet man auch Messwerte, etwa
-die Punktzahlen in einem Testitem, als Variable. In `R` würde man sich
-bei dieser Verwendung des Begriffs Variable dann auf die Spalte in einem
+eine doppeldeutige Verwendung hat: (1) In `R` sind Variablen die
+Speicherorte von Objekten, die ich mit der "`<-`" Zuweisung erstelle.
+(2) Andererseits bezeichnet man auch Messwerte, etwa die Punktzahlen in
+einem Testitem, als Variable. In `R` würde man sich bei dieser
+Verwendung des Begriffs Variable dann auf die Spalte in einem
 `data.frame` beziehen. Diese Verwechslung ist unglücklich, da eine
 `data.frame` Spalte gar keine `R`-Variable ist. Stattdessen speichern
 wir den gesamten `data.frame` in **einer** Variablen ab.
@@ -126,9 +124,13 @@ Fehler: Objekt 'Item1' nicht gefunden
 Hier sucht `R` nach einer Variablen `Item1`, die aber nicht existiert;
 `Item1` ist nur eine Spalte von `meinDataFrame`. Noch schlimmer wäre es,
 wenn in meiner Arbeitsumgebung tatsächlich Variablen mit den Namen
-`Item1` und `Item2` existieren. Dann würde ich nicht einmal eine
-Fehlermeldung erhalten und hätte gegebenenfalls falsche Daten
-abgespeichert.
+`Item1` und `Item2` existieren. In dem Fall würden wir nicht einmal eine
+Fehlermeldung erhalten[^`r incref()`] und hätten gegebenenfalls falsche
+Daten abgespeichert.
+
+[^`r incfnc()`]: Wir können uns schon einmal merken, dass
+Fehlermeldungen grundsätzlich etwas Gutes sind. Auch wenn sie oft
+frustrierend sind, helfen sie uns dabei, korrekten Code zu schreiben.
 
 Mit der `$`-Notation werden wir häufig auf Daten zugreifen, um
 Berechnungen anzustellen. Wir können beispielsweise Mittelwerte von
@@ -161,7 +163,7 @@ nur einzelne Spalten, sondern beliebige Spalten und Zeilen auswählen
 können.[^`r incref()`]
 
 [^`r incfnc()`]: Während uns der `$`-Zugriff uns immer genau einen
-Vektor zurückgibt, werden wir mit dem `[·,·]`-Zugriff zumeist einen
+Vektor zurückgibt, werden wir mit dem `[·,·]`-Zugriff **zumeist** einen
 ganzen `data.frame` auslesen.
 
 Wir könnten beispielsweise nur eine Teilmenge aller Fälle aus
@@ -178,7 +180,7 @@ Funktion in einer Variablen speichern, wenn wir damit weiter arbeiten
 wollen (Erinnerung: [Kapitel 2](#ausgabevsabspeichern)).
 
 ```{r}
-meinDataFrame[, meinDataFrame$Augenfarbe == "blau"]
+meinDataFrame[meinDataFrame$Augenfarbe == "blau", ]
 ```
 
 Auf diese Weise haben wir mit einem logischen Vergleich aus der Tabelle
@@ -186,8 +188,8 @@ nur zwei Zeilen ausgewählt, nämlich die der Personen mit blauen Augen.
 
 
 
-Allgemein ist die Syntax zum Ansprechen von `data.frames` mit dem `[·,·]`-Operator ist
-die Folgende:
+Allgemein ist die Syntax zum Ansprechen von `data.frames` mit dem
+`[·,·]`-Operator die Folgende:
 
 ```
 data.frame[Reihenvektor, Spaltenvektor]
