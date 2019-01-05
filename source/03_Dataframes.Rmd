@@ -301,7 +301,7 @@ mdf[, paste0("Item", 1:2)]
 ### Weitere Zugriffsmöglichkeiten auf Spalten
 
 Dieser Abschnitt behandelt noch zwei weitere Varianten des Zugriffs per
-eckigen Klammern auf data.frames. Da wir diese Zugriffe erst einmal
+eckigen Klammern auf `data.frames`. Da wir diese Zugriffe erst einmal
 nicht weiter verwenden werden, kann dieser Abschnitt problemlos
 übersprungen werden; wir konzentrieren uns zunächst auf den `$`-ZUgriff
 und den `[·,·]`-Zugriff. Zwar sind Datenzugriffe mit der `[ ]`-Familie
