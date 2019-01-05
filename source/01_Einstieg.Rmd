@@ -137,7 +137,7 @@ ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch
 erfordert die Meisterung von `R` noch weitere eigenständige Einarbeitung.
 
 [^`r incfnc()`]: Kapitel 2 enthält beispielsweise eine Beschreibung
-verschiedener Datentypen in `R` (Zahlen, Text, etc.). Diese Liste deckt
+verschiedener Datentypen in `R` (Zahlen, Text etc.). Diese Liste deckt
 zwar die für uns wichtigsten Datentypen ab, ist aber nicht
 vollständig. Aus inhaltlichen Gründen folgt sie außerdem nicht der
 internen "technischen" Kategorisierung von Daten in `R`.
@@ -146,7 +146,7 @@ internen "technischen" Kategorisierung von Daten in `R`.
 
 Für Feedback und eine Rückmeldung bei der Entdeckung von Fehlern im
 Skript (auch und insbesondere bei der Entdeckung einfacher
-Rechtschreibfehler, doppelter oder fehlender Wörter, fehlender Kommas,
+Rechtschreibfehler, doppelter oder fehlender Wörter, fehlender Kommas
 etc.) bin ich sehr dankbar! Meldungen können mir an
 \href{mailto:martin.papenberg@hhu.de}{martin.papenberg@hhu.de} gesendet
 werden.
@@ -167,7 +167,7 @@ Fehlersichtungen.
 Im Seminar nutzen wir die "integrierte Entwicklungsumgebung" (engl:
 integrated developement environment; *IDE*) RStudio, um mit `R` zu
 arbeiten. Zum Nachvollziehen des Skripts und der Übungen solltet ihr
-deswegen RStudio auf eurem eigenen Rechner / Laptop
+deswegen RStudio auf eurem eigenen Rechner/Laptop
 installieren.[^`r incref()`] Das geht über diesen Link:
 
 [^`r incfnc()`]: Falls ihr eine andere Umgebung benutzt, ist das
