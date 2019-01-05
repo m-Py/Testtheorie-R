@@ -210,18 +210,18 @@ Vektor, der die Indexe der Reihen/Spalten enthält, die ausgewählt werden
 sollen, (b) ein logischer Vektor, der für jede Reihe/Spalte kodiert, ob
 diese in der Ausgabe enthalten sein soll (vgl. Kapitel
 [2](#logischerZugriff)), oder (c) Vektor vom Typ `character`, der die
-Namen der Zeilen/Spalten enthält, die ausgegeben werden sollen.[^`r
-incref()`]
+Namen der Zeilen/Spalten enthält, die ausgegeben werden sollen.
+[^`r incref()`]
 
-[^`r incfnc()`]: Es ist möglich, dass auch Zeilen Namen haben. Den Fall
-hatten wir bislang aber nicht und es ist auch häufig so, dass Zeilen
-nicht explizit benannt sind.
+[^`r incfnc()`]: Auch Zeilen können benannt sein. Den Fall hatten wir
+bislang aber nicht und es ist auch nicht häufig so, dass Zeilen explizit
+benannt sind.
 
-Es ist möglich in einem Befehl sowohl nach Spalten als auch Zeilen
-auswählen. Oftmals wird aber entweder der Spaltenvektor oder der
-Reihenvektor leer ist. Dann findet die Auswahl nur entweder nach Zeilen
-beziehungsweise Spalten statt, wie es auch in den obigen Beispielen der
-Fall war.
+Es ist möglich, dass in einem einzelnen `[·,·]`-Zugriff sowohl nach
+Spalten als auch Zeilen ausgewählt wird. Oftmals wird aber entweder der
+Spaltenvektor oder der Reihenvektor "leer" sein. Dann findet die Auswahl
+nur entweder nach Zeilen beziehungsweise Spalten statt, wie es auch in
+den obigen Beispielen der Fall war.
 
 Häufig werden wir zur Auswahl der gewünschten Spalten einen Vektor vom
 Typ `character` angeben -- also die Spaltennamen. Zur Auswahl von Zeilen
@@ -308,14 +308,17 @@ Klammern sind jedoch zentral für `R` als Programmiersprache, weswegen es
 sich lohnt diesen Abschnitt später zu konsultieren oder zum Nachschlagen
 zu nutzen.
 
-**Der `[[·]]`-Zugriff**
+&nbsp;
 
-Äquivalent zum `$`-Zugriff funktioniert der folgende `[[·]]` Zugriff auf
-eine einzelne Spalte:
+\noindent \textbf{Der \texttt{[[·]]}-Zugriff}
+
+&nbsp;
+
+\noindent Äquivalent zum `$`-Zugriff funktioniert der folgende
+`[[·]]`-Zugriff auf eine einzelne Spalte:
 
 ```{r}
-punkte2 <- mdf[["Item1"]]
-punkte2
+mdf[["Item1"]] # dasselbe wie mdf$Item1
 ```
 
 Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
@@ -324,15 +327,15 @@ Anführungszeichen sind notwendig, wenn man die `[[·]]`-Notation
 verwendet. Bei der `$`-Notation verwenden wir keine Anführungszeichen.
 Das bedeutet auch, dass wir statt der expliziten Angabe des Texts auch
 eine Variable übergeben kann, die einen ein-elementigen
-`character`-Vektor enthält. Das ist mit der der `$`-Notation nicht
-möglich.[^`r incref()`]
+`character`-Vektor abspeichert, was mit der `$`-Notation nicht möglich
+ist.
 
 ```{r}
 auswahl <- "Augenfarbe"
 mdf[[auswahl]]
 ```
 
-Es wäre auch möglich, eine Funktion in die `[[·]]`-Klammerung zu
+Es ist auch möglich, eine Funktion in die `[[·]]`-Klammerung zu
 übergeben, die uns einen ein-elementigen Vektor vom Typ character
 zurückgibt -- etwa die Funktion `paste0`:
 
@@ -350,38 +353,41 @@ vor allem interessant sein, nacheinander auf die Antworten auf Testitems
 -- hier `1` -- nacheinander immer wieder austauschen (1, 2, 3, 4, ...)
 -- ohne, dass wir den Code immer wieder händisch neu schreiben müssen.
 
-**Der `[·]`-Zugriff**
+&nbsp;
 
-**Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist folgender
-`[·]` Zugriff. Auch hier sind Anführungszeichen zur Identifikation der
-auszuwählenden Spalte nötig:
+\noindent \textbf{Der \texttt{[·]}-Zugriff}
+
+&nbsp;
+
+\noindent **Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist
+folgender `[·]`-Zugriff:
 
 ```{r}
-punkte3 <- mdf["Item1"]
-punkte3
+mdf["Item1"]
 ```
 
-Für die Auswahl einer Spalte aus einem `data.frame` gilt: Der
-Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und `$` ergeben einen
-Vektor, `[·]` einen `data.frame` mit einer Spalte.
-
-Wir können mit dem `[·]`-Zugriff jedoch auch gleichzeitig mehrere
-Spalten auswählen, indem wir einen Vektor vom Typ `character` mit
-mehreren Elementen angeben:
+Auch hier sind Anführungszeichen zur Identifikation der auszuwählenden
+Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und
+`$` ergeben einen Vektor, `[·]` einen `data.frame` mit einer Spalte.
+Außerdem können wir mit dem `[·]`-Zugriff -- im Gegensatz zu den
+Zugriffen per `[[·]]` und `$` -- gleichzeitig mehrere Spalten auswählen,
+indem wir einen mehr-elementigen Vektor vom Typ `character` angeben:
 
 ```{r}
 mdf[c("Item1", "Augenfarbe")]
 ```
 
-Das ist sehr ähnlich zu der `[·,·]`-Notation und in der Tat ist dieser
-Ausdruck ist äquivalent zum folgenden Befehl:
+Dieser Aufruf sollte uns an die `[·,·]`-Notation zur Auswahl von Spalten
+erinnern; in der Tat ist dieser Ausdruck äquivalent zum folgenden
+Befehl:
 
 ```{r}
 mdf[, c("Item1", "Augenfarbe")]
 ```
 
 Zwischen dem `[·]`-Zugriff und der `[·,·]`-Auswahl für Spalten gibt es
-einen Unterschied, der zutage kommt, wenn wir nur eine Spalte auswählen:
+jedoch einen Unterschied, der zutage kommt, wenn wir nur eine Spalte
+auswählen:
 
 ```{r}
 mdf["Item1"]
@@ -394,10 +400,10 @@ mdf[, "Item1"]
 Hier gibt die `[·,·]`-Auswahl einen Vektor zurück und die `[·]`-Auswahl
 einen `data.frame` mit nur einer Spalte. So lernen wir einen Sonderfall
 der `[·,·]`-Auswahl kennen: Im Normalfall erhalten wir einen ganzen
-`data.frame` zurück, aber wenn wir nur eine Spalte anfordern,
-"reduziert" sich die Ausgabe zu einem Vektor. Das liegt daran, dass eine
-einzelne Spalte eines `data.frame` auch gut als Vektor repräsentiert
-ist.
+`data.frame` zurück, wenn wir per `[·,·]` Daten anfordern. Wenn wir aber
+nur eine Spalte anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
+Das liegt daran, dass eine einzelne Spalte eines `data.frame` auch gut
+als Vektor repräsentiert ist.
 
 ### Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
 
