@@ -7,13 +7,13 @@ Daten -- also mehr als einen Wert pro "Fall" --, die wir nicht sinnvoll
 als einzelnen Vektor darstellen können. Etwa: 150 Studierende bearbeiten
 in einer Diagnostikklausur 42 Multiple-Choice-Klausuritems. Wir stellen
 solche Daten in Tabellen dar, wie wir sie auch aus Excel oder SPSS
-kennen. Spalten stellen Messvariablen dar, etwa die Punktzahlen in einer
-Klausuraufgabe. Zeilen stellen Fälle dar. Ein Fall könnte etwa eine
-Testteilnehmerin sein, für die in mehreren Spalten ihre Punktzahlen in
-allen Aufgaben abgespeichert sind.[^`r incref()`] In `R` speichert man
-solche Datentabellen in `data.frames` ab. Ein `data.frame` ist --
-vereinfacht gesagt -- eine Sammlung von Vektoren; jede Spalte, d.h. jede
-Messvariable ist ein Vektor.
+kennen. In solchen Tabellen repräsentieren Spalten Messwerte, etwa die
+Punktzahlen in einer Klausuraufgabe. Zeilen stellen Fälle dar. Ein Fall
+könnte etwa eine Testteilnehmerin sein, für die in mehreren Spalten ihre
+Punktzahlen in allen Aufgaben abgespeichert sind.[^`r incref()`] In `R`
+werden solche Datentabellen in `data.frames` abgespeichert. Ein
+`data.frame` ist -- vereinfacht gesagt -- eine Sammlung von Vektoren;
+jede Spalte, also jede Messvariable, ist ein Vektor.
 
 [^`r incfnc()`]: Andere Formate sind auch denkbar, etwa eines in dem
 jede Zeile eine Aufgabe darstellt. Bei uns wird aber im Normalfall
