@@ -237,63 +237,36 @@ Durch die UND bzw. ODER Operationen können wir auch komplexere
 Anforderungen an die Auswahl der Zeilen stellen:
 
 ```{r}
-subset(mdf, Augenfarbe == "blau" | Augenfarbe == "grün")
-
-subset(mdf, (Augenfarbe == "blau" | Augenfarbe == "grün") & Item1 == 1)
-
+mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün", ]
+mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün" & mdf$Item1 == 1, ]
 ```
 
-Hier merken wir, dass diese Notation recht schnell etwas unübersichtlich
-wird. Weiter unten lernen wir mit der Funktion `subset` eine Möglichkeit
-kennen, solche logischen Anfragen an die Auswahl von Fällen etwas
-prägnanter zu gestalten.
-
-Wie schon erwähnt, können wir mit `subset` nicht nur Zeilen, sondern
-auch Spalten auswählen:
-
-```{r}
-subset(mdf, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
-```
-
-Hierbei habe ich mit dem dritten Argument `c('Item1', 'Augenfarbe')`
-eine Auswahl der Spalten durchgeführt. Dazu habe ich einen Vektor vom
-Typ `character` übergeben, der die auszulesenden Spalten mit Namen
-adressiert. Durch die Kombination der Auswahl von Zeilen und Spalten
-wird mir insgesamt ein `data.frame` ausgegeben, der nur die Spalten
-"Item1" und "Augenfarbe" enthält, und diese nur für Personen mit blauen
-Augen.
-
-Wie erwähnt, ist es auch in `data.frames` möglich, Zugriffe per Index
-durchzuführen. Das heißt für uns: Wir können beispielsweise die erste
-Spalte auswählen, ohne explizit den Namen der Spalte anzugeben. Das ist
-besonders nützlich, wenn wir mit großen Datentabellen arbeiten. Um etwa
-Items des NPI zu "bepunkten", müssen wir Antworten aus 40 Spalten
-umkodieren. Dabei kann es nützlich sein nacheinander "links nach rechts"
-(also von der ersten zur letzten Spalte, d.h. 1, ..., 40) alle Spalten
-per Index anzusprechen. Diese Funktionalität bietet uns der
-`[·,·]`-Operator. Dieser ist ein sehr mächtiges Werkzeug zur Bearbeitung
-von Daten in `R`. Unter anderem bietet er uns die Möglichkeit, die
-Funktionalität von `subset` zu reproduzieren.
+Hier merken wir, dass die `[·,·]`-Notation recht schnell unübersichtlich
+wird, wenn man komplexere logische Anfragen stellt. Insbesondere führen
+wir hier häufig einen `$`-Zugriff auf `dfw` durch, um die kombinierte
+logische Bedingung anzugeben. Weiter unten lernen wir mit der Funktion
+`subset` eine Möglichkeit kennen, komplexere logische Anfragen an die
+Auswahl von Zeilen etwas prägnanter zu stellen.
 
 &nbsp;
 
-Im Folgenden finden weitere Beispiele für die verschiedenen
-Auswahlmöglichkeiten per `[·,·]`. Wir verwenden weiterhin die Tabelle
-`mdf`
+Zum Abschluss dieses Abschnitts gebe ich noch weitere Beispiele für die
+verschiedenen Auswahlmöglichkeiten per `[·,·]` an. Wir verwenden
+weiterhin die Tabelle `mdf`:
 
 ```{r}
 ## Wähle per Index die ersten drei Zeilen aus
-mdf[1:3,]
+mdf[1:3, ]
 
 ## Wähle per Index die zweite und vierte Spalte aus
-mdf[,c(2, 4)]
+mdf[, c(2, 4)]
 
 ## Wähle per logischem Vektor alle Personen aus, die beide Aufgaben
 ## richtig gelöst haben:
-mdf[mdf$Testscore == 2,]
+mdf[mdf$Testscore == 2, ]
 
 ## Wähle alle Personen aus, die blaue oder braune Augen haben:
-mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun",]
+mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun", ]
 
 ## Wähle Fallnummer, Alter und Testscore per Spaltenname aus:
 mdf[, c("Nummer", "Alter", "Testscore")]
@@ -305,7 +278,7 @@ mdf[mdf$Alter > 13, c("Nummer", "Alter", "Testscore")]
 ## Wähle Fallnummer, Alter und Testscore aus für die ersten drei Fälle
 mdf[1:3, c("Nummer", "Alter", "Testscore")]
 
-## Wähle die Itemscores aus - nutze dabei die Funktion past0e
+## Wähle die Itemscores aus - nutze dabei die Funktion paste0
 mdf[, paste0("Item", 1:2)]
 
 ```
