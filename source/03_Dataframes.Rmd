@@ -30,27 +30,30 @@ stattdessen Daten aus einer externen Datei einlesen.[^`r incref()`]
 importieren diese dann in `R`.
 
 ```{r}
-meinDataFrame <-  data.frame(Nummer = 1:5,
-                             Item1 = c(1, 0, 0, 1, 1),
-                             Item2 = c(1, 1, 0, 0, 1),
-                             Alter = c(13, 14, 13, 12, 15),
-                             Geschlecht = c("w", "m", "m", "w", "m")
-                             )
-meinDataFrame
+ mdf <- data.frame(Nummer = 1:5,
+                   Item1 = c(1, 0, 0, 1, 1),
+                   Item2 = c(1, 1, 0, 0, 1),
+                   Alter = c(13, 14, 13, 12, 15),
+                   Geschlecht = c("w", "m", "m", "w", "m")
+                   )
+mdf
 ```
 
-Bei dieser Erstellung des `data.frames` wird deutlich, dass Spalten
-Vektoren enthalten, da wir für jede Spalte einen Vektor mit der Funktion
-`c` bzw. mit dem Doppelpunktoperator erstellen. Wir sehen auch, dass die
-Spalten bei der Erstellung des `data.frames` benannt werden können.
-**Dieser Punkt ist sehr wichtig, da wir Spalten anhand ihres Namens
-gezielt auswählen können**. Wenn ich die Spaltennamen, also die Namen
-der Messvariablen eines `data.frames` nicht weiß -- etwa weil ich die
-Daten aus einer Datei eingelesen habe -- kann ich diese mit der Funktion
-`names` herausfinden:
+Wir sehen, dass ein `data.frame` -- ebenso wie ein Vektor -- in einer
+Variable gespeichert werden kann. Die Variable zum Abspeichern des
+`data.frames` nenne ich in diesem Fall `dfw`; das könnte beispielsweise
+für "Mein Data Frame" stehen. Bei der Erstellung des `data.frames` wird
+deutlich, dass Spalten Vektoren enthalten, da wir für jede Spalte einen
+Vektor mit der Funktion `c` bzw. mit dem Doppelpunktoperator erstellen.
+Wir sehen auch, dass die Spalten bei der Erstellung des `data.frames`
+benannt werden können. **Dieser Punkt ist sehr wichtig, da wir Spalten
+anhand ihres Namens gezielt auswählen können**. Wenn ich die
+Spaltennamen, also die Namen der Messvariablen eines `data.frames` nicht
+weiß -- etwa weil ich die Daten aus einer Datei eingelesen habe -- kann
+ich diese mit der Funktion `names` herausfinden:
 
 ```{r}
-names(meinDataFrame)
+names(mdf)
 ```
 
 Diese unscheinbare Tabelle mit nur 5 Einträgen wird uns durch einen
@@ -69,7 +72,7 @@ Der `$`-Zugriff ist für uns die grundlegendste Operation auf
 `data.frames` zugreifen und diese **als Vektor** auslesen:
 
 ```{r}
-punkte <- meinDataFrame$Item1
+punkte <- mdf$Item1
 punkte # `punkte` ist ein Vektor
 ```
 
@@ -79,11 +82,11 @@ Ich kann den `$`-Zugriff nicht nur verwenden, um eine Spalte aus einem
 "`<-`" einen Vektor zuweise:
 
 ```{r}
-meinDataFrame$Augenfarbe <- c("blau", "grau", "blau", "braun", "grün")
+mdf$Augenfarbe <- c("blau", "grau", "blau", "braun", "grün")
 ```
 
 ```{r}
-meinDataFrame
+mdf
 ```
 
 Beim Anhängen von Spalten an `data.frames` mit der `$`-Notation kann ich
@@ -93,9 +96,9 @@ etwa einen Testscore über zwei Items berechnen und direkt an den
 
 ```{r}
 
-meinDataFrame$Testscore <- meinDataFrame$Item1 + meinDataFrame$Item2
+mdf$Testscore <- mdf$Item1 + mdf$Item2
 
-meinDataFrame$Testscore
+mdf$Testscore
 
 ```
 
@@ -103,7 +106,7 @@ Beachtet, dass in diesem Fall recht häufig die `$`-Notation zum Einsatz
 kommt, was etwas gewöhnungsbedürftig aussieht. Aber es ist wichtig
 darauf zu achten. Die Variablen,[^`r incref()`] die wir in diesem
 Beispiel verwenden, um den Testscore zu berechnen "wohnen" in
-`meinDataFrame` und können nicht ohne Verweis darauf adressiert
+`mdf` und können nicht ohne Verweis darauf adressiert
 werden. Das hier geht schief:
 
 [^`r incfnc()`]: Es ist etwas unglücklich, dass der Begriff "Variable"
@@ -117,12 +120,12 @@ Verwendung des Begriffs Variable dann auf die Spalte in einem
 wir den gesamten `data.frame` in **einer** Variablen ab.
 
 ```R
-meinDataFrame$Testscore <- Item1 + Item2
+mdf$Testscore <- Item1 + Item2
 Fehler: Objekt 'Item1' nicht gefunden
 ```
 
 Hier sucht `R` nach einer Variablen `Item1`, die aber nicht existiert;
-`Item1` ist nur eine Spalte von `meinDataFrame`. Noch schlimmer wäre es,
+`Item1` ist nur eine Spalte von `mdf`. Noch schlimmer wäre es,
 wenn in meiner Arbeitsumgebung tatsächlich Variablen mit den Namen
 `Item1` und `Item2` existieren. In dem Fall würden wir nicht einmal eine
 Fehlermeldung erhalten[^`r incref()`] und hätten gegebenenfalls falsche
@@ -137,8 +140,8 @@ Berechnungen anzustellen. Wir können beispielsweise Mittelwerte von
 Messvariablen berechnen, oder uns Häufigkeiten von Daten angeben lassen:
 
 ```{r}
-mean(meinDataFrame$Alter)
-table(meinDataFrame$Geschlecht)
+mean(mdf$Alter)
+table(mdf$Geschlecht)
 ```
 
 Die Funktion `mean` kennen wir bereits. Die Funktion `table` berechnet
@@ -152,7 +155,7 @@ welcher Testscore nach Geschlecht auftaucht:
 
 ```{r}
 ## Erstelle Kreuztabelle von Geschlecht und Augenfarbe:
-table(meinDataFrame$Augenfarbe, meinDataFrame$Geschlecht)
+table(mdf$Augenfarbe, mdf$Geschlecht)
 ```
 
 ### Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation
@@ -160,27 +163,27 @@ table(meinDataFrame$Augenfarbe, meinDataFrame$Geschlecht)
 Einzelne Spalten können wir aus `data.frames` mit dem `$`-Zugriff
 auslesen. Wir lernen nun den `[·,·]`-Zugriff kennen, mit dem wir nicht
 nur einzelne Spalten, sondern beliebige Spalten und Zeilen auswählen
-können.[^`r incref()`]
+können.[^`r incref()`] 
 
 [^`r incfnc()`]: Während uns der `$`-Zugriff uns immer genau einen
 Vektor zurückgibt, werden wir mit dem `[·,·]`-Zugriff **zumeist** einen
 ganzen `data.frame` auslesen.
 
 Wir könnten beispielsweise nur eine Teilmenge aller Fälle aus
-`meinDataFrame` auswählen; etwa nur die Personen mit blauen Augen, oder
+`mdf` auswählen; etwa nur die Personen mit blauen Augen, oder
 alle Personen, die den maximalen Testwert erreicht haben. Für solche
 Auswahlen hilft uns unser Wissen über logische Vergleiche aus dem
 letzten Kapitel. Betrachten wir zunächst ein Beispiel:[^`r incref()`]
 
 [^`r incfnc()`]: Beachtet, dass durch diesen Aufruf die Tabelle
-`meinDataFrame` nicht verändert wird. Die Funktion gibt stattdessen eine
+`mdf` nicht verändert wird. Die Funktion gibt stattdessen eine
 neue Tabelle zurück, die nur die Fälle enthält, bei denen
-`meinDataFrame$Augenfarbe == "blau"` gilt. Wir müssten das Ergebnis der
+`mdf$Augenfarbe == "blau"` gilt. Wir müssten das Ergebnis der
 Funktion in einer Variablen speichern, wenn wir damit weiter arbeiten
 wollen (Erinnerung: [Kapitel 2](#ausgabevsabspeichern)).
 
 ```{r}
-meinDataFrame[meinDataFrame$Augenfarbe == "blau", ]
+mdf[mdf$Augenfarbe == "blau", ]
 ```
 
 Auf diese Weise haben wir mit einem logischen Vergleich aus der Tabelle
@@ -228,9 +231,9 @@ Durch die UND bzw. ODER Operationen können wir auch komplexere
 Anforderungen an die Auswahl stellen:
 
 ```{r}
-subset(meinDataFrame, Augenfarbe == "blau" | Augenfarbe == "grün")
+subset(mdf, Augenfarbe == "blau" | Augenfarbe == "grün")
 
-subset(meinDataFrame, (Augenfarbe == "blau" | Augenfarbe == "grün") & Item1 == 1)
+subset(mdf, (Augenfarbe == "blau" | Augenfarbe == "grün") & Item1 == 1)
 
 ```
 
@@ -243,7 +246,7 @@ Wie schon erwähnt, können wir mit `subset` nicht nur Zeilen, sondern
 auch Spalten auswählen:
 
 ```{r}
-subset(meinDataFrame, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
+subset(mdf, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
 ```
 
 Hierbei habe ich mit dem dritten Argument `c('Item1', 'Augenfarbe')`
@@ -270,34 +273,34 @@ Funktionalität von `subset` zu reproduzieren.
 
 Im Folgenden finden weitere Beispiele für die verschiedenen
 Auswahlmöglichkeiten per `[·,·]`. Wir verwenden weiterhin die Tabelle
-`meinDataFrame`
+`mdf`
 
 ```{r}
 ## Wähle per Index die ersten drei Zeilen aus
-meinDataFrame[1:3,]
+mdf[1:3,]
 
 ## Wähle per Index die zweite und vierte Spalte aus
-meinDataFrame[,c(2, 4)]
+mdf[,c(2, 4)]
 
 ## Wähle per logischem Vektor alle Personen aus, die beide Aufgaben
 ## richtig gelöst haben:
-meinDataFrame[meinDataFrame$Testscore == 2,]
+mdf[mdf$Testscore == 2,]
 
 ## Wähle alle Personen aus, die blaue oder braune Augen haben:
-meinDataFrame[meinDataFrame$Augenfarbe == "blau" | meinDataFrame$Augenfarbe == "braun",]
+mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun",]
 
 ## Wähle Fallnummer, Alter und Testscore per Spaltenname aus:
-meinDataFrame[, c("Nummer", "Alter", "Testscore")]
+mdf[, c("Nummer", "Alter", "Testscore")]
 
 ## Wähle Fallnummer, Alter und Testscore aus für alle Personen, die
 ## älter als 13 sind
-meinDataFrame[meinDataFrame$Alter > 13, c("Nummer", "Alter", "Testscore")]
+mdf[mdf$Alter > 13, c("Nummer", "Alter", "Testscore")]
 
 ## Wähle Fallnummer, Alter und Testscore aus für die ersten drei Fälle
-meinDataFrame[1:3, c("Nummer", "Alter", "Testscore")]
+mdf[1:3, c("Nummer", "Alter", "Testscore")]
 
 ## Wähle die Itemscores aus - nutze dabei die Funktion past0e
-meinDataFrame[, paste0("Item", 1:2)]
+mdf[, paste0("Item", 1:2)]
 
 ```
 
@@ -335,7 +338,7 @@ beziehungsweise Nachschlagsmöglichkeit gedacht.
 eine einzelne Spalte:
 
 ```{r}
-punkte2 <- meinDataFrame[["Item1"]]
+punkte2 <- mdf[["Item1"]]
 punkte2
 ```
 
@@ -355,7 +358,7 @@ gibt es dafür Anwendungsfälle und wir werden einen wichtigen in Kapitel
 
 ```{r}
 auswahl <- "Augenfarbe"
-meinDataFrame[[auswahl]]
+mdf[[auswahl]]
 ```
 
 Es wäre auch möglich, eine Funktion in die `[[·]]`-Klammerung zu
@@ -363,7 +366,7 @@ Es wäre auch möglich, eine Funktion in die `[[·]]`-Klammerung zu
 zurückgibt -- etwa die Funktion `paste0`:
 
 ```{r}
-meinDataFrame[[paste0("Item", 1)]]
+mdf[[paste0("Item", 1)]]
 ```
 
 Dieser Zugriff wird für uns noch einmal interessant werden, da wir so
@@ -383,7 +386,7 @@ vor allem interessant sein, nacheinander auf die Antworten auf Testitems
 auszuwählenden Spalte nötig:
 
 ```{r}
-punkte3 <- meinDataFrame["Item1"]
+punkte3 <- mdf["Item1"]
 punkte3
 ```
 
@@ -395,13 +398,13 @@ Elementen angeben. Hier hat die unscheinbare Funktion `c` noch mal einen
 Auftritt, sodass wir wie beim `[·,·]`-Zugriff mehrere
 
 ```{r}
-meinDataFrame[c("Item1", "Augenfarbe")]
+mdf[c("Item1", "Augenfarbe")]
 ```
 
 Dieser Ausdruck ist äquivalent zu
 
 ```{r}
-subset(meinDataFrame, select = c("Item1", "Augenfarbe"))
+subset(mdf, select = c("Item1", "Augenfarbe"))
 ```
 
 \fbox{
@@ -443,14 +446,14 @@ hilft uns unser Wissen über logische Vergleiche aus dem letzten
 Kapitel:[^`r incref()`]
 
 [^`r incfnc()`]: Beachtet, dass durch diesen Aufruf die Tabelle
-`meinDataFrame` nicht verändert wird. Die Funktion gibt stattdessen eine
+`mdf` nicht verändert wird. Die Funktion gibt stattdessen eine
 neue Tabelle zurück, die nur die Fälle enthält, bei denen
 `Augenfarbe == "blau"` gilt. Wir müssten das Ergebnis der Funktion in
 einer Variablen speichern, wenn wir damit weiter arbeiten wollen
 (Erinnerung: [Kapitel 2](#ausgabevsabspeichern)).
 
 ```{r}
-subset(meinDataFrame, Augenfarbe == "blau")
+subset(mdf, Augenfarbe == "blau")
 ```
 
 Auf diese Weise haben wir mit einem logischen Vergleich aus der Tabelle
@@ -460,7 +463,7 @@ mit ihrem Namen adressieren, ohne dass ich die `$`-Notation
 verwende. Das ist eine Besonderheit der Funktion `subset`; außerhalb der
 Funktion würde der Befehl `Augenfarbe == "blau"` einen Fehler ausgeben,
 da `Augenfarbe` selbst keine Variable ist -- nur eine Spalte von
-`meinDataFrame`.[^`r incref()`] Innerhalb der Funktion `subset`
+`mdf`.[^`r incref()`] Innerhalb der Funktion `subset`
 funktioniert es nur deswegen, da das erste Argument der `data.frame`
 ist, aus dem ich Daten auswähle. Die Funktion `subset` weiß somit, auf
 welchen Daten sie operieren muss. Das Folgende ist also nicht nötig,
@@ -472,7 +475,7 @@ der Befehl `Augenfarbe == "blau"` innerhalb der Funktion `subset`
 funktioniert.
 
 ```R
-subset(meinDataFrame, meinDataFrame$Augenfarbe == "blau")
+subset(mdf, mdf$Augenfarbe == "blau")
 ```
 
 Dementsprechend könnte man auch der Funktion `subset` -- dieses
@@ -481,16 +484,16 @@ aus Vektoren -- einen beliebigen logischen Vektor zur Auswahl der Zeilen
 übergeben:
 
 ```{r}
-subset(meinDataFrame, c(TRUE, FALSE, FALSE, TRUE, FALSE)) # wählt die erste und vierte Zeile aus
+subset(mdf, c(TRUE, FALSE, FALSE, TRUE, FALSE)) # wählt die erste und vierte Zeile aus
 ```
 
 Durch die UND bzw. ODER Operationen können wir auch komplexere
 Anforderungen an die Auswahl stellen:
 
 ```{r}
-subset(meinDataFrame, Augenfarbe == "blau" | Augenfarbe == "grün")
+subset(mdf, Augenfarbe == "blau" | Augenfarbe == "grün")
 
-subset(meinDataFrame, (Augenfarbe == "blau" | Augenfarbe == "grün") & Item1 == 1)
+subset(mdf, (Augenfarbe == "blau" | Augenfarbe == "grün") & Item1 == 1)
 
 ```
 
@@ -498,7 +501,7 @@ Wie schon erwähnt, können wir mit `subset` nicht nur Zeilen, sondern
 auch Spalten auswählen:
 
 ```{r}
-subset(meinDataFrame, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
+subset(mdf, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
 ```
 
 Hierbei habe ich mit dem dritten Argument `c('Item1', 'Augenfarbe')`
@@ -523,10 +526,10 @@ Argument wählt durch einem `character`-Vektor **Spalten** aus. Was
 passiert, wenn wir diese Reihenfolge ändern?
 
 ```R
-subset(meinDataFrame, c("Item1", "Augenfarbe"),
+subset(mdf, c("Item1", "Augenfarbe"),
        Augenfarbe == "blau")
 
-Fehler in subset.data.frame(meinDataFrame,
+Fehler in subset.data.frame(mdf,
 c("Item1", "Augenfarbe"), Augenfarbe ==  : 'subset' muss
 boolesch sein
 ```
@@ -571,7 +574,7 @@ Wenn wir die verschiedenen Argumente der Funktion `subset` kennen,
 können wir sie auch mit der folgenden Notation ausführen:
 
 ```{r}
-subset(x = meinDataFrame, subset = Augenfarbe == "blau",
+subset(x = mdf, subset = Augenfarbe == "blau",
        select = c("Item1", "Augenfarbe"))
 ```
 
@@ -600,14 +603,14 @@ Ausgabe) wie der obige Aufruf:
 
 ```R
 subset(select = c("Item1", "Augenfarbe"),
-       subset = Augenfarbe == "blau", x = meinDataFrame)
+       subset = Augenfarbe == "blau", x = mdf)
 ```
 
 
 ```{r, echo = FALSE}
 ## doppelter Code wegen Formatierung =/
 subset(select = c("Item1", "Augenfarbe"),
-       subset = Augenfarbe == "blau", x = meinDataFrame)
+       subset = Augenfarbe == "blau", x = mdf)
 ```
 
 In `R` kann man **fast immer**[^`r incref()`] Argumente per Position und
@@ -627,13 +630,13 @@ aber normalerweise, wenn es eine feste Anzahl an möglichen Argumenten
 gibt -- wie bei der Funktion `subset`.
 
 ```{r}
-subset(meinDataFrame, select = c("Testscore", "Geschlecht"))
+subset(mdf, select = c("Testscore", "Geschlecht"))
 ```
 
 Mit diesem Aufruf werden mir alle 5 Fälle zurückgegeben, aber für diese
 nur der Testscore und das Geschlecht. Wie dieser Aufruf zeigt, kann ich
 Auswahl nach Position und Auswahl nach Namen mischen. Für das erste
-Argument -- `meinDataFrame` -- habe ich den Argumentnamen `x` nicht
+Argument -- `mdf` -- habe ich den Argumentnamen `x` nicht
 angegeben. Daher wurde das Argument anhand der Position
 identifiziert. Das hat funktioniert, da das erste Argument der
 `data.frame` ist, aus dem die Datenauswahl stattfindet. Für die Auswahl
@@ -717,8 +720,8 @@ etwa die mittlere Punktzahl oder das mittlere Alter nach Geschlecht der
 Schüler/innen:
 
 ```{r}
-tapply(meinDataFrame$Testscore, meinDataFrame$Geschlecht, mean)
-tapply(meinDataFrame$Alter, meinDataFrame$Geschlecht, mean)
+tapply(mdf$Testscore, mdf$Geschlecht, mean)
+tapply(mdf$Alter, mdf$Geschlecht, mean)
 ```
 
 Die Funktion `tapply` erhält als erstes Argument den Messwertvektor, für
@@ -736,7 +739,7 @@ sein wird, dass wir beide Vektoren aus **einem** `data.frame` mit der
 `$`-Notation auslesen werden.
 
 ```{r}
-tapply(meinDataFrame$Alter, meinDataFrame$Geschlecht, sd)
+tapply(mdf$Alter, mdf$Geschlecht, sd)
 ```
 
 Wie `table` kann auch `tapply` deskriptive Statistiken anhand mehrerer
@@ -745,8 +748,7 @@ anzufordern, klammern wir `list(...)` um die Gruppierungsvektoren im
 zweiten Argument:
 
 ```{r}
-tapply(meinDataFrame$Alter, list(meinDataFrame$Geschlecht,
-                                 meinDataFrame$Augenfarbe), mean)
+tapply(mdf$Alter, list(mdf$Geschlecht, mdf$Augenfarbe), mean)
 ```
 
 Mit nur fünf Datenpunkten macht diese Anfrage hier nur wenig Sinn, da
@@ -760,7 +762,7 @@ Gruppierungsvariablen angeben.
 
 [^`r incfnc()`]: Wie viele Datenpunkte in die Berechnung jedes
 Mittelwerts eingehen, können wir in diesem Fall prüfen mit
-`table(meinDataFrame$Geschlecht, meinDataFrame$Augenfarbe)`.
+`table(mdf$Geschlecht, mdf$Augenfarbe)`.
 
 ### `nrow` und `ncol`
 
@@ -769,13 +771,13 @@ Die Zahl der Zeilen eines `data.frame`s -- d.h. oftmals die Zahl der
 häufig verwendet:
 
 ```{r}
-nrow(meinDataFrame)
+nrow(mdf)
 ```
 
 Analog ergibt `ncol` die Zahl der Spalten:
 
 ```{r}
-ncol(meinDataFrame)
+ncol(mdf)
 ```
 
 ### `head` und `tail`
@@ -790,8 +792,8 @@ sollen. Wenn wir *n* nicht angeben, werden 6 Zeilen ausgegeben (in
 Arguments* n). Beispiel:
 
 ```{r}
-head(meinDataFrame, n = 2)
-tail(meinDataFrame)
+head(mdf, n = 2)
+tail(mdf)
 ```
 
 Im letzteren Fall werden einfach alle Zeilen zurückgegeben, da unser
@@ -824,7 +826,7 @@ enthält. Die Funktion `arrange` aus `dplyr` ermöglicht es uns, einen
 `data.frame` zu sortieren:
 
 ```{r}
-arrange(meinDataFrame, Testscore) # dplyr muss geladen sein
+arrange(mdf, Testscore) # dplyr muss geladen sein
 ```
 
 In der Funktion `arrange` geben wir als erstes Argument den zu
@@ -835,7 +837,7 @@ eine absteigende Sortierung wünschen, müssen wir ein Minus vor die
 Sortierspalte setzen:
 
 ```{r}
-arrange(meinDataFrame, -Testscore)
+arrange(mdf, -Testscore)
 ```
 
 Es ist auch möglich, nach mehreren Spalten zu sortieren. In dem Fall
@@ -845,7 +847,7 @@ nach Geschlecht sortieren, und innerhalb der Personen gleichen
 Geschlechts nach Punktzahl:
 
 ```{r}
-arrange(meinDataFrame, Geschlecht, -Testscore)
+arrange(mdf, Geschlecht, -Testscore)
 ```
 
 ## Zusammenfassung
@@ -904,23 +906,23 @@ arrange(meinDataFrame, Geschlecht, -Testscore)
    zueinander äquivalent?
 
 ```R
-subset(meinDataFrame, select = "Item1")
+subset(mdf, select = "Item1")
 ```
 
 ```R
-meinDataFrame[, "Item1"]
+mdf[, "Item1"]
 ```
 
 ```R
-meinDataFrame[, "Item1", drop = FALSE]
+mdf[, "Item1", drop = FALSE]
 ```
 
 ```R
-meinDataFrame[["Item1"]]
+mdf[["Item1"]]
 ```
 
 ```R
-meinDataFrame$Item1
+mdf$Item1
 ```
 
 2. Vergleicht die folgenden Aufrufe der Funktion `subset`. Warum
@@ -930,17 +932,17 @@ meinDataFrame$Item1
    "falschen" Position stehen?
 
 ```R
-subset(meinDataFrame, select = "Item1", Augenfarbe == "blau")
+subset(mdf, select = "Item1", Augenfarbe == "blau")
 ```
 
 ```R
-subset(select = "Item1", meinDataFrame, Augenfarbe == "blau")
+subset(select = "Item1", mdf, Augenfarbe == "blau")
 ```
 
 ```R
-subset(meinDataFrame, "Item1", Augenfarbe == "blau")
+subset(mdf, "Item1", Augenfarbe == "blau")
 ```
 
 ```R
-subset("Item1", meinDataFrame, Augenfarbe == "blau")
+subset("Item1", mdf, Augenfarbe == "blau")
 ```
