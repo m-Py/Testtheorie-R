@@ -407,6 +407,17 @@ als Vektor repräsentiert ist.
 
 ### Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
 
+**Ideen für Restrukturierung**
+
+- subset = Abstraktion wichtiger Nutzungen von [·,·]: Spaltenauswahl per
+  Spaltenname, Zeilenauswahl per logischem Ausdruck
+- Dafür: Zeilenauswahl per logischem Ausdruck, Spaltenauswahl wie gehabt,
+  aber mit Sonderregeln, die die Auswahl etwas vereinfachen
+- Außerdem in diesem Abschnitt: Erklärung einiger allgemeiner Regeln
+  zu Funktionen in R
+
+
+
 Einzelne Spalten aus `data.frames` können wir mit dem `$`-Zugriff
 auslesen. Wir lernen nun die Funktion `subset`[^`r incref()`] kennen,
 mit der wir bequem beliebige Spalten und Zeilen aus `data.frames`
