@@ -11,9 +11,6 @@ output:
     number_sections: true
     includes:
       before_body: "00_Lizenz.tex"
-  bookdown::gitbook:
-    toc: true
-    toc_depth: 3
 
 header-includes:
   - \usepackage{dsfont}
@@ -206,9 +203,7 @@ einem `>` beginnt. Um den ersten `R`-Befehl auszuführen, schreiben wir
 Folgendes in die Konsole und drücken `Enter`:
 
 ```R
-
 > "Hallo Welt!"
-
 ```
 
 Wenn folgende Ausgabe erscheint, hat die Installation funktioniert:
