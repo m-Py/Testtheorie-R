@@ -8,24 +8,23 @@
 # Diese Datei kann per chmod +x build.sh ausführbar gemacht werden
 # Dann ausführen per ./build.sh
 
-# 1. Skript bauen
+# 1. Skript bauen (pdf und html)
 Rscript render_script.R
 
 # 2. pdf verschieben und umbenennen
 mv 01_Einstieg.pdf "../Testtheorie mit R.pdf"
 
-## html-bookdown erstellen
-
-# 3. html-Dateien umbenennen und verschieben verschieben
+# 3. html-Dateien kopieren und verschieben
 cp einstieg.html index.html
-shopt -s globstar # damit das Kommando darunter funktioniert
+shopt -s globstar # damit das Kommando in der Folgezeile funktioniert
 mv **/*.html ../../m-Py.github.io/TesttheorieR
 
 # 4. Libraries und Bilder-Dateien für html-Dokumente verschieben
-# Alte Versionen löschen
+# 4a.Alte Versionen löschen
 rm -r ../../m-Py.github.io/TesttheorieR/01_Einstieg_files
 rm -r ../../m-Py.github.io/TesttheorieR/libs
 
+# 4b. Neue Version einfügen
 mv 01_Einstieg_files ../../m-Py.github.io/TesttheorieR
 mv libs ../../m-Py.github.io/TesttheorieR
 
