@@ -64,6 +64,8 @@ incref <- function() {
 init_footnotes()
 init_refs()
 
+set.seed(42)
+
 ```
 
 \clearpage
