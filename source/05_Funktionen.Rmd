@@ -1,5 +1,5 @@
 
-# Funktionen
+# Funktionen {#funktionen}
 
 Funktionen sind das Herz der `R`-Maschinerie. Jegliche Befehle, die wir
 in `R` durchführen, sind als Funktionen umgesetzt.[^`r incref()`] Wir
@@ -44,7 +44,7 @@ berechnet.[^`r incref()`] Bei Funktionen interessiert uns in erster
 Linie, welche Daten wir einer Funktion als Argumente übergeben müssen
 und was sie uns dafür in Austausch zurückgeben. Die folgenden
 Abschnitte befassen sich mit den einzelnen Bestandteilen des
-"Black-Box-Modells".
+„Black-Box-Modells“.
 
 [^`r incfnc()`]: Das ist natürlich zunächst einmal anders, wenn wir
 selbst neue Funktionen schreiben. Aber auch dann gilt: Wenn ich die
@@ -54,10 +54,10 @@ Gedanken zu machen. Das kann eine enorme Arbeitserleichterung sein.
 
 ##  Argumente
 
-Funktionsargumente determinieren das Verhalten von Funktionen. Im
-einfachsten Fall bedeutet das, dass die Elemente eines Vektors, den wir
-`mean` übergeben, den ausgegebenen Mittelwert determinieren. Wenn wir
-gar keinen Vektor übergeben, erhalten wir kein Ergebnis, sondern eine
+Argumente determinieren das Verhalten von Funktionen. Im einfachsten
+Fall bedeutet das, dass die Elemente eines Vektors, den wir `mean`
+übergeben, den ausgegebenen Mittelwert determinieren. Wenn wir gar
+keinen Vektor übergeben, erhalten wir kein Ergebnis, sondern eine
 Fehlermeldung:
 
 ```R
@@ -73,7 +73,7 @@ beeinflusst, ist ein Verständnis der folgenden Punkte wichtig:
 [^`r incfnc()`]: Teilweise wurden diese Punkte schon in [Kapitel 3 im
 Abschnitt zur Funktion `subset`](#subset) angesprochen.
 
-1. Manche Argumente haben Standardwerte (Englisch: "default values"),
+1. Manche Argumente haben Standardwerte (Englisch: „default values“),
 die angenommen werden, wenn wir diese Argumente beim Aufrufen der
 Funktion nicht explizit angeben. Diese Argumente heißen *optionale
 Argumente*.
@@ -81,17 +81,17 @@ Argumente*.
    einen Wert übergeben, da die Funktion sonst eine Fehlermeldung und
    kein Ergebnis ausgibt.[^`r incref()`]
 3. Argumente haben Namen, die wir verwenden können, um sie in der Form
-   "`Argumentname = Wert`" zu adressieren.
+   `Argumentname = Wert` zu adressieren.
 4. Wenn wir für ein Argument nicht explizit den Namen angeben, wird das
    Argument nach seiner Position in der Liste aller angegeben Argumente
    identifiziert.
 5. Mit der `R`-Hilfe können wir herausfinden, welche Argumente
-   Funktionen annehmen, wie diese heißen, und welche davon optional bzw.
+   Funktionen annehmen, wie diese heißen, und welche davon optional oder
    verpflichtend sind.
 
 
-[^`r incfnc()`]: Das ist streng genommen auch wieder eine Vereinfachung,
-aber für uns reicht dieses Konzept: Hat ein Argument einen Standardwert,
+[^`r incfnc()`]: Das ist streng genommen auch wieder eine Vereinfachung.
+Aber für uns reicht dieses Konzept: Hat ein Argument einen Standardwert,
 ist es optional; hat ein Argument keinen Standardwert, ist es
 verpflichtend.
 
@@ -122,7 +122,7 @@ mean(1:10)
 ```
 
 Doch was passiert mit `na.rm`, wenn wir es nicht explizit angeben?
-Hierbei nehmen wir folgende Regel zur Kenntnis: **optionale Argumente
+Hierbei nehmen wir folgende Regel zur Kenntnis: **Optionale Argumente
 sind deswegen optional, da ihnen von der Funktion ein Wert zugewiesen
 wird, wenn wir das Argument nicht selbst übergeben**. Das Argument
 `na.rm` hat den Standardwert `FALSE`, weswegen `NA`-Werte im
@@ -142,7 +142,7 @@ wollen -- stattdessen "vertrauen" wir auf die Standardwerte --,
 ist es sehr hilfreich, dass wir Funktionsargumente per Namen ansprechen
 können. So können wir nur genau die optionalen Argumente auswählen,
 die wir anpassen wollen; für die anderen belassen wir den Standardwert.
-Das haben wir bei der Funktion `mean` kennengelernt: nur wenn wir
+Das haben wir bei der Funktion `mean` kennengelernt: Nur wenn wir
 fehlende Werte von der Berechnung des Mittelwerts ausschließen wollen,
 weisen wir dem Argument `na.rm` den Wert `TRUE` zu:
 
@@ -203,8 +203,6 @@ Wir haben nun gelernt, wie wir Argumente an Funktionen übergeben
 können. Dieses Wissen hilft uns jedoch nur, wenn wir folgende Frage
 beantworten können:
 
-&nbsp;
-
 **Wie finden wir heraus, welche Argumente eine Funktion annimmt?**
 
 ### Die `R`-Hilfe{#help}
@@ -246,7 +244,7 @@ Usage:
 
 Wir ignorieren an dieser Stelle, dass uns zwei Varianten angeboten
 werden, die Funktion `mean` zu nutzen.[^`r incref()`] Wenn in der Hilfe
-eine "Default S3 method" angeboten wird, interessiert uns oftmals diese;
+eine „Default S3 method“ angeboten wird, interessiert uns oftmals diese;
 so ist es auch hier der Fall. An dieser Stelle finden wir die
 Informationen, die wir benötigen, um die Funktion zu nutzen. Wir sehen
 
@@ -260,7 +258,7 @@ aufgerufen werden. Das heißt: Sie können mit unterschiedlichen
 - was die Standardwerte der optionalen Argumente sind
 
 Die Standardwerte der optionalen Argumente lassen sich dadurch ablesen,
-dass in der Argumentliste in der Form "`Argumentname = Wert`" schon ein
+dass in der Argumentliste in der Form `Argumentname = Wert` schon ein
 Wert angegeben ist. Das Argument `trim` etwa hat den Standardwert
 `0`. Wie wir bereits wissen, hat das Argument `na.rm` hat den
 Standardwert `FALSE`. Bei nicht-optionalen Argumenten ist kein
