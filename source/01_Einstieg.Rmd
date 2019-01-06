@@ -72,14 +72,13 @@ set.seed(42)
 
 # Einstieg
 
-Dieses Skript bietet einen Einstieg in die statistische
-Programmiersprache `R`. Es wurde als Begleitmaterial für eine
+„Testtheorie mit R“ bietet einen Einstieg in die statistische
+Programmiersprache `R`. Es wurde ursprünglich als Begleitskript für eine
 ein-semestrige Lehrveranstaltung im Master-Studiengang Psychologie an
 der Heinrich-Heine-Universität Düsseldorf entworfen. Im Seminar wird
 kein Vorwissen über `R` vorausgesetzt. Ich habe das Skript öffentlich
 gemacht in der Hoffnung, dass es auch für andere `R`-Einsteiger nützlich
-sein kann. Es wird stetig aktualisiert; der aktuelle Stand ist jeweils
-der zweiten Seite zu entnehmen.
+sein kann.
 
 `R` kann -- unter anderem -- als eine Alternative zur kommerziellen
 Statistik-Software IBM-SPSS verwendet werden. Anders als SPSS ist `R`
@@ -108,15 +107,16 @@ Source Psychometrics Project”
 ## Über dieses Skript
 
 Dieses Skript wurde als Begleitmaterial für eine Lehrveranstaltung
-konzipiert. Das Seminar selbst hat einen starken praktischen Anteil; in
-jeder Stunde werden Übungsaufgaben in `R` bearbeitet.[^`r incref()`] Das
-Skript bietet den theoretischen Unterbau zu den Übungen. Es wird
-empfohlen, das Skript parallel zu den Seminarstunden zu lesen.
-
-[^`r incfnc()`]: Die Übungen des Seminars aus dem Sommersemester 2018
-und die zur Bearbeitung nötigen Daten -- wie auch der jeweils aktuelle
-Stand dieses Skripts -- können unter
-[https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden.
+konzipiert. Die Veranstaltung selbst hat einen starken praktischen
+Anteil; in jeder Stunde werden Übungsaufgaben in `R` bearbeitet. Das
+Skript bietet den theoretischen Unterbau. Die Übungen des Seminars aus
+dem Sommersemester 2018 und die zur Bearbeitung nötigen Daten -- wie
+auch der jeweils aktuelle Stand dieses Skripts -- können unter
+[https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden. Unter
+[https://m-py.github.io/TesttheorieR/](https://m-py.github.io/TesttheorieR/)
+findet sich eine online lesbare Version des Skripts. Das Skript
+wird stetig aktualisiert; diese Version wurde am `r format(Sys.Date(),
+"%d. %B %Y")` erstellt.
 
 Wenn man davor steht, `R` zu lernen, sollte man sich klar machen, dass
 die reine Aufarbeitung einer oder mehrerer schriftlicher Lektüren nicht
