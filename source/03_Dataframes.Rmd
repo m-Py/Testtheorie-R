@@ -47,7 +47,7 @@ deutlich, dass Spalten Vektoren enthalten, da wir für jede Spalte einen
 Vektor mit der Funktion `c` bzw. mit dem Doppelpunktoperator erstellen.
 Wir sehen auch, dass die Spalten bei der Erstellung des `data.frames`
 benannt werden können. **Dieser Punkt ist sehr wichtig, da wir Spalten
-anhand ihres Namens gezielt auswählen können**. Wenn ich die
+anhand ihres Namens gezielt auswählen werden**. Wenn ich die
 Spaltennamen, also die Namen der Messvariablen eines `data.frames` nicht
 weiß -- etwa weil ich die Daten aus einer Datei eingelesen habe -- kann
 ich diese mit der Funktion `names` herausfinden:
@@ -231,8 +231,6 @@ Möglichkeiten sind denkbar, etwa auch, dass ein logischer Vektor zur
 Auswahl der Spalten verwendet wird oder wir die Nummern der Zeilen
 angeben, die ausgewählt werden sollen.
 
-&nbsp;
-
 Durch die UND bzw. ODER Operationen können wir auch komplexere
 Anforderungen an die Auswahl der Zeilen stellen:
 
@@ -248,11 +246,8 @@ logische Bedingung anzugeben. Weiter unten lernen wir mit der Funktion
 `subset` eine Möglichkeit kennen, komplexere logische Anfragen an die
 Auswahl von Zeilen etwas prägnanter zu stellen.
 
-&nbsp;
-
-Zum Abschluss dieses Abschnitts gebe ich noch weitere Beispiele für die
-verschiedenen Auswahlmöglichkeiten per `[·,·]` an. Wir verwenden
-weiterhin die Tabelle `mdf`:
+Zum Abschluss dieses Abschnitts betrachten wir noch einige weitere
+Beispiele für die verschiedenen Auswahlmöglichkeiten per `[·,·]`:
 
 ```{r}
 ## Wähle per Index die ersten drei Zeilen aus
