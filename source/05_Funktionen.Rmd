@@ -69,8 +69,8 @@ Standardwert)
 ```
 
 Um zu verstehen, wie man mit Argumenten das Verhalten von Funktionen
-beeinflusst, ist ein Verständnis der folgenden Punkte wichtig:[^`r
-incref()`]
+beeinflusst, ist ein Verständnis der folgenden Punkte wichtig:
+[^`r incref()`]
 
 [^`r incfnc()`]: Teilweise wurden diese Punkte schon in [Kapitel 3 im
 Abschnitt zur Funktion `subset`](#subset) angesprochen.
@@ -333,8 +333,8 @@ andere Funktionen wie `table` -- die beliebig viele Vektoren zur
 Erstellung von Kreuztabellen annimmt -- und `dplyr::arrange` -- die
 beliebig viele Kriterien zur Sortierung eines `data.frames` annimmt --
 haben unbenannte Argumente. In der `R`-Hilfe ist dies oftmals an dem
-Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:[^`r
-incref()`]
+Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:
+[^`r incref()`]
 
 [^`r incfnc()`]: Wir nehmen interessiert zur Kenntnis, dass `c` zwei
 Argumente mit Standardwerten hat: `recursive` und `use.names`. Mit
@@ -393,8 +393,8 @@ t.test(npi$score[npi$gender == 1], npi$score[npi$gender == 2])
 
 Hier werden uns alle relevanten Aspekte der *t*-Test-Berechnung
 ausgegeben. Ein erster interessanter Hinweis ist, dass kein klassischer
-*t*-Test, sondern ein "Welch Two Sample t-test" gerechnet wurde.[^`r
-incref()`] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert
+*t*-Test, sondern ein "Welch Two Sample t-test" gerechnet wurde.
+[^`r incref()`] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert
 ("`p-value < 2.2e-16`" bedeutet, dass der p-Wert so klein ist, dass vor
 dem ersten Wert hinter dem Komma, der **nicht** Null ist, mindestens 16
 Nullen stehen), das 95%-Konfidenzintervall der Differenz der mittleren
@@ -404,13 +404,6 @@ aufweisen als Frauen. Aber dieser Befund ist für uns in diesem Fall
 uninteressant -- wir wollen uns ja mit dem Rückgabewert befassen. Was
 für ein `R`-Objekt wurde uns denn ausgegeben?
 
-Was in der Konsole angezeigt wird, stellt nicht direkt das `R`-Objekt
-dar, das die Funktion `t.test` ausgibt. Es handelt sich hierbei um eine
-etwas lesefreundlichere Zusammenfassung des Tests. Um das tatsächlich
-ausgegebene Objekt zu inspizieren, kann ich die Funktion `str`
-verwenden. Dazu speichere ich die Ausgabe des t-Tests zunächst in einer
-Variablen ab:
-
 [^`r incfnc()`]:
 Setzt man das Argument `var.equal` auf `TRUE`, wird ein klassischer
 t-Test gerechnet (Standardwert: `FALSE`). Es ist etwas ironisch, dass
@@ -418,9 +411,14 @@ die Funktion `t.test` keinen t-Test rechnet. Wenn man das erwartet,
 könnte man an dieser Stelle auf die Nase fallen, wenn man einfach auf
 die Standardwerte der Funktion vertraut. Mehr Informationen zum
 Welch-t-Test finden sich hier:
-[https://en.wikipedia.org/wiki/Welch%27s_t-test](https://en.wikipedia.
-org/wiki/
-Welch%27s_t-test).
+[https://en.wikipedia.org/wiki/Welch%27s_t-test](https://en.wikipedia.org/wiki/Welch%27s_t-test).
+
+Was in der Konsole angezeigt wird, stellt nicht direkt das `R`-Objekt
+dar, das die Funktion `t.test` ausgibt. Es handelt sich hierbei um eine
+etwas lesefreundlichere Zusammenfassung des Tests. Um das tatsächlich
+ausgegebene Objekt zu inspizieren, kann ich die Funktion `str`
+verwenden. Dazu speichere ich die Ausgabe des t-Tests zunächst in einer
+Variablen ab:
 
 ```R
 test <- t.test(npi$score[npi$gender == 1],
@@ -435,8 +433,8 @@ str(test)
 
 Das von `t.test` ausgegebene Objekt ist eine "List of 9", also eine
 Liste mit 9 Einträgen. Listen sind sehr allgemeine Datencontainer, die
-Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.[^`r
-incref()`] Listen stellen eine wichtige Datenstruktur in `R` dar --
+Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.
+[^`r incref()`] Listen stellen eine wichtige Datenstruktur in `R` dar --
 vielleicht ist es sogar die wichtigste Datenstruktur, da `data.frames`
 spezielle Listen sind, in denen jeder Eintrag (d.h., jede Spalte) ein
 Vektor gleicher Länge ist. Die Elemente der Liste können benannt sein,
