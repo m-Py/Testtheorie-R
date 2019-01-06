@@ -31,3 +31,6 @@ mv libs ../../m-Py.github.io/TesttheorieR
 
 # 5. Kopiere Bilderordner in anderes Repo
 cp -r images ../../m-Py.github.io/TesttheorieR
+
+# 6. Kopiere style-css in anderes Repo
+cp style.css ../../m-Py.github.io/TesttheorieR/style.css

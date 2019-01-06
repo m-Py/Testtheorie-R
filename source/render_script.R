@@ -9,5 +9,7 @@
 
 ## Dann diesen Code ausführen:
 library("rmarkdown")
-render("01_Einstieg.Rmd")
-render("01_Einstieg.Rmd", output_format = "bookdown::gitbook")
+library("bookdown")
+render("01_Einstieg.Rmd", "bookdown::pdf_book")
+render("01_Einstieg.Rmd", "bookdown::gitbook",
+       output_options = list(css = "style.css"))
