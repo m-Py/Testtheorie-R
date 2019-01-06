@@ -11,6 +11,9 @@ output:
     number_sections: true
     includes:
       before_body: "00_Lizenz.tex"
+  bookdown::gitbook:
+    toc: true
+    toc_depth: 3
 
 header-includes:
   - \usepackage{dsfont}
@@ -202,10 +205,6 @@ daran, dass die Zeile, in die wir unsere `R`-Befehle eintragen, mit
 einem `>` beginnt. Um den ersten `R`-Befehl auszuführen, schreiben wir
 Folgendes in die Konsole und drücken `Enter`:
 
-```{marginfigure}
-![](./images/Konsole.jpg) So sieht die `R`-Konsole in RStudio aus.
-```
-
 ```R
 
 > "Hallo Welt!"
@@ -222,8 +221,7 @@ Wir können die Arbeit mit `R` beziehungsweise der `R`-Konsole als
 Kommunikation verstehen: Wir teilen `R` etwas mit, und `R` gibt uns dazu
 passend etwas zurück -- **wenn unsere Anfrage ein *syntaktisch*
 korrekter `R`-Befehl war**. Andernfalls gibt `R` eine Fehlermeldung aus.
-Zum Beispiel können wir die `R`-Konsole als Taschenrechner
-benutzen:
+Zum Beispiel können wir die `R`-Konsole als Taschenrechner benutzen:
 
 ```{r}
 
