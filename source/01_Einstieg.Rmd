@@ -157,14 +157,14 @@ werden.
 
 ### Danksagung
 
+Ich danke Juliane Tkotz für ihre Beiträge und für ihr nützliches
+Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio
+und Ingo Weigel danke ich für ihre Fehlermeldungen.
+
 Zur Erstellung des Skripts wurden `R` [3.4.4, @R-base] und die
 `R`-Pakete *bookdown* [0.5, @R-bookdown], *knitr* [1.18, @R-knitr],
 *rmarkdown* [1.8, @R-rmarkdown], *tufte* [0.2, @R-tufte] und
 *tint* [0.1.0, @R-tint] genutzt.
-
-Ich danke Juliane Tkotz für ihre Beiträge und für ihr nützliches
-Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio
-und Ingo Weigel danke ich für ihre Fehlermeldungen.
 
 ## Erste Schritte mit `R`
 
@@ -273,8 +273,8 @@ des Codes für uns übernimmt.
 ### Kommentare
 
 Wenn ein `#`-Symbol in die Konsole oder den Skript-Editor geschrieben
-wird, wird der Rest dessen, was in dieser Zeile steht, nicht mehr
-interpretiert, d.h.: nicht als R-Code ausgeführt. Beispiel:
+wird, wird der Rest dieser Zeile nicht mehr interpretiert, das heißt
+nicht als R-Code ausgeführt. Beispiel:
 
 ```R
 
@@ -307,14 +307,15 @@ Element der Ausgabe eines Vektors gekennzeichnet (siehe Kapitel 2).
 
 In den nächsten zwei Kapiteln beschäftigen wir uns zunächst damit, wie
 `R` Daten darstellt. Dabei betrachten wir zunächst die grundlegenste
-Datenstruktur, den *Vektor* ([Kapitel 2](#vektoren)). Danach lernen wir
+Datenstruktur, den Vektor ([Kapitel 2](#vektoren)). Danach lernen wir
 `data.frames` kennen ([Kapitel 3](#dataframes)), die in `R`
 Datentabellen darstellen, wie wir sie auch aus Excel oder SPSS kennen.
-In [Kapitel 4](#psychometrie) werden wir *psychometrische
-Datenauswertungen* durchführen und dabei das Wissen anwenden, das wir
-zuvor erworben haben. In Kapitel 5 und 6 lernen wir mit *Funktionen* und
-*Schleifen* wichtige allgemeine Elemente von Programmiersprachen kennen
-und sehen, wie man mit diesen Elementen in `R` umgehen kann.
+In [Kapitel 4](#psychometrie) werden wir psychometrische
+Datenauswertungen durchführen und dabei das Wissen anwenden, das wir
+zuvor erworben haben. In den Kapiteln [5](#funktionen) und
+[6](#schleifen) lernen wir mit Funktionen und Schleifen wichtige
+Programmiersprachenelemente kennen und werden sehen, wie wir damit
+unsere Arbeit automatisieren können.
 
 ```{r child = '02_Vektoren.Rmd'}
 ```
