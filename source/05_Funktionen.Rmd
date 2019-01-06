@@ -27,9 +27,7 @@ nicht von Interesse.
 
 Diese Grafik zeigt schematisch die Arbeitsweise von `R`-Funktionen:
 
-\begin{center}
-\includegraphics[]{./images/BlackBoxModel.pdf}
-\end{center}
+![](./images/BlackBoxModel.jpg)
 
 Funktionen nehmen Argumente an, die ihr Verhalten steuern. Sie geben
 genau ein `R`-Objekt zurück, das Rückgabewert genannt wird. Wenn der

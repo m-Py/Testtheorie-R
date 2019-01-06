@@ -24,13 +24,13 @@ entsprechenden Ordner wie folgt ein Projekt an:
 
 &nbsp;
 
-$\to$ File  
-$\to$ New project  
-$\to$ Associate a project with an existing working directory   
-$\to$ Browse  
-$\to$ *Zum Ordner navigieren*   
-$\to$ Open  
-$\to$ Create Project  
+$\to$ File
+$\to$ New project
+$\to$ Associate a project with an existing working directory
+$\to$ Browse
+$\to$ *Zum Ordner navigieren*
+$\to$ Open
+$\to$ Create Project
 
 &nbsp;
 
@@ -51,8 +51,8 @@ gehen wir über
 
 &nbsp;
 
-$\to$ Open Project  
-$\to$ *Zum Ordner navigieren*  
+$\to$ Open Project
+$\to$ *Zum Ordner navigieren*
 $\to$ *Projektdatei auswählen* (hat die Endung .Rproj)
 $\to$ *Öffnen*
 
@@ -118,3 +118,5 @@ vermutlich ".RData" heißen).
 einen Grund findet, aus dem es für euch doch gut ist, die Variablen
 abzuspeichern -- etwa weil das Dateneinlesen sonst sehr lange dauert --,
 dann macht bitte das, was für euch sinnvoll ist.
+
+# Referenzen
