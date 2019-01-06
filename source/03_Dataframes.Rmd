@@ -78,8 +78,8 @@ punkte # `punkte` ist ein Vektor
 
 Ich kann den `$`-Zugriff nicht nur verwenden, um eine Spalte aus einem
 `data.frame` auszulesen, sondern kann damit auch neue Spalten zum
-`data.frame` hinzufügen, indem ich der neu zu erstellenden Spalte per
-"`<-`" einen Vektor zuweise:
+`data.frame` hinzufügen. Das geht, indem ich der neu zu erstellenden
+Spalte per "`<-`" einen Vektor zuweise:
 
 ```{r}
 mdf$Augenfarbe <- c("blau", "grau", "blau", "braun", "grün")
