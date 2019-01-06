@@ -98,11 +98,12 @@ https://stackoverflow.blog/2017/10/10/impressive-growth-r/
 https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
-Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch echte
-Datensätze verwendet, beispielsweise ein Datensatz zum *Narcissistic
-Personality Inventory*, der online frei verfügbar ist über das “Open
+Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch
+echte Datensätze verwendet, beispielsweise ein Datensatz zum
+*Narcissistic Personality Inventory*, der online frei über das “Open
 Source Psychometrics Project”
-([https://openpsychometrics.org/](https://openpsychometrics.org/)).
+([https://openpsychometrics.org/](https://openpsychometrics.org/))
+verfügbar ist.
 
 ## Über dieses Skript
 
@@ -136,13 +137,14 @@ gibt es Spezialfälle, die eine Ausnahme bilden. Auf solche Spezialfälle
 werde ich bei der Beschreibung allgemeiner Grundsätze der
 Programmiersprache `R` nicht immer Rücksicht nehmen.  Das Skript ist so
 ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch
-erfordert die Meisterung von `R` noch weitere eigenständige Einarbeitung.
+erfordert die Meisterung von `R` noch weitere eigenständige
+Einarbeitung.
 
 [^`r incfnc()`]: Kapitel 2 enthält beispielsweise eine Beschreibung
 verschiedener Datentypen in `R` (Zahlen, Text etc.). Diese Liste deckt
 zwar die für uns wichtigsten Datentypen ab, ist aber nicht
 vollständig. Aus inhaltlichen Gründen folgt sie außerdem nicht der
-internen "technischen" Kategorisierung von Daten in `R`.
+internen „technischen“ Kategorisierung von Daten in `R`.
 
 ### Feedback und Fehlermeldungen
 
@@ -153,16 +155,16 @@ etc.) bin ich sehr dankbar! Meldungen können mir an
 \href{mailto:martin.papenberg@hhu.de}{martin.papenberg@hhu.de} gesendet
 werden.
 
-### Credit
+### Danksagung
 
 Zur Erstellung des Skripts wurden `R` [3.4.4, @R-base] und die
 `R`-Pakete *bookdown* [0.5, @R-bookdown], *knitr* [1.18, @R-knitr],
 *rmarkdown* [1.8, @R-rmarkdown], *tufte* [0.2, @R-tufte] und
 *tint* [0.1.0, @R-tint] genutzt.
 
-Ich danke Juliane Tkotz für ihr nützliches Feedback zum Skript. Hanna
-Siegers, Marlene Wettstein und Frank Calio danke ich ebenfalls für ihre
-Fehlersichtungen.
+Ich danke Juliane Tkotz für ihre Beiträge und für ihr nützliches
+Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio
+und Ingo Weigel danke ich für ihre Fehlermeldungen.
 
 ## Erste Schritte mit `R`
 
