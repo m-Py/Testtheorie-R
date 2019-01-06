@@ -17,7 +17,7 @@ mv 01_Einstieg.pdf "../Testtheorie mit R.pdf"
 ## html-bookdown erstellen
 
 # 3. html-Dateien umbenennen und verschieben verschieben
-mv einstieg.html index.html
+cp einstieg.html index.html
 shopt -s globstar # damit das Kommando darunter funktioniert
 mv **/*.html ../../m-Py.github.io/TesttheorieR
 
