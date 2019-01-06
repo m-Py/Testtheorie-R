@@ -39,26 +39,25 @@ importieren diese dann in `R`.
 mdf
 ```
 
-Wir sehen, dass ein `data.frame` -- ebenso wie ein Vektor -- in einer
-Variable gespeichert werden kann. Die Variable zum Abspeichern des
-`data.frames` nenne ich in diesem Fall `dfw`; das könnte beispielsweise
-für "Mein Data Frame" stehen. Bei der Erstellung des `data.frames` wird
-deutlich, dass Spalten Vektoren enthalten, da wir für jede Spalte einen
-Vektor mit der Funktion `c` bzw. mit dem Doppelpunktoperator erstellen.
-Wir sehen auch, dass die Spalten bei der Erstellung des `data.frames`
-benannt werden können. **Dieser Punkt ist sehr wichtig, da wir Spalten
-anhand ihres Namens gezielt auswählen werden**. Wenn ich die
-Spaltennamen, also die Namen der Messvariablen eines `data.frames` nicht
-weiß -- etwa weil ich die Daten aus einer Datei eingelesen habe -- kann
-ich diese mit der Funktion `names` herausfinden:
+Diese unscheinbare Tabelle mit nur 5 Einträgen wird uns durch einen
+Großteil des Kapitels begleiten, um Grundlagen von
+`data.frame`-Operationen zu betrachten. Wir sehen, dass der `data.frame`
+-- ebenso wie es bei Vektoren möglich war -- in einer Variable
+gespeichert wird. Die Variable zum Abspeichern des `data.frames` nenne
+ich in diesem Fall `dfw`; das könnte beispielsweise für "Mein
+Data-Frame" stehen. Bei der Erstellung des `data.frames` wird deutlich,
+dass Spalten Vektoren enthalten, da wir für jede Spalte einen Vektor mit
+der Funktion `c` bzw. mit dem Doppelpunktoperator erstellen. Wir sehen
+auch, dass die Spalten bei der Erstellung des `data.frames` benannt
+werden können. **Dieser Punkt ist sehr wichtig, da wir Spalten anhand
+ihres Namens gezielt auswählen werden**. Wenn ich die Spaltennamen, also
+die Namen der Messvariablen eines `data.frames` nicht weiß -- etwa weil
+ich die Daten aus einer Datei eingelesen habe -- kann ich diese mit der
+Funktion `names` herausfinden:
 
 ```{r}
 names(mdf)
 ```
-
-Diese unscheinbare Tabelle mit nur 5 Einträgen wird uns durch einen
-Großteil des Kapitels begleiten, um Grundlagen von
-`data.frame`-Operationen zu betrachten.
 
 ## Datenzugriffe
 
