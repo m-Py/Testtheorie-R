@@ -574,7 +574,7 @@ FALSE | FALSE
 
 ```
 
-**Merke**: Auch diese logischen Operationen arbeiten komponentenweise
+Auch diese logischen Operationen arbeiten komponentenweise
 auf Vektoren, die mehr als ein Element enthalten:
 
 ```{r}

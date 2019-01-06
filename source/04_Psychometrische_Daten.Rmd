@@ -59,7 +59,7 @@ kable(test_data, row.names= TRUE)
 
 &nbsp;
 
-Wenn uns Daten in diesem Format vorliegen,[^`r incref()`] können wir auf
+Wenn uns Daten in diesem Format vorliegen, können wir auf
 viele Funktionen in `R` zurückgreifen, um grundlegende psychometrische
 Auswertungen durchzuführen. Dies sind etwa die Bestimmung der
 Schwierigkeit und der Trennschärfe von Items, sowie die Bestimmung einer
@@ -69,13 +69,16 @@ wir auf Pakete zurückgreifen, die uns über die Basics in `R` hinaus
 weitere Funktionalitäten bieten. Aber auch für diese Analysen benötigen
 wir genau dieses Datenformat!
 
-[^`r incfnc()`]: **Merke**: Das ist das Standard-Datenformat für all
+```{block, type = "block"}
+**Merke**: Das ist das Standard-Datenformat für all
 unsere psychometrischen Berechnungen: (a) Zeilen sind Fälle; (b) Spalten
 sind Items bzw. Messvariablen; (c) Zellen enthalten Datenpunkte, etwa
 die Korrektheit von Antworten (kodiert mit 1/0). Datenpunkte müssen
 nicht unbedingt -- wie es in diesem Beispiel der Fall ist -- dichotom
 sein, sondern können beispielsweise auch die Antworten in einem
 Persönlichkeitsfragebogen auf einer Likert-Skala repräsentieren.
+```
+
 
 ### Testscores
 
