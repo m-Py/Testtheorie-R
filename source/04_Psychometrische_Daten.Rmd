@@ -153,7 +153,7 @@ kable(round(item_correlations, 2))
 
 Die Korrelationen wurden aus Darstellungszwecken auf zwei
 Nachkommastellen gerundet, was mit der Funktion `round` erreicht
-wurde. 
+wurde.
 
 ### Item-Trennschärfen {#trennschaerfe}
 
@@ -245,13 +245,6 @@ ich der Funktion `cor` nur ein Argument übergeben, nämlich den
 eine *Korrelationsmatrix* --, die die Korrelationen zwischen allen
 Spalten enthält.
 
-```{marginfigure}
-**Merke**: Man kann `cor` statt eines `data.frames` auch zwei gleich
-lange Vektoren übergeben, die beispielsweise die Punktzahlen in zwei
-Tests enthalten. Dann berechnet `cor` die Korrelationen zwischen den
-Punktzahlen.
-```
-
 Ich empfehle den Code-Block zur Berechnung der korrigierten Trennschärfe
 genau zu studieren. Darin finden sich viele der Grundlagen aus Kapitel 2
 und 3 wieder:
@@ -296,14 +289,14 @@ stärker ist die interne Konsistenz der Punktwerte. Ein Wert von 0
 spricht dafür, dass gar keine Systematik in den Punktzahlen liegt -- ob
 ich viele oder wenig Punkte bekommen habe, ist gänzlich zufällig.
 
-`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu 
-bestimmen. Man könnte sich eine eigene Berechnung programmieren, die 
-Cronbachs Alpha umsetzt.[^`r incref()`] Wir machen uns aber zunutze, 
-dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt 
-haben, und diese in einem *Paket* zur Verfügung gestellt haben. Eine 
-Umsetzung von Cronbachs Alpha findet sich im Paket `psychometric` 
-[@R-psychometric]. Mit der Funktion `library` kann ich Pakete laden, die 
-nicht zur Grundausstattung von `R` gehören.[^`r incref()`] Voraussetzung 
+`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu
+bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
+Cronbachs Alpha umsetzt.[^`r incref()`] Wir machen uns aber zunutze,
+dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt
+haben, und diese in einem *Paket* zur Verfügung gestellt haben. Eine
+Umsetzung von Cronbachs Alpha findet sich im Paket `psychometric`
+[@R-psychometric]. Mit der Funktion `library` kann ich Pakete laden, die
+nicht zur Grundausstattung von `R` gehören.[^`r incref()`] Voraussetzung
 ist, dass ich das Paket auf meinem Rechner installiert habe.
 
 
@@ -392,11 +385,11 @@ Split-Half-Korrelation zu korrigieren, da in diesen nur die Hälfte der
 Items eingehen. Die Spearman-Brown Formel ist diese:
 
 &nbsp;
-      
+
 $$r' = \frac{r \, n}{1 + (n - 1) r}$$
 
 &nbsp;
-    
+
 Hierbei ist *r'* die um die Testlänge korrigierte Reliabilität. *r* ist
 der derzeitige Reliabilitätsschätzer, also beispielsweise die
 Korrelation von zwei Testhälften. *n* ist der Faktor, um den der Test
@@ -490,19 +483,19 @@ Multiple-Choice-Item sein:
 
 > Aus wie vielen Bundesländern besteht die Bundesrepublik Deutschland?
 
-> (1) 14  
-> (2) 16  
-> (3) 19  
-> (4) 21  
+> (1) 14
+> (2) 16
+> (3) 19
+> (4) 21
 
 Ob ein Kreuz bei (1), (2), (3) oder (4) gesetzt wird, ist für die
 Auswertung nicht von Belang. Relevant ist, ob die Frage richtig
 beantwortet wurde -- wir benötigen also die folgende Umkodierung der
 Daten:
 
-> `1` $\to$ `0`  
-> `2` $\to$ `1`  
-> `3` $\to$ `0`  
+> `1` $\to$ `0`
+> `2` $\to$ `1`
+> `3` $\to$ `0`
 > `4` $\to$ `0`
 
 In psychometrischem Jargon: Für diese Aufgabe ist der Wert `2` der
@@ -614,10 +607,10 @@ wollen wir die Antworten auf Item 1 *invertieren*, sodass auch hier eine
 hohe Punktzahl für eine hohe Merkmalsausprägung in Extraversion
 steht. Das heißt, wir wollen die folgende Abbildung durchführen:
 
-> `1` $\to$ `5`  
-> `2` $\to$ `4`  
-> `3` $\to$ `3`  
-> `4` $\to$ `2`  
+> `1` $\to$ `5`
+> `2` $\to$ `4`
+> `3` $\to$ `3`
+> `4` $\to$ `2`
 > `5` $\to$ `1`
 
 Wir könnten dies mit mehrfacher Anwendung von `ifelse` hinbekommen,
@@ -656,7 +649,7 @@ korrelieren. Folgender Code führt die Invertierung durch:
 
 ```{r}
 # 5 ist der höchst-mögliche Skalenwert
-big5$item1_inv <- big5$item1 * (-1) + 6 
+big5$item1_inv <- big5$item1 * (-1) + 6
 ```
 
 Schauen wir uns die Daten an, um zu prüfen, ob die Transformation
@@ -789,7 +782,7 @@ wir Item 1 deswegen wie folgt bepunkten:
 
 ```R
 npi$Q1_score <- ifelse(npi$Q1 == 1, 1, 0)
-``` 
+```
 
 **Aber Vorsicht: so würden wir einen Fehler machen**! Die Spalte
 `npi$Q1` enthält nicht nur die Werte 1 und 2, sondern auch 0-Werte, wie
@@ -880,7 +873,7 @@ einem anderen Wert entspricht. Man kennt ihn ja nicht. Auch der Befehl
 
 ```{r}
 ## Nutze head, um nicht alle 11,000 Vergleiche auszugeben
-head(item_responses$Q1 == NA) 
+head(item_responses$Q1 == NA)
 ```
 
 Um insgesamt einen Überblick über die Verteilung der fehlenden Fälle zu
@@ -1055,7 +1048,7 @@ npi$Q2_score <- ifelse(npi$Q2 == npi_key[2], 1, 0)
 ...
 
 npi$Q40_score <- ifelse(npi$Q40 == npi_key[40], 1, 0)
-``` 
+```
 
 Da wir nicht denselben Code -- mit leichten Abwandlungen -- 40 Mal
 wiederholen wollen, werden wir in Kapitel 6 lernen, diese Umkodierungen
@@ -1091,4 +1084,3 @@ mean(c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3) == 2)
 ```{r, eval = FALSE, echo = FALSE}
 mean(c(2, 3, 2, 4, 5, 6, 2, 3) * (-1) + 7)
 ```
-
