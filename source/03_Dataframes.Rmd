@@ -499,7 +499,9 @@ passiert, wenn wir diese Reihenfolge ändern?
 ```R
 subset(mdf, c("Item1", "Augenfarbe"),
        Augenfarbe == "blau")
+```
 
+```
 Fehler in subset.data.frame(mdf,
 c("Item1", "Augenfarbe"), Augenfarbe ==  : 'subset' muss
 boolesch sein
