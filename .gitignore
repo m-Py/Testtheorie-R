@@ -1,3 +1,6 @@
 data.csv
 .Rhistory
 01_Einstieg.pdf
+/source/libs/
+/source/01_Einstieg_files/
+*.html

@@ -64,20 +64,21 @@ incref <- function() {
 init_footnotes()
 init_refs()
 
+set.seed(42)
+
 ```
 
 \clearpage
 
 # Einstieg
 
-Dieses Skript bietet einen Einstieg in die statistische
-Programmiersprache `R`. Es wurde als Begleitmaterial für eine
+„Testtheorie mit R“ bietet einen Einstieg in die statistische
+Programmiersprache `R`. Es wurde ursprünglich als Begleitskript für eine
 ein-semestrige Lehrveranstaltung im Master-Studiengang Psychologie an
 der Heinrich-Heine-Universität Düsseldorf entworfen. Im Seminar wird
 kein Vorwissen über `R` vorausgesetzt. Ich habe das Skript öffentlich
 gemacht in der Hoffnung, dass es auch für andere `R`-Einsteiger nützlich
-sein kann. Es wird stetig aktualisiert; der aktuelle Stand ist jeweils
-der zweiten Seite zu entnehmen.
+sein kann.
 
 `R` kann -- unter anderem -- als eine Alternative zur kommerziellen
 Statistik-Software IBM-SPSS verwendet werden. Anders als SPSS ist `R`
@@ -97,24 +98,26 @@ https://stackoverflow.blog/2017/10/10/impressive-growth-r/
 https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
-Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch echte
-Datensätze verwendet, beispielsweise ein Datensatz zum *Narcissistic
-Personality Inventory*, der online frei verfügbar ist über das “Open
+Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch
+echte Datensätze verwendet, beispielsweise ein Datensatz zum
+*Narcissistic Personality Inventory*, der online frei über das “Open
 Source Psychometrics Project”
-([https://openpsychometrics.org/](https://openpsychometrics.org/)).
+([https://openpsychometrics.org/](https://openpsychometrics.org/))
+verfügbar ist.
 
 ## Über dieses Skript
 
 Dieses Skript wurde als Begleitmaterial für eine Lehrveranstaltung
-konzipiert. Das Seminar selbst hat einen starken praktischen Anteil; in
-jeder Stunde werden Übungsaufgaben in `R` bearbeitet.[^`r incref()`] Das
-Skript bietet den theoretischen Unterbau zu den Übungen. Es wird
-empfohlen, das Skript parallel zu den Seminarstunden zu lesen.
-
-[^`r incfnc()`]: Die Übungen des Seminars aus dem Sommersemester 2018
-und die zur Bearbeitung nötigen Daten -- wie auch der jeweils aktuelle
-Stand dieses Skripts -- können unter
-[https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden.
+konzipiert. Die Veranstaltung selbst hat einen starken praktischen
+Anteil; in jeder Stunde werden Übungsaufgaben in `R` bearbeitet. Das
+Skript bietet den theoretischen Unterbau. Die Übungen des Seminars aus
+dem Sommersemester 2018 und die zur Bearbeitung nötigen Daten -- wie
+auch der jeweils aktuelle Stand dieses Skripts -- können unter
+[https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden. Unter
+[https://m-py.github.io/TesttheorieR/](https://m-py.github.io/TesttheorieR/)
+findet sich eine online lesbare Version des Skripts. Das Skript
+wird stetig aktualisiert; diese Version wurde am `r format(Sys.Date(),
+"%d. %B %Y")` erstellt.
 
 Wenn man davor steht, `R` zu lernen, sollte man sich klar machen, dass
 die reine Aufarbeitung einer oder mehrerer schriftlicher Lektüren nicht
@@ -134,13 +137,14 @@ gibt es Spezialfälle, die eine Ausnahme bilden. Auf solche Spezialfälle
 werde ich bei der Beschreibung allgemeiner Grundsätze der
 Programmiersprache `R` nicht immer Rücksicht nehmen.  Das Skript ist so
 ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch
-erfordert die Meisterung von `R` noch weitere eigenständige Einarbeitung.
+erfordert die Meisterung von `R` noch weitere eigenständige
+Einarbeitung.
 
 [^`r incfnc()`]: Kapitel 2 enthält beispielsweise eine Beschreibung
 verschiedener Datentypen in `R` (Zahlen, Text etc.). Diese Liste deckt
 zwar die für uns wichtigsten Datentypen ab, ist aber nicht
 vollständig. Aus inhaltlichen Gründen folgt sie außerdem nicht der
-internen "technischen" Kategorisierung von Daten in `R`.
+internen „technischen“ Kategorisierung von Daten in `R`.
 
 ### Feedback und Fehlermeldungen
 
@@ -151,16 +155,16 @@ etc.) bin ich sehr dankbar! Meldungen können mir an
 \href{mailto:martin.papenberg@hhu.de}{martin.papenberg@hhu.de} gesendet
 werden.
 
-### Credit
+### Danksagung
+
+Ich danke Juliane Tkotz für ihre Beiträge und für ihr nützliches
+Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio
+und Ingo Weigel danke ich für ihre Fehlermeldungen.
 
 Zur Erstellung des Skripts wurden `R` [3.4.4, @R-base] und die
 `R`-Pakete *bookdown* [0.5, @R-bookdown], *knitr* [1.18, @R-knitr],
 *rmarkdown* [1.8, @R-rmarkdown], *tufte* [0.2, @R-tufte] und
 *tint* [0.1.0, @R-tint] genutzt.
-
-Ich danke Juliane Tkotz für ihr nützliches Feedback zum Skript. Hanna
-Siegers, Marlene Wettstein und Frank Calio danke ich ebenfalls für ihre
-Fehlersichtungen.
 
 ## Erste Schritte mit `R`
 
@@ -202,14 +206,8 @@ daran, dass die Zeile, in die wir unsere `R`-Befehle eintragen, mit
 einem `>` beginnt. Um den ersten `R`-Befehl auszuführen, schreiben wir
 Folgendes in die Konsole und drücken `Enter`:
 
-```{marginfigure}
-![](./images/Konsole.jpg) So sieht die `R`-Konsole in RStudio aus.
-```
-
 ```R
-
 > "Hallo Welt!"
-
 ```
 
 Wenn folgende Ausgabe erscheint, hat die Installation funktioniert:
@@ -222,8 +220,7 @@ Wir können die Arbeit mit `R` beziehungsweise der `R`-Konsole als
 Kommunikation verstehen: Wir teilen `R` etwas mit, und `R` gibt uns dazu
 passend etwas zurück -- **wenn unsere Anfrage ein *syntaktisch*
 korrekter `R`-Befehl war**. Andernfalls gibt `R` eine Fehlermeldung aus.
-Zum Beispiel können wir die `R`-Konsole als Taschenrechner
-benutzen:
+Zum Beispiel können wir die `R`-Konsole als Taschenrechner benutzen:
 
 ```{r}
 
@@ -276,8 +273,8 @@ des Codes für uns übernimmt.
 ### Kommentare
 
 Wenn ein `#`-Symbol in die Konsole oder den Skript-Editor geschrieben
-wird, wird der Rest dessen, was in dieser Zeile steht, nicht mehr
-interpretiert, d.h.: nicht als R-Code ausgeführt. Beispiel:
+wird, wird der Rest dieser Zeile nicht mehr interpretiert, das heißt
+nicht als R-Code ausgeführt. Beispiel:
 
 ```R
 
@@ -310,14 +307,15 @@ Element der Ausgabe eines Vektors gekennzeichnet (siehe Kapitel 2).
 
 In den nächsten zwei Kapiteln beschäftigen wir uns zunächst damit, wie
 `R` Daten darstellt. Dabei betrachten wir zunächst die grundlegenste
-Datenstruktur, den *Vektor* ([Kapitel 2](#vektoren)). Danach lernen wir
+Datenstruktur, den Vektor ([Kapitel 2](#vektoren)). Danach lernen wir
 `data.frames` kennen ([Kapitel 3](#dataframes)), die in `R`
 Datentabellen darstellen, wie wir sie auch aus Excel oder SPSS kennen.
-In [Kapitel 4](#psychometrie) werden wir *psychometrische
-Datenauswertungen* durchführen und dabei das Wissen anwenden, das wir
-zuvor erworben haben. In Kapitel 5 und 6 lernen wir mit *Funktionen* und
-*Schleifen* wichtige allgemeine Elemente von Programmiersprachen kennen
-und sehen, wie man mit diesen Elementen in `R` umgehen kann.
+In [Kapitel 4](#psychometrie) werden wir psychometrische
+Datenauswertungen durchführen und dabei das Wissen anwenden, das wir
+zuvor erworben haben. In den Kapiteln [5](#funktionen) und
+[6](#schleifen) lernen wir mit Funktionen und Schleifen wichtige
+Programmiersprachenelemente kennen und werden sehen, wie wir damit
+unsere Arbeit automatisieren können.
 
 ```{r child = '02_Vektoren.Rmd'}
 ```

@@ -265,18 +265,9 @@ können. Hierbei unterscheidet es sich fundamental von SPSS, das einen
 Unterschied zwischen Daten und "Output" macht. In `R` kann das Ergebnis
 jeglicher Berechnung als Input einer anderen Berechnung dienen.
 
- &nbsp;
-
-\fbox{ \parbox{\textwidth}{
-
-  \textbf{\\ Merke}
-
-  In \texttt{R} kann (fast) alles in einer Variablen gespeichert und
-  weiter verwendet werden.  } }
-
-&nbsp;
-
-&nbsp;
+```{block, type = "block"}
+**Merke**: In `R` kann (fast) alles in einer Variablen gespeichert und weiter verwendet werden.
+```
 
 Wir können auch mit "`=`" Daten zu Variablen zuweisen. Das funktioniert
 genauso wie "`<-`":
@@ -583,7 +574,7 @@ FALSE | FALSE
 
 ```
 
-**Merke**: Auch diese logischen Operationen arbeiten komponentenweise
+Auch diese logischen Operationen arbeiten komponentenweise
 auf Vektoren, die mehr als ein Element enthalten:
 
 ```{r}

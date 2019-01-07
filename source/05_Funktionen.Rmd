@@ -1,5 +1,5 @@
 
-# Funktionen
+# Funktionen {#funktionen}
 
 Funktionen sind das Herz der `R`-Maschinerie. Jegliche Befehle, die wir
 in `R` durchführen, sind als Funktionen umgesetzt.[^`r incref()`] Wir
@@ -27,9 +27,7 @@ nicht von Interesse.
 
 Diese Grafik zeigt schematisch die Arbeitsweise von `R`-Funktionen:
 
-\begin{center}
-\includegraphics[]{./images/BlackBoxModel.pdf}
-\end{center}
+![](./images/BlackBoxModel.jpg)
 
 Funktionen nehmen Argumente an, die ihr Verhalten steuern. Sie geben
 genau ein `R`-Objekt zurück, das Rückgabewert genannt wird. Wenn der
@@ -46,7 +44,7 @@ berechnet.[^`r incref()`] Bei Funktionen interessiert uns in erster
 Linie, welche Daten wir einer Funktion als Argumente übergeben müssen
 und was sie uns dafür in Austausch zurückgeben. Die folgenden
 Abschnitte befassen sich mit den einzelnen Bestandteilen des
-"Black-Box-Modells".
+„Black-Box-Modells“.
 
 [^`r incfnc()`]: Das ist natürlich zunächst einmal anders, wenn wir
 selbst neue Funktionen schreiben. Aber auch dann gilt: Wenn ich die
@@ -56,10 +54,10 @@ Gedanken zu machen. Das kann eine enorme Arbeitserleichterung sein.
 
 ##  Argumente
 
-Funktionsargumente determinieren das Verhalten von Funktionen. Im
-einfachsten Fall bedeutet das, dass die Elemente eines Vektors, den wir
-`mean` übergeben, den ausgegebenen Mittelwert determinieren. Wenn wir
-gar keinen Vektor übergeben, erhalten wir kein Ergebnis, sondern eine
+Argumente determinieren das Verhalten von Funktionen. Im einfachsten
+Fall bedeutet das, dass die Elemente eines Vektors, den wir `mean`
+übergeben, den ausgegebenen Mittelwert determinieren. Wenn wir gar
+keinen Vektor übergeben, erhalten wir kein Ergebnis, sondern eine
 Fehlermeldung:
 
 ```R
@@ -69,13 +67,13 @@ Standardwert)
 ```
 
 Um zu verstehen, wie man mit Argumenten das Verhalten von Funktionen
-beeinflusst, ist ein Verständnis der folgenden Punkte wichtig:[^`r
-incref()`]
+beeinflusst, ist ein Verständnis der folgenden Punkte wichtig:
+[^`r incref()`]
 
 [^`r incfnc()`]: Teilweise wurden diese Punkte schon in [Kapitel 3 im
 Abschnitt zur Funktion `subset`](#subset) angesprochen.
 
-1. Manche Argumente haben Standardwerte (Englisch: "default values"),
+1. Manche Argumente haben Standardwerte (Englisch: „default values“),
 die angenommen werden, wenn wir diese Argumente beim Aufrufen der
 Funktion nicht explizit angeben. Diese Argumente heißen *optionale
 Argumente*.
@@ -83,17 +81,17 @@ Argumente*.
    einen Wert übergeben, da die Funktion sonst eine Fehlermeldung und
    kein Ergebnis ausgibt.[^`r incref()`]
 3. Argumente haben Namen, die wir verwenden können, um sie in der Form
-   "`Argumentname = Wert`" zu adressieren.
+   `Argumentname = Wert` zu adressieren.
 4. Wenn wir für ein Argument nicht explizit den Namen angeben, wird das
    Argument nach seiner Position in der Liste aller angegeben Argumente
    identifiziert.
 5. Mit der `R`-Hilfe können wir herausfinden, welche Argumente
-   Funktionen annehmen, wie diese heißen, und welche davon optional bzw.
+   Funktionen annehmen, wie diese heißen, und welche davon optional oder
    verpflichtend sind.
 
 
-[^`r incfnc()`]: Das ist streng genommen auch wieder eine Vereinfachung,
-aber für uns reicht dieses Konzept: Hat ein Argument einen Standardwert,
+[^`r incfnc()`]: Das ist streng genommen auch wieder eine Vereinfachung.
+Aber für uns reicht dieses Konzept: Hat ein Argument einen Standardwert,
 ist es optional; hat ein Argument keinen Standardwert, ist es
 verpflichtend.
 
@@ -124,7 +122,7 @@ mean(1:10)
 ```
 
 Doch was passiert mit `na.rm`, wenn wir es nicht explizit angeben?
-Hierbei nehmen wir folgende Regel zur Kenntnis: **optionale Argumente
+Hierbei nehmen wir folgende Regel zur Kenntnis: **Optionale Argumente
 sind deswegen optional, da ihnen von der Funktion ein Wert zugewiesen
 wird, wenn wir das Argument nicht selbst übergeben**. Das Argument
 `na.rm` hat den Standardwert `FALSE`, weswegen `NA`-Werte im
@@ -144,7 +142,7 @@ wollen -- stattdessen "vertrauen" wir auf die Standardwerte --,
 ist es sehr hilfreich, dass wir Funktionsargumente per Namen ansprechen
 können. So können wir nur genau die optionalen Argumente auswählen,
 die wir anpassen wollen; für die anderen belassen wir den Standardwert.
-Das haben wir bei der Funktion `mean` kennengelernt: nur wenn wir
+Das haben wir bei der Funktion `mean` kennengelernt: Nur wenn wir
 fehlende Werte von der Berechnung des Mittelwerts ausschließen wollen,
 weisen wir dem Argument `na.rm` den Wert `TRUE` zu:
 
@@ -205,8 +203,6 @@ Wir haben nun gelernt, wie wir Argumente an Funktionen übergeben
 können. Dieses Wissen hilft uns jedoch nur, wenn wir folgende Frage
 beantworten können:
 
-&nbsp;
-
 **Wie finden wir heraus, welche Argumente eine Funktion annimmt?**
 
 ### Die `R`-Hilfe{#help}
@@ -248,7 +244,7 @@ Usage:
 
 Wir ignorieren an dieser Stelle, dass uns zwei Varianten angeboten
 werden, die Funktion `mean` zu nutzen.[^`r incref()`] Wenn in der Hilfe
-eine "Default S3 method" angeboten wird, interessiert uns oftmals diese;
+eine „Default S3 method“ angeboten wird, interessiert uns oftmals diese;
 so ist es auch hier der Fall. An dieser Stelle finden wir die
 Informationen, die wir benötigen, um die Funktion zu nutzen. Wir sehen
 
@@ -262,7 +258,7 @@ aufgerufen werden. Das heißt: Sie können mit unterschiedlichen
 - was die Standardwerte der optionalen Argumente sind
 
 Die Standardwerte der optionalen Argumente lassen sich dadurch ablesen,
-dass in der Argumentliste in der Form "`Argumentname = Wert`" schon ein
+dass in der Argumentliste in der Form `Argumentname = Wert` schon ein
 Wert angegeben ist. Das Argument `trim` etwa hat den Standardwert
 `0`. Wie wir bereits wissen, hat das Argument `na.rm` hat den
 Standardwert `FALSE`. Bei nicht-optionalen Argumenten ist kein
@@ -333,8 +329,8 @@ andere Funktionen wie `table` -- die beliebig viele Vektoren zur
 Erstellung von Kreuztabellen annimmt -- und `dplyr::arrange` -- die
 beliebig viele Kriterien zur Sortierung eines `data.frames` annimmt --
 haben unbenannte Argumente. In der `R`-Hilfe ist dies oftmals an dem
-Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:[^`r
-incref()`]
+Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:
+[^`r incref()`]
 
 [^`r incfnc()`]: Wir nehmen interessiert zur Kenntnis, dass `c` zwei
 Argumente mit Standardwerten hat: `recursive` und `use.names`. Mit
@@ -393,8 +389,8 @@ t.test(npi$score[npi$gender == 1], npi$score[npi$gender == 2])
 
 Hier werden uns alle relevanten Aspekte der *t*-Test-Berechnung
 ausgegeben. Ein erster interessanter Hinweis ist, dass kein klassischer
-*t*-Test, sondern ein "Welch Two Sample t-test" gerechnet wurde.[^`r
-incref()`] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert
+*t*-Test, sondern ein "Welch Two Sample t-test" gerechnet wurde.
+[^`r incref()`] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert
 ("`p-value < 2.2e-16`" bedeutet, dass der p-Wert so klein ist, dass vor
 dem ersten Wert hinter dem Komma, der **nicht** Null ist, mindestens 16
 Nullen stehen), das 95%-Konfidenzintervall der Differenz der mittleren
@@ -404,13 +400,6 @@ aufweisen als Frauen. Aber dieser Befund ist für uns in diesem Fall
 uninteressant -- wir wollen uns ja mit dem Rückgabewert befassen. Was
 für ein `R`-Objekt wurde uns denn ausgegeben?
 
-Was in der Konsole angezeigt wird, stellt nicht direkt das `R`-Objekt
-dar, das die Funktion `t.test` ausgibt. Es handelt sich hierbei um eine
-etwas lesefreundlichere Zusammenfassung des Tests. Um das tatsächlich
-ausgegebene Objekt zu inspizieren, kann ich die Funktion `str`
-verwenden. Dazu speichere ich die Ausgabe des t-Tests zunächst in einer
-Variablen ab:
-
 [^`r incfnc()`]:
 Setzt man das Argument `var.equal` auf `TRUE`, wird ein klassischer
 t-Test gerechnet (Standardwert: `FALSE`). Es ist etwas ironisch, dass
@@ -418,9 +407,14 @@ die Funktion `t.test` keinen t-Test rechnet. Wenn man das erwartet,
 könnte man an dieser Stelle auf die Nase fallen, wenn man einfach auf
 die Standardwerte der Funktion vertraut. Mehr Informationen zum
 Welch-t-Test finden sich hier:
-[https://en.wikipedia.org/wiki/Welch%27s_t-test](https://en.wikipedia.
-org/wiki/
-Welch%27s_t-test).
+[https://en.wikipedia.org/wiki/Welch%27s_t-test](https://en.wikipedia.org/wiki/Welch%27s_t-test).
+
+Was in der Konsole angezeigt wird, stellt nicht direkt das `R`-Objekt
+dar, das die Funktion `t.test` ausgibt. Es handelt sich hierbei um eine
+etwas lesefreundlichere Zusammenfassung des Tests. Um das tatsächlich
+ausgegebene Objekt zu inspizieren, kann ich die Funktion `str`
+verwenden. Dazu speichere ich die Ausgabe des t-Tests zunächst in einer
+Variablen ab:
 
 ```R
 test <- t.test(npi$score[npi$gender == 1],
@@ -435,8 +429,8 @@ str(test)
 
 Das von `t.test` ausgegebene Objekt ist eine "List of 9", also eine
 Liste mit 9 Einträgen. Listen sind sehr allgemeine Datencontainer, die
-Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.[^`r
-incref()`] Listen stellen eine wichtige Datenstruktur in `R` dar --
+Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.
+[^`r incref()`] Listen stellen eine wichtige Datenstruktur in `R` dar --
 vielleicht ist es sogar die wichtigste Datenstruktur, da `data.frames`
 spezielle Listen sind, in denen jeder Eintrag (d.h., jede Spalte) ein
 Vektor gleicher Länge ist. Die Elemente der Liste können benannt sein,
