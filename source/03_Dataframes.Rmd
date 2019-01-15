@@ -287,7 +287,7 @@ Auswahl nach numerischem Index, mit einem logischen Vektor, oder mit
 einem `character` Vektor durchführen.
 ```
 
-### Weitere Zugriffsmöglichkeiten auf Spalten
+### Weitere Zugriffsmöglichkeiten auf Spalten {#doppelteckig}
 
 Dieser Abschnitt behandelt zwei weitere Varianten des Datenzugriffs auf
 `data.frames` mithilfe eckiger Klammern. Da wir diese Zugriffe danach
@@ -298,8 +298,8 @@ Abschnitt später zu konsultieren oder zum Nachschlagen zu nutzen.
 
 **Der `[[·]]`-Zugriff**
 
-Äquivalent zum `$`-Zugriff funktioniert der folgende `[[·]]`-Zugriff auf
-eine einzelne Spalte:
+Äquivalent zum `$`-Zugriff funktioniert der `[[·]]`-Zugriff auf eine
+einzelne Spalte:
 
 ```{r}
 mdf[["Item1"]] # dasselbe wie mdf$Item1
@@ -307,35 +307,34 @@ mdf[["Item1"]] # dasselbe wie mdf$Item1
 
 Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
 `character` -- also mit Anführungszeichen -- angegeben. Die
-Anführungszeichen sind notwendig, wenn man die `[[·]]`-Notation
-verwendet. Bei der `$`-Notation verwenden wir keine Anführungszeichen.
-Das bedeutet auch, dass wir statt der expliziten Angabe des Texts auch
-eine Variable übergeben kann, die einen ein-elementigen
-`character`-Vektor abspeichert, was mit der `$`-Notation nicht möglich
-ist.
+Anführungszeichen sind bei Verwendung der `[[·]]`-Notation notwendig.
+Bei der `$`-Notation verwenden wir hingegen keine Anführungszeichen. Das
+hat die Implikation, dass wir statt der expliziten Angabe des Texts auch
+eine Variable übergeben können, die einen ein-elementigen
+`character`-Vektor abspeichert; dies ist mit der `$`-Notation nicht
+möglich.
 
 ```{r}
-auswahl <- "Augenfarbe"
-mdf[[auswahl]]
+spalte <- "Augenfarbe"
+mdf[[spalte]]
 ```
 
-Es ist auch möglich, eine Funktion in die `[[·]]`-Klammerung zu
-übergeben, die uns einen ein-elementigen Vektor vom Typ character
-zurückgibt -- etwa die Funktion `paste0`:
+Ebenso ist es möglich, der `[[·]]`-Klammerung eine Funktion zu
+übergeben, die einen ein-elementigen Vektor vom Typ character zurückgibt
+-- etwa die Funktion `paste0`:
 
 ```{r}
 mdf[[paste0("Item", 1)]]
 ```
 
-Dieser Zugriff wird für uns noch einmal interessant werden, da wir so
-mithilfe von *Schleifen*[^`r incref()`] (in Kapitel 6) in `data.frames`
-nacheinander auf beliebig viele Spalten zugreifen können. Dabei wird es
-vor allem interessant sein, nacheinander auf die Antworten auf Testitems
-(Item **1**, Item **2**, ...) zuzugreifen.
+Der `[[·]]`-Zugriff in Zusammenspiel mit der Funktion `paste0`  wird für
+uns noch einmal interessant werden, wenn wir mit mithilfe von
+*Schleifen* in [Kapitel 6](#schleifen) nacheinander auf beliebig viele
+Spalten von `data.frames` zugreifen werden. [^`r incref()`]
 
-[^`r incfnc()`]: In einer Schleife können wir dann den numerischen Wert
--- hier `1` -- nacheinander immer wieder austauschen (1, 2, 3, 4, ...)
--- ohne, dass wir den Code immer wieder händisch neu schreiben müssen.
+[^`r incfnc()`]: In einer Schleife können wir Spaltennamen automatisiert
+nacheinander immer wieder austauschen (etwa: `Item_1`, `Item_2`, ...)
+und müssen ihn nicht jedes Mal händisch neu aufschreiben.
 
 **Der `[·]`-Zugriff**
 
