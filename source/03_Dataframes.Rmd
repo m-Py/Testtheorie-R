@@ -309,7 +309,7 @@ Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
 `character` -- also mit Anführungszeichen -- angegeben. Die
 Anführungszeichen sind bei Verwendung der `[[·]]`-Notation notwendig.
 Bei der `$`-Notation verwenden wir hingegen keine Anführungszeichen. Das
-hat die Implikation, dass wir statt der expliziten Angabe des Texts auch
+hat zur Folge, dass wir statt der expliziten Angabe des Texts auch
 eine Variable übergeben können, die einen ein-elementigen
 `character`-Vektor abspeichert; dies ist mit der `$`-Notation nicht
 möglich.
@@ -334,7 +334,7 @@ Spalten von `data.frames` zugreifen werden. [^`r incref()`]
 
 [^`r incfnc()`]: In einer Schleife können wir Spaltennamen automatisiert
 nacheinander immer wieder austauschen (etwa: `Item_1`, `Item_2`, ...)
-und müssen ihn nicht jedes Mal händisch neu aufschreiben.
+und müssen sie nicht jedes Mal händisch neu aufschreiben.
 
 **Der `[·]`-Zugriff**
 
