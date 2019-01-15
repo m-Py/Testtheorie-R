@@ -1,8 +1,8 @@
 
 # Schleifen {#schleifen}
 
-Ein Hinweis zu Beginn: Dieses Kapitel nutzt  den `[[·]]`-Zugriff auf
-Spalten auf `data.frames`. Wer damit noch nicht vertraut ist, sollte
+Ein Hinweis zu Beginn: Dieses Kapitel nutzt den `[[·]]`-Zugriff auf
+Spalten in `data.frames`. Wer damit noch nicht vertraut ist, sollte
 sich vor dem Weiterlesen zunächst den [kurzen Abschnitt zum
 `[[·]]`-Zugriff](#doppelteckig) in Kapitel 3 ansehen.
 
