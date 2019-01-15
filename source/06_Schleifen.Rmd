@@ -369,7 +369,7 @@ for (i in indices) {
     # 1. Summenwert unter Ausschluss eines Items
     scores <- rowSums(items[, indices[-i]])
     # 2. Korreliere damit den Item-Score
-    part_whole <- cor(items[, i], scores)
+    part_whole <- cor(items[[i]], scores)
     # 3. Speichere Trennschärfe ab
     discriminations[i] <- part_whole
 }
@@ -377,10 +377,10 @@ for (i in indices) {
 head(discriminations)
 ```
 
-Hier wird die Index-Variable `i` gleich mehrfach verwendet: (a) zur
-Auswahl der Spalten, die den jeweiligen Testwert berechnen; (b) zur
+Hier wird die Index-Variable `i` gleich mehrfach verwendet: (1) zur
+Auswahl der Spalten, die den jeweiligen Testwert berechnen; (2) zur
 Auswahl der Spalte des Items, für das die Trennschärfe bestimmt wird;
-(c) zum Abspeichern der Trennschärfe im Vektor `discriminations`.
+(3) zum Abspeichern der Trennschärfe im Vektor `discriminations`.
 
 ## Abstraktion -- Trennschärfe als Funktion
 
