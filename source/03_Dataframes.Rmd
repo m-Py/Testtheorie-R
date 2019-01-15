@@ -291,16 +291,15 @@ einem `character` Vektor durchführen.
 
 Dieser Abschnitt behandelt zwei weitere Varianten des Datenzugriffs auf
 `data.frames` mithilfe eckiger Klammern. Da wir diese Zugriffe danach
-erst einmal nicht weiter verwenden, kann dieser Abschnitt jedoch
-zunächst problemlos übersprungen werden. Datenzugriffe mit eckigen
-Klammern sind jedoch zentral für `R` als Programmiersprache, weswegen es
-sich lohnt diesen Abschnitt später zu konsultieren oder zum Nachschlagen
-zu nutzen.
+erst einmal nicht weiter verwenden, kann dieser Abschnitt zunächst
+jedoch problemlos übersprungen werden. Da die Datenzugriffe mit eckigen
+Klammern jedoch zentral für `R` sind, lohnt es sich aber diesen
+Abschnitt später zu konsultieren oder zum Nachschlagen zu nutzen.
 
 **Der `[[·]]`-Zugriff**
 
-Äquivalent zum `$`-Zugriff funktioniert der folgende
-`[[·]]`-Zugriff auf eine einzelne Spalte:
+Äquivalent zum `$`-Zugriff funktioniert der folgende `[[·]]`-Zugriff auf
+eine einzelne Spalte:
 
 ```{r}
 mdf[["Item1"]] # dasselbe wie mdf$Item1
@@ -397,7 +396,8 @@ als Vektor repräsentiert ist.
 - Außerdem in diesem Abschnitt: Erklärung einiger allgemeiner Regeln
   zu Funktionen in R
 
-
+**Von hier an überprüfen, was alles zum Abschnitt [·,·] gewechselt ist;
+das hier rauslöschen und prüfen, was sonst bleiben soll**
 
 Einzelne Spalten aus `data.frames` können wir mit dem `$`-Zugriff
 auslesen. Wir lernen nun die Funktion `subset`[^`r incref()`] kennen,
@@ -673,7 +673,6 @@ In `data.frames` haben wir Spalten zumeist nach Namen ausgewählt:
  Zeilen -- oder beidem -- geschehen.
 
 ## Nützliche Funktionen zum Arbeiten mit `data.frames` {#convenient}
-
 
 ### `tapply` {#tapply}
 
