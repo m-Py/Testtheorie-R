@@ -14,7 +14,7 @@ Beispielsweise könnte für eine Studentin in mehreren Spalten ihre
 Punktzahlen in allen Klausuraufgaben abgespeichert werden. Andere
 Datenformate wären auch denkbar, etwa eines in dem jede Zeile einer
 Aufgabe entspricht -- und nicht einer Person. Bei uns wird aber gelten:
-eine Zeile entspricht einer Person, im Normalfall einer
+Eine Zeile entspricht einer Person, im Normalfall einer
 Testteilnehmer/in.
 
 In `R` speichern wir Datentabellen in `data.frames` ab. Ein `data.frame`
@@ -213,8 +213,8 @@ Namen der Zeilen/Spalten enthält, die ausgegeben werden sollen.
 [^`r incref()`]
 
 [^`r incfnc()`]: Auch Zeilen können benannt sein. Den Fall hatten wir
-bislang aber nicht und es ist auch nicht häufig so, dass Zeilen explizit
-benannt sind. Häufig ist der Fall, dass wir Spalten nach Namen
+bislang aber nicht und es kommt auch nicht oft vor, dass Zeilen explizit
+benannt sind. Häufiger ist der Fall, in dem wir Spalten nach Namen
 auswählen.
 
 Es ist möglich, dass in einem einzelnen `[·,·]`-Zugriff sowohl nach
@@ -240,11 +240,11 @@ mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün" & mdf$Item1 == 1, ]
 ```
 
 Wir bemerken, dass die `[·,·]`-Notation recht schnell unübersichtlich
-wird, wenn man komplexere logische Anfragen an die Zeilenauswahl stellt.
+wird, wenn man komplexere logische Anfragen zur Zeilenauswahl stellt.
 Insbesondere führen wir hier häufig einen `$`-Zugriff auf `dfw` durch,
 um die kombinierte logische Bedingung anzugeben. Weiter unten lernen wir
 mit der Funktion `subset` eine Möglichkeit kennen, komplexere logische
-Anfragen an die Auswahl von Zeilen etwas prägnanter zu stellen.
+Anfragen zur Auswahl von Zeilen etwas prägnanter zu stellen.
 
 Zum Abschluss dieses Abschnitts betrachten wir noch einige weitere
 Beispiele für die verschiedenen Auswahlmöglichkeiten per `[·,·]`:
