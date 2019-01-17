@@ -76,9 +76,9 @@ set.seed(42)
 Programmiersprache `R`. Es wurde ursprünglich als Begleitskript für eine
 ein-semestrige Lehrveranstaltung im Master-Studiengang Psychologie an
 der Heinrich-Heine-Universität Düsseldorf entworfen. Im Seminar wird
-kein Vorwissen über `R` vorausgesetzt. Ich habe das Skript öffentlich
-gemacht in der Hoffnung, dass es auch für andere `R`-Einsteiger nützlich
-sein kann.
+kein `R`-Vorwissen vorausgesetzt. Ich habe das Skript in der Hoffnung
+öffentlich gemacht, dass es auch für andere `R`-Einsteiger nützlich sein
+kann.
 
 `R` kann -- unter anderem -- als eine Alternative zur kommerziellen
 Statistik-Software IBM-SPSS verwendet werden. Anders als SPSS ist `R`
@@ -115,9 +115,9 @@ dem Sommersemester 2018 und die zur Bearbeitung nötigen Daten -- wie
 auch der jeweils aktuelle Stand dieses Skripts -- können unter
 [https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden. Unter
 [https://m-py.github.io/TesttheorieR/](https://m-py.github.io/TesttheorieR/)
-findet sich eine online lesbare Version des Skripts. Das Skript
-wird stetig aktualisiert; diese Version wurde am `r format(Sys.Date(),
-"%d. %B %Y")` erstellt.
+findet sich eine online lesbare Version. Das Skript wird stetig
+aktualisiert; diese Version wurde am `r format(Sys.Date(), "%d. %B %Y")`
+erstellt.
 
 Wenn man davor steht, `R` zu lernen, sollte man sich klar machen, dass
 die reine Aufarbeitung einer oder mehrerer schriftlicher Lektüren nicht
@@ -152,8 +152,7 @@ Für Feedback und eine Rückmeldung bei der Entdeckung von Fehlern im
 Skript (auch und insbesondere bei der Entdeckung einfacher
 Rechtschreibfehler, doppelter oder fehlender Wörter, fehlender Kommas
 etc.) bin ich sehr dankbar! Meldungen können mir an
-\href{mailto:martin.papenberg@hhu.de}{martin.papenberg@hhu.de} gesendet
-werden.
+martin.papenberg@hhu.de gesendet werden.
 
 ### Danksagung
 
@@ -198,12 +197,13 @@ Hier könnt ihr beispielsweise über "Download R for Windows" $\to$
 ### Die `R`-Konsole
 
 Wenn wir `R` und RStudio installiert haben, können wir unsere ersten
-Schritte mit `R` nehmen. Dafür geben wir **`R`-Code** in die sogenannte
+Schritte mit `R` nehmen. Dafür geben wir `R`-Code in die sogenannte
 Konsole ein. Im Normalfall finden wir in RStudio die Konsole in der
 Anzeige auf der linken Seite (je nachdem, wie ihr RStudio geöffnet habt,
 befindet sich die Konsole auch links unten). Wir erkennen die Konsole
 daran, dass die Zeile, in die wir unsere `R`-Befehle eintragen, mit
-einem `>` beginnt. Um den ersten `R`-Befehl auszuführen, schreiben wir
+einem `>` beginnt. Diese spitze Klammer fordert uns zum Eingeben von
+`R`-Code auf. Um unseren ersten `R`-Befehl auszuführen, schreiben wir
 Folgendes in die Konsole und drücken `Enter`:
 
 ```R
