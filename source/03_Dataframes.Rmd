@@ -15,7 +15,7 @@ Punktzahlen in allen Klausuraufgaben abgespeichert werden. Andere
 Datenformate wären auch denkbar, etwa eines in dem jede Zeile einer
 Aufgabe entspricht -- und nicht einer Person. Bei uns wird aber gelten:
 Eine Zeile entspricht einer Person, im Normalfall einer
-Testteilnehmer/in.
+Testteilnehmerin.
 
 In `R` speichern wir Datentabellen in `data.frames` ab. Ein `data.frame`
 ist -- vereinfacht gesagt -- eine Sammlung von Vektoren; jede Spalte,
@@ -47,7 +47,7 @@ mdf
 
 Wir sehen, dass der `data.frame` in einer Variablen abgespeichert wird.
 Die Variable nenne ich in diesem Fall `mdf`, was beispielsweise für
-"Mein Data-Frame" stehen könnte. Bei der Erstellung des `data.frames`
+"mein `data.frame`" stehen könnte. Bei der Erstellung des `data.frames`
 wird deutlich, dass Spalten Vektoren enthalten, da wir für jede Spalte
 einen Vektor mit der Funktion `c` bzw. mit dem Doppelpunktoperator
 erstellen. Wir sehen auch, dass die Spalten bei der Erstellung des
@@ -231,8 +231,8 @@ Möglichkeiten sind denkbar, etwa auch, dass ein logischer Vektor zur
 Auswahl der Spalten verwendet wird oder wir die Zeilennummern angeben,
 die ausgewählt werden sollen.
 
-Durch die UND bzw. ODER Operationen können wir auch komplexere
-Anforderungen an die Auswahl der Zeilen stellen:
+Durch die UND- bzw. ODER-Operationen können wir auch komplexere
+Anfragen zur Auswahl von Fällen formulieren:
 
 ```{r}
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün", ]
@@ -242,9 +242,9 @@ mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün" & mdf$Item1 == 1, ]
 Wir bemerken, dass die `[·,·]`-Notation recht schnell unübersichtlich
 wird, wenn man komplexere logische Anfragen zur Zeilenauswahl stellt.
 Insbesondere führen wir hier häufig einen `$`-Zugriff auf `dfw` durch,
-um die kombinierte logische Bedingung anzugeben. Weiter unten lernen wir
+um die kombinierte logische Bedingung auszudrücken. Später lernen wir
 mit der Funktion `subset` eine Möglichkeit kennen, komplexere logische
-Anfragen zur Auswahl von Zeilen etwas prägnanter zu stellen.
+Anfragen etwas prägnanter zu formulieren.
 
 Zum Abschluss dieses Abschnitts betrachten wir noch einige weitere
 Beispiele für die verschiedenen Auswahlmöglichkeiten per `[·,·]`:
