@@ -232,7 +232,7 @@ Auswahl der Spalten verwendet wird oder wir die Zeilennummern angeben,
 die ausgewählt werden sollen.
 
 Durch die UND- bzw. ODER-Operationen können wir auch komplexere
-Anfragen zur Auswahl von Fällen formulieren:
+logische Bedingungen zur Auswahl von Fällen formulieren:
 
 ```{r}
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün", ]
