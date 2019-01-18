@@ -903,7 +903,7 @@ durchführen kann.
 
 ### Der `%in%` Operator
 
-Um zu testen, ob ein oder mehrere Element in einem Vektor enthalten
+Um zu testen, ob ein oder mehrere Elemente in einem Vektor enthalten
 sind, kann man den `%in%`-Operator verwenden. Der sieht zwar
 gewöhnungsbedürftig aus, ist aber einfach zu verwenden und hat auch eine
 einfache verbale Interpretation: Sind die Elemente aus Vektor A in
