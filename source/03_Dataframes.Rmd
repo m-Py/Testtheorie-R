@@ -2,25 +2,22 @@
 # `data.frames` {#dataframes}
 
 Wir haben gelernt, dass `R` Daten in Vektoren abspeichert. Im Normalfall
-haben wir aber in der psychometrischen Datenauswertung eine große Menge
-Daten -- also mehr als einen Wert pro "Fall" --, die wir nicht sinnvoll
-als einzelnen Vektor darstellen können. Etwa: 150 Studierende bearbeiten
-in einer Diagnostikklausur 42 Multiple-Choice-Klausuritems. Wir stellen
-solche Daten in Tabellen dar, wie wir sie auch aus Excel oder SPSS
-kennen. In solchen Tabellen repräsentieren Spalten Messwerte, etwa die
-Punktzahl in einer Klausuraufgabe. Zeilen stellen Fälle dar, oftmals
-Personen, die an einem Test oder einem Fragebogen teilgenommen haben.
-Beispielsweise könnte für eine Studentin in mehreren Spalten ihre
-Punktzahlen in allen Klausuraufgaben abgespeichert werden. Andere
-Datenformate wären auch denkbar, etwa eines in dem jede Zeile einer
-Aufgabe entspricht -- und nicht einer Person. Bei uns wird aber gelten:
-Eine Zeile entspricht einer Person, im Normalfall einer
-Testteilnehmerin.
+haben wir in der psychometrischen Datenauswertung aber eine große
+Datenmenge vorliegen, die wir nicht sinnvoll als einzelnen Vektor
+darstellen können. Etwa: 150 Studierende bearbeiten in einer
+Diagnostikklausur 42 Multiple-Choice-Klausuritems. Wir stellen solche
+Daten in Tabellen dar, wie man sie auch aus Excel oder SPSS kennt. In
+diesen Tabellen repräsentieren Spalten Messvariablen, etwa die
+Punktzahlen in einer Klausuraufgabe. Zeilen stellen Fälle dar, etwa
+Personen, die an der Klausur teilgenommen haben. Andere Datenformate
+wären auch denkbar, etwa eines bei dem jede Zeile einer Aufgabe
+entspricht -- und nicht einer Person. Bei uns wird aber gelten: Jede
+Zeile entspricht genau einer Person.
 
 In `R` speichern wir Datentabellen in `data.frames` ab. Ein `data.frame`
-ist -- vereinfacht gesagt -- eine Sammlung von Vektoren; jede Spalte,
-also jede Messvariable, ist ein Vektor. Mit dieser Datenstruktur werden
-wir uns in diesem Kapitel auseinandersetzen.
+ist, vereinfacht gesagt, eine Sammlung von Vektoren gleicher Länge.
+Jede Spalte -- also jede Messvariable -- ist ein Vektor. Mit dieser
+Datenstruktur werden wir uns im vorliegenden Kapitel auseinandersetzen.
 
 ## Die Funktion `data.frame`
 
