@@ -236,12 +236,20 @@ mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün", ]
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün" & mdf$Item1 == 1, ]
 ```
 
+
 Wir bemerken, dass die `[·,·]`-Notation recht schnell unübersichtlich
 wird, wenn man komplexere logische Anfragen zur Zeilenauswahl stellt.
 Insbesondere führen wir hier häufig einen `$`-Zugriff auf `dfw` durch,
-um die kombinierte logische Bedingung auszudrücken. Später lernen wir
-mit der Funktion `subset` eine Möglichkeit kennen, komplexere logische
-Anfragen etwas prägnanter zu formulieren.
+um die kombinierte logische Bedingung auszudrücken. Die Verknüpfung
+mehrerer ODER-Bedingungen lässt sich durch den %in%-Operator etwas 
+verkürzen: 
+
+```{r}
+mdf[mdf$Augenfarbe %in% c("blau", "grün", "braun"), ]
+```
+
+Später lernen wir mit der Funktion `subset` eine Möglichkeit kennen,
+komplexere logische Anfragen noch etwas prägnanter zu formulieren.
 
 Zum Abschluss dieses Abschnitts betrachten wir noch einige weitere
 Beispiele für die verschiedenen Auswahlmöglichkeiten per `[·,·]`:
