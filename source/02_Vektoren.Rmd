@@ -422,13 +422,20 @@ In `R` hat jeder Vektor genau einen Datentyp. Bis jetzt haben wir nur
 mit dem Datentyp Zahl gearbeitet, der in `R` "numeric" heißt. Der
 Datentyp eines Vektors bestimmt, was für Operationen wir damit
 durchführen können. Vektoren vom Typ "numeric" etwa kann man addieren,
-multiplizieren und so weiter. Es gibt weitere Datentypen, die wir
-benutzen, um unterschiedliche Informationen darzustellen.
+multiplizieren und so weiter. Mit der Funktion `mode` können wir
+überprüfen, welchen Datentyp ein Vektor hat:
+
+```{r}
+mode(1:10)
+```
+
+In diesem Abschnitt werden weitere Datentypen behandelt, die wir nutzen,
+um unterschiedliche Informationen darzustellen.
 
 ### `character`
 
-`character` ist der Datentyp, der Text kennzeichnet. Text wird mit
-doppelten oder einfachen Anführungszeichen angegeben:
+der Datentyp für Text heißt `character`. Text wird mit doppelten oder
+einfachen Anführungszeichen angegeben:
 
 ```{r}
 "Hallo Welt!" # doppelte Anführungszeichen
@@ -455,18 +462,16 @@ für binären Operator
 ```
 
 In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
-werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden,
-zumeist um Spalten in Datentabelle zu adressieren (siehe Kapitel 3 und
-4). Eine nützliche Funktion, die Vektoren vom Typ `character`
-generiert, sei hier deswegen kurz vorgestellt, da wir sie genau zu
-diesem Zweck nutzen werden: die Funktion `paste0`. Sie fügt mehrere
-Vektoren als Text zusammen. So lassen sich beispielsweise bequem 10
-durchnummerierte Itemnamen als `character`-Vektor generieren:
+werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden; im
+Speziellen werden wir Vektoren vom Typ `character` nutzen, um Spalten in
+Datentabelle zu adressieren (siehe Kapitel 3 und 4). Zu diesem Zweck
+werden wir die Funktion `paste0` nutzen, die `character`-Vektoren
+beliebiger Länge erstellt. So lassen sich beispielsweise bequem 10
+durchnummerierte Itemnamen generieren, wodurch man gleich 10 Spalten aus
+einer Tabelle auswählen könnte:
 
 ```{r}
-
 items <- paste0("item_", 1:10)
-
 ```
 
 Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das
@@ -474,42 +479,19 @@ Ergebnis des Befehls ist ein 10-elementiger Vektor, was wir auch wie
 folgt überprüfen können:
 
 ```{r}
-
 length(items)
-
 items
-
-```
-
-Wie man sich vorstellen kann, ist ein solcher Aufruf der Funktion
-`paste0` nützlich, um gezielt Items aus Datentabellen auszuwählen, denn
-Spalten können in `R` mit Namen addressiert werden. Und: In solchen
-Tabellen wird gelten, dass jedes Item in genau einer Spalte steht. Es
-ist beispielsweise vorstellbar, dass wir mit dem folgenden Befehl die
-(fünf) Items einer Extraversions-Subskala aus einem BIG-5-Fragebogen
-addressieren:
-
-```{r}
-paste0("Extraversion", 1:5)
 ```
 
 Mehr über solche Zugriffe auf Datentabellen lernen wir in [Kapitel
 3](#datenzugriffe).
 
-Mit der Funktion `mode` können wir überprüfen, welchen Datentyp ein
-Vektor hat, also ob er beispielsweise tatsächlich vom Typ `character`
-ist:
-
-```{r}
-mode("Mein Text")
-```
-
 Wenn man mit der Funktion `paste0` mehrere ein-elementige Vektoren
-miteinander verknüpft, wird immer ein ein-elementiger Vektor vom Typ
+miteinander verknüpft, wird ein ein-elementiger Vektor vom Typ
 `character` ausgegeben:
 
 ```{r}
-paste0("item", "_", 1) # nimmt beliebig viele Argumente an
+paste0("item", "_", 1) # paste0 nimmt beliebig viele Argumente an
 ```
 
 ### `logical`
@@ -583,31 +565,25 @@ laune <- c(1, 2, 3, 1, 2, 1)
 
 laune_faktor <- factor(laune, levels = c(1, 2, 3),
                        labels = c(":(", ":)", ":D"))
+                       
 laune_faktor
-
 ```
 
-Die Funktion `factor` kann genutzt werden, um numerische Werte in
-`factor` umzuwandeln. Dabei kann man die `levels` spezifizieren, d.h.
-die Werte, die der Vektor annimmt, **bevor** er in `factor` umgewandelt
-wird -- hier `1`, `2` und `3`. Das Argument `labels` wird verwendet, um
-anzugeben, wie die Faktorstufen angezeigt werden sollen. Das ist ähnlich
-den Wertelabels, die man in SPSS vergeben kann. Der Unterschied in `R`:
-Wenn ich eine Variable in `factor` umwandle, kann ich damit keine
-numerischen Berechnungen mehr durchführen. Für `laune_faktor` kann ich
-keinen Mittelwert mehr berechnen, da Vektoren vom Typ `factor`
-kategoriale Variablen darstellen:
+Die Funktion `factor` wird hier genutzt, um numerische Werte in `factor`
+umzuwandeln. Dabei wurden `levels` spezifiziert, d.h. die Werte, die der
+ursprüngliche Vektor angenommen hat. Das Argument `labels` ordnet den
+`levels` eine Bezeichnung zu; diese wird uns angezeigt, wenn wir den
+Vektor aufrufen. Mit einem Vektor vom Typ `factor` kann ich keine
+numerischen Berechnungen mehr durchführen, da er **kategoriale** Daten
+beinhaltet. Etwa kann ich für `laune_faktor` keinen Mittelwert
+berechnen:
 
 ```{r}
-
 mean(laune)
-
 ```
 
 ```{r}
-
 mean(laune_faktor)
-
 ```
 
 Da die Berechnung nicht möglich ist, gibt `R` die folgende "Warnmeldung"
@@ -622,12 +598,12 @@ In mean.default(laune_faktor) :
 
 ### `NA`
 
-`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren:
-`NA`.[^`r incref()`] Da wir mit echten Datensätzen arbeiten, die oftmals
-"messy" sind, d.h. nicht notwendigerweise vollständig, ist diese
-Eigenschaft sehr nützlich. Gerade bei der Arbeit mit Daten in der
-psychologischen Diagnostik ist dies wichtig: Menschen geben in
-Fragebögen eben nicht immer auf alle Fragen eine Antwort.
+`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren: `NA`.[^`r 
+incref()`] Da wir mit echten Datensätzen arbeiten, die oftmals "messy"
+sind, d.h. nicht notwendigerweise vollständig, ist diese Eigenschaft
+sehr nützlich. Gerade bei der Arbeit mit Daten in der psychologischen
+Diagnostik ist dies wichtig: Menschen geben in Fragebögen eben nicht
+immer auf alle Fragen eine Antwort.
 
 [^`r incfnc()`]: Eigentlich ist `NA` kein eigener Datentyp. In `R` hat
 jeder Vektor **nur genau einen** Datentyp. Es ist beispielsweise nicht
@@ -666,9 +642,7 @@ Standardwert des Arguments `na.rm` in der Funktion `mean` ist `FALSE`.
 
 
 ```{r}
-
 mean(messy_data, na.rm = TRUE)
-
 ```
 
 Hierbei nehmen wir zur Kenntnis, dass man Argumente von Funktionen
@@ -713,9 +687,7 @@ Hierbei wird die Variable `daten` mit dem Wert in der Variablen
 `vergleichswert` überschrieben, da `=` als Zuweisung agiert:
 
 ```{r}
-
 daten
-
 ```
 
 Dies ist ein Beispiel für einen Fehler (*Bug*), den man nicht anhand von
@@ -727,19 +699,25 @@ Zugriff darauf vermutlich nicht beachten werde.
 Welche logischen Vergleiche möglich sind, hängt vom Datentyp eines
 Vektors ab. Für Vektoren vom typ `character` etwa macht eine
 kleiner/größer Abfrage keinen Sinn, jedoch eine Abfrage auf
-Gleichheit:[^`r incref()`]
-
-[^`r incfnc()`]: Für Vektoren vom Typ `factor` lässt sich auf dieselbe
-Art und Weise eine Abfrage auf Gleichheit umsetzen.
-
+Gleichheit.
 
 ```{r}
-
 text1 <- "Hallo Welt"
-
 text1 == "Hallo Welt"
 text1 == "Hallo Welt!"
+```
 
+
+Für Vektoren vom Typ `factor` lässt sich genauso eine Abfrage auf
+Gleichheit umsetzen. Hier wird beim Test auf Gleichheit das überprüfte
+`factor`-Label in Anführungszeichen gesetzt:
+
+```{r}
+geschlecht <- c(1, 2, 1, 1, 2, 1, 3)
+geschlecht <- factor(laune, levels = 1:3,
+                     labels = c("weiblich", "maennlich", "divers"))
+
+geschlecht == "maennlich"
 ```
 
 Wenn zwei Vektoren gleicher Länge mit logischen Operatoren verglichen
@@ -930,6 +908,10 @@ dieses im Vektor *nach* `%in%` enthalten ist:
 c(2, 3) %in% 3:5
 
 ```
+
+Die Ausgabe der `%in%`-Operation ist also ein logischer Vektor; die
+Länge  des Ausgabevektors entspricht dabei immer der Länge des Vektors
+auf der linken Seite von `%in%`.
 
 ## Zugriff auf Vektorelemente
 
