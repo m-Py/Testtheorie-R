@@ -21,8 +21,8 @@ Datenstruktur werden wir uns im vorliegenden Kapitel auseinandersetzen.
 
 ## Die Funktion `data.frame`
 
-Mit der Funktion `data.frame` kann ich "händisch" einen `data.frame`
-erstellen. In der Praxis werden wir das aber wohl nur selten machen und
+Mit der Funktion `data.frame` können wir "händisch" einen `data.frame`
+erstellen. In der Praxis werden wir das eher selten machen und
 stattdessen Daten aus einer externen Datei einlesen.[^`r incref()`] Die
 folgende unscheinbare Tabelle mit 5 Einträgen erstelle ich mit der
 Funktion `data.frame`; sie wird uns durch einen Großteil des Kapitels
@@ -42,28 +42,20 @@ importieren diese dann in `R`.
 mdf
 ```
 
-Wir sehen, dass der `data.frame` in einer Variablen abgespeichert wird.
-Die Variable nenne ich in diesem Fall `mdf`, was beispielsweise für
-"mein `data.frame`" stehen könnte. Bei der Erstellung des `data.frames`
-wird deutlich, dass Spalten Vektoren enthalten, da wir für jede Spalte
-einen Vektor mit der Funktion `c` bzw. mit dem Doppelpunktoperator
-erstellen. Wir sehen auch, dass die Spalten bei der Erstellung des
-`data.frames` benannt werden können. **Dieser Punkt ist sehr wichtig, da
-wir Spalten anhand ihres Namens gezielt auswählen werden**. Wenn ich die
-Spaltennamen, also die Namen der Messvariablen eines `data.frames` nicht
-weiß -- etwa weil ich die Daten aus einer Datei eingelesen habe -- kann
-ich diese mit der Funktion `names` herausfinden:
+Der `data.frame` wird in in einer Variablen mit dem Namen `mdf` -- was
+beispielsweise für "mein `data.frame`" stehen könnte -- abgespeichert. Bei der
+Erstellung des `data.frames` wurde jede Spalte mit der Funktion `c` oder dem
+Doppelpunktoperator mit genau einem Vektor befüllt. Die Spalten des
+`data.frames` wurden bei der Erstellung benannt. **Dieser Punkt ist sehr
+wichtig, da wir Spalten anhand ihrer Namen gezielt auswählen können**. Wenn ich
+die Spaltennamen eines `data.frames` nicht mehr weiß, kann ich sie mit der
+Funktion `names` abrufen:
 
 ```{r}
 names(mdf)
 ```
 
-## Datenzugriffe
-
-Wir lernen in diesem Abschnitt die wichtigsten Möglichkeiten kennen,
-Daten aus Spalten und Zeilen von `data.frames` auszuwählen.
-
-### Zugriff auf eine einzelne Spalte: die `$`-Notation
+## Zugriff auf eine einzelne Spalte: die `$`-Notation
 
 Der `$`-Zugriff ist für uns die grundlegendste Operation auf
 `data.frames`. Mit der `$`-Notation können wir auf eine einzelne Spalte
@@ -109,7 +101,7 @@ werden. Das hier geht schief:
 
 [^`r incfnc()`]: Es ist etwas unglücklich, dass der Begriff "Variable"
 eine doppeldeutige Verwendung hat: (1) In `R` sind Variablen die
-Speicherorte von Objekten, die ich mit der "`<-`" Zuweisung erstelle.
+Speicherorte von Objekten; ich erstelle sie mit der "`<-`"-Zuweisung.
 (2) Andererseits bezeichnet man auch Messwerte, etwa die Punktzahlen in
 einem Testitem, als Variable. In `R` würde man sich bei dieser
 Verwendung des Begriffs Variable dann auf die Spalte in einem
@@ -130,12 +122,11 @@ Fehlermeldung erhalten[^`r incref()`] und hätten gegebenenfalls falsche
 Daten abgespeichert.
 
 [^`r incfnc()`]: Wir können uns schon einmal merken, dass
-Fehlermeldungen grundsätzlich etwas Gutes sind. Auch wenn sie oft
-frustrierend sind, helfen sie uns dabei, korrekten Code zu schreiben.
+Fehlermeldungen grundsätzlich etwas Gutes sind.
 
 Mit der `$`-Notation werden wir häufig auf Daten zugreifen, um
-Berechnungen anzustellen. Wir können beispielsweise Mittelwerte von
-Messvariablen berechnen, oder uns Häufigkeiten von Daten angeben lassen:
+Berechnungen durchzuführen. Wir können beispielsweise Mittelwerte von
+Messvariablen berechnen oder uns Häufigkeiten von Daten angeben lassen:
 
 ```{r}
 mean(mdf$Alter)
@@ -143,8 +134,8 @@ table(mdf$Geschlecht)
 ```
 
 Die Funktion `mean` kennen wir bereits. Die Funktion `table` berechnet
-die Häufigkeiten von Werten, die in Vektoren vorkommen. Sie ist vor
-allem nützlich, um kategorielle Messvariablen zu beschreiben. Zur
+die Häufigkeiten aller Werte, die in einem Vektor vorkommen. Sie ist vor
+allem zur Beschreibung kategorialer Messvariablen nützlich. Auch zur
 Überprüfung der Plausibilität von Daten ist `table` extrem
 nützlich. (Ist jeder Wert ein "legaler" Wert, der auch vorkommen
 sollte?) Ich kann die Funktion `table` auch verwenden, um die Häufigkeit
@@ -156,7 +147,7 @@ welcher Testscore nach Geschlecht auftaucht:
 table(mdf$Augenfarbe, mdf$Geschlecht)
 ```
 
-### Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation
+## Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation
 
 Einzelne Spalten können wir mit dem `$`-Zugriff aus `data.frames`
 auslesen. Wir lernen nun den `[·,·]`-Zugriff kennen, mit dem wir nicht
@@ -290,7 +281,7 @@ Auswahl nach numerischem Index, mit einem logischen Vektor, oder mit
 einem `character` Vektor durchführen.
 ```
 
-### Weitere Zugriffsmöglichkeiten auf Spalten {#doppelteckig}
+## Weitere Zugriffsmöglichkeiten auf Spalten {#doppelteckig}
 
 Dieser Abschnitt behandelt zwei weitere Varianten des Datenzugriffs auf
 `data.frames` mithilfe eckiger Klammern. Da wir diese Zugriffe danach
@@ -299,10 +290,10 @@ zunächst problemlos übersprungen werden. Da die Datenzugriffe mit
 eckigen Klammern jedoch zentral für `R` sind, lohnt es sich aber diesen
 Abschnitt später zu konsultieren oder zum Nachschlagen zu nutzen.
 
-**Der `[[·]]`-Zugriff**
+### Der `[[·]]`-Zugriff
 
-Äquivalent zum `$`-Zugriff funktioniert der `[[·]]`-Zugriff auf eine
-einzelne Spalte:
+Den `[[·]]`-Zugriff nutzen wir wie den `$`-Zugriff zum Auslesen
+einzelner Spalten aus `data.frame`:
 
 ```{r}
 mdf[["Item1"]] # dasselbe wie mdf$Item1
@@ -337,7 +328,7 @@ dann Spaltennamen automatisiert nacheinander immer wieder austauschen
 (etwa: `Item_1`, `Item_2`, ...) und müssen sie nicht jedes Mal händisch
 neu aufschreiben.
 
-**Der `[·]`-Zugriff**
+### Der `[·]`-Zugriff
 
 **Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist
 folgender `[·]`-Zugriff:
@@ -385,7 +376,7 @@ nur eine Spalte anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
 Das liegt daran, dass eine einzelne Spalte eines `data.frame` auch gut
 als Vektor repräsentiert ist.
 
-### Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
+## Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
 
 **Ideen für Restrukturierung**
 
