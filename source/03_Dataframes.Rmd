@@ -365,13 +365,11 @@ mdf["Item1"]
 mdf[, "Item1"]
 ```
 
-Hier gibt die `[·,·]`-Auswahl einen Vektor zurück und die `[·]`-Auswahl
-einen `data.frame` mit nur einer Spalte. So lernen wir einen Sonderfall
-der `[·,·]`-Auswahl kennen: Im Normalfall erhalten wir einen ganzen
-`data.frame` zurück, wenn wir per `[·,·]` Daten anfordern. Wenn wir aber
-nur eine Spalte anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
-Das liegt daran, dass eine einzelne Spalte eines `data.frame` auch gut
-als Vektor repräsentiert ist.
+Wenn wir nur eine Spalte auslesen, gibt die `[·,·]`-Auswahl einen Vektor aus,
+die `[·]`-Auswahl jedoch einen `data.frame` mit einer Spalte. Dieses Verhalten
+offenbart einen Sonderfall der `[·,·]`-Auswahl: Im Normalfall gibt `[·,·]`
+auch einen ganzen `data.frame` aus. Wenn wir aber nur eine einzige Spalte
+anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
 
 ## Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
 
