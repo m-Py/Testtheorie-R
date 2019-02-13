@@ -347,7 +347,7 @@ mdf[c("Item1", "Augenfarbe")]
 ```
 
 Dieser Aufruf sollte uns an die `[·,·]`-Notation zur Auswahl von Spalten
-erinnern; in der ist der folgende Ausdruck äquivalent:
+erinnern; in der Tat ist der folgende Ausdruck äquivalent:
 
 ```{r}
 mdf[, c("Item1", "Augenfarbe")]
