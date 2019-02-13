@@ -119,9 +119,7 @@ Hier sucht `R` nach einer Variablen `Item1`, die aber nicht existiert;
 meiner Arbeitsumgebung tatsächlich Variablen mit den Namen `Item1` und
 `Item2` existieren sollten. In dem Fall würden wir falsche Daten
 abspeichern und nicht einmal einmal eine Fehlermeldung
-erhalten[^fehler].
-
-[^fehler]: Fehlermeldungen sind grundsätzlich etwas Gutes.
+erhalten.
 
 Mit der `$`-Notation werden wir häufig auf Daten zugreifen, um
 Berechnungen durchzuführen. Wir können beispielsweise Mittelwerte von
@@ -230,7 +228,7 @@ Die `[·,·]`-Notation wird recht schnell unübersichtlich, wenn sie
 komplexere logische Anfragen enthält. Hier bewirken das Zusammenspiel
 aus den `$`-Zugriffen, den UND- und ODER-Operationen, sowie der Syntax
 der `[·,·]`-Notation, dass sich der Code etwas aufbauscht. Die
-Verknüpfung mehrerer ODER-Bedingungen ließe sich durch den
+Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
 `%in%`-Operator verkürzen: 
 
 ```{r}
@@ -372,6 +370,8 @@ auch einen ganzen `data.frame` aus. Wenn wir aber nur eine einzige Spalte
 anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
 
 ## Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
+
+
 
 **Ideen für Restrukturierung**
 
