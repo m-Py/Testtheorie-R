@@ -293,7 +293,7 @@ Abschnitt später zu konsultieren oder zum Nachschlagen zu nutzen.
 ### Der `[[·]]`-Zugriff
 
 Den `[[·]]`-Zugriff nutzen wir wie den `$`-Zugriff zum Auslesen
-einzelner Spalten aus `data.frame`:
+einzelner Spalten aus `data.frames`:
 
 ```{r}
 mdf[["Item1"]] # dasselbe wie mdf$Item1
