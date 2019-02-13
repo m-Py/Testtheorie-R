@@ -100,14 +100,14 @@ Beispiel verwenden, um den Testscore zu berechnen "wohnen" in
 werden. Das hier geht schief:
 
 [^`r incfnc()`]: Es ist etwas unglücklich, dass der Begriff "Variable"
-eine doppeldeutige Verwendung hat: (1) In `R` sind Variablen die
-Speicherorte von Objekten; ich erstelle sie mit der "`<-`"-Zuweisung.
-(2) Andererseits bezeichnet man auch Messwerte, etwa die Punktzahlen in
-einem Testitem, als Variable. In `R` würde man sich bei dieser
-Verwendung des Begriffs Variable dann auf die Spalte in einem
-`data.frame` beziehen. Diese Verwechslung ist unglücklich, da eine
-`data.frame` Spalte gar keine `R`-Variable ist. Stattdessen speichern
-wir den gesamten `data.frame` in **einer** Variablen ab.
+doppeldeutig ist: (1) In `R` sind Variablen die Speicherorte von
+Objekten; ich erstelle sie mit der "`<-`"-Zuweisung.  (2) Andererseits
+werden auch Messwerte -- etwa die Punktzahlen in einem Testitem -- als
+Variablen bezeichnet. In diesem Sinne würde der Begriff Variable in `R`
+auf die Spalte in einem `data.frame` verweisen, da Spalten Messvariablen
+beinhalten. Diese Doppeldeutigkeit ist deswegen unglücklich, da eine
+Spalte in einem `data.frame` keine `R`-Variable ist. Stattdessen ist der
+gesamte `data.frame` in **einer** Variablen abgespeichert.
 
 ```R
 mdf$Testscore <- Item1 + Item2
@@ -115,14 +115,13 @@ Fehler: Objekt 'Item1' nicht gefunden
 ```
 
 Hier sucht `R` nach einer Variablen `Item1`, die aber nicht existiert;
-`Item1` ist nur eine Spalte von `mdf`. Noch schlimmer wäre es,
-wenn in meiner Arbeitsumgebung tatsächlich Variablen mit den Namen
-`Item1` und `Item2` existieren. In dem Fall würden wir nicht einmal eine
-Fehlermeldung erhalten[^`r incref()`] und hätten gegebenenfalls falsche
-Daten abgespeichert.
+`Item1` ist nur eine Spalte von `mdf`. Noch schlimmer wäre es, wenn in
+meiner Arbeitsumgebung tatsächlich Variablen mit den Namen `Item1` und
+`Item2` existieren sollten. In dem Fall würden wir falsche Daten
+abspeichern und nicht einmal einmal eine Fehlermeldung
+erhalten[^fehler].
 
-[^`r incfnc()`]: Wir können uns schon einmal merken, dass
-Fehlermeldungen grundsätzlich etwas Gutes sind.
+[^fehler]: Fehlermeldungen sind grundsätzlich etwas Gutes.
 
 Mit der `$`-Notation werden wir häufig auf Daten zugreifen, um
 Berechnungen durchzuführen. Wir können beispielsweise Mittelwerte von
