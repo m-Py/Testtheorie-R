@@ -226,16 +226,15 @@ mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün", ]
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün" & mdf$Item1 == 1, ]
 ```
 
-
-Wir bemerken, dass die `[·,·]`-Notation recht schnell unübersichtlich
-wird, wenn man komplexere logische Anfragen zur Zeilenauswahl stellt.
-Insbesondere führen wir hier häufig einen `$`-Zugriff auf `dfw` durch,
-um die kombinierte logische Bedingung auszudrücken. Die Verknüpfung
-mehrerer ODER-Bedingungen lässt sich durch den %in%-Operator etwas 
-verkürzen: 
+Die `[·,·]`-Notation wird recht schnell unübersichtlich, wenn sie
+komplexere logische Anfragen enthält. Hier bewirken das Zusammenspiel
+aus den `$`-Zugriffen, den UND- und ODER-Operationen, sowie der Syntax
+der `[·,·]`-Notation, dass sich der Code etwas aufbauscht. Die
+Verknüpfung mehrerer ODER-Bedingungen ließe sich durch den
+`%in%`-Operator verkürzen: 
 
 ```{r}
-mdf[mdf$Augenfarbe %in% c("blau", "grün", "braun"), ]
+mdf[mdf$Augenfarbe %in% c("blau", "grün"), ]
 ```
 
 Später lernen wir mit der Funktion `subset` eine Möglichkeit kennen,
@@ -282,12 +281,13 @@ einem `character` Vektor durchführen.
 
 ## Weitere Zugriffsmöglichkeiten auf Spalten {#doppelteckig}
 
-Dieser Abschnitt behandelt zwei weitere Varianten des Datenzugriffs auf
-`data.frames` mithilfe eckiger Klammern. Da wir diese Zugriffe danach
+Dieser Abschnitt behandelt zwei weitere Zugriffsmöglichkeiten auf
+`data.frames` mit eckigen Klammern. Da wir diese Zugriffe danach
 erst einmal nicht weiter verwenden, kann dieser Abschnitt jedoch
-zunächst problemlos übersprungen werden. Da die Datenzugriffe mit
-eckigen Klammern jedoch zentral für `R` sind, lohnt es sich aber diesen
-Abschnitt später zu konsultieren oder zum Nachschlagen zu nutzen.
+zunächst problemlos übersprungen werden. Da Datenzugriffe mit eckigen
+Klammern jedoch ein zentraler Bestandteil von `R` sind, lohnt es sich
+diesen Abschnitt später zu konsultieren oder zum Nachschlagen zu
+nutzen.
 
 ### Der `[[·]]`-Zugriff
 
@@ -299,12 +299,12 @@ mdf[["Item1"]] # dasselbe wie mdf$Item1
 ```
 
 Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
-`character` -- also mit Anführungszeichen -- angegeben.
-Anführungszeichen sind bei Verwendung der `[[·]]`-Notation notwendig,
-bei der `$`-Notation verwenden wir hingegen keine Anführungszeichen. Das
-hat zur Folge, dass wir statt der expliziten Angabe des Texts auch eine
-Variable übergeben können, die einen ein-elementigen `character`-Vektor
-abspeichert; dies ist mit der `$`-Notation nicht möglich.
+`character` angegeben -- also mit Anführungszeichen.  Die
+Anführungszeichen sind hier notwendig, bei der `$`-Notation verwenden
+wir hingegen keine Anführungszeichen. Das hat zur Folge, dass wir statt
+der expliziten Angabe des Texts auch eine Variable übergeben können, die
+einen ein-elementigen `character`-Vektor abgespeichert hat; dies ist mit
+der `$`-Notation nicht möglich.
 
 ```{r}
 spalte <- "Augenfarbe"
@@ -319,13 +319,11 @@ Ebenso ist es möglich, der `[[·]]`-Klammerung eine Funktion zu
 mdf[[paste0("Item", 1)]]
 ```
 
-Der `[[·]]`-Zugriff in Zusammenspiel mit der Funktion `paste0` wird für
-uns noch einmal interessant werden, wenn wir mit mithilfe von
-*Schleifen* in [Kapitel 6](#schleifen) nacheinander auf beliebig viele
-Spalten von `data.frames` zugreifen werden. In einer Schleife können wir
-dann Spaltennamen automatisiert nacheinander immer wieder austauschen
-(etwa: `Item_1`, `Item_2`, ...) und müssen sie nicht jedes Mal händisch
-neu aufschreiben.
+Der `[[·]]`-Zugriff wird in Zusammenspiel mit der Funktion `paste0` noch
+einmal interessant werden, wenn wir in [Kapitel 6](#schleifen) mit
+*Schleifen* nacheinander auf beliebig viele Spalten von `data.frames`
+zugreifen. In einer Schleife können wir dann Spaltennamen automatisiert
+nacheinander austauschen (etwa: `Item_1`, `Item_2`, ...).
 
 ### Der `[·]`-Zugriff
 
