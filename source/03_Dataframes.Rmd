@@ -337,17 +337,17 @@ mdf["Item1"]
 Auch hier sind Anführungszeichen zur Identifikation der auszuwählenden
 Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und
 `$` ergeben einen Vektor, `[·]` einen `data.frame` mit einer Spalte.
-Außerdem können wir mit dem `[·]`-Zugriff -- im Gegensatz zu den
-Zugriffen per `[[·]]` und `$` -- gleichzeitig mehrere Spalten auswählen,
-indem wir einen mehr-elementigen Vektor vom Typ `character` angeben:
+Außerdem können wir mit dem `[·]`-Zugriff gleichzeitig mehrere Spalten
+auswählen, indem wir einen mehr-elementigen Vektor vom Typ `character`
+angeben. Das war mit den Zugriffen per `[[·]]` und `$` nicht möglich,
+die immer nur eine Spalte ausgeben. 
 
 ```{r}
 mdf[c("Item1", "Augenfarbe")]
 ```
 
 Dieser Aufruf sollte uns an die `[·,·]`-Notation zur Auswahl von Spalten
-erinnern; in der Tat ist dieser Ausdruck äquivalent zum folgenden
-Befehl:
+erinnern; in der ist der folgende Ausdruck äquivalent:
 
 ```{r}
 mdf[, c("Item1", "Augenfarbe")]
