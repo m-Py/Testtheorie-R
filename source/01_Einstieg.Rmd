@@ -119,12 +119,12 @@ findet sich eine online lesbare Version. Das Skript wird stetig
 aktualisiert; diese Version wurde am `r format(Sys.Date(), "%d. %B %Y")`
 erstellt.
 
-Wenn man davor steht, `R` zu lernen, sollte man sich klar machen, dass
-die reine Aufarbeitung einer oder mehrerer schriftlicher Lektüren nicht
-ausreichend ist. Die praktische Anwendung -- das Ausprobieren und
-"Rumspielen" -- sollte einen mindestens genau so großen Anteil
-haben. Erst durch die Fehler, die man beim praktischen Arbeiten macht --
-und die macht man immer --, lassen sich die eigenen `R`-Fertigkeiten
+Wer `R` lernen möchte, muss sich klar machen, dass die reine
+Aufarbeitung einer oder mehrerer schriftlicher Lektüren zu diesem Zweck
+nicht ausreicht. Die praktische Anwendung -- das Ausprobieren und
+"Rumspielen" -- sollte einen mindestens genau so großen Anteil haben.
+Erst durch die Fehler, die man beim praktischen Arbeiten macht -- und
+die macht man immer --, lassen sich die eigenen `R`-Fertigkeiten
 weiterentwickeln.
 
 Insgesamt gilt: Das Skript und die Übungen stellen nur eine kleine
@@ -160,10 +160,9 @@ Ich danke Juliane Tkotz für ihre Beiträge und für ihr nützliches
 Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio
 und Ingo Weigel danke ich für ihre Fehlermeldungen.
 
-Zur Erstellung des Skripts wurden `R` [3.4.4, @R-base] und die
-`R`-Pakete *bookdown* [0.5, @R-bookdown], *knitr* [1.18, @R-knitr],
-*rmarkdown* [1.8, @R-rmarkdown], *tufte* [0.2, @R-tufte] und
-*tint* [0.1.0, @R-tint] genutzt.
+Zur Erstellung des Skripts wurden `R` [@R-base] und die `R`-Pakete
+*bookdown* [@R-bookdown], *knitr* [@R-knitr], *rmarkdown*
+[@R-rmarkdown], *tufte* [@R-tufte] und *tint* [@R-tint] genutzt.
 
 ## Erste Schritte mit `R`
 
