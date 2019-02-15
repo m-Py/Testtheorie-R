@@ -277,101 +277,9 @@ Auswahl nach numerischem Index, mit einem logischen Vektor, oder mit
 einem `character` Vektor durchführen.
 ```
 
-## Weitere Zugriffsmöglichkeiten auf Spalten {#doppelteckig}
-
-Dieser Abschnitt behandelt zwei weitere Zugriffsmöglichkeiten auf
-`data.frames` mit eckigen Klammern. Da wir diese Zugriffe danach
-erst einmal nicht weiter verwenden, kann dieser Abschnitt jedoch
-zunächst problemlos übersprungen werden. Da Datenzugriffe mit eckigen
-Klammern jedoch ein zentraler Bestandteil von `R` sind, lohnt es sich
-diesen Abschnitt später zu konsultieren oder zum Nachschlagen zu
-nutzen.
-
-### Der `[[·]]`-Zugriff
-
-Den `[[·]]`-Zugriff nutzen wir wie den `$`-Zugriff zum Auslesen
-einzelner Spalten aus `data.frames`:
-
-```{r}
-mdf[["Item1"]] # dasselbe wie mdf$Item1
-```
-
-Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
-`character` angegeben -- also mit Anführungszeichen.  Die
-Anführungszeichen sind hier notwendig, bei der `$`-Notation verwenden
-wir hingegen keine Anführungszeichen. Das hat zur Folge, dass wir statt
-der expliziten Angabe des Texts auch eine Variable übergeben können, die
-einen ein-elementigen `character`-Vektor abgespeichert hat; dies ist mit
-der `$`-Notation nicht möglich.
-
-```{r}
-spalte <- "Augenfarbe"
-mdf[[spalte]]
-```
-
-Ebenso ist es möglich, der `[[·]]`-Klammerung eine Funktion zu
-übergeben, die einen ein-elementigen Vektor vom Typ character ausgibt
--- etwa die Funktion `paste0`:
-
-```{r}
-mdf[[paste0("Item", 1)]]
-```
-
-Der `[[·]]`-Zugriff wird in Zusammenspiel mit der Funktion `paste0` noch
-einmal interessant werden, wenn wir in [Kapitel 6](#schleifen) mit
-*Schleifen* nacheinander auf beliebig viele Spalten von `data.frames`
-zugreifen. In einer Schleife können wir dann Spaltennamen automatisiert
-nacheinander austauschen (etwa: `Item_1`, `Item_2`, ...).
-
-### Der `[·]`-Zugriff
-
-**Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist
-folgender `[·]`-Zugriff:
-
-```{r}
-mdf["Item1"]
-```
-
-Auch hier sind Anführungszeichen zur Identifikation der auszuwählenden
-Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und
-`$` ergeben einen Vektor, `[·]` einen `data.frame` mit einer Spalte.
-Außerdem können wir mit dem `[·]`-Zugriff gleichzeitig mehrere Spalten
-auswählen, indem wir einen mehr-elementigen Vektor vom Typ `character`
-angeben. Das war mit den Zugriffen per `[[·]]` und `$` nicht möglich,
-die immer nur eine Spalte ausgeben. 
-
-```{r}
-mdf[c("Item1", "Augenfarbe")]
-```
-
-Dieser Aufruf sollte uns an die `[·,·]`-Notation zur Auswahl von Spalten
-erinnern; in der Tat ist der folgende Ausdruck äquivalent:
-
-```{r}
-mdf[, c("Item1", "Augenfarbe")]
-```
-
-Zwischen dem `[·]`-Zugriff und der `[·,·]`-Auswahl für Spalten gibt es
-jedoch einen Unterschied, der zutage kommt, wenn wir nur eine Spalte
-auswählen:
-
-```{r}
-mdf["Item1"]
-```
-
-```{r}
-mdf[, "Item1"]
-```
-
-Wenn wir nur eine Spalte auslesen, gibt die `[·,·]`-Auswahl einen Vektor aus,
-die `[·]`-Auswahl jedoch einen `data.frame` mit einer Spalte. Dieses Verhalten
-offenbart einen Sonderfall der `[·,·]`-Auswahl: Im Normalfall gibt `[·,·]`
-auch einen ganzen `data.frame` aus. Wenn wir aber nur eine einzige Spalte
-anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
-
 ## Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
 
-
+In diesem Abschnitt
 
 **Ideen für Restrukturierung**
 
@@ -615,23 +523,119 @@ Identifikation per Position.
 
 Inhalt folgt.
 
+## Weitere Zugriffe auf `data.frames` {#doppelteckig}
+
+Dieser Abschnitt behandelt zwei weitere Möglichkeiten mit eckigen
+Klammern auf Spalten in `data.frames` zuzugreifen. Da wir diese Zugriffe
+danach erst einmal nicht weiter verwenden, kann dieser Abschnitt jedoch
+zunächst problemlos [übersprungen werden](#convenient). Da Datenzugriffe
+mit eckigen Klammern jedoch ein zentraler Bestandteil von `R` sind,
+lohnt es sich diesen Abschnitt später zu konsultieren oder zum
+Nachschlagen zu nutzen.
+
+### Der `[[·]]`-Zugriff
+
+Den `[[·]]`-Zugriff nutzen wir wie den `$`-Zugriff zum Auslesen
+einzelner Spalten aus `data.frames`:
+
+```{r}
+mdf[["Item1"]] # dasselbe wie mdf$Item1
+```
+
+Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
+`character` angegeben -- also mit Anführungszeichen.  Die
+Anführungszeichen sind hier notwendig, bei der `$`-Notation verwenden
+wir hingegen keine Anführungszeichen. Das hat zur Folge, dass wir statt
+der expliziten Angabe des Texts auch eine Variable übergeben können, die
+einen ein-elementigen `character`-Vektor abgespeichert hat; dies ist mit
+der `$`-Notation nicht möglich.
+
+```{r}
+spalte <- "Augenfarbe"
+mdf[[spalte]]
+```
+
+Ebenso ist es möglich, der `[[·]]`-Klammerung eine Funktion zu
+übergeben, die einen ein-elementigen Vektor vom Typ character ausgibt
+-- etwa die Funktion `paste0`:
+
+```{r}
+mdf[[paste0("Item", 1)]]
+```
+
+Der `[[·]]`-Zugriff wird in Zusammenspiel mit der Funktion `paste0` noch
+einmal interessant werden, wenn wir in [Kapitel 6](#schleifen) mit
+*Schleifen* nacheinander auf beliebig viele Spalten von `data.frames`
+zugreifen. In einer Schleife können wir dann Spaltennamen automatisiert
+nacheinander austauschen (etwa: `Item_1`, `Item_2`, ...).
+
+### Der `[·]`-Zugriff
+
+**Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist
+folgender `[·]`-Zugriff:
+
+```{r}
+mdf["Item1"]
+```
+
+Auch hier sind Anführungszeichen zur Identifikation der auszuwählenden
+Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und
+`$` ergeben einen Vektor, `[·]` einen `data.frame` mit einer Spalte.
+Außerdem können wir mit dem `[·]`-Zugriff gleichzeitig mehrere Spalten
+auswählen, indem wir einen mehr-elementigen Vektor vom Typ `character`
+angeben. Das war mit den Zugriffen per `[[·]]` und `$` nicht möglich,
+die immer nur eine Spalte ausgeben. 
+
+```{r}
+mdf[c("Item1", "Augenfarbe")]
+```
+
+Dieser Aufruf sollte uns an die `[·,·]`-Notation zur Auswahl von Spalten
+erinnern; in der Tat ist der folgende Ausdruck äquivalent:
+
+```{r}
+mdf[, c("Item1", "Augenfarbe")]
+```
+
+Zwischen dem `[·]`-Zugriff und der `[·,·]`-Auswahl für Spalten gibt es
+jedoch einen Unterschied, der zutage kommt, wenn wir nur eine Spalte
+auswählen:
+
+```{r}
+mdf["Item1"]
+```
+
+```{r}
+mdf[, "Item1"]
+```
+
+Wenn wir nur eine Spalte auslesen, gibt die `[·,·]`-Auswahl einen Vektor aus,
+die `[·]`-Auswahl jedoch einen `data.frame` mit einer Spalte. Dieses Verhalten
+offenbart einen Sonderfall der `[·,·]`-Auswahl: Im Normalfall gibt `[·,·]`
+auch einen ganzen `data.frame` aus. Wenn wir aber nur eine einzige Spalte
+anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
+
+
 ### Zugriff nach Name und Index {#nameindex}
 
-Nachdem die Möglichkeiten zum Zugriff auf `data.frames` besprochen sind,
-stellen wir zum Abschluss ein grundsätzliches Prinzip zu Datenzugriffen
-in `R` fest: Man kann Zugriffe -- seien es Vektoren, `data.frames` oder
-auch andere Strukturen, die wir noch gar nicht behandelt haben -- **nach
-Index oder nach Name** durchführen. Wir haben bereits Beispiele für
-beides kennengelernt: In Vektoren haben wir Zugriffe mithilfe von
-Indexen durchgeführt, indem wir (a) die Position von auszuwählenden
-Elementen explizit mit einem numerischen Vektor angegeben haben, oder
-(b) indem wir einen logischen Vektor übergeben haben, der anhand von
-`TRUE` und `FALSE` Werten die Indexe auswählt, deren Elemente ausgegeben
-werden sollen. Der Vollständigkeit halber sei hier mitgeteilt, dass man
-sogar bei Vektoren Zugriffe nach Namen durchführen kann, wenn die
-Elemente des Vektors benannt sind. Das ist gar nicht so ungewöhnlich;
-wie folgt könnte man einen Vektor mit benannten Elementen erstellen und
-mit der bekannten `[·]`-Notation darauf zugreifen.
+Wir haben nun alle wichtigen Möglichkeiten kennengelernt, Zugriffe auf
+`data.frames` durchzuführen. An dieser Stelle lohnt es sich deswegen ein
+grundsätzliches Prinzip von Datenzugriffen in `R` festzustellen:
+**Datenzugriffe können nach nach Index oder nach Name stattfinden**.
+Dies gilt für Vektoren, `data.frames` und auch andere Datenstrukturen,
+die wir noch gar nicht behandelt haben. 
+
+Wir haben bereits Beispiele für beide Arten des Datenzugriffs
+kennengelernt: In Vektoren haben wir Zugriffe mithilfe von Indexen
+durchgeführt, indem wir (a) die Position von auszuwählenden Elementen
+explizit mit einem numerischen Vektor angegeben haben, oder (b) indem
+wir einen logischen Vektor übergeben haben, der anhand von `TRUE` und
+`FALSE` Werten die Indexe auswählt, deren Elemente ausgegeben werden
+sollen. Der Vollständigkeit halber sei hier mitgeteilt, dass man sogar
+bei Vektoren Zugriffe nach Namen durchführen kann, wenn die Elemente des
+Vektors benannt sind. Das ist gar nicht so ungewöhnlich; wie folgt
+könnte man einen Vektor mit benannten Elementen erstellen und mit der
+bekannten `[·]`-Notation darauf zugreifen.
 
 ```{r}
 
