@@ -235,11 +235,11 @@ Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
 mdf[mdf$Augenfarbe %in% c("blau", "grün"), ]
 ```
 
-Später lernen wir mit der Funktion `subset` eine Möglichkeit kennen,
-komplexere logische Anfragen noch etwas prägnanter zu formulieren.
-
-Zum Abschluss dieses Abschnitts betrachten wir noch einige weitere
-Beispiele für die verschiedenen Auswahlmöglichkeiten per `[·,·]`:
+Im nächsten Abschnitt lernen wir mit der Funktion `subset` eine
+Möglichkeit kennen, komplexere logische Anfragen noch etwas prägnanter
+zu formulieren. Zum Abschluss dieses Abschnitts betrachten wir noch
+einige weitere Beispiele für die verschiedenen Auswahlmöglichkeiten per
+`[·,·]`:
 
 ```{r}
 ## Wähle per Index die ersten drei Zeilen aus
@@ -279,91 +279,38 @@ einem `character` Vektor durchführen.
 
 ## Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
 
-In diesem Abschnitt
+In diesem Abschnitt nutzen wir die Funktion `subset`, um die zwei
+wichtigsten Möglichkeiten des Datenzugriffs auf `data.frames` zu
+vereinfachen:
 
-**Ideen für Restrukturierung**
+1. Die Auswahl von Fällen anhand logischer Bedingungen
+2. Die Auswahl von Spalten durch Angabe der Spaltennamen
 
-- subset = Abstraktion wichtiger Nutzungen von [·,·]: Spaltenauswahl per
-  Spaltenname, Zeilenauswahl per logischem Ausdruck
-- Dafür: Zeilenauswahl per logischem Ausdruck, Spaltenauswahl wie gehabt,
-  aber mit Sonderregeln, die die Auswahl etwas vereinfachen
-- Außerdem in diesem Abschnitt: Erklärung einiger allgemeiner Regeln
-  zu Funktionen in R
-
-**Von hier an überprüfen, was alles zum Abschnitt [·,·] gewechselt ist;
-das hier rauslöschen und prüfen, was sonst bleiben soll**
-
-Einzelne Spalten aus `data.frames` können wir mit dem `$`-Zugriff
-auslesen. Wir lernen nun die Funktion `subset`[^`r incref()`] kennen,
-mit der wir bequem beliebige Spalten und Zeilen aus `data.frames`
-auswählen können. Anders als bei der Auswahl mit dem `$`-Operator --
-dessen Rückgabe ein Vektor ist --, gibt uns die Funktion `subset` immer
-einen ganzen `data.frame` zurück.
-
-[^`r incfnc()`]: Der Abschnitt zur Funktion `subset` ist ein besonders
-wichtiger Abschnitt, da hier nicht nur die spezielle Funktionalität
-einer einzelnen Funktion erläutert wird, sondern auch an ihrem Beispiel
-allgemeine Eigenschaften von Funktionen in `R` dargestellt werden.
-
-Mit `subset` können wir beispielsweise nur eine Teilmenge aller Fälle
-auswählen; etwa nur die Personen mit blauen Augen. Für diese Auswahl
-hilft uns unser Wissen über logische Vergleiche aus dem letzten
-Kapitel:[^`r incref()`]
-
-[^`r incfnc()`]: Beachtet, dass durch diesen Aufruf die Tabelle
-`mdf` nicht verändert wird. Die Funktion gibt stattdessen eine
-neue Tabelle zurück, die nur die Fälle enthält, bei denen
-`Augenfarbe == "blau"` gilt. Wir müssten das Ergebnis der Funktion in
-einer Variablen speichern, wenn wir damit weiter arbeiten wollen
-(Erinnerung: [Kapitel 2](#ausgabevsabspeichern)).
+Mit der Funktion `subset` können wir mit logischen Bedingungen Fälle aus
+einem `data.frame` auswählen, ohne die`$`-Notation zu verwenden:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau")
 ```
 
-Auf diese Weise haben wir mit einem logischen Vergleich aus der Tabelle
-nur zwei Zeilen ausgewählt. Ihr merkt: In der Funktion `subset` kann ich
-für die logische Auswahl nach Augenfarbe die Spalte `Augenfarbe` direkt
-mit ihrem Namen adressieren, ohne dass ich die `$`-Notation
-verwende. Das ist eine Besonderheit der Funktion `subset`; außerhalb der
-Funktion würde der Befehl `Augenfarbe == "blau"` einen Fehler ausgeben,
-da `Augenfarbe` selbst keine Variable ist -- nur eine Spalte von
-`mdf`.[^`r incref()`] Innerhalb der Funktion `subset`
-funktioniert es nur deswegen, da das erste Argument der `data.frame`
-ist, aus dem ich Daten auswähle. Die Funktion `subset` weiß somit, auf
-welchen Daten sie operieren muss. Das Folgende ist also nicht nötig,
-obwohl es auch funktionieren würde:
+Dieses Verhalten ist eine Besonderheit der Funktion `subset`; außerhalb
+der Funktion würde der Befehl `Augenfarbe == "blau"` einen Fehler
+ausgeben, da `Augenfarbe` selbst keine Variable ist -- nur eine Spalte
+von `mdf`.[^`r incref()`] Innerhalb der Funktion `subset` kann die
+logische Bedingung verarbeitet werden, da als erstes Argument der
+`data.frame` angegeben wurde, aus dem die Daten ausgewählt werden
+sollen. Das Folgende ist also nicht nötig, aber es funktioniert auch:
 
 [^`r incfnc()`]: Es macht an dieser Stelle Sinn, einen Moment inne zu
 halten und zu überlegen, warum es eigentlich außergewöhnlich ist, dass
 der Befehl `Augenfarbe == "blau"` innerhalb der Funktion `subset`
-funktioniert.
+funktioniert. 
 
 ```R
 subset(mdf, mdf$Augenfarbe == "blau")
 ```
 
-Dementsprechend könnte man auch der Funktion `subset` -- dieses
-Verhalten kennen wir von der `[·]`-Notation zur Auswahl von Elementen
-aus Vektoren -- einen beliebigen logischen Vektor zur Auswahl der Zeilen
-übergeben:
-
-```{r}
-subset(mdf, c(TRUE, FALSE, FALSE, TRUE, FALSE)) # wählt die erste und vierte Zeile aus
-```
-
-Durch die UND bzw. ODER Operationen können wir auch komplexere
-Anforderungen an die Auswahl stellen:
-
-```{r}
-subset(mdf, Augenfarbe == "blau" | Augenfarbe == "grün")
-
-subset(mdf, (Augenfarbe == "blau" | Augenfarbe == "grün") & Item1 == 1)
-
-```
-
-Wie schon erwähnt, können wir mit `subset` nicht nur Zeilen, sondern
-auch Spalten auswählen:
+Als drittes Argument können wir Spalten auswählen:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
@@ -379,22 +326,19 @@ Augen.
 
 ```{block, type = "block"}
 **Merke**: Die Funktion `subset` gibt immer einen ganzen `data.frame`
-zurück -- selbst dann, wenn ich nur eine einzige Spalte anfordere. Mit
-dem `$`-Operator könnte ich hingegen eine einzelne Spalte als Vektor
-auslesen.
+zurück -- selbst dann, wenn ich nur eine einzige Spalte anfordere.
 ```
 
 Bei dieser Verwendung der Funktion `subset` fällt eine allgemeine
-Eigenschaft von Funktionen auf: `subset` erkennt anhand der Reihenfolge
-der Argumente, wie sie sich zu verhalten hat. Das erste Argument
-übergibt den `data.frame`, von dem wir Daten anfordern. Das zweite
-Argument wählt mit einem logischen Ausdruck **Zeilen** aus, das dritte
-Argument wählt durch einem `character`-Vektor **Spalten** aus. Was
-passiert, wenn wir diese Reihenfolge ändern?
+Eigenschaft von Funktionen auf: Die Funktion `subset` erkennt anhand der
+Reihenfolge der Argumente, wie sie sich zu verhalten hat. Das erste
+Argument übergibt den `data.frame`, von dem wir Daten anfordern. Das
+zweite Argument wählt mit einem logischen Ausdruck **Zeilen** aus, das
+dritte Argument wählt durch einem `character`-Vektor **Spalten** aus.
+Was passiert, wenn wir diese Reihenfolge ändern?
 
 ```R
-subset(mdf, c("Item1", "Augenfarbe"),
-       Augenfarbe == "blau")
+subset(mdf, c("Item1", "Augenfarbe"), Augenfarbe == "blau")
 ```
 
 ```
@@ -518,10 +462,6 @@ erwartet hätte.
 identifiziert werden. Die Identifikation per Name schlägt dabei die
 Identifikation per Position.
 ```
-
-**Ausnahmeregeln für die Funktion `subset`**
-
-Inhalt folgt.
 
 ## Weitere Zugriffe auf `data.frames` {#doppelteckig}
 
