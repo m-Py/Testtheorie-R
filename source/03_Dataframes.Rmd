@@ -2,27 +2,27 @@
 # `data.frames` {#dataframes}
 
 Wir haben gelernt, dass `R` Daten in Vektoren abspeichert. Im Normalfall
-haben wir aber in der psychometrischen Datenauswertung eine große Menge
-Daten -- also mehr als einen Wert pro "Fall" --, die wir nicht sinnvoll
-als einzelnen Vektor darstellen können. Etwa: 150 Studierende bearbeiten
-in einer Diagnostikklausur 42 Multiple-Choice-Klausuritems. Wir stellen
-solche Daten in Tabellen dar, wie wir sie auch aus Excel oder SPSS
-kennen. In solchen Tabellen repräsentieren Spalten Messwerte, etwa die
-Punktzahlen in einer Klausuraufgabe. Zeilen stellen Fälle dar. Ein Fall
-könnte etwa eine Testteilnehmerin sein, für die in mehreren Spalten ihre
-Punktzahlen in allen Aufgaben abgespeichert sind.[^`r incref()`] In `R`
-werden solche Datentabellen in `data.frames` abgespeichert. Ein
-`data.frame` ist -- vereinfacht gesagt -- eine Sammlung von Vektoren;
-jede Spalte, also jede Messvariable, ist ein Vektor.
+haben wir in der psychometrischen Datenauswertung aber eine große
+Datenmenge vorliegen, die wir nicht sinnvoll als einzelnen Vektor
+darstellen können. Etwa: 150 Studierende bearbeiten in einer
+Diagnostikklausur 42 Multiple-Choice-Klausuritems. Wir stellen solche
+Daten in Tabellen dar, wie man sie auch aus Excel oder SPSS kennt. In
+diesen Tabellen repräsentieren Spalten Messvariablen, etwa die
+Punktzahlen in einer Klausuraufgabe. Zeilen stellen Fälle dar, etwa
+Personen, die an der Klausur teilgenommen haben. Andere Datenformate
+wären auch denkbar, etwa eines bei dem jede Zeile einer Aufgabe
+entspricht -- und nicht einer Person. Bei uns wird aber gelten: Jede
+Zeile entspricht genau einer Person.
 
-[^`r incfnc()`]: Andere Formate sind auch denkbar, etwa eines in dem
-jede Zeile eine Aufgabe darstellt. Bei uns wird aber im Normalfall
-gelten: eine Zeile entspricht einem Fall -- oftmals einer Person.
+In `R` speichern wir Datentabellen in `data.frames` ab. Ein `data.frame`
+ist, vereinfacht gesagt, eine Sammlung von Vektoren gleicher Länge.
+Jede Spalte -- also jede Messvariable -- ist ein Vektor. Mit dieser
+Datenstruktur werden wir uns im vorliegenden Kapitel auseinandersetzen.
 
 ## Die Funktion `data.frame`
 
-Mit der Funktion `data.frame` kann ich "händisch" einen `data.frame`
-erstellen. In der Praxis werden wir das aber wohl nur selten machen und
+Mit der Funktion `data.frame` können wir "händisch" einen `data.frame`
+erstellen. In der Praxis werden wir das eher selten machen und
 stattdessen Daten aus einer externen Datei einlesen.[^`r incref()`] Die
 folgende unscheinbare Tabelle mit 5 Einträgen erstelle ich mit der
 Funktion `data.frame`; sie wird uns durch einen Großteil des Kapitels
@@ -42,30 +42,20 @@ importieren diese dann in `R`.
 mdf
 ```
 
-Wir sehen, dass der `data.frame` -- ebenso wie es bei Vektoren möglich
-war -- in einer Variable gespeichert wird. Die Variable zum Abspeichern
-des `data.frames` nenne ich in diesem Fall `dfw`; das könnte
-beispielsweise für "Mein Data-Frame" stehen. Bei der Erstellung des
-`data.frames` wird deutlich, dass Spalten Vektoren enthalten, da wir für
-jede Spalte einen Vektor mit der Funktion `c` bzw. mit dem
-Doppelpunktoperator erstellen. Wir sehen auch, dass die Spalten bei der
-Erstellung des `data.frames` benannt werden können. **Dieser Punkt ist
-sehr wichtig, da wir Spalten anhand ihres Namens gezielt auswählen
-werden**. Wenn ich die Spaltennamen, also die Namen der Messvariablen
-eines `data.frames` nicht weiß -- etwa weil ich die Daten aus einer
-Datei eingelesen habe -- kann ich diese mit der Funktion `names`
-herausfinden:
+Der `data.frame` wird in in einer Variablen mit dem Namen `mdf` -- was
+beispielsweise für "mein `data.frame`" stehen könnte -- abgespeichert. Bei der
+Erstellung des `data.frames` wurde jede Spalte mit der Funktion `c` oder dem
+Doppelpunktoperator mit genau einem Vektor befüllt. Die Spalten des
+`data.frames` wurden bei der Erstellung benannt. **Dieser Punkt ist sehr
+wichtig, da wir Spalten anhand ihrer Namen gezielt auswählen können**. Wenn ich
+die Spaltennamen eines `data.frames` nicht mehr weiß, kann ich sie mit der
+Funktion `names` abrufen:
 
 ```{r}
 names(mdf)
 ```
 
-## Datenzugriffe
-
-Wir lernen in diesem Abschnitt die wichtigsten Möglichkeiten kennen,
-Daten aus Spalten und Zeilen von `data.frames` auszuwählen.
-
-### Zugriff auf eine einzelne Spalte: die `$`-Notation
+## Zugriff auf eine einzelne Spalte: die `$`-Notation
 
 Der `$`-Zugriff ist für uns die grundlegendste Operation auf
 `data.frames`. Mit der `$`-Notation können wir auf eine einzelne Spalte
@@ -110,14 +100,14 @@ Beispiel verwenden, um den Testscore zu berechnen "wohnen" in
 werden. Das hier geht schief:
 
 [^`r incfnc()`]: Es ist etwas unglücklich, dass der Begriff "Variable"
-eine doppeldeutige Verwendung hat: (1) In `R` sind Variablen die
-Speicherorte von Objekten, die ich mit der "`<-`" Zuweisung erstelle.
-(2) Andererseits bezeichnet man auch Messwerte, etwa die Punktzahlen in
-einem Testitem, als Variable. In `R` würde man sich bei dieser
-Verwendung des Begriffs Variable dann auf die Spalte in einem
-`data.frame` beziehen. Diese Verwechslung ist unglücklich, da eine
-`data.frame` Spalte gar keine `R`-Variable ist. Stattdessen speichern
-wir den gesamten `data.frame` in **einer** Variablen ab.
+doppeldeutig ist: (1) In `R` sind Variablen die Speicherorte von
+Objekten; ich erstelle sie mit der "`<-`"-Zuweisung.  (2) Andererseits
+werden auch Messwerte -- etwa die Punktzahlen in einem Testitem -- als
+Variablen bezeichnet. In diesem Sinne würde der Begriff Variable in `R`
+auf die Spalte in einem `data.frame` verweisen, da Spalten Messvariablen
+beinhalten. Diese Doppeldeutigkeit ist deswegen unglücklich, da eine
+Spalte in einem `data.frame` keine `R`-Variable ist. Stattdessen ist der
+gesamte `data.frame` in **einer** Variablen abgespeichert.
 
 ```R
 mdf$Testscore <- Item1 + Item2
@@ -125,19 +115,15 @@ Fehler: Objekt 'Item1' nicht gefunden
 ```
 
 Hier sucht `R` nach einer Variablen `Item1`, die aber nicht existiert;
-`Item1` ist nur eine Spalte von `mdf`. Noch schlimmer wäre es,
-wenn in meiner Arbeitsumgebung tatsächlich Variablen mit den Namen
-`Item1` und `Item2` existieren. In dem Fall würden wir nicht einmal eine
-Fehlermeldung erhalten[^`r incref()`] und hätten gegebenenfalls falsche
-Daten abgespeichert.
-
-[^`r incfnc()`]: Wir können uns schon einmal merken, dass
-Fehlermeldungen grundsätzlich etwas Gutes sind. Auch wenn sie oft
-frustrierend sind, helfen sie uns dabei, korrekten Code zu schreiben.
+`Item1` ist nur eine Spalte von `mdf`. Noch schlimmer wäre es, wenn in
+meiner Arbeitsumgebung tatsächlich Variablen mit den Namen `Item1` und
+`Item2` existieren sollten. In dem Fall würden wir falsche Daten
+abspeichern und nicht einmal einmal eine Fehlermeldung
+erhalten.
 
 Mit der `$`-Notation werden wir häufig auf Daten zugreifen, um
-Berechnungen anzustellen. Wir können beispielsweise Mittelwerte von
-Messvariablen berechnen, oder uns Häufigkeiten von Daten angeben lassen:
+Berechnungen durchzuführen. Wir können beispielsweise Mittelwerte von
+Messvariablen berechnen oder uns Häufigkeiten von Daten angeben lassen:
 
 ```{r}
 mean(mdf$Alter)
@@ -145,8 +131,8 @@ table(mdf$Geschlecht)
 ```
 
 Die Funktion `mean` kennen wir bereits. Die Funktion `table` berechnet
-die Häufigkeiten von Werten, die in Vektoren vorkommen. Sie ist vor
-allem nützlich, um kategorielle Messvariablen zu beschreiben. Zur
+die Häufigkeiten aller Werte, die in einem Vektor vorkommen. Sie ist vor
+allem zur Beschreibung kategorialer Messvariablen nützlich. Auch zur
 Überprüfung der Plausibilität von Daten ist `table` extrem
 nützlich. (Ist jeder Wert ein "legaler" Wert, der auch vorkommen
 sollte?) Ich kann die Funktion `table` auch verwenden, um die Häufigkeit
@@ -158,21 +144,17 @@ welcher Testscore nach Geschlecht auftaucht:
 table(mdf$Augenfarbe, mdf$Geschlecht)
 ```
 
-### Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation
+## Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation
 
-Einzelne Spalten können wir aus `data.frames` mit dem `$`-Zugriff
+Einzelne Spalten können wir mit dem `$`-Zugriff aus `data.frames`
 auslesen. Wir lernen nun den `[·,·]`-Zugriff kennen, mit dem wir nicht
 nur einzelne Spalten, sondern beliebige Spalten und Zeilen auswählen
-können.[^`r incref()`] Wie wir sehen werden, funktioniert der
-`[·,·]`-Zugriff ähnlich wie der `[·]`-Zugriff, den wir zur Auswahl von
-Daten aus Vektoren kennengelernt haben.
-
-[^`r incfnc()`]: Während uns der `$`-Zugriff uns immer genau einen
-Vektor zurückgibt, werden wir mit dem `[·,·]`-Zugriff **zumeist** einen
-ganzen `data.frame` auslesen.
+können. Wie wir sehen werden, funktioniert der `[·,·]`-Zugriff ähnlich
+wie der `[·]`-Zugriff, den wir zur Auswahl von Daten aus Vektoren
+kennengelernt haben.
 
 Mit dem `[·,·]`-Zugriff könnten wir beispielsweise nur eine Teilmenge
-aller Fälle aus `mdf` auswählen; etwa nur die Personen mit blauen Augen,
+aller Fälle aus `mdf` auswählen, etwa nur die Personen mit blauen Augen,
 oder alle Personen, die den maximalen Testwert erreicht haben. Für
 solche Auswahlen hilft uns unser Wissen über logische Vergleiche aus dem
 letzten Kapitel. Betrachten wir zunächst ein Beispiel:[^`r incref()`]
@@ -196,10 +178,12 @@ auch gezielt Spalten aus `data.frames` auswählen:
 mdf[, c("Augenfarbe", "Alter")]
 ```
 
-Durch die zwei Beispiele erkennen wir also, dass das Komma in der `[·,·]`-Notation
-bewirkt, ob eine Auswahl nach Zeilen oder Spalten stattfindet. **Vor dem Komma
-werden Zeilen adressiert, nach dem Komma Spalten.** Allgemein ist die Syntax zum
-Ansprechen von `data.frames` mit dem `[·,·]`-Zugriff die folgende:
+Die zwei Beispiele zeigen, dass das Komma in der `[·,·]`-Notation
+bewirkt, ob eine Auswahl nach Zeilen oder Spalten stattfindet; wie wir
+sehen werden, ist auch eine gleichzeitige Auswahl nach Zeilen **und**
+Spalten möglich. **Vor dem Komma werden Zeilen adressiert, nach dem
+Komma Spalten.** Allgemein ist die Syntax zum Ansprechen von
+`data.frames` mit dem `[·,·]`-Zugriff die folgende:
 
 ```
 data.frame[Reihenvektor, Spaltenvektor]
@@ -214,8 +198,9 @@ Namen der Zeilen/Spalten enthält, die ausgegeben werden sollen.
 [^`r incref()`]
 
 [^`r incfnc()`]: Auch Zeilen können benannt sein. Den Fall hatten wir
-bislang aber nicht und es ist auch nicht häufig so, dass Zeilen explizit
-benannt sind.
+bislang aber nicht und es kommt auch nicht oft vor, dass Zeilen explizit
+benannt sind. Häufiger ist der Fall, in dem wir Spalten nach Namen
+auswählen.
 
 Es ist möglich, dass in einem einzelnen `[·,·]`-Zugriff sowohl nach
 Spalten als auch Zeilen ausgewählt wird. Oftmals wird aber entweder der
@@ -228,26 +213,33 @@ Typ `character` angeben -- also die Spaltennamen. Zur Auswahl von Zeilen
 wird man häufig einen logischen Vektor verwenden, der die Eigenschaften
 der Fälle kodiert, die die auszuwählenden Fälle haben sollen. Aber: Alle
 Möglichkeiten sind denkbar, etwa auch, dass ein logischer Vektor zur
-Auswahl der Spalten verwendet wird oder wir die Nummern der Zeilen
-angeben, die ausgewählt werden sollen.
+Auswahl der Spalten verwendet wird oder wir die Zeilennummern angeben,
+die ausgewählt werden sollen.
 
-Durch die UND bzw. ODER Operationen können wir auch komplexere
-Anforderungen an die Auswahl der Zeilen stellen:
+Durch die UND- bzw. ODER-Operationen können wir auch komplexere
+logische Bedingungen zur Auswahl von Fällen formulieren:
 
 ```{r}
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün", ]
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün" & mdf$Item1 == 1, ]
 ```
 
-Hier merken wir, dass die `[·,·]`-Notation recht schnell unübersichtlich
-wird, wenn man komplexere logische Anfragen stellt. Insbesondere führen
-wir hier häufig einen `$`-Zugriff auf `dfw` durch, um die kombinierte
-logische Bedingung anzugeben. Weiter unten lernen wir mit der Funktion
-`subset` eine Möglichkeit kennen, komplexere logische Anfragen an die
-Auswahl von Zeilen etwas prägnanter zu stellen.
+Die `[·,·]`-Notation wird recht schnell unübersichtlich, wenn sie
+komplexere logische Anfragen enthält. Hier bewirken das Zusammenspiel
+aus den `$`-Zugriffen, den UND- und ODER-Operationen, sowie der Syntax
+der `[·,·]`-Notation, dass sich der Code etwas aufbauscht. Die
+Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
+`%in%`-Operator verkürzen: 
 
-Zum Abschluss dieses Abschnitts betrachten wir noch einige weitere
-Beispiele für die verschiedenen Auswahlmöglichkeiten per `[·,·]`:
+```{r}
+mdf[mdf$Augenfarbe %in% c("blau", "grün"), ]
+```
+
+Im nächsten Abschnitt lernen wir mit der Funktion `subset` eine
+Möglichkeit kennen, komplexere logische Anfragen noch etwas prägnanter
+zu formulieren. Zum Abschluss dieses Abschnitts betrachten wir noch
+einige weitere Beispiele für die verschiedenen Auswahlmöglichkeiten per
+`[·,·]`:
 
 ```{r}
 ## Wähle per Index die ersten drei Zeilen aus
@@ -285,189 +277,40 @@ Auswahl nach numerischem Index, mit einem logischen Vektor, oder mit
 einem `character` Vektor durchführen.
 ```
 
-### Weitere Zugriffsmöglichkeiten auf Spalten
+## Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
 
-Dieser Abschnitt behandelt zwei weitere Varianten des Datenzugriffs auf
-`data.frames` mithilfe eckiger Klammern. Da wir diese Zugriffe danach
-erst einmal nicht weiter verwenden, kann dieser Abschnitt jedoch
-zunächst problemlos übersprungen werden. Datenzugriffe mit eckigen
-Klammern sind jedoch zentral für `R` als Programmiersprache, weswegen es
-sich lohnt diesen Abschnitt später zu konsultieren oder zum Nachschlagen
-zu nutzen.
+In diesem Abschnitt nutzen wir die Funktion `subset`, um die zwei
+wichtigsten Möglichkeiten des Datenzugriffs auf `data.frames` zu
+vereinfachen:
 
-**Der `[[·]]`-Zugriff**
+1. Die Auswahl von Fällen anhand logischer Bedingungen
+2. Die Auswahl von Spalten durch Angabe der Spaltennamen
 
-Äquivalent zum `$`-Zugriff funktioniert der folgende
-`[[·]]`-Zugriff auf eine einzelne Spalte:
-
-```{r}
-mdf[["Item1"]] # dasselbe wie mdf$Item1
-```
-
-Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
-`character` -- also mit Anführungszeichen -- angegeben. Die
-Anführungszeichen sind notwendig, wenn man die `[[·]]`-Notation
-verwendet. Bei der `$`-Notation verwenden wir keine Anführungszeichen.
-Das bedeutet auch, dass wir statt der expliziten Angabe des Texts auch
-eine Variable übergeben kann, die einen ein-elementigen
-`character`-Vektor abspeichert, was mit der `$`-Notation nicht möglich
-ist.
-
-```{r}
-auswahl <- "Augenfarbe"
-mdf[[auswahl]]
-```
-
-Es ist auch möglich, eine Funktion in die `[[·]]`-Klammerung zu
-übergeben, die uns einen ein-elementigen Vektor vom Typ character
-zurückgibt -- etwa die Funktion `paste0`:
-
-```{r}
-mdf[[paste0("Item", 1)]]
-```
-
-Dieser Zugriff wird für uns noch einmal interessant werden, da wir so
-mithilfe von *Schleifen*[^`r incref()`] (in Kapitel 6) in `data.frames`
-nacheinander auf beliebig viele Spalten zugreifen können. Dabei wird es
-vor allem interessant sein, nacheinander auf die Antworten auf Testitems
-(Item **1**, Item **2**, ...) zuzugreifen.
-
-[^`r incfnc()`]: In einer Schleife können wir dann den numerischen Wert
--- hier `1` -- nacheinander immer wieder austauschen (1, 2, 3, 4, ...)
--- ohne, dass wir den Code immer wieder händisch neu schreiben müssen.
-
-**Der `[·]`-Zugriff**
-
-**Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist
-folgender `[·]`-Zugriff:
-
-```{r}
-mdf["Item1"]
-```
-
-Auch hier sind Anführungszeichen zur Identifikation der auszuwählenden
-Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und
-`$` ergeben einen Vektor, `[·]` einen `data.frame` mit einer Spalte.
-Außerdem können wir mit dem `[·]`-Zugriff -- im Gegensatz zu den
-Zugriffen per `[[·]]` und `$` -- gleichzeitig mehrere Spalten auswählen,
-indem wir einen mehr-elementigen Vektor vom Typ `character` angeben:
-
-```{r}
-mdf[c("Item1", "Augenfarbe")]
-```
-
-Dieser Aufruf sollte uns an die `[·,·]`-Notation zur Auswahl von Spalten
-erinnern; in der Tat ist dieser Ausdruck äquivalent zum folgenden
-Befehl:
-
-```{r}
-mdf[, c("Item1", "Augenfarbe")]
-```
-
-Zwischen dem `[·]`-Zugriff und der `[·,·]`-Auswahl für Spalten gibt es
-jedoch einen Unterschied, der zutage kommt, wenn wir nur eine Spalte
-auswählen:
-
-```{r}
-mdf["Item1"]
-```
-
-```{r}
-mdf[, "Item1"]
-```
-
-Hier gibt die `[·,·]`-Auswahl einen Vektor zurück und die `[·]`-Auswahl
-einen `data.frame` mit nur einer Spalte. So lernen wir einen Sonderfall
-der `[·,·]`-Auswahl kennen: Im Normalfall erhalten wir einen ganzen
-`data.frame` zurück, wenn wir per `[·,·]` Daten anfordern. Wenn wir aber
-nur eine Spalte anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
-Das liegt daran, dass eine einzelne Spalte eines `data.frame` auch gut
-als Vektor repräsentiert ist.
-
-### Zugriff auf Spalten und Zeilen: die Funktion `subset` {#subset}
-
-**Ideen für Restrukturierung**
-
-- subset = Abstraktion wichtiger Nutzungen von [·,·]: Spaltenauswahl per
-  Spaltenname, Zeilenauswahl per logischem Ausdruck
-- Dafür: Zeilenauswahl per logischem Ausdruck, Spaltenauswahl wie gehabt,
-  aber mit Sonderregeln, die die Auswahl etwas vereinfachen
-- Außerdem in diesem Abschnitt: Erklärung einiger allgemeiner Regeln
-  zu Funktionen in R
-
-
-
-Einzelne Spalten aus `data.frames` können wir mit dem `$`-Zugriff
-auslesen. Wir lernen nun die Funktion `subset`[^`r incref()`] kennen,
-mit der wir bequem beliebige Spalten und Zeilen aus `data.frames`
-auswählen können. Anders als bei der Auswahl mit dem `$`-Operator --
-dessen Rückgabe ein Vektor ist --, gibt uns die Funktion `subset` immer
-einen ganzen `data.frame` zurück.
-
-[^`r incfnc()`]: Der Abschnitt zur Funktion `subset` ist ein besonders
-wichtiger Abschnitt, da hier nicht nur die spezielle Funktionalität
-einer einzelnen Funktion erläutert wird, sondern auch an ihrem Beispiel
-allgemeine Eigenschaften von Funktionen in `R` dargestellt werden.
-
-Mit `subset` können wir beispielsweise nur eine Teilmenge aller Fälle
-auswählen; etwa nur die Personen mit blauen Augen. Für diese Auswahl
-hilft uns unser Wissen über logische Vergleiche aus dem letzten
-Kapitel:[^`r incref()`]
-
-[^`r incfnc()`]: Beachtet, dass durch diesen Aufruf die Tabelle
-`mdf` nicht verändert wird. Die Funktion gibt stattdessen eine
-neue Tabelle zurück, die nur die Fälle enthält, bei denen
-`Augenfarbe == "blau"` gilt. Wir müssten das Ergebnis der Funktion in
-einer Variablen speichern, wenn wir damit weiter arbeiten wollen
-(Erinnerung: [Kapitel 2](#ausgabevsabspeichern)).
+Mit der Funktion `subset` können wir mit logischen Bedingungen Fälle aus
+einem `data.frame` auswählen, ohne die`$`-Notation zu verwenden:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau")
 ```
 
-Auf diese Weise haben wir mit einem logischen Vergleich aus der Tabelle
-nur zwei Zeilen ausgewählt. Ihr merkt: In der Funktion `subset` kann ich
-für die logische Auswahl nach Augenfarbe die Spalte `Augenfarbe` direkt
-mit ihrem Namen adressieren, ohne dass ich die `$`-Notation
-verwende. Das ist eine Besonderheit der Funktion `subset`; außerhalb der
-Funktion würde der Befehl `Augenfarbe == "blau"` einen Fehler ausgeben,
-da `Augenfarbe` selbst keine Variable ist -- nur eine Spalte von
-`mdf`.[^`r incref()`] Innerhalb der Funktion `subset`
-funktioniert es nur deswegen, da das erste Argument der `data.frame`
-ist, aus dem ich Daten auswähle. Die Funktion `subset` weiß somit, auf
-welchen Daten sie operieren muss. Das Folgende ist also nicht nötig,
-obwohl es auch funktionieren würde:
+Dieses Verhalten ist eine Besonderheit der Funktion `subset`; außerhalb
+der Funktion würde der Befehl `Augenfarbe == "blau"` einen Fehler
+ausgeben, da `Augenfarbe` selbst keine Variable ist -- nur eine Spalte
+von `mdf`.[^`r incref()`] Innerhalb der Funktion `subset` kann die
+logische Bedingung verarbeitet werden, da als erstes Argument der
+`data.frame` angegeben wurde, aus dem die Daten ausgewählt werden
+sollen. Das Folgende ist also nicht nötig, aber es funktioniert auch:
 
 [^`r incfnc()`]: Es macht an dieser Stelle Sinn, einen Moment inne zu
 halten und zu überlegen, warum es eigentlich außergewöhnlich ist, dass
 der Befehl `Augenfarbe == "blau"` innerhalb der Funktion `subset`
-funktioniert.
+funktioniert. 
 
 ```R
 subset(mdf, mdf$Augenfarbe == "blau")
 ```
 
-Dementsprechend könnte man auch der Funktion `subset` -- dieses
-Verhalten kennen wir von der `[·]`-Notation zur Auswahl von Elementen
-aus Vektoren -- einen beliebigen logischen Vektor zur Auswahl der Zeilen
-übergeben:
-
-```{r}
-subset(mdf, c(TRUE, FALSE, FALSE, TRUE, FALSE)) # wählt die erste und vierte Zeile aus
-```
-
-Durch die UND bzw. ODER Operationen können wir auch komplexere
-Anforderungen an die Auswahl stellen:
-
-```{r}
-subset(mdf, Augenfarbe == "blau" | Augenfarbe == "grün")
-
-subset(mdf, (Augenfarbe == "blau" | Augenfarbe == "grün") & Item1 == 1)
-
-```
-
-Wie schon erwähnt, können wir mit `subset` nicht nur Zeilen, sondern
-auch Spalten auswählen:
+Als drittes Argument können wir Spalten auswählen:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
@@ -483,22 +326,19 @@ Augen.
 
 ```{block, type = "block"}
 **Merke**: Die Funktion `subset` gibt immer einen ganzen `data.frame`
-zurück -- selbst dann, wenn ich nur eine einzige Spalte anfordere. Mit
-dem `$`-Operator könnte ich hingegen eine einzelne Spalte als Vektor
-auslesen.
+zurück -- selbst dann, wenn ich nur eine einzige Spalte anfordere.
 ```
 
 Bei dieser Verwendung der Funktion `subset` fällt eine allgemeine
-Eigenschaft von Funktionen auf: `subset` erkennt anhand der Reihenfolge
-der Argumente, wie sie sich zu verhalten hat. Das erste Argument
-übergibt den `data.frame`, von dem wir Daten anfordern. Das zweite
-Argument wählt mit einem logischen Ausdruck **Zeilen** aus, das dritte
-Argument wählt durch einem `character`-Vektor **Spalten** aus. Was
-passiert, wenn wir diese Reihenfolge ändern?
+Eigenschaft von Funktionen auf: Die Funktion `subset` erkennt anhand der
+Reihenfolge der Argumente, wie sie sich zu verhalten hat. Das erste
+Argument übergibt den `data.frame`, von dem wir Daten anfordern. Das
+zweite Argument wählt mit einem logischen Ausdruck **Zeilen** aus, das
+dritte Argument wählt durch einem `character`-Vektor **Spalten** aus.
+Was passiert, wenn wir diese Reihenfolge ändern?
 
 ```R
-subset(mdf, c("Item1", "Augenfarbe"),
-       Augenfarbe == "blau")
+subset(mdf, c("Item1", "Augenfarbe"), Augenfarbe == "blau")
 ```
 
 ```
@@ -623,27 +463,119 @@ identifiziert werden. Die Identifikation per Name schlägt dabei die
 Identifikation per Position.
 ```
 
-**Ausnahmeregeln für die Funktion `subset`**
+## Weitere Zugriffe auf `data.frames` {#doppelteckig}
 
-Inhalt folgt.
+Dieser Abschnitt behandelt zwei weitere Möglichkeiten mit eckigen
+Klammern auf Spalten in `data.frames` zuzugreifen. Da wir diese Zugriffe
+danach erst einmal nicht weiter verwenden, kann dieser Abschnitt jedoch
+zunächst problemlos [übersprungen werden](#convenient). Da Datenzugriffe
+mit eckigen Klammern jedoch ein zentraler Bestandteil von `R` sind,
+lohnt es sich diesen Abschnitt später zu konsultieren oder zum
+Nachschlagen zu nutzen.
+
+### Der `[[·]]`-Zugriff
+
+Den `[[·]]`-Zugriff nutzen wir wie den `$`-Zugriff zum Auslesen
+einzelner Spalten aus `data.frames`:
+
+```{r}
+mdf[["Item1"]] # dasselbe wie mdf$Item1
+```
+
+Hierbei wird der Spaltenname als ein-elementiger Vektor vom Typ
+`character` angegeben -- also mit Anführungszeichen.  Die
+Anführungszeichen sind hier notwendig, bei der `$`-Notation verwenden
+wir hingegen keine Anführungszeichen. Das hat zur Folge, dass wir statt
+der expliziten Angabe des Texts auch eine Variable übergeben können, die
+einen ein-elementigen `character`-Vektor abgespeichert hat; dies ist mit
+der `$`-Notation nicht möglich.
+
+```{r}
+spalte <- "Augenfarbe"
+mdf[[spalte]]
+```
+
+Ebenso ist es möglich, der `[[·]]`-Klammerung eine Funktion zu
+übergeben, die einen ein-elementigen Vektor vom Typ character ausgibt
+-- etwa die Funktion `paste0`:
+
+```{r}
+mdf[[paste0("Item", 1)]]
+```
+
+Der `[[·]]`-Zugriff wird in Zusammenspiel mit der Funktion `paste0` noch
+einmal interessant werden, wenn wir in [Kapitel 6](#schleifen) mit
+*Schleifen* nacheinander auf beliebig viele Spalten von `data.frames`
+zugreifen. In einer Schleife können wir dann Spaltennamen automatisiert
+nacheinander austauschen (etwa: `Item_1`, `Item_2`, ...).
+
+### Der `[·]`-Zugriff
+
+**Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist
+folgender `[·]`-Zugriff:
+
+```{r}
+mdf["Item1"]
+```
+
+Auch hier sind Anführungszeichen zur Identifikation der auszuwählenden
+Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und
+`$` ergeben einen Vektor, `[·]` einen `data.frame` mit einer Spalte.
+Außerdem können wir mit dem `[·]`-Zugriff gleichzeitig mehrere Spalten
+auswählen, indem wir einen mehr-elementigen Vektor vom Typ `character`
+angeben. Das war mit den Zugriffen per `[[·]]` und `$` nicht möglich,
+die immer nur eine Spalte ausgeben. 
+
+```{r}
+mdf[c("Item1", "Augenfarbe")]
+```
+
+Dieser Aufruf sollte uns an die `[·,·]`-Notation zur Auswahl von Spalten
+erinnern; in der Tat ist der folgende Ausdruck äquivalent:
+
+```{r}
+mdf[, c("Item1", "Augenfarbe")]
+```
+
+Zwischen dem `[·]`-Zugriff und der `[·,·]`-Auswahl für Spalten gibt es
+jedoch einen Unterschied, der zutage kommt, wenn wir nur eine Spalte
+auswählen:
+
+```{r}
+mdf["Item1"]
+```
+
+```{r}
+mdf[, "Item1"]
+```
+
+Wenn wir nur eine Spalte auslesen, gibt die `[·,·]`-Auswahl einen Vektor aus,
+die `[·]`-Auswahl jedoch einen `data.frame` mit einer Spalte. Dieses Verhalten
+offenbart einen Sonderfall der `[·,·]`-Auswahl: Im Normalfall gibt `[·,·]`
+auch einen ganzen `data.frame` aus. Wenn wir aber nur eine einzige Spalte
+anfordern, "reduziert" sich die Ausgabe zu einem Vektor.
+
 
 ### Zugriff nach Name und Index {#nameindex}
 
-Nachdem die Möglichkeiten zum Zugriff auf `data.frames` besprochen sind,
-stellen wir zum Abschluss ein grundsätzliches Prinzip zu Datenzugriffen
-in `R` fest: Man kann Zugriffe -- seien es Vektoren, `data.frames` oder
-auch andere Strukturen, die wir noch gar nicht behandelt haben -- **nach
-Index oder nach Name** durchführen. Wir haben bereits Beispiele für
-beides kennengelernt: In Vektoren haben wir Zugriffe mithilfe von
-Indexen durchgeführt, indem wir (a) die Position von auszuwählenden
-Elementen explizit mit einem numerischen Vektor angegeben haben, oder
-(b) indem wir einen logischen Vektor übergeben haben, der anhand von
-`TRUE` und `FALSE` Werten die Indexe auswählt, deren Elemente ausgegeben
-werden sollen. Der Vollständigkeit halber sei hier mitgeteilt, dass man
-sogar bei Vektoren Zugriffe nach Namen durchführen kann, wenn die
-Elemente des Vektors benannt sind. Das ist gar nicht so ungewöhnlich;
-wie folgt könnte man einen Vektor mit benannten Elementen erstellen und
-mit der bekannten `[·]`-Notation darauf zugreifen.
+Wir haben nun alle wichtigen Möglichkeiten kennengelernt, Zugriffe auf
+`data.frames` durchzuführen. An dieser Stelle lohnt es sich deswegen ein
+grundsätzliches Prinzip von Datenzugriffen in `R` festzustellen:
+**Datenzugriffe können nach nach Index oder nach Name stattfinden**.
+Dies gilt für Vektoren, `data.frames` und auch andere Datenstrukturen,
+die wir noch gar nicht behandelt haben. 
+
+Wir haben bereits Beispiele für beide Arten des Datenzugriffs
+kennengelernt: In Vektoren haben wir Zugriffe mithilfe von Indexen
+durchgeführt, indem wir (a) die Position von auszuwählenden Elementen
+explizit mit einem numerischen Vektor angegeben haben, oder (b) indem
+wir einen logischen Vektor übergeben haben, der anhand von `TRUE` und
+`FALSE` Werten die Indexe auswählt, deren Elemente ausgegeben werden
+sollen. Der Vollständigkeit halber sei hier mitgeteilt, dass man sogar
+bei Vektoren Zugriffe nach Namen durchführen kann, wenn die Elemente des
+Vektors benannt sind. Das ist gar nicht so ungewöhnlich; wie folgt
+könnte man einen Vektor mit benannten Elementen erstellen und mit der
+bekannten `[·]`-Notation darauf zugreifen.
 
 ```{r}
 
@@ -671,7 +603,6 @@ In `data.frames` haben wir Spalten zumeist nach Namen ausgewählt:
  Zeilen -- oder beidem -- geschehen.
 
 ## Nützliche Funktionen zum Arbeiten mit `data.frames` {#convenient}
-
 
 ### `tapply` {#tapply}
 

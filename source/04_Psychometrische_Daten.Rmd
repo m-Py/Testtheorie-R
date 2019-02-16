@@ -473,7 +473,7 @@ beschäftigen:
 2. Invertierung von Antworten
 3. Umgang mit fehlenden Werten
 
-### Umkodierung von Variablen
+### Umkodierung von Variablen {#umkodierung}
 
 Eine wichtige Voraussetzung für eine psychometrische Analyse war im
 Beispiel oben bereits gegeben: Jeder Wert kodierte genau die
