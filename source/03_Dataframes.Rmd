@@ -279,21 +279,21 @@ einem `character` Vektor durchführen.
 
 ## Die Funktion `subset` {#subset}
 
-In diesem Abschnitt lernen wir die Funktion `subset` kennen, die --
-verglichen mit der `[·,·]`-Notation -- zwei wichtige Möglichkeiten des
-Datenzugriffs auf `data.frames` vereinfacht:
+In diesem Abschnitt lernen wir die Funktion `subset` kennen, die zwei
+wichtige Zugriffe auf `data.frames` vereinfacht:
 
-1. [Die Auswahl von Fällen anhand logischer Bedingungen](#zeileneinfach)
-2. [Die Auswahl von Spalten durch Angabe der Spaltennamen](#spalteneinfach)
+1. [Die Auswahl von Zeilen mithilfe logischer Bedingungen](#zeileneinfach)
+2. [Die Auswahl von Spalten durch Angabe von Spaltennamen](#spalteneinfach)
 
-Desweiteren bietet dieser Abschnitt einen ersten Überblick über die
-[Arbeitsweise von Funktionen](#teaserfunktionen), der in [Kapitel
-5](#funktionen) fortgeführt wird.
+Desweiteren bietet der Abschnitt -- anhand des Beispiels der Funktion
+`subset` -- einen ersten allgemeinen Überblick über die [Arbeitsweise
+von Funktionen](#teaserfunktionen), der in [Kapitel 5](#funktionen)
+vertieft wird.
 
 ### Vereinfachte Zeilenauswahl {#zeileneinfach}
 
-Die Funktion `subset` erlaubt uns logische Bedingungen zur Zeilenauswahl
-zu formulieren, ohne die `$`-Notation zu verwenden:
+Die Funktion `subset` erlaubt uns logische Bedingungen für die
+Zeilenauswahl zu formulieren, ohne die `$`-Notation zu verwenden:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau")
@@ -303,7 +303,7 @@ Außerhalb der Funktion `subset` würde der Ausdruck `Augenfarbe ==
 "blau"` einen Fehler ausgeben; schließlich ist `Augenfarbe` selbst keine
 Variable, sondern nur eine Spalte von `mdf`.[^`r incref()`] Innerhalb
 der Funktion `subset` kann die logische Bedingung in dieser Form jedoch
-verarbeitet werden; durch Angabe von `mdf` im ersten Argument ist ja
+verarbeitet werden. Durch Angabe von `mdf` im ersten Argument ist ja
 klar, aus welchem `data.frame` Zeilen ausgewählt werden sollen. 
 
 [^`r incfnc()`]: Es macht an dieser Stelle Sinn, einen Moment inne zu
@@ -311,7 +311,14 @@ halten und zu überlegen, warum es eigentlich außergewöhnlich ist, dass
 der Befehl `Augenfarbe == "blau"` innerhalb der Funktion `subset`
 funktioniert. 
 
-Die Verknüpfung logischer Bedingungen funktioniert entsprechend:
+Der äquivalente Befehl mit der `[·,·]`-Notation sähe folgendermaßen aus:
+
+```R
+mdf[mdf$Augenfarbe == "blau", ]
+```
+
+Gerade bei der Verknüpfung mehrerer logischer Bedingungen ist es
+praktisch, nicht mehrfach die `$`-Notation verwenden zu müssen:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau" & Item1 == 1)
@@ -320,97 +327,92 @@ subset(mdf, Augenfarbe == "blau" & Item1 == 1)
 ### Funktionsargumente {#teaserfunktionen}
 
 Die Funktion `subset` nimmt optional ein drittes Argument an, das
-auszulesenede Spalten adressiert:
+auszulesende Spalten adressiert:
 
 ```{r}
 subset(mdf, Augenfarbe == "blau", c("Item1", "Augenfarbe"))
 ```
 
-Durch die Kombination der Auswahl von Zeilen und Spalten wird ein
-`data.frame` ausgegeben, der nur die Spalten `Item1` und `Augenfarbe`
-enthält, und diese nur für Personen mit blauen Augen.
+Durch die Kombination der Auswahl von Zeilen und Spalten gibt dieser
+Befehl einen `data.frame` aus, der nur die Spalten `Item1` und
+`Augenfarbe` enthält, und diese nur für Personen mit blauen Augen.
 
-An dieser Stellen machen wir uns eine wichtige Eigenschaft von `R`
-bewusst: **Funktionen erkennen Argumente anhand der Reihenfolge, in der
-sie übergeben werden.** Bei der Funktion `subset` ist das erste Argument
-der `data.frame`, von dem wir Daten anfordern. Das zweite Argument wählt
-mit einem logischen Ausdruck Zeilen aus. Das dritte Argument wählt
-Spalten aus. Was passiert, wenn wir die Argumente in einer anderen
-Reihenfolge angeben?
+Was machen wir aber, wenn wir nur eine Auswahl nach Spalten durchführen
+wollen? Probieren wir erst einmal folgendes:
 
 ```R
-subset(mdf, c("Item1", "Augenfarbe"), Augenfarbe == "blau")
+subset(mdf, c("Item1", "Augenfarbe"))
 ```
 
+Hier habe ich einfach das Argument für die Zeilenauswahl weggelassen und
+als zweites Argument einen `character`-Vektor zur Auswahl zweier Spalten
+angegeben -- das hat aber nicht funktioniert. Wir erhalten eine
+kryptische Fehlermeldung:
+
 ```
-Fehler in subset.data.frame(mdf,
-c("Item1", "Augenfarbe"), Augenfarbe ==  : 'subset' muss
-boolesch sein
+Fehler in subset.data.frame(mdf, c("Item1", "Augenfarbe")) : 
+  'subset' must be logical
 ```
 
-Hier erhalten wir eine schwierig zu verstehende Fehlermeldung, aber uns
-ist der Fehler klar: Das zweite Argument von `subset` muss eine logische
-Bedingung zur Auswahl der Zeilen enthalten, wir haben stattdessen aber
-einen Vektor zur Spaltenauswahl übergeben. `R` verlangt, dass
-Funktionsargumente genau in der richtigen Reihenfolge übergeben werden.
+Warum gibt uns `R` hier einen Fehler aus? An dieser Stellen machen wir
+uns eine wichtige Eigenschaft von `R` bewusst: **Funktionen erkennen
+Argumente anhand der Reihenfolge, in der sie übergeben werden.** Bei der
+Funktion `subset` ist das erste Argument der `data.frame`, von dem wir
+Daten anfordern. Das zweite Argument wählt mit einem logischen Ausdruck
+Zeilen aus. Das dritte Argument adressiert Spalten.
 
-Was könnten wir aber tun, wenn wir **nur** eine Auswahl nach Spalte
-ausführen wollen? Wenn wir also gar keine Auswahl nach Zeilen
-durchführen wollen und demnach gar kein zweites Argument angeben wollen.
-Wir können das zweite Argument ja nicht leer lassen, denn das führt zum
-obigen Fehler. Dieses Problem lässt sich mit einer praktischen
-Eigenschaft von `R` lösen: **Die Argumente von Funktionen haben Namen.**
-Bislang haben wir das ignoriert bzw. es ist uns nur am Rande begegnet
-(erinnern wir uns an das Argument `na.rm` der Funktion `mean`).
+Wir erhalten den obigen Fehler also, weil die Funktion `subset` an
+zweiter Stelle einen logischer Ausdruck zur Zeilenauswahl erwartet; die
+Auswahl der Spalten muss mit dem dritten Argument geschehen. Um eine
+Auswahl trotzdem nur nach Spalten auszuführen, können wir eine
+praktische Eigenschaft von `R` ausnutzen: **Funktionsargumente haben
+Namen -- anstatt Argumente anhand ihrer Position zu identifizieren,
+können wir sie auch benennen.** Bislang haben wir das ignoriert bzw. es
+ist uns nur am Rande begegnet (erinnern wir uns an das Argument `na.rm`
+der Funktion `mean`).
 
-Die Funktion `subset` hat die folgenden drei benannten Argumente:
+Die Funktion `subset` hat drei benannte Argumente:
 
 - `x`: der Datensatz, aus dem ausgewählt wird
-- `subset`: die Auswahl der Zeilen
-- `select`: die Auswahl der Spalten
+- `subset`: wählt Zeilen aus
+- `select`: wählt Spalten aus
 
-Um eine Übersicht über die verschiedenen Argumente einer Funktion zu
-erhalten, können wir die eingebaute Hilfe von `R` verwenden, die wir mit
-dem `?`-Operator erhalten. Wir verwenden sie wie folgt:
-
-```R
-?subset
-```
-
-Die `R`-Hilfe informiert uns über die Argumente, die Funktionen annehmen
-können. Leider ist diese Hilfe oftmals kryptisch -- und das nicht nur
-für Anfänger. Sie ist die offizielle Dokumentation von Funktionen und
-legt deswegen zwar großen Wert auf technische Genauigkeit, ist aber
-nicht immer sonderlich ausführlich oder gar verständlich. Wir werden in
-[Kapitel 5](#funktionen) bei einer ausführlicheren Besprechung von
-Funktionen noch einmal darauf zurückkommen, wie wir mit der
-Hilfe-Funktion umgehen können.
-
-Wenn wir die verschiedenen Argumente der Funktion `subset` kennen,
-können wir sie auch mit der folgenden Notation ausführen:
+Wenn wir die Namen der Argumente der Funktion `subset` kennen,
+können wir sie auch mit der folgenden Notation aufrufen:
 
 ```{r}
 subset(x = mdf, subset = Augenfarbe == "blau",
        select = c("Item1", "Augenfarbe"))
 ```
 
-Wenn ich Funktionsargumente mit Namen adressiere, kann ich die
-Reihenfolge, in der ich sie der Funktion übergebe, beliebig
-vertauschen. Dieser Aufruf etwa ist äquivalent (d.h. führt zur selben
-Ausgabe) wie der obige Aufruf:
-
+Wenn ich Funktionsargumente mit Namen adressiere, kann ich deren
+Reihenfolge beliebig vertauschen. Deswegen funktioniert auch der
+folgende Aufruf:
 
 ```R
 subset(select = c("Item1", "Augenfarbe"),
        subset = Augenfarbe == "blau", x = mdf)
 ```
 
-
 ```{r, echo = FALSE}
 ## doppelter Code wegen Formatierung =/
 subset(select = c("Item1", "Augenfarbe"),
        subset = Augenfarbe == "blau", x = mdf)
 ```
+
+Eine Auswahl nur anhand von Spalten können wir wie folgt durchführen:
+
+```{r}
+subset(mdf, select = c("Item1", "Augenfarbe"))
+```
+
+Dieser Aufruf zeigt, dass wir im selben Aufruf manche Argumente anhand
+ihrer Position identifizieren können und manche anhand ihres Namens. Für
+das erste Argument -- `mdf` -- habe ich den Namen nicht extra angegeben
+-- daher wurde das Argument anhand seiner Position identifiziert. Für die
+Auswahl der Spalten habe ich jedoch den Argumentnamen angegeben -- **das
+war auch nötig**, da das zweite Argument ansonsten die Auswahl der
+Zeilen erwartet hätte.
 
 In `R` kann man **fast immer**[^`r incref()`] Argumente per Position und
 per Name ansprechen. Oftmals wollen wir die Namen von Funktionen
@@ -419,29 +421,31 @@ also solche, die wir nicht immer angeben müssen. Wir können
 beispielsweise das Argument `select` weglassen, wenn wir eine Auswahl
 nach Zeilen, aber nicht nach Spalten treffen wollen. Umgekehrt muss ich 
 das Argument `subset` nicht angeben -- in dem Fall werden alle Zeilen 
-ausgegeben, aber nur eine Teilmenge der Spalten, wie in diesem Beispiel:
+ausgegeben, aber nur eine Teilmenge der Spalten. Ähnlich ist es bei der
+Funktion `mean`: Das Argument `na.rm` geben wir normalerweise nur an,
+wenn ein Vektor fehlende Werte enthält.
 
-[^`r incfnc()`]: Eine Ausnahme bildet hier die Funktion `c`, bei der wir
+[^`r incfnc()`]: Eine Ausnahme bildet die Funktion `c`, für die wir
 keine Funktionsnamen angeben. Hier gilt nämlich: Wir können beliebig
-viele Vektoren als Argumente angeben und deswegen gibt es natürlich
-keinen separaten Namen für jedes mögliche Argument. Feste Namen gibt es
-aber normalerweise, wenn es eine feste Anzahl an möglichen Argumenten
-gibt -- wie bei der Funktion `subset`.
+viele Vektoren als Argumente angeben; deswegen gibt es natürlich keinen
+separaten Namen für jedes mögliche Argument. Feste Namen gibt es aber
+dann, wenn es eine feste Anzahl an möglichen Argumenten gibt -- wie bei
+der Funktion `subset`.
 
-```{r}
-subset(mdf, select = c("Testscore", "Geschlecht"))
+Um eine Übersicht über die Argumente einer Funktion zu erhalten, können
+wir mit dem `?`-Operator die `R`-Hilfe anfordern:
+
+```R
+?subset
 ```
 
-Mit diesem Aufruf werden mir alle fünf Fälle von `mdf` zurückgegeben, aber 
-für diese nur der Testscore und das Geschlecht. Wie dieser Aufruf zeigt, 
-kann ich Auswahl nach Position und Auswahl nach Namen mischen. Für das 
-erste Argument -- `mdf` -- habe ich den Argumentnamen `x` nicht
-angegeben. Daher wurde das Argument anhand der Position
-identifiziert. Das hat funktioniert, da das erste Argument der
-`data.frame` ist, aus dem die Datenauswahl stattfindet. Für die Auswahl
-der Spalten habe ich jedoch den Argumentnamen angegeben. **Das war auch
-nötig**, da `subset` als zweites Argument sonst die Auswahl der Zeilen
-erwartet hätte.
+Leider ist die `R`-Hilfe oftmals kryptisch -- und das nicht nur für
+Anfänger. Sie ist die offizielle Dokumentation von Funktionen und legt
+deswegen zwar großen Wert auf technische Genauigkeit, ist aber nicht
+immer sonderlich ausführlich oder gar verständlich. Wir werden in
+[Kapitel 5](#funktionen) bei einer ausführlicheren Besprechung von
+Funktionen noch einmal darauf zurückkommen, wie wir mit der
+`R`-Hilfe umgehen können.
 
 ```{block, type = "block"}
 **Merke**: In `R` können Funktionsargumente per Position und per Namen
@@ -451,38 +455,40 @@ Identifikation per Position.
 
 ### Sonderregeln zur Auswahl von Spalten {#spalteneinfach}
 
-Die Funktion `subset` bietet uns einige Sonderregeln zur Auswahl von
-Spalten, die über die Auswahl per `character`-Vektor hinausgehen. 
-
-Zunächst ermöglicht uns die Funktion `subset` Spaltennamen ohne
-Anführungszeichen anzugeben: 
+Die Funktion `subset` bietet einige Sonderregeln zur Auswahl von
+Spalten, die über die einfache Angabe der Spaltennamen
+`character`-Vektor hinausgehen, die wir von der `[·,·]`-Notation kennen.
+Zunächst einmal können wir Spaltennamen ohne Anführungszeichen
+anzugeben: 
 
 ```{r}
 subset(mdf, select = c(Augenfarbe, Alter))
 ```
 
-Wie auch die vereinfachte Zeilenauswahl, die ohne die `$`-Notation
-auskommt, ist dies eine Besonderheit der Funktion `subset`: Der
-Ausdruck `c(Augenfarbe, Alter)` würde außerhalb der Funktion einen
-Fehler verursachen, da `Augenfarbe` und `Alter` nicht unbedingt als
-Variablen definiert sind; sie sind bloß Spalten von `mdf`. 
+Genau wie die Zeilenauswahl, die ohne die `$`-Notation auskommt, ist es
+eine Besonderheit der Funktion `subset`, dass wir Spaltennamen ohne
+Anführungszeichen adressieren können. Einfach in die Konsole eingegeben
+würde der Ausdruck `c(Augenfarbe, Alter)` höchstwahrscheinlich[^`r 
+incref()`] einen Fehler verursachen, da `Augenfarbe` und `Alter` nicht
+unbedingt als Variablen definiert sind; sie sind bloß Spalten von `mdf`.
 
-Dieser Umstand ist noch keine allzu große Verbesserung zur
-Spaltenauswahl mit der `[·,·]`-Notation; es erlaubt uns bloß
-Anführungszeichen bei der Angabe der Spalten auszulassen -- immerhin.
-Die Funktion `subset` lässt aber noch weitere Sonderfälle zu, die das
-Leben erleichtern können. So können wir den Doppelpunktoperator
-verwenden, um mehrere Spalten anzusteuern, etwa wie folgt:
+[^`r incfnc()`]: Unter welchen Umständen würde `R` keinen Fehler
+ausgeben, wenn wir `c(Augenfarbe, Alter)` in die Konsole eingeben? Es
+ist nützlich das zu verstehen.
+
+Die Auswahl von Spalten ohne Anführungszeichen ist noch keine allzu
+große Arbeitserleichterung im Vergleich zur `[·,·]`-Notation. Die
+Funktion `subset` lässt aber noch einen weiteren Sonderfall bei der
+Spaltenauswahl zu, der einiges an Schreibarbeit ersparen kann: Wir können
+den Doppelpunktoperator verwenden, um mehrere Spalten auszuwählen.
 
 ```{r}
-
-## Wähle alle Spalten zwischen den Spalten `Item1` und 
-## `Geschlecht` aus:
 subset(mdf, select = Item1:Geschlecht)
 ```
 
-Diese Funktionalität ist beispielsweise bequem, um alle Items eines
-Testinventars auszuwählen.
+Von „links nach rechts“ wählt der Doppelpunktperator alle Spalten
+zwischen einschließlich `Item1` und `Geschlecht` aus. Auch hier
+verzichten wir auf die Angabe von Anführungszeichen. 
 
 ## Weitere Zugriffe auf `data.frames` {#doppelteckig}
 
