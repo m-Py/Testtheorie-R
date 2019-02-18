@@ -217,10 +217,10 @@ abzuspeichern. Variablen sind Namen, mit deren Hilfe wir auf
 gespeicherte Daten zugreifen. Wenn wir Daten in einer Variablen
 abgespeichert haben, können wir unter dem Namen der Variablen immer
 wieder darauf zugreifen.  In `R` funktioniert das mit der Zuweisung
-`<-`:
+`<-`.
 
 ```{r}
-## Speichere einen Vektor in einer Variablen:
+## Speichert einen Vektor in einer Variablen:
 meinVektor <- c(1, 2, 6, 7, 10)
 ```
 
@@ -729,7 +729,7 @@ score_test1 == score_test2
 
 ```
 
-**Anwendungsbeispiel: Überprüfe das Gesetz der großen Zahlen**
+### Anwendungsbeispiel: Überprüfe das Gesetz der großen Zahlen
 
 Häufig verwendet man die Vergleichsoperatoren, um zu prüfen, wie viele
 Daten eine bestimmte Eigenschaft erfüllen. Dafür verknüpfen wir die
@@ -775,7 +775,7 @@ zu überzeugen, dass sie tatsächlich normalverteilt sind -- sich also der
 Großteil der Daten um die `0` tummelt und extreme Werte in beide
 Richtungen seltener werden (dieser Code muss nicht verstanden werden):
 
-```R
+```{r}
 ## Male Histogram
 hist(zufallsdaten, freq = FALSE,
      main = "Schöne normalverteilte Daten",
@@ -788,24 +788,6 @@ curve(dnorm, col = "red", add = TRUE, lwd = 1.5)
 
 ## Zeichne eine graue Linie beim x-Wert `1` ein:
 abline(v = 1, lwd = 2, col = "darkgrey")
-```
-
-```{r, echo = FALSE}
-
-## Doppelter Code  wegen Formatierung =/ oben nur Ausgabe in Skript
-## Male Histogram
-hist(zufallsdaten, freq = FALSE,
-     main = "Schöne normalverteilte Daten",
-     xlab = "", ylab = "", las = 1,
-     xlim = c(-4, 4), ylim = c(0, 0.4),
-     cex.main = 0.5, cex.axis = 0.6)
-
-## Lege eine Normalverteilungskurve über die Daten
-curve(dnorm, col = "red", add = TRUE, lwd = 1.5)
-
-## Zeichne eine graue Linie beim x-Wert `1` ein:
-abline(v = 1, lwd = 2, col = "darkgrey")
-
 ```
 
 
@@ -827,9 +809,7 @@ numerische Interpretation haben: `TRUE` wird als `1` interpretiert und
 [^mathelogik]: Wenn logische Vektoren einer numerischen Berechnung
 übergeben werden, werden die `TRUE`/`FALSE` Elemente des Vektors
 automatisch in Zahlen, d.h. 1 und 0 umgewandelt. Deswegen funktioniert
-beispielsweise auch folgender Befehl:
-`TRUE * 2`
-`[1] 2`
+beispielsweise auch folgender Befehl: `TRUE + 1`
 
 Analog können wir mit `mean` den relativen Anteil der Daten bestimmen,
 die größer als 1 sind:

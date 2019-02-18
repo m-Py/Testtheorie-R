@@ -310,7 +310,6 @@ Stärken von `R`.
 
 
 ```{r}
-
 ## Das Paket `psychometric` enthält eine Funktion, die Cronbachs Alpha
 ## berechnet
 library("psychometric")
@@ -384,11 +383,7 @@ kann sie verwenden, um den Reliabilitätsschätzer einer
 Split-Half-Korrelation zu korrigieren, da in diesen nur die Hälfte der
 Items eingehen. Die Spearman-Brown Formel ist diese:
 
-&nbsp;
-
 $$r' = \frac{r \, n}{1 + (n - 1) r}$$
-
-&nbsp;
 
 Hierbei ist *r'* die um die Testlänge korrigierte Reliabilität. *r* ist
 der derzeitige Reliabilitätsschätzer, also beispielsweise die
@@ -493,10 +488,10 @@ Auswertung nicht von Belang. Relevant ist, ob die Frage richtig
 beantwortet wurde -- wir benötigen also die folgende Umkodierung der
 Daten:
 
-> `1` $\to$ `0`
-> `2` $\to$ `1`
-> `3` $\to$ `0`
-> `4` $\to$ `0`
+- `1` $\to$ `0`
+- `2` $\to$ `1`
+- `3` $\to$ `0`
+- `4` $\to$ `0`
 
 In psychometrischem Jargon: Für diese Aufgabe ist der Wert `2` der
 *Schlüssel* (engl.: *key*). Ein Schlüssel kodiert den Eingabewert der
@@ -575,7 +570,7 @@ Testteilnehmer das Bundesland-Item korrekt beantwortet. Diese
 Information konnten wir aus den ursprünglichen Antwortkategorien 1, 2, 3
 und 4 nicht herleiten.
 
-`ifelse` ist eine sehr nützliche Funktion, mit der wir Antworten
+Die Funktion `ifelse` ist sehr nützlich, mit der wir Antworten
 umkodieren können. Später lernen wir, wie wir mithilfe von `ifelse`
 ganze Tests und nicht nur einzelne Items bepunkten können.  Bevor wir
 das jedoch effizient machen können, werden wir im nächsten Kapitel noch
@@ -607,11 +602,11 @@ wollen wir die Antworten auf Item 1 *invertieren*, sodass auch hier eine
 hohe Punktzahl für eine hohe Merkmalsausprägung in Extraversion
 steht. Das heißt, wir wollen die folgende Abbildung durchführen:
 
-> `1` $\to$ `5`
-> `2` $\to$ `4`
-> `3` $\to$ `3`
-> `4` $\to$ `2`
-> `5` $\to$ `1`
+- `1` $\to$ `5`
+- `2` $\to$ `4`
+- `3` $\to$ `3`
+- `4` $\to$ `2`
+- `5` $\to$ `1`
 
 Wir könnten dies mit mehrfacher Anwendung von `ifelse` hinbekommen,
 was jedoch mühsam wäre. Es gibt eine mathematische Umformung, welche wir
@@ -740,21 +735,13 @@ folgende Informationen zum Narzissmus-Gesamtscore:
 [^selbstarbeiten]: Ich schlage vor, die Funktion selber auf den Datensatz
 aufzurufen, um die Zusammenfassung für alle Spalten zu betrachten.
 
-&nbsp;
-
-&nbsp;
-
 ```{r, echo = FALSE}
 kable(summary(npi)[,1], col.names = "score")
 ```
 
 &nbsp;
 
-&nbsp;
-
 **Identifikation von fehlenden Werten im NPI Datensatz**
-
-&nbsp;
 
 Das NPI besteht aus 40 Items. Aus dem *Codebuch* des NPI
 Datensatzes[^codebuch] wissen wir, dass Antworten auf die NPI Items

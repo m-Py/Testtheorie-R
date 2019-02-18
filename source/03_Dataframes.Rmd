@@ -11,7 +11,7 @@ diesen Tabellen repräsentieren Spalten Messvariablen, etwa die
 Punktzahlen in einer Klausuraufgabe. Zeilen stellen Fälle dar, etwa
 Personen, die an der Klausur teilgenommen haben. Andere Datenformate
 wären auch denkbar, etwa eines bei dem jede Zeile einer Aufgabe
-entspricht. Bei uns wird aber gelten: Jede Zeile entspricht genau einer 
+entspricht. Bei uns wird aber gelten: Jede Zeile entspricht genau einer
 Person.
 
 In `R` speichern wir Datentabellen in `data.frames` ab. Ein `data.frame`
@@ -73,7 +73,7 @@ per "`<-`" einen Vektor zuweise:
 
 ```{r}
 ## Beachtet die Länge des Vektors
-mdf$Augenfarbe <- c("blau", "grau", "blau", "braun", "grün")
+mdf$Augenfarbe <- c("blau", "grau", "blau", "braun", "gruen")
 ```
 
 ```{r}
@@ -153,10 +153,10 @@ nur einzelne Spalten, sondern beliebige Spalten und Zeilen aus
 `[·,·]`-Zugriff dem `[·]`-Zugriff ähnlich, den wir zur Auswahl von Daten
 aus Vektoren kennengelernt haben.
 
-Der `[·,·]`-Zugriff erlaubt es uns, eine Teilmenge aller Fälle aus 
-`mdf` auszuwählen, etwa nur die Personen mit blauen Augen, oder alle 
-Personen, die den maximalen Testwert erreicht haben. Für solche 
-Auswahlen hilft uns unser Wissen über [logische Vergleiche aus dem 
+Der `[·,·]`-Zugriff erlaubt es uns, eine Teilmenge aller Fälle aus
+`mdf` auszuwählen, etwa nur die Personen mit blauen Augen, oder alle
+Personen, die den maximalen Testwert erreicht haben. Für solche
+Auswahlen hilft uns unser Wissen über [logische Vergleiche aus dem
 letzten Kapitel](#logischevergleiche). Betrachten wir zunächst ein
 Beispiel:[^nurausgabe]
 
@@ -180,10 +180,10 @@ mdf[, c("Augenfarbe", "Alter")]
 ```
 
 Die zwei Beispiele zeigen, dass das Komma in der `[·,·]`-Notation
-dafür entscheident ist, ob eine Auswahl nach Zeilen oder Spalten 
-stattfindet. **Vor dem Komma werden Zeilen adressiert, nach dem 
-Komma Spalten.** Es ist auch eine gleichzeitige Auswahl nach Zeilen 
-**und** Spalten möglich. Allgemein ist die Syntax zum Ansprechen von 
+dafür entscheident ist, ob eine Auswahl nach Zeilen oder Spalten
+stattfindet. **Vor dem Komma werden Zeilen adressiert, nach dem
+Komma Spalten.** Es ist auch eine gleichzeitige Auswahl nach Zeilen
+**und** Spalten möglich. Allgemein ist die Syntax zum Ansprechen von
 `data.frames` mit dem `[·,·]`-Zugriff die folgende:
 
 ```
@@ -212,8 +212,8 @@ können wir auch komplexere logische Bedingungen zur Auswahl von Fällen
 formulieren:
 
 ```{r}
-mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün", ]
-mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "grün" & mdf$Item1 == 1, ]
+mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun", ]
+mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun" & mdf$Item1 == 1, ]
 ```
 
 Die `[·,·]`-Notation wird recht schnell unübersichtlich, wenn sie
@@ -224,15 +224,14 @@ Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
 `%in%`-Operator verkürzen:
 
 ```{r}
-mdf[mdf$Augenfarbe %in% c("blau", "grün"), ]
+mdf[mdf$Augenfarbe %in% c("blau", "braun"), ]
 ```
 
 Im nächsten Abschnitt lernen wir mit der Funktion `subset` eine
 Möglichkeit kennen, komplexere logische Anfragen noch etwas prägnanter
-zu formulieren.
-
-Zum Abschluss dieses Abschnitts betrachten wir noch einige weitere
-Beispiele für die verschiedenen Auswahlmöglichkeiten per `[·,·]`:
+zu formulieren. Zum Abschluss dieses Abschnitts betrachten wir noch
+einige weitere Beispiele für die verschiedenen Auswahlmöglichkeiten per
+`[·,·]`:
 
 ```{r}
 ## Wähle per Index die ersten drei Zeilen aus
@@ -244,9 +243,6 @@ mdf[, c(2, 4)]
 ## Wähle per logischem Vektor alle Personen aus, die beide Aufgaben
 ## richtig gelöst haben:
 mdf[mdf$Testscore == 2, ]
-
-## Wähle alle Personen aus, die blaue oder braune Augen haben:
-mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun", ]
 
 ## Wähle Fallnummer, Alter und Testscore per Spaltenname aus:
 mdf[, c("Nummer", "Alter", "Testscore")]
@@ -296,7 +292,7 @@ Außerhalb der Funktion `subset` würde der Ausdruck `Augenfarbe ==
 `R`-Variable, sondern nur eine Spalte von `mdf`.[^innehalten]
 Innerhalb der Funktion `subset` kann die logische Bedingung in dieser
 Form jedoch verarbeitet werden. Durch Angabe von `mdf` im ersten
-Argument teilen wir `subset` mit, aus welchem `data.frame` Zeilen 
+Argument teilen wir `subset` mit, aus welchem `data.frame` Zeilen
 ausgewählt werden sollen.
 
 [^innehalten]: Es macht an dieser Stelle Sinn, einen Moment inne zu
@@ -405,7 +401,7 @@ ihrer Position identifizieren können und manche anhand ihres Namens. Für
 das erste Argument -- `mdf` -- habe ich den Namen nicht extra angegeben
 -- daher wurde das Argument anhand seiner Position identifiziert. Für
 die Auswahl der Spalten habe ich jedoch den Argumentnamen angegeben.
-**Das war auch nötig**, da `subset` als zweites Argument ansonsten die 
+**Das war auch nötig**, da `subset` als zweites Argument ansonsten die
 Auswahl der Zeilen erwartet hätte.
 
 In `R` kann man **fast immer**[^vieleargumente] Argumente per Position
@@ -455,7 +451,7 @@ Identifikation per Position.
 
 Die Funktion `subset` bietet einige Sonderregeln zur Auswahl von
 Spalten, die über die Angabe der Spaltennamen per `character`-Vektor
-hinausgehen, wie wir sie von der `[·,·]`-Notation kennen. Zunächst 
+hinausgehen, wie wir sie von der `[·,·]`-Notation kennen. Zunächst
 einmal können wir Spaltennamen ohne Anführungszeichen angeben:
 
 ```{r}
@@ -545,11 +541,14 @@ mdf["Item1"]
 ```
 
 Auch hier sind Anführungszeichen zur Identifikation der auszuwählenden
-Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`: `[[·]]` und
-`$` ergeben einen Vektor, `[·]` einen `data.frame` mit einer Spalte.
+Spalte nötig. Der Unterschied von `[·]` zu `[[·]]` und `$`:
+
+- `[[·]]` und `$` ergeben einen Vektor
+- `[·]` ergibt einen `data.frame` mit einer Spalte
+
 Außerdem können wir mit dem `[·]`-Zugriff gleichzeitig mehrere Spalten
 auswählen, indem wir einen mehr-elementigen Vektor vom Typ `character`
-angeben. Das ist mit den Zugriffen per `[[·]]` und `$` nicht möglich,
+übergeben. Das ist mit den Zugriffen per `[[·]]` und `$` nicht möglich,
 die immer nur eine Spalte ausgeben.
 
 ```{r}
@@ -587,10 +586,10 @@ Ich persönlich bevorzuge die `[·,·]`-Notation gegenüber der
 zuzsätzliches Komma verwenden muss (ansonsten sind die beiden Notationen
 ja fast äquivalent zur Auswahl von Spalten). Wenn ich Code mit der
 `[·,·]`-Notation lese, weiß ich, dass Spalten ausgewählt werden --
-selbst wenn ich gar nicht weiß, was in dem Objekt steckt, auf dem die 
-Auswahl stattfindet. Die `[·]`-Notation ist uneindeutiger: Sie könnte 
-auch auf einem Vektor operieren. Code ist in erster Linie für Menschen 
-gemacht, die ihn verstehen sollten. Deswegen ist verständlicher Code 
+selbst wenn ich gar nicht weiß, was in dem Objekt steckt, auf dem die
+Auswahl stattfindet. Die `[·]`-Notation ist uneindeutiger: Sie könnte
+auch auf einem Vektor operieren. Code ist in erster Linie für Menschen
+gemacht, die ihn verstehen sollten. Deswegen ist verständlicher Code
 gegenüber kürzerem Code zu bevorzugen.
 
 ### Zugriff nach Name und Index {#nameindex}
@@ -635,10 +634,10 @@ In `data.frames` haben wir Spalten zumeist nach Namen ausgewählt:
 - Mit der `[[·]]`-Notation
 - Mit der `[·]`-Notation
 
- Wie wir gesehen haben, können wir mit der `[·,·]`-Notation in
- `data.frames` zusätzlich auch Zugriffe nach numerischem oder logischem
- Index durchführen. Dabei kann die Auswahl sowohl nach Spalten als auch
- nach Zeilen -- oder beidem -- geschehen.
+Wie wir gesehen haben, können wir mit der `[·,·]`-Notation in
+`data.frames` zusätzlich auch Zugriffe nach numerischem oder logischem
+Index durchführen. Dabei kann die Auswahl sowohl nach Spalten als auch
+nach Zeilen -- oder beidem -- geschehen.
 
 ## Nützliche Funktionen zum Arbeiten mit `data.frames` {#convenient}
 
@@ -784,8 +783,9 @@ arrange(mdf, Geschlecht, -Testscore)
 
 - Wir haben den `data.frame` als Datenstruktur zur Speicherung von
   psychometrischen Daten kennengelernt
-- Wir haben den Zugriff auf Spalten und Zeilen in `data.frames` mit der
-  `$`-Notation und der Funktion `subset` kennengelernt
+- Wir haben den Zugriff auf einzelne Spalten `data.frames` mit der
+  `$`-Notation und der `[[·]]` kennengelernt
+- Mit der
 - Zur Anforderung von deskriptiven Statistiken können wir die Funktionen
   `table` und `tapply` verwenden
 - Wir haben weitere Funktionen kennengelernt, die uns einen Überblick

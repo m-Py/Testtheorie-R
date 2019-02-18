@@ -7,7 +7,6 @@ output:
     ]
     toc: true
     toc_depth: 2
-    base_format: tint::tintBook
     number_sections: true
     includes:
       before_body: "00_Lizenz.tex"
@@ -17,6 +16,8 @@ header-includes:
   - \usepackage{upgreek}
   - \usepackage{soul}
   - \usepackage[german]{babel}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks = true}
 
 title:  |
     | Testtheorie mit R
@@ -292,23 +293,37 @@ zuvor erworben haben. In den Kapiteln [5](#funktionen) und
 Programmiersprachenelemente kennen und werden sehen, wie wir damit
 unsere Arbeit automatisieren können.
 
+\clearpage
+
 ```{r child = '02_Vektoren.Rmd'}
 ```
+
+\clearpage
 
 ```{r child = '03_Dataframes.Rmd'}
 ```
 
+\clearpage
+
 ```{r child = '04_Psychometrische_Daten.Rmd'}
 ```
+
+\clearpage
 
 ```{r child = '05_Funktionen.Rmd'}
 ```
 
+\clearpage
+
 ```{r child = '06_Schleifen.Rmd'}
 ```
 
+\clearpage
+
 ```{r child = '07_Simulationen.Rmd'}
 ```
+
+\clearpage
 
 ```{r child = '101_Anhang.Rmd'}
 ```
