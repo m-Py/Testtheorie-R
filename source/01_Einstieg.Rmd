@@ -41,29 +41,6 @@ opts_chunk$set(message=FALSE, warning=FALSE, comment = "",
                fig.align = "center",
                fig.cap="")
 
-
-## Some functions to manage footnotes, table and figure references
-init_footnotes <- function() {
-    fnc_counter <<- 0
-}
-
-init_refs <- function() {
-    fnt_counter <<- 0
-}
-
-incfnc <- function() {
-    fnc_counter <<- fnc_counter + 1
-    return(fnc_counter)
-}
-
-incref <- function() {
-    fnt_counter <<- fnt_counter + 1
-    return(fnt_counter)
-}
-
-init_footnotes()
-init_refs()
-
 set.seed(42)
 
 ```
@@ -88,13 +65,13 @@ anderen Person teilen, da niemand eine Lizenz zur Nutzung benötigt. Da
 `R` mithilfe von *Paketen* beliebig erweitert werden kann, stehen neue
 statistische Verfahren häufig schnell zur Verfügung (etwa *Bayesianische
 Statistik*). Die Nutzung von `R` ist in den letzten Jahren stark
-angestiegen.[^`r incref()`] Auch in der psychologischen Forschung wird
-`R` immer mehr zum Standard.[^`r incref()`]
+angestiegen.[^link1] Auch in der psychologischen Forschung wird
+`R` immer mehr zum Standard.[^link2]
 
-[^`r incfnc()`]:
+[^link1]:
 https://stackoverflow.blog/2017/10/10/impressive-growth-r/
 
-[^`r incfnc()`]:
+[^link2]:
 https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
@@ -132,7 +109,7 @@ Auswahl dessen vor, was `R` bietet. Notwendigerweise werden Inhalte
 ausgelassen. Bei der Darstellung wird vor allem Wert auf die inhaltliche
 Sinnhaftigkeit und Verständlichkeit gelegt; dafür kann es vorkommen,
 dass -- wenn angemessen -- Kompromisse bei der technischen Genauigkeit
-eingegangen werden.[^`r incref()`] Für so gut wie jede allgemeine Regel
+eingegangen werden.[^kompromisse] Für so gut wie jede allgemeine Regel
 gibt es Spezialfälle, die eine Ausnahme bilden. Auf solche Spezialfälle
 werde ich bei der Beschreibung allgemeiner Grundsätze der
 Programmiersprache `R` nicht immer Rücksicht nehmen.  Das Skript ist so
@@ -140,7 +117,7 @@ ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch
 erfordert die Meisterung von `R` noch weitere eigenständige
 Einarbeitung.
 
-[^`r incfnc()`]: Kapitel 2 enthält beispielsweise eine Beschreibung
+[^kompromisse]: Kapitel 2 enthält beispielsweise eine Beschreibung
 verschiedener Datentypen in `R` (Zahlen, Text etc.). Diese Liste deckt
 zwar die für uns wichtigsten Datentypen ab, ist aber nicht
 vollständig. Aus inhaltlichen Gründen folgt sie außerdem nicht der
@@ -170,11 +147,10 @@ Im Seminar nutzen wir die "integrierte Entwicklungsumgebung" (engl:
 integrated developement environment; *IDE*) RStudio, um mit `R` zu
 arbeiten. Zum Nachvollziehen des Skripts und der Übungen solltet ihr
 deswegen RStudio auf eurem eigenen Rechner/Laptop
-installieren.[^`r incref()`] Das geht über diesen Link:
+installieren.[^umgebung] Das geht über diesen Link:
 
-[^`r incfnc()`]: Falls ihr eine andere Umgebung benutzt, ist das
-natürlich auch kein Problem. Ich selber benutze sogar nur selten
-RStudio. Alternativen sind beispielsweise rkward
+[^umgebung]: Falls ihr eine andere Umgebung benutzt, ist das
+natürlich auch kein Problem. Alternativen sind beispielsweise rkward
 ([https://rkward.kde.org/](https://rkward.kde.org/)) oder emacs ESS
 ([https://ess.r-project.org/](https://ess.r-project.org/)).
 
@@ -246,7 +222,7 @@ Zum Beispiel können wir die `R`-Konsole als Taschenrechner benutzen:
 
 Zumeist werden wir `R`-Code nicht nur in der Konsole schreiben und
 ausführen. Wenn wir einen Befehl in der Konsole geschrieben und mit
-`Enter` ausgeführt haben, ist er ja quasi verschwunden.[^`r incref()`]
+`Enter` ausgeführt haben, ist er ja quasi verschwunden.[^pfeile]
 Um Analysen übersichtlich, nachvollziehbar und reproduzierbar zu
 gestalten, speichern wir unseren Code in sogenannten Quellcode-Dateien
 ab. Dafür gibt es in RStudio (und auch in anderen `R`-Umgebungen) einen
@@ -256,7 +232,7 @@ und permanent auf unserem Computer abspeichern (und ggf. mit anderen
 Personen teilen). Textdateien, die R-Code enthalten, speichern wir mit
 der Dateiendung ".r" oder ".R" ab.
 
-[^`r incfnc()`]: Praktisch: Wenn ich mich in der Konsole befinde, kann
+[^pfeile]: Praktisch: Wenn ich mich in der Konsole befinde, kann
 ich mit den Pfeil-Tasten (vor allem wichtig: Pfeil-nach-oben) auf meine
 letzten Befehle wieder zugreifen. Probiert es aus.
 
@@ -285,7 +261,7 @@ nicht als R-Code ausgeführt. Beispiel:
 Man nutzt `#`, um Code zu "kommentieren", das heißt um zu erklären und
 zu dokumentieren, was der geschriebene Code macht. Diese Kommentare fügt
 man in den Quelldateien ein, in denen man die eigenen Analysen
-abspeichert. Dieses Skript enthält viel `R`-Code,[^`r incref()`] den ich
+abspeichert. Dieses Skript enthält viel `R`-Code,[^codeimskript] den ich
 stets kommentiere. (Ich habe die Angewohnheit, ein doppeltes `##` am
 Anfang einer Zeile zu benutzen, aber das hat keinerlei Bedeutung.)
 Gewöhnt euch ebenfalls an, **immer** euren eigenen Code zu
@@ -294,7 +270,7 @@ kommentieren. Das gilt sowohl für "richtige" Projekte als auch für
 anderen Personen euren Code zugänglich und verständlich zu machen. Im
 häufigsten Fall seid ihr selbst in zwei Wochen diese "andere" Person.
 
-[^`r incfnc()`]: Codeblöcke im Skript bestehen immer aus dem
+[^codeimskript]: Codeblöcke im Skript bestehen immer aus dem
 eigentlichen Code (dieser ist leicht grau hinterlegt) und der *Ausgabe*,
 die bei Eingabe des Codes auch so in der `R`-Konsole erscheinen
 würde. Den Code könnt ihr auch selbst per Copy & Paste nachvollziehen

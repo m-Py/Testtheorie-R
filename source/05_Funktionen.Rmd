@@ -2,24 +2,24 @@
 # Funktionen {#funktionen}
 
 Funktionen sind das Herz der `R`-Maschinerie. Jegliche Befehle, die wir
-in `R` durchführen, sind als Funktionen umgesetzt.[^`r incref()`] Wir
-haben bereits ausgiebig von Funktionen Gebrauch gemacht. Wir haben
-beispielsweise mit `subset` Daten ausgewählt, mit `table` und `tapply`
-deskriptive Statistiken angefordert, und mit `cor`, `colMeans` und
-`psychometric::alpha` psychometrische Berechnungen durchgeführt. Dabei
-haben wir bereits einige Eigenschaften von Funktionen zur Kenntnis
-genommen, etwa dass sie Namen haben,[^`r incref()`] Argumente annehmen
-und ihre Rückgabewerte in Variablen gespeichert werden können. In diesem
-Kapitel soll nun ein tiefgründigerer Blick auf Funktionen in `R` gelegt
-werden. Am Ende des Kapitels lernen wir, unsere eigenen Funktionen zu
-schreiben.
+in `R` durchführen, sind als Funktionen
+umgesetzt.[^everythingisafunction] Wir haben bereits ausgiebig von
+Funktionen Gebrauch gemacht. Wir haben beispielsweise mit `subset` Daten
+ausgewählt, mit `table` und `tapply` deskriptive Statistiken
+angefordert, und mit `cor`, `colMeans` und `psychometric::alpha`
+psychometrische Berechnungen durchgeführt. Dabei haben wir bereits
+einige Eigenschaften von Funktionen zur Kenntnis genommen, etwa dass sie
+Namen haben,[^anonym] Argumente annehmen und ihre Rückgabewerte in
+Variablen gespeichert werden können. In diesem Kapitel soll nun ein
+tiefgründigerer Blick auf Funktionen in `R` gelegt werden. Am Ende des
+Kapitels lernen wir, unsere eigenen Funktionen zu schreiben.
 
-[^`r incfnc()`]: Technisch gesehen sind sogar einfache Berechnungen wie
-die Addition oder die Auswahl von Elementen per `[·]` Funktionen. Wir
-betrachten hier jedoch Funktionen, die dem Schema
+[^everythingisafunction]: Technisch gesehen sind sogar einfache
+Berechnungen wie die Addition oder die Auswahl von Elementen per `[·]`
+Funktionen. Wir betrachten hier jedoch Funktionen, die dem Schema
 `Funktionsname(Argument1, Argument2, ...)` folgen.
 
-[^`r incfnc()`]: Interessanterweise können Funktionen sogar anonym sein,
+[^anonym]: Interessanterweise können Funktionen sogar anonym sein,
 also keinen Namen haben. Aber dieser Spezialfall ist für uns erst einmal
 nicht von Interesse.
 
@@ -40,13 +40,13 @@ Die innere Arbeitsweise von Funktionen wird als "Black Box" betrachtet.
 Wir wissen nicht unbedingt, wie eine Funktion intern funktioniert, was
 uns aber auch nicht interessiert. So lange uns `mean` den korrekten
 Mittelwert ausgibt, ist uns egal, wie `mean` den Mittelwert
-berechnet.[^`r incref()`] Bei Funktionen interessiert uns in erster
-Linie, welche Daten wir einer Funktion als Argumente übergeben müssen
-und was sie uns dafür in Austausch zurückgeben. Die folgenden
+berechnet.[^nichtimmerblackbox] Bei Funktionen interessiert uns in
+erster Linie, welche Daten wir einer Funktion als Argumente übergeben
+müssen und was sie uns dafür in Austausch zurückgeben. Die folgenden
 Abschnitte befassen sich mit den einzelnen Bestandteilen des
 „Black-Box-Modells“.
 
-[^`r incfnc()`]: Das ist natürlich zunächst einmal anders, wenn wir
+[^nichtimmerblackbox]: Das ist natürlich zunächst einmal anders, wenn wir
 selbst neue Funktionen schreiben. Aber auch dann gilt: Wenn ich die
 Funktion geschrieben habe und der Berechnung vertraue, kann ich später
 auf sie zugreifen, ohne mir jedes Mal über die interne Funktionsweise
@@ -68,10 +68,10 @@ Standardwert)
 
 Um zu verstehen, wie man mit Argumenten das Verhalten von Funktionen
 beeinflusst, ist ein Verständnis der folgenden Punkte wichtig:
-[^`r incref()`]
+[^rueckblicksubset]
 
-[^`r incfnc()`]: Teilweise wurden diese Punkte schon in [Kapitel 3 im
-Abschnitt zur Funktion `subset`](#subset) angesprochen.
+[^rueckblicksubset]: Teilweise wurden diese Punkte schon in [Kapitel 3
+im Abschnitt zur Funktion `subset`](#subset) angesprochen.
 
 1. Manche Argumente haben Standardwerte (Englisch: „default values“),
 die angenommen werden, wenn wir diese Argumente beim Aufrufen der
@@ -79,7 +79,7 @@ Funktion nicht explizit angeben. Diese Argumente heißen *optionale
 Argumente*.
 2. Wenn Argumente keinen Standardwert haben, **müssen** wir dem Argument
    einen Wert übergeben, da die Funktion sonst eine Fehlermeldung und
-   kein Ergebnis ausgibt.[^`r incref()`]
+   kein Ergebnis ausgibt.[^wiedervereinfachung]
 3. Argumente haben Namen, die wir verwenden können, um sie in der Form
    `Argumentname = Wert` zu adressieren.
 4. Wenn wir für ein Argument nicht explizit den Namen angeben, wird das
@@ -90,10 +90,10 @@ Argumente*.
    verpflichtend sind.
 
 
-[^`r incfnc()`]: Das ist streng genommen auch wieder eine Vereinfachung.
-Aber für uns reicht dieses Konzept: Hat ein Argument einen Standardwert,
-ist es optional; hat ein Argument keinen Standardwert, ist es
-verpflichtend.
+[^wiedervereinfachung]: Das ist streng genommen auch wieder eine
+Vereinfachung. Aber für uns reicht dieses Konzept: Hat ein Argument
+einen Standardwert, ist es optional; hat ein Argument keinen
+Standardwert, ist es verpflichtend.
 
 Wir werden diese Punkte nun exemplarisch anhand der Funktion `mean`
 nachvollziehen. Wir wissen bereits, dass `mean` mindestens zwei
@@ -218,12 +218,12 @@ nur das folgende Wissen:
 1. Welche Funktion führt die gewünschte Berechnung aus?
 2. Wie können wir diese Funktionen bedienen?
 
-Wir beschäftigen uns im Folgenden mit dem zweiten Punkt.[^`r incref()`]
+Wir beschäftigen uns im Folgenden mit dem zweiten Punkt.[^einschub]
 Wir lernen, wie wir uns mit der `R`-Hilfe einen Überblick über die
 Arbeitsweise von Funktionen verschaffen können. Probieren wir es
 exemplarisch für die Funktion `mean` aus:
 
-[^`r incfnc()`]: Auch wenn es häufig erst einmal der Knackpunkt ist zu
+[^einschub]: Auch wenn es häufig erst einmal der Knackpunkt ist zu
 wissen, ob es schon eine Funktion gibt, die das eigene Problem löst, wie
 diese heißt und in welchem Paket ich sie finde.
 
@@ -243,12 +243,12 @@ Usage:
 ```
 
 Wir ignorieren an dieser Stelle, dass uns zwei Varianten angeboten
-werden, die Funktion `mean` zu nutzen.[^`r incref()`] Wenn in der Hilfe
+werden, die Funktion `mean` zu nutzen.[^ueberladung] Wenn in der Hilfe
 eine „Default S3 method“ angeboten wird, interessiert uns oftmals diese;
 so ist es auch hier der Fall. An dieser Stelle finden wir die
 Informationen, die wir benötigen, um die Funktion zu nutzen. Wir sehen
 
-[^`r incfnc()`]: Viele Funktionen können auf verschiedene Arten
+[^ueberladung]: Viele Funktionen können auf verschiedene Arten
 aufgerufen werden. Das heißt: Sie können mit unterschiedlichen
 `R`-Objekten als Eingabe genutzt werden.
 
@@ -330,10 +330,10 @@ Erstellung von Kreuztabellen annimmt -- und `dplyr::arrange` -- die
 beliebig viele Kriterien zur Sortierung eines `data.frames` annimmt --
 haben unbenannte Argumente. In der `R`-Hilfe ist dies oftmals an dem
 Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:
-[^`r incref()`]
+[^komischeargumente]
 
-[^`r incfnc()`]: Wir nehmen interessiert zur Kenntnis, dass `c` zwei
-Argumente mit Standardwerten hat: `recursive` und `use.names`. Mit
+[^komischeargumente]: Wir nehmen interessiert zur Kenntnis, dass `c`
+zwei Argumente mit Standardwerten hat: `recursive` und `use.names`. Mit
 diesen Argumenten haben wir uns bislang nicht beschäftigt und das werden
 wir auch weiterhin nicht tun. Oftmals "vertraut" man den Standardwerten,
 wobei man damit früher oder später auch mal auf die Nase fallen wird.
@@ -370,9 +370,9 @@ die Mittelwerte zweier Vektoren vergleicht. Ich verwende den
 NPI-Datensatz aus Kapitel 4 und vergleiche den mittleren
 Narzissmus-Gesamtwert (Spalte `score`) zwischen weiblichen und
 männlichen Testnehmenden (Spalte `gender`; Kodierung: männlich = 1,
-weiblich = 2).[^`r incref()`]
+weiblich = 2).[^vektorgrundlagen]
 
-[^`r incfnc()`]: An dieser Stelle ist es sinnvoll, noch einmal zu
+[^vektorgrundlagen]: An dieser Stelle ist es sinnvoll, noch einmal zu
 rekapitulieren, wie hier die Narzissmuswerte der Männer und Frauen
 ausgewählt werden.
 
@@ -390,7 +390,7 @@ t.test(npi$score[npi$gender == 1], npi$score[npi$gender == 2])
 Hier werden uns alle relevanten Aspekte der *t*-Test-Berechnung
 ausgegeben. Ein erster interessanter Hinweis ist, dass kein klassischer
 *t*-Test, sondern ein "Welch Two Sample t-test" gerechnet wurde.
-[^`r incref()`] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert
+[^welch] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert
 ("`p-value < 2.2e-16`" bedeutet, dass der p-Wert so klein ist, dass vor
 dem ersten Wert hinter dem Komma, der **nicht** Null ist, mindestens 16
 Nullen stehen), das 95%-Konfidenzintervall der Differenz der mittleren
@@ -400,13 +400,12 @@ aufweisen als Frauen. Aber dieser Befund ist für uns in diesem Fall
 uninteressant -- wir wollen uns ja mit dem Rückgabewert befassen. Was
 für ein `R`-Objekt wurde uns denn ausgegeben?
 
-[^`r incfnc()`]:
-Setzt man das Argument `var.equal` auf `TRUE`, wird ein klassischer
-t-Test gerechnet (Standardwert: `FALSE`). Es ist etwas ironisch, dass
-die Funktion `t.test` keinen t-Test rechnet. Wenn man das erwartet,
-könnte man an dieser Stelle auf die Nase fallen, wenn man einfach auf
-die Standardwerte der Funktion vertraut. Mehr Informationen zum
-Welch-t-Test finden sich hier:
+[^welch]: Setzt man das Argument `var.equal` auf `TRUE`, wird ein
+klassischer t-Test gerechnet (Standardwert: `FALSE`). Es ist etwas
+ironisch, dass die Funktion `t.test` keinen klassischen t-Test rechnet.
+Wenn man das erwartet, könnte man an dieser Stelle auf die Nase fallen,
+wenn man einfach auf die Standardwerte der Funktion vertraut. Mehr
+Informationen zum Welch-t-Test finden sich hier:
 [https://en.wikipedia.org/wiki/Welch%27s_t-test](https://en.wikipedia.org/wiki/Welch%27s_t-test).
 
 Was in der Konsole angezeigt wird, stellt nicht direkt das `R`-Objekt
@@ -430,7 +429,7 @@ str(test)
 Das von `t.test` ausgegebene Objekt ist eine "List of 9", also eine
 Liste mit 9 Einträgen. Listen sind sehr allgemeine Datencontainer, die
 Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.
-[^`r incref()`] Listen stellen eine wichtige Datenstruktur in `R` dar --
+[^Rekursiv] Listen stellen eine wichtige Datenstruktur in `R` dar --
 vielleicht ist es sogar die wichtigste Datenstruktur, da `data.frames`
 spezielle Listen sind, in denen jeder Eintrag (d.h., jede Spalte) ein
 Vektor gleicher Länge ist. Die Elemente der Liste können benannt sein,
@@ -438,7 +437,7 @@ wie es bei der Rückgabe von `t.test` der Fall ist. In diesem Fall kann
 ich, wie wir es von der Spaltenauswahl in `data.frames` kennen, mit der
 `$`-Notation auf einzelne Elemente zugreifen:
 
-[^`r incfnc()`]: Ein Eintrag einer Liste könnte beispielsweise eine
+[^Rekursiv]: Ein Eintrag einer Liste könnte beispielsweise eine
 andere Liste sein.
 
 ```{r}
@@ -523,11 +522,11 @@ geschrieben haben, möchten wir denselben Code nicht noch einmal
 schreiben, um ein gleiches bzw. ähnliches Problem zu lösen. Eigene
 Funktionen helfen uns effizienter -- man könnte sogar sagen: fauler --
 zu arbeiten. Außerdem führen sie zu besser lesbarem Code, denn
-Funktionsnamen[^`r incref()`] kommunizieren die Intention von Code
+Funktionsnamen[^namensindwichtig] kommunizieren die Intention von Code
 deutlich besser als das reine Aneinanderreihen von Zahlen, Operatoren
 und Variablen.
 
-[^`r incfnc()`]: Wie bei Variablen ist auch bei Funktionen eine
+[^namensindwichtig]: Wie bei Variablen ist auch bei Funktionen eine
 sinnvolle Benennung unerlässlich.
 
 ### Definition der eigenen Funktion
@@ -565,15 +564,15 @@ geschwungenen Klammern `{·}` eingeschlossen. Solche Klammern bilden
 einen abgeschlossenen Block von `R`-Code; sie werden uns auch im
 nächsten Kapitel bei der Verwendung von Schleifen wieder begegnen.
 
-In Zeile 5 wird mit der Funktion `return`[^`r incref()`] angegeben,
+In Zeile 5 wird mit der Funktion `return`[^imaketherules] angegeben,
 dass die Variable `corrected_reliability` von der Funktion
 zurückgegeben werden soll. Das heißt: das `R`-Objekt, das innerhalb der
 Funktion in die Variable `corrected_reliability` geschrieben wird, ist
 der Rückgabewert der Funktion.
 
-[^`r incfnc()`]: Es ist nicht unbedingt nötig, `return` zur Definition
-von Rückgabewerten zu verwenden. Aber ich mache es immer so und verrate
-die Alternative auch nicht.
+[^imaketherules]: Es ist nicht unbedingt nötig, `return` zur Definition
+von Rückgabewerten zu verwenden. Aber ich mache es so und verrate die
+Alternative auch nicht.
 
 ### Lokale Variablen
 
@@ -590,25 +589,25 @@ definiert haben. Solche globalen Variablen werden uns in RStudio im
 Panel oben rechts unter "Global Environment" angezeigt.
 
 Lokale Variablen sind außerhalb der Funktion nicht sichtbar und
-verschwinden nach Aufruf der Funktion wieder.[^`r incref()`] Es ist also
+verschwinden nach Aufruf der Funktion wieder.[^garstig] Es ist also
 nicht so, dass die Variablen `numerator`, `denominator` und
 `corrected_reliability` in die globale `R`-Umgebung geschrieben werden,
 wenn ich die Funktion `spearman_brown` aufrufe. Das ist extrem nützlich:
 Ich habe die Variablen `numerator` und `denominator` nur definiert,
 damit mein Code gut lesbar ist und die einzelnen Code-Zeilen nicht zu
-lang werden.[^`r incref()`] Am Ende interessiert mich aber nur der
+lang werden.[^codestil] Am Ende interessiert mich aber nur der
 Spearman-Brown-Schätzer als Ergebnis der Berechnung; Variablen, die ich
 als Zwischenergebnisse abspeichere, interessieren mich hingegen nicht.
 Wenn ich eine Funktion schreibe, bleiben solche Hilfsvariablen
 verborgen und nur der Rückgabewert dringt nach außen. Ich kann den
 Rückgabewert abfangen, indem ich ihn in einer Variablen abspeichere:
 
-[^`r incfnc()`]: Umgekehrt gilt hingegen: Innerhalb einer Funktion kann
+[^garstig]: Umgekehrt gilt hingegen: Innerhalb einer Funktion kann
 man auf Variablen der globalen `R`-Umgebung zugreifen. Ignoriert das
 jedoch bitte. Werte, mit denen eine Funktion arbeitet, sollten der
 Funktion per Argument übergeben werden.
 
-[^`r incfnc()`]: Es ist guter Stil, die Menge von Code pro Zeile zu
+[^codestil]: Es ist guter Stil, die Menge von Code pro Zeile zu
 begrenzen. Eine Daumenregel ist die Verwendung von nicht mehr als 80
 Zeichen Code pro Zeile. Dafür kann es beispielsweise helfen,
 Zwischenberechnungen in Variablen abzuspeichern. Eigene Funktionen

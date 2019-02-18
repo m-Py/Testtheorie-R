@@ -18,15 +18,15 @@ Programmiersprache zu nutzen.
 
 Im Allgemeinen und in `R` im Speziellen gibt es mehrere schleifenartige
 Gebilde; in diesem Kapitel lernen wir die wichtige `for`-Schleife
-kennen.[^`r incref()`] Das logische Prinzip einer `for`-Schleifen ist
+kennen.[^while] Das logische Prinzip einer `for`-Schleifen ist
 recht simpel: Sie führt einen Code-Block mehrfach durch. In der Regel
 wird in den verschiedenen Durchläufen der Schleife variiert, auf welche
 Daten -- also etwa auf welche Items eines Tests -- zugegriffen wird,
 damit nicht in jedem Durchgang einfach dasselbe passiert. Dies ist die
 Syntax einer `for`-Schleife:
 
-[^`r incfnc()`]: Wer nach dem Durcharbeiten des Kapitels noch nicht
-genug von Schleifen hat, kann sich mithilfe einer Google-Suche mit der
+[^while]: Wer nach dem Durcharbeiten des Kapitels noch nicht genug von
+Schleifen hat, kann sich mithilfe einer Google-Suche mit der
 `while`-Schleife vertraut machen.
 
 ```R
@@ -281,10 +281,10 @@ beinhaltet per Name und einmal per Index (siehe [Kapitel
 
 ### Adressierung per Name
 
-Zunächst erstelle ich wie folgt einen leeren[^`r incref()`] Vektor der
+Zunächst erstelle ich wie folgt einen leeren[^wirklichleer] Vektor der
 Länge 40:
 
-[^`r incfnc()`]: Tatsächlich ist der Vektor nicht wirklich leer. Schaut
+[^wirklichleer]: Tatsächlich ist der Vektor nicht wirklich leer. Schaut
 ihn euch einmal nach der Erstellung an (d.h., gebt ihn in der Konsole
 aus).
 
@@ -292,16 +292,16 @@ aus).
 discriminations <- vector(length = 40)
 ```
 
-Mithilfe der Funktion `vector`[^`r incref()`] erstelle ich einen Vektor;
-das Argument `length` bestimmt dabei die Länge des Vektors. Darin möchte
-ich im Verlauf der 40 Durchläufe der Schleife die Trennschärfen der 40
-Items abspeichern. Um eine Adressierung per Name zu ermöglichen, gebe
-ich den Elementen des Vektors wie folgt Namen:
+Mithilfe der Funktion `vector`[^allgemeinesprinzip] erstelle ich einen
+Vektor; das Argument `length` bestimmt dabei die Länge des Vektors.
+Darin möchte ich im Verlauf der 40 Durchläufe der Schleife die
+Trennschärfen der 40 Items abspeichern. Um eine Adressierung per Name zu
+ermöglichen, gebe ich den Elementen des Vektors wie folgt Namen:
 
-[^`r incfnc()`]: Es ist allgemein so, dass Funktionen mit dem Namen
-einer Datenstruktur besagte Datenstruktur erstellen. Erinnern wir uns an
-die Funktion `data.frame`. Ebenso gibt es die Funktion `list`, die eine
-Liste erstellt, oder die Funktion `matrix`, die eine Matrix
+[^allgemeinesprinzip]: Es ist allgemein so, dass Funktionen mit dem
+Namen einer Datenstruktur besagte Datenstruktur erstellen. Erinnern wir
+uns an die Funktion `data.frame`. Ebenso gibt es die Funktion `list`,
+die eine Liste erstellt, oder die Funktion `matrix`, die eine Matrix
 erstellt. Diese Funktionen sind oft nützlich, um leere Datencontainer zu
 erstellen, die im Verlaufe einer `for`-Schleife gefüllt werden.
 
