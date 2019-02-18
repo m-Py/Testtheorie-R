@@ -783,9 +783,10 @@ arrange(mdf, Geschlecht, -Testscore)
 
 - Wir haben den `data.frame` als Datenstruktur zur Speicherung von
   psychometrischen Daten kennengelernt
-- Wir haben den Zugriff auf einzelne Spalten `data.frames` mit der
-  `$`-Notation und der `[[·]]` kennengelernt
-- Mit der
+- Wir haben die `$`-Notation für den Zugriff auf einzelne Spalten von 
+  `data.frames` kennengelernt
+- Mit der `[·,·]`-Notation und der Funktion `subset` können wir Zeilen 
+  und Spalten aus `data.frames` auslesen
 - Zur Anforderung von deskriptiven Statistiken können wir die Funktionen
   `table` und `tapply` verwenden
 - Wir haben weitere Funktionen kennengelernt, die uns einen Überblick
