@@ -12,7 +12,7 @@ Taschenrechner-Berechnungen oben. So gilt für die Berechnung `1 + 3`:
 Das Interessante an Vektoren ist, dass der ein-elementige Vektor nur ein
 Spezialfall ist. Im Normalfall können Vektoren mehrere Elemente
 enthalten; die "atomare" Einheit in `R` ist also nicht ein einzelnes
-Element, sondern gleich eine Aneinanderreihung beliebig vieler[^`r 
+Element, sondern gleich eine Aneinanderreihung beliebig vieler[^`r
 incref()`] gleichartiger Elemente, etwa Zahlen. Statistische
 Berechnungen -- wie die Berechnung eines Mittelwerts oder einer
 Standardabweichung -- lassen sich direkt auf einer Menge an Daten
@@ -565,7 +565,7 @@ laune <- c(1, 2, 3, 1, 2, 1)
 
 laune_faktor <- factor(laune, levels = c(1, 2, 3),
                        labels = c(":(", ":)", ":D"))
-                       
+
 laune_faktor
 ```
 
@@ -598,7 +598,7 @@ In mean.default(laune_faktor) :
 
 ### `NA`
 
-`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren: `NA`.[^`r 
+`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren: `NA`.[^`r
 incref()`] Da wir mit echten Datensätzen arbeiten, die oftmals "messy"
 sind, d.h. nicht notwendigerweise vollständig, ist diese Eigenschaft
 sehr nützlich. Gerade bei der Arbeit mit Daten in der psychologischen
@@ -648,7 +648,7 @@ mean(messy_data, na.rm = TRUE)
 Hierbei nehmen wir zur Kenntnis, dass man Argumente von Funktionen
 benennen kann -- was wir aber nicht immer machen. Dazu später mehr.
 
-## Logische Vergleiche
+## Logische Vergleiche {#logischevergleiche}
 
 Wir können in `R` Eigenschaften von Vektoren mithilfe von logischen
 Vergleichen erfragen. So kann man beispielsweise prüfen, welche Werte
