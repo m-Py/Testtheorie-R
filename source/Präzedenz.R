@@ -1,4 +1,4 @@
-# Beispiele für Präzendenz:
+# Beispiele für Präzedenz:
 
 TRUE | TRUE & FALSE
 #> [1] TRUE
