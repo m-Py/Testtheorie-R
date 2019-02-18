@@ -578,12 +578,12 @@ Wenn wir nur eine Spalte auslesen, gibt die `[·,·]`-Auswahl einen Vektor
 aus, die `[·]`-Auswahl jedoch einen `data.frame` mit einer Spalte.
 Dieses Verhalten offenbart einen Sonderfall der `[·,·]`-Auswahl: Im
 Normalfall gibt `[·,·]` ebenfalls einen ganzen `data.frame` aus. Wenn
-wir aber nur eine einzige Spalte anfordern, "reduziert" sich die Ausgabe
+wir aber nur eine einzige Spalte anfordern, „reduziert“ sich die Ausgabe
 zu einem Vektor.
 
 Ich persönlich bevorzuge die `[·,·]`-Notation gegenüber der
 `[·]`-Notation zur Auswahl von Spalten, auch wenn ich hier ein
-zuzsätzliches Komma verwenden muss (ansonsten sind die beiden Notationen
+zusätzliches Komma verwenden muss (ansonsten sind die beiden Notationen
 ja fast äquivalent zur Auswahl von Spalten). Wenn ich Code mit der
 `[·,·]`-Notation lese, weiß ich, dass Spalten ausgewählt werden --
 selbst wenn ich gar nicht weiß, was in dem Objekt steckt, auf dem die
@@ -596,22 +596,21 @@ verständlicher Code ist gegenüber kürzerem Code zu bevorzugen.**
 
 Wir haben nun alle wichtigen Möglichkeiten kennengelernt, Zugriffe auf
 `data.frames` durchzuführen. An dieser Stelle lohnt es sich deswegen,
-ein grundsätzliches Prinzip von Datenzugriffen in `R` festzustellen:
+ein grundsätzliches Prinzip von Datenzugriffen in `R` festzuhalten:
 **Datenzugriffe können nach nach Index oder nach Name stattfinden**.
-Dies gilt für Vektoren, `data.frames` und auch andere Datenstrukturen,
-die wir noch gar nicht behandelt haben.
+Dies gilt für Vektoren, `data.frames` und auch für andere
+Datenstrukturen, die wir noch gar nicht behandelt haben.
 
 Wir haben bereits Beispiele für beide Arten des Datenzugriffs
 kennengelernt: In Vektoren haben wir Zugriffe mithilfe von Indexen
 durchgeführt, indem wir (a) die Position von auszuwählenden Elementen
-explizit mit einem numerischen Vektor angegeben haben, oder (b) indem
-wir einen logischen Vektor übergeben haben, der anhand von `TRUE` und
-`FALSE` Werten die Indexe auswählt, deren Elemente ausgegeben werden
-sollen. Der Vollständigkeit halber sei hier mitgeteilt, dass man sogar
-bei Vektoren Zugriffe nach Namen durchführen kann, wenn die Elemente des
-Vektors benannt sind. Das ist gar nicht so ungewöhnlich; wie folgt
-könnte man einen Vektor mit benannten Elementen erstellen und mit der
-bekannten `[·]`-Notation darauf zugreifen.
+mit einem numerischen Vektor angegeben haben, oder (b) indem wir einen
+logischen Vektor übergeben haben, der die Indexe auswählt, deren
+Elemente ausgegeben werden sollen. Der Vollständigkeit halber sei hier
+mitgeteilt, dass man sogar bei Vektoren Zugriffe nach Namen durchführen
+kann, wenn die Elemente des Vektors benannt sind. Das ist gar nicht so
+ungewöhnlich; wie folgt könnte man einen Vektor mit benannten Elementen
+erstellen und mit der bekannten `[·]`-Notation darauf zugreifen.
 
 ```{r}
 
