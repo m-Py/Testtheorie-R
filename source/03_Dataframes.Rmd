@@ -588,9 +588,9 @@ ja fast äquivalent zur Auswahl von Spalten). Wenn ich Code mit der
 `[·,·]`-Notation lese, weiß ich, dass Spalten ausgewählt werden --
 selbst wenn ich gar nicht weiß, was in dem Objekt steckt, auf dem die
 Auswahl stattfindet. Die `[·]`-Notation ist uneindeutiger: Sie könnte
-auch auf einem Vektor operieren. Code ist in erster Linie für Menschen
-gemacht, die ihn verstehen sollten. Deswegen ist verständlicher Code
-gegenüber kürzerem Code zu bevorzugen.
+auch auf einem Vektor operieren, der gar keine Spalten enthält. Wir
+merken uns: **Code ist in erster Linie für Menschen gemacht;
+verständlicher Code ist gegenüber kürzerem Code zu bevorzugen.**
 
 ### Zugriff nach Name und Index {#nameindex}
 
