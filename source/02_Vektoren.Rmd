@@ -158,7 +158,7 @@ Vektor zurückgeben, aber die Länge des Ausgabevektors unterschiedlich
 sein kann. Die Funktionen `mean` und `sum` ergeben etwa Vektoren der
 Länge 1, da sie genau einen Kennwert bestimmen. Die Funktionen `sort`,
 `sqrt` und `round` geben hingegen einen Vektor zurück, der aus genauso
-viele Elementen besteht wie der Eingabevektor. 
+vielen Elementen besteht wie der Eingabevektor. 
 
 Auch basale mathematische Berechnungen werden gleich auf alle Elemente 
 eines Vektors angewendet:
@@ -197,7 +197,7 @@ ein ein-elementiger Vektor mit einem längeren Vektor verknüpft oder zwei
 gleich lange Vektoren werden miteinander verknüpft. Es ist auch möglich,
 andere Kombinationen von Vektorlängen zu paaren, was wir jedoch erst
 einmal vernachlässigen; interessierte Leser können die Befehle `c(1,2) *
-1:4` und `c(1,2) * 1:3` in die `R`-Konsole eingeben und beobachten was
+1:4` und `c(1,2) * 1:3` in die `R`-Konsole eingeben und beobachten, was
 passiert.
 
 ## Variablen
@@ -450,7 +450,7 @@ für binären Operator
 
 In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
 werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden; im
-Speziellen werden wir sie nutzen, um Spalten in Datentabelle zu
+Speziellen werden wir sie einsetzen, um Spalten in Datentabellen zu
 adressieren (siehe [Kapitel 3](#datenzugriffe)). Zu diesem Zweck werden
 wir die Funktion `paste0` nutzen, die `character`-Vektoren beliebiger
 Länge erstellt. So lassen sich beispielsweise bequem 10 durchnummerierte
@@ -912,7 +912,7 @@ xx <- daten[3] # ein-elementiger Vektor
 xx
 ```
 
-Ebenso kann ich einen „Negativ“-Zugriff durchführen: Ich auswählen,
+Ebenso kann ich einen „Negativ“-Zugriff durchführen: Ich kann auswählen,
 welchen Index ich *nicht* in meinem Ergebnis haben will:
 
 ```{r}
