@@ -3,7 +3,8 @@
 
 Die einfachste und wichtigste Datenstruktur von `R` ist der
 *Vektor*. Ein Vektor ist beispielsweise eine einzelne Zahl wie in den
-Taschenrechner-Berechnungen oben. So gilt für die Berechnung `1 + 3`:
+Taschenrechner-Berechnungen in Kapitel 1. So gilt für die Berechnung 
+`1 + 3`:
 
 - `1` ist ein Vektor
 - `3` ein Vektor
@@ -11,18 +12,17 @@ Taschenrechner-Berechnungen oben. So gilt für die Berechnung `1 + 3`:
 
 Das Interessante an Vektoren ist, dass der ein-elementige Vektor nur ein
 Spezialfall ist. Im Normalfall können Vektoren mehrere Elemente
-enthalten; die "atomare" Einheit in `R` ist also nicht ein einzelnes
-Element, sondern gleich eine Aneinanderreihung beliebig vieler
-gleichartiger Elemente, etwa Zahlen.[^`r incref()`] Statistische
-Berechnungen -- wie die Berechnung eines Mittelwerts oder einer
-Standardabweichung -- lassen sich direkt auf einer Menge an Daten
-durchführen, da diese in **einem** Vektor gespeichert sind. Diese
-"Vektorbasiertheit" ist vermutlich die größte Stärke von `R` für
-statistische Berechnungen.
+enthalten; die „atomare“ Einheit in `R` ist also nicht ein einzelnes
+Element, sondern gleich eine Aneinanderreihung beliebig vieler[^laenge0]
+gleichartiger Elemente, etwa Zahlen. Statistische Berechnungen -- wie
+die Berechnung eines Mittelwerts oder einer Standardabweichung -- lassen
+sich direkt auf einer Menge an Daten durchführen, da diese in **einem**
+Vektor gespeichert sind. Diese „Vektorbasiertheit“ ist vermutlich die
+größte Stärke von `R` für statistische Berechnungen.
 
-[^`r incfnc()`]: Interessanterweise gibt es sogar Vektoren der Länge 0
--- also Vektoren, die gar kein Element beinhalten. Das soll uns aber
-erst einmal nicht beschäftigen.
+[^laenge0]: Interessanterweise gibt es sogar Vektoren der Länge 0 --
+also Vektoren, die gar kein Element beinhalten. Das soll uns aber erst
+einmal nicht beschäftigen.
 
 Elemente zu Vektoren zusammenfügen (sprich: **mehrere** Vektoren zu
 **einem** Vektor zusammenfügen) funktioniert mit der *Funktion* `c` --
@@ -45,7 +45,7 @@ c(1)
 ```
 
 Folgendes geht auch, da `c` mehrere Vektoren zu **einem einzelnen**
-Vektor "verschmilzt":
+Vektor „verschmilzt“:
 
 ```{r}
 c(0.5, 1, 1.5, c(1, 2, 3))
@@ -54,11 +54,10 @@ c(0.5, 1, 1.5, c(1, 2, 3))
 Auf mehrelementigen Vektoren kann man statistische Berechnungen
 durchführen, wie etwa die Bestimmung des arithmetischen Mittels, einer
 Standardabweichung, der Varianz, oder des Minimums oder
-Maximums:[^`r incref()`]
+Maximums:[^laenge1]
 
-[^`r incfnc()`]: `R` würde oft auch bei einelementigen Vektoren ein
-Ergebnis ausgeben, aber das ist zum Beispiel beim Mittelwert wenig
-sinnvoll.
+[^laenge1]: `R` würde oft auch bei einelementigen Vektoren ein Ergebnis
+ausgeben, aber das ist zum Beispiel beim Mittelwert wenig sinnvoll.
 
 ```{r}
 
@@ -89,18 +88,9 @@ folgende Eigenschaften von Funktionen zu verstehen:
 - Hinter dem Namen einer Funktion werden in Klammern ein oder mehrere
   *Argumente* übergeben, etwa: ein Vektor
 - Wenn einer Funktion mehrere Argumente übergeben werden, werden diese
-  mit Kommata separiert, etwa: `c(1, 2, 3)`[^`r incref()`]
+  mit Kommata separiert, etwa: `c(1, 2, 3)`
 - Funktionen führen eine Berechnung durch und geben uns das Ergebnis
   zurück
-
-[^`r incfnc()`]: In den obigen Beispielen einfacher statistischer
-Berechnungen wird jeweils genau ein Argument übergeben, nämlich der
-Vektor, für den wir den Mittelwert, die Standardabweichung
-etc. berechnen wollten. Es ist auch möglich -- und auch üblich --, dass
-Funktionen mehrere Argumente annehmen, die ihr Verhalten bestimmen. Die
-Funktion `plot` etwa verfügt über eine kaum überschaubare Menge an
-möglichen Argumenten, die verwendet werden können, um das Aussehen einer
-Abbildung zu spezifizieren.
 
 Einfach gesagt nehmen also Funktionen Daten entgegen und geben wiederum
 Daten zurück. Der Großteil unserer Arbeit mit `R` ist die Anwendung von
@@ -118,10 +108,8 @@ Varianz von 0.5, 1, und 1.5 gleich 0.25 ist. Diese Beobachtung offenbart
 eine weitere wichtige Eigenschaft von `R`: Wir können unseren Code immer
 als das verstehen, was er ergibt, wenn er von `R` ausgewertet wird. Es
 macht keinen Unterschied, ob ich das Ergebnis einer Berechnung selber
-"händisch" aufschreibe -- also hier 0.25 --, oder Code schreibe, der mir
+„händisch“ aufschreibe -- also hier 0.25 --, oder Code schreibe, der mir
 dieses Ergebnis generiert -- hier: `var(c(0.5, 1, 1.5))`.
-
- &nbsp;
 
 Eine nützliche und oft verwendete Kurzform, um Vektoren aufsteigender,
 ganzer Zahlen zu erstellen ist folgende:
@@ -137,7 +125,7 @@ bis 1,000 berechnen:
 sum(1:1000)
 ```
 
-Man kann auch absteigende Sequenzen erstellen:
+Wir können auch absteigende Sequenzen erstellen:
 
 ```{r}
 5:-5
@@ -170,8 +158,10 @@ Vektor zurückgeben, aber die Länge des Ausgabevektors unterschiedlich
 sein kann. Die Funktionen `mean` und `sum` ergeben etwa Vektoren der
 Länge 1, da sie genau einen Kennwert bestimmen. Die Funktionen `sort`,
 `sqrt` und `round` geben hingegen einen Vektor zurück, der aus genauso
-viele Elementen besteht wie der Eingabevektor. Auch basale mathematische
-Berechnungen werden gleich auf alle Elemente eines Vektors angewendet:
+viele Elementen besteht wie der Eingabevektor. 
+
+Auch basale mathematische Berechnungen werden gleich auf alle Elemente 
+eines Vektors angewendet:
 
 ```{r}
 1:10 * 2
@@ -182,19 +172,16 @@ Berechnungen werden gleich auf alle Elemente eines Vektors angewendet:
 ```
 
 Hierbei werden die Operationen `* 2` bzw. `-1` direkt auf alle Elemente
-der Vektoren `1:10` bzw. `1:10 * 2` angewendet; die Ausgabe ist demnach
+der Vektoren `1:10` bzw. `(1:10 * 2)` angewendet; die Ausgabe ist
 jeweils ein Vektor der Länge 10. Bei gleich langen Vektoren werden
-solche Operationen im Allgemeinen **paarweise**[^`r incref()`]
-angewendet:
-
-[^`r incfnc()`]: Ich werde dazu oft auch *komponentenweise* sagen.
+solche Operationen im Allgemeinen **komponentenweise**:
 
 ```{r}
 2:4 * 4:6 # entspricht c(2*4, 3*5, 4*6)
 ```
 
 Dieses Verhalten ist typisch für `R`: Viele Funktionen und Operationen
-in `R` arbeiten **komponentenweise**, wenn zwei Vektoren gleicher Länge
+in `R` arbeiten komponentenweise, wenn zwei Vektoren gleicher Länge
 übergeben werden. Das Element an Position 1 im einen Vektor wird dann
 mit dem Element an Position 1 im anderen Vektor gepaart, das Element an
 Position 2 im einen Vektor mit dem Element an Position 2 im anderen
@@ -203,15 +190,15 @@ Vektor -- und so weiter.
 Werden ein ein-elementiger Vektor und ein mehr-elementiger Vektor mit
 einer Berechnung (etwa einer Addition) verknüpft, wird normalerweise das
 einzelne Element mit allen Elementen des anderen Vektors
-"gepaart".[^`r incref()`]
+„gepaart“.[^ganzodereins]
 
-[^`r incfnc()`]: Wir werden nur diese Fälle betrachten: Entweder wird
+[^ganzodereins]: Wir werden nur diese Fälle betrachten: Entweder wird
 ein ein-elementiger Vektor mit einem längeren Vektor verknüpft oder zwei
 gleich lange Vektoren werden miteinander verknüpft. Es ist auch möglich,
 andere Kombinationen von Vektorlängen zu paaren, was wir jedoch erst
-einmal vernachlässigen (gebt bei Interesse einmal die Befehle
-`c(1,2) * 1:4` und `c(1,2) * 1:3` in die `R`-Konsole ein).
-
+einmal vernachlässigen; interessierte Leser können die Befehle `c(1,2) *
+1:4` und `c(1,2) * 1:3` in die `R`-Konsole eingeben und beobachten was
+passiert.
 
 ## Variablen
 
@@ -222,13 +209,11 @@ abzuspeichern. Variablen sind Namen, mit deren Hilfe wir auf
 gespeicherte Daten zugreifen. Wenn wir Daten in einer Variablen
 abgespeichert haben, können wir unter dem Namen der Variablen immer
 wieder darauf zugreifen.  In `R` funktioniert das mit der Zuweisung
-"`<-`":
+`<-`.
 
 ```{r}
-
-## Speichere einen Vektor in einer Variablen:
+## Speichert einen Vektor in einer Variablen:
 meinVektor <- c(1, 2, 6, 7, 10)
-
 ```
 
 Ich kann den Inhalt von Variablen in der `R`-Konsole ausgeben lassen,
@@ -257,29 +242,21 @@ meinVektor - xx
 ```
 
 Variablen können an jeder Stelle verwendet werden, an der man Daten
-sonst "händisch" eingeben würde. Wir können jegliche Objekte -- nicht
+sonst „händisch“ eingeben würde. Wir können jegliche Objekte -- nicht
 nur Vektoren, sondern auch Datentabellen oder beliebig komplizierte
 Ergebnisse von Berechnungen -- in Variablen speichern. Der Workflow in
 `R` ist so ausgelegt, dass Zwischenergebnisse weiterverwendet werden
 können. Hierbei unterscheidet es sich fundamental von SPSS, das einen
-Unterschied zwischen Daten und "Output" macht. In `R` kann das Ergebnis
+Unterschied zwischen Daten und „Output“ macht. In `R` kann das Ergebnis
 jeglicher Berechnung als Input einer anderen Berechnung dienen.
 
- &nbsp;
+```{block, type = "block"}
+**Merke**: In `R` kann (fast) alles in Variablen gespeichert und
+weiterverwendet werden.
+```
 
-\fbox{ \parbox{\textwidth}{
-
-  \textbf{\\ Merke}
-
-  In \texttt{R} kann (fast) alles in einer Variablen gespeichert und
-  weiter verwendet werden.  } }
-
-&nbsp;
-
-&nbsp;
-
-Wir können auch mit "`=`" Daten zu Variablen zuweisen. Das funktioniert
-genauso wie "`<-`":
+Wir können auch mit einem Gleichzeichen `=` Daten zu Variablen zuweisen.
+Das funktioniert genauso wie mit `<-`:
 
 ```{r}
 foo = 1:2
@@ -288,19 +265,20 @@ foo
 
 In `R` hat sich aus historischen Gründen die Konvention durchgesetzt,
 `<-` zu verwenden, die ich in diesem Skript auch befolgen werde. In
-vielen anderen Programmiersprachen werden mit `=` Variablen zugewiesen.
+vielen anderen Programmiersprachen werden Variablen mit Gleichzeichen
+zugewiesen.
 
 ### Ausgabe versus Abspeichern {#ausgabevsabspeichern}
 
-Wir haben bereits zwei verschiedene Möglichkeiten gesehen,
-Objekte[^`r incref()`] in `R` zu verwenden:
+Wir haben jetzt zwei verschiedene Möglichkeiten kennengelernt,
+Objekte[^objekte] in `R` zu verwenden:
 
 1. Wir geben Objekte in der Konsole aus.
 2. Wir speichern Objekte in einer Variable ab.
 
-[^`r incfnc()`]: Bis jetzt kennen wir nur das Vektor-Objekt. In `R` gibt
-es aber ganz verschiedene "Datencontainer", die man allgemein als
-Objekte bezeichnet.
+[^objekte]: Bis jetzt kennen wir nur das Vektor-Objekt. In `R` gibt
+es aber ganz verschiedene „Datencontainer“, die allgemein als
+Objekte bezeichnet werden.
 
 Diese beiden Verwendungen sind **fundamental** unterschiedlich. Das mag
 erst einmal trivial erscheinen, aber ist im Einzelfall nicht unbedingt
@@ -311,25 +289,28 @@ bar <- c(3, 2, 6, 3, 9, 5, 7, -3)
 sort(bar)
 ```
 
-Die Funktion `sort` sortiert den numerischen Vektor `bar`. Wie sieht
-der Vektor `bar` nach der Operation aus? Es gibt zwei Möglichkeiten:
+Die Funktion `sort` sortiert den numerischen Vektor `bar` aufsteigend.
+Wie sieht der Vektor `bar` nach der Operation aus? Es gibt zwei
+Möglichkeiten:
 
 1. `bar` enthält den sortierten Vektor, den ich mithilfe von `sort(bar)`
    erstellt habe
 2. `bar` enthält den unsortierten Vektor, den ich vor der Operation
    `sort(bar)` erstellt habe
 
-Wir können die Frage leicht klären, indem wir `bar` auf der Konsole ausgeben:
+Wir können die Frage leicht klären, indem wir `bar` in der Konsole
+ausgeben:
 
 ```{r}
 bar
 ```
 
-Offensichtlich hat `sort(bar)` den Vektor `bar` nicht geändert. Das ist
-eine fundamentale Eigenschaft von `R`. **Funktionen nehmen Daten an und
-sie geben Daten zurück -- sie verändern aber nicht die eingegebenen
-Daten**. Wenn wir wollen, dass `bar` die Zahlenfolge in sortierter
-Reihenfolge enthält, können wir die folgende Befehlkette verwenden:
+Offensichtlich hat `sort(bar)` den Vektor, der in der Variablen `bar`
+gespeichert ist, nicht geändert. Das ist eine fundamentale Eigenschaft
+der Programmiersprache `R`: **Funktionen nehmen Daten an und sie geben
+Daten zurück -- sie verändern aber nicht die eingegebenen Daten**. Wenn
+wir wollen, dass `bar` die Zahlenfolge in sortierter Reihenfolge
+enthält, können wir die folgende Befehlkette verwenden:
 
 ```{r}
 bar <- c(3, 2, 6, 3, 9, 5, 7, -3)
@@ -338,15 +319,15 @@ bar <- sort(bar)
 
 In diesem Fall geht der Ursprungsvektor verloren und wir behalten nur
 den sortieren Vektor. Generell gilt: wenn wir Daten in der Konsole
-ausgeben lassen, verschwinden diese sozusagen im "Nirvana". Wenn wir mit
+ausgeben lassen, verschwinden diese sozusagen im „Nirvana“. Wenn wir mit
 Daten weiterarbeiten wollen, müssen wir die Ausgabe einer Funktion in
 einer Variablen speichern. Beide Verwendungszwecke sind denkbar:
-Manchmal benötige ich nur die Ausgabe einer Berechnung, manchmal will
-ich damit weiter rechnen.
+Manchmal benötige ich nur die Ausgabe einer Berechnung, manchmal möchte
+ich das Ergebnis abspeichern.
 
 ### Variablennamen
 
-Generell bestehen Variablennamen in `R` aus Buchstaben und Zahlen und
+Generell bestehen Variablennamen aus Buchstaben und Zahlen und
 den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten:
 
 - Variablennamen dürfen keine Leerzeichen enthalten
@@ -360,15 +341,12 @@ den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten:
     + `bla%bla <- c(1, 2)` funktioniert nicht
     + `bla_bla <- c(1, 2)` funktioniert
     + `bla.bla <- c(1, 2)` funktioniert
-- Groß- / Kleinschreibung ist relevant (man sagt, dass Variablennamen in
-  `R` "case-sensitive" sind)
-    + "`bla <- 1`" ist nicht das Gleiche wie "`Bla <- 1`" oder gar
-      "`BLA <- 1`"
+- `bla <- 1` ist nicht das Gleiche wie `Bla <- 1` oder gar `BLA <- 1`
 - Vermeidet Umlaute in Variablennamen. `R` wird diese zwar
-akzeptieren, aber ich würde dennoch davon abraten, sie zu nutzen.
+  akzeptieren, aber ich würde dennoch davon abraten, sie zu nutzen.
 
 Eine fundamentale Schwierigkeit beim Programmieren ist das Finden
-*guter* Variablennamen. `bla` und `blabla` sind denkbar schlechte
+*guter* Variablennamen; `bla` und `blabla` sind denkbar schlechte
 Variablennamen. Gute Variablennamen *sprechen*, d.h. sie machen eine
 Aussage darüber, was für Daten sie beinhalten.
 
@@ -407,13 +385,13 @@ Weiterhin ist es guter Stil *konsistent* in der Vergebung der
 Variablennamen zu sein. Variablennamen sollen einen semantischen Gehalt
 haben, das heißt sie machen eine Aussage darüber, welche Daten sie
 enthalten. Häufig ist diese Information nicht in einem Wort
-erklärbar. Um auszusagen, dass eine Variable "das mittlere Alter"
-enthält, müssen mindestens die Anteile "mittel" und "Alter" enthalten
+erklärbar. Um auszusagen, dass eine Variable „das mittlere Alter“
+enthält, müssen mindestens die Anteile „mittel“ und „Alter“ enthalten
 sein. Wie soll das verknüpft werden? Verschiedene Konventionen
 existieren; wichtig ist, dass ihr euch konsistent für eine Variante
-entscheidet.[^`r incref()`]
+entscheidet.[^norulesforme]
 
-[^`r incfnc()`]: Ich werde von dieser Regel in diesem Skript abweichen.
+[^norulesforme]: Ich werde von dieser Regel in diesem Skript abweichen.
 
 ```R
 ## Mögliche Konventionen der Namensgebung von Variablen:
@@ -427,39 +405,41 @@ meanage  <- mean(age)
 
 ## Datentypen von Vektoren
 
-In `R` hat jeder Vektor einen Datentyp. Bis jetzt haben wir nur mit
-Zahlen gearbeitet. Dieser Datentyp heißt in `R` "numeric". Der Datentyp
-eines Vektors bestimmt, was für Operationen wir damit durchführen
-können. Vektoren vom Typ "numeric" etwa kann man addieren,
-multiplizieren und so weiter. Es gibt weitere Datentypen, die wir
-benutzen, um unterschiedliche Informationen darzustellen.
+In `R` hat jeder Vektor genau einen Datentyp. Bis jetzt haben wir nur
+mit dem Datentyp Zahl gearbeitet, der in `R` „`numeric`“ heißt. Der
+Datentyp eines Vektors bestimmt, was für Operationen wir damit
+durchführen können. Vektoren vom Typ `numeric` etwa kann man addieren,
+multiplizieren und so weiter. Mit der Funktion `mode` können wir
+überprüfen, welchen Datentyp ein Vektor hat:
+
+```{r}
+mode(1:10)
+```
+
+In diesem Abschnitt werden weitere Datentypen behandelt, die wir nutzen,
+um unterschiedliche Informationen darzustellen.
 
 ### `character`
 
-`character` ist der Datentyp, der Text kennzeichnet. Text wird mit
-doppelten oder einfachen Anführungszeichen angegeben:
+Der Datentyp für Text heißt `character`. Text wird mit doppelten oder
+einfachen Anführungszeichen angegeben:
 
 ```{r}
-
-"Hallo Welt!"
-
+"Hallo Welt!" # doppelte Anführungszeichen
 ```
 
 ```R
-
-mein_text <- 'bla bla bla'
+mein_text <- 'bla bla bla' # einfache Anführungszeichen
 
 ## zwei-elementiger Vektor vom Typ character:
 mein_text2 <- c("Cronbachs", "Alpha")
-
 ```
 
-
 Mit Texten können wir andere Operationen durchführen als mit Zahlen,
-etwa ergibt Folgendes eine Fehlermeldung[^`r incref()`] und ergibt auch
+etwa ergibt Folgendes eine Fehlermeldung[^verstehichnicht] und ergibt auch
 gar keinen Sinn, da man Text nicht mit einer Zahl multiplizieren kann:
 
-[^`r incfnc()`]: Leider sind Fehlermeldungen in `R` oftmals sehr
+[^verstehichnicht]: Leider sind Fehlermeldungen in `R` oftmals sehr
 kryptisch und gerade für Anfänger schwer verständlich.
 
 ```R
@@ -469,69 +449,34 @@ für binären Operator
 ```
 
 In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
-werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden,
-zumeist um Spalten in Datentabelle zu adressieren (siehe Kapitel 3 und
-4).  Eine nützliche Funktion, die Vektoren vom Typ `character`
-generiert, sei hier deswegen kurz vorgestellt, da wir sie genau zu
-diesem Zweck nutzen werden: die Funktion `paste0`. Sie fügt mehrere
-Vektoren als Text zusammen. So lassen sich beispielsweise bequem 10
-durchnummerierte Itemnamen als `character`-Vektor generieren:
+werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden; im
+Speziellen werden wir sie nutzen, um Spalten in Datentabelle zu
+adressieren (siehe [Kapitel 3](#datenzugriffe)). Zu diesem Zweck werden
+wir die Funktion `paste0` nutzen, die `character`-Vektoren beliebiger
+Länge erstellt. So lassen sich beispielsweise bequem 10 durchnummerierte
+Itemnamen generieren, wodurch man gleich 10 Spalten aus einer Tabelle
+auswählen könnte:
 
 ```{r}
-
 items <- paste0("item_", 1:10)
-
 ```
 
 Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das
-Ergebnis des Befehls ist ein 10-elementiger Vektor, das wir auch wie
-folgt wie überprüfen können:
+Ergebnis des Befehls ist ein 10-elementiger Vektor, was wir auch wie
+folgt überprüfen können:
 
 ```{r}
-
 length(items)
-
 items
-
-```
-
-Wie man sich vorstellen kann, wäre ein solcher Aufruf der Funktion
-`paste0` nützlich, um gezielt Items aus Datentabellen auszuwählen. Denn
-in solchen Tabellen gilt: Jedes Item steht in einer Spalte. Es ist
-beispielsweise vorstellbar, dass wir mit dem folgenden Antworten auf die
-Items einer Extraversions-Subskala aus einem BIG-5-Fragebogens
-auswählen, um Summenwert für diese Subskala zu berechnen:
-
-```{r}
-paste0("Extraversion", 1:5)
-```
-
-Mit der Funktion `mode` können wir überprüfen, welchen Datentyp ein
-Vektor hat, also ob er beispielsweise tatsächlich vom Typ `character`
-ist:[^`r incref()`]
-
-[^`r incfnc()`]: Die Ausgabe des Vektors macht uns auch schon eindeutig
-klar, dass es sich hier um einen Vektor vom Typ `character` handelt; die
-ausgegeben Elemente erscheinen nämlich in Anführungszeichen ("item_1",
-"item_2", ...)
-
-```{r}
-mode(items)
 ```
 
 Wenn man mit der Funktion `paste0` mehrere ein-elementige Vektoren
-miteinander verknüpft, wird immer ein ein-elementiger Vektor vom Typ
+miteinander verknüpft, wird ein ein-elementiger Vektor vom Typ
 `character` ausgegeben:
 
 ```{r}
-
-paste0("item", "_", 1) # nimmt beliebig viele Argumente an
-
+paste0("item", "_", 1) # paste0 nimmt beliebig viele Argumente an
 ```
-
-Wie wir sehen werden, können wir in Datentabellen mit der Funktion
-`paste0` Antworten auf gewünschte Items auswählen, da wir mit
-Textvektoren auf die Namen von Tabellenspalten zugreifen können.
 
 ### `logical`
 
@@ -543,21 +488,18 @@ Bezeichnung für diesen Datentyp ist auch "boolean".
 ```{r}
 wahr   <- TRUE
 falsch <- FALSE
-
 ```
 
 Wir werden häufig vom Typ `logical` Gebrauch machen, wenn wir in
 Datentabellen Fälle auswählen (etwa alle weiblichen oder männlichen
 Teilnehmer in einer Umfrage).
 
-&nbsp;
-
 Mit logischen Werten kann man die logischen Operationen UND (in `R`: `&`
 ), ODER (in `R`: `|` ) und NICHT (in `R`: `!` )
-durchführen:[^`r incref()`]
+durchführen:[^linkbool]
 
-[^`r incfnc()`]:
-https://de.wikipedia.org/wiki/Boolesche_Algebra# Zweielementige_boolesche_Algebra
+[^linkbool]:
+[https://de.wikipedia.org/wiki/Boolesche_Algebra#Zweielementige_boolesche_Algebra](https://de.wikipedia.org/wiki/Boolesche_Algebra#Zweielementige_boolesche_Algebra)
 
 
 ```{r}
@@ -583,7 +525,7 @@ FALSE | FALSE
 
 ```
 
-**Merke**: Auch diese logischen Operationen arbeiten komponentenweise
+Auch diese logischen Operationen arbeiten komponentenweise
 auf Vektoren, die mehr als ein Element enthalten:
 
 ```{r}
@@ -597,7 +539,7 @@ c(TRUE, FALSE, FALSE) | c(TRUE, TRUE, FALSE)
 
 ### `factor`
 
-`factor` Vektoren stellen kategoriale Variablen dar -- etwa die
+Vektoren vom Typ `factor` stellen kategoriale Variablen dar -- etwa die
 unabhängigen Variablen in einer ANOVA. So können wir einen Vektor vom
 Typ `factor` erstellen:
 
@@ -607,31 +549,25 @@ laune <- c(1, 2, 3, 1, 2, 1)
 
 laune_faktor <- factor(laune, levels = c(1, 2, 3),
                        labels = c(":(", ":)", ":D"))
+
 laune_faktor
-
 ```
 
-Die Funktion `factor` kann genutzt werden, um numerische Werte in
-`factor` umzuwandeln. Dabei kann man die `levels` spezifizieren,
-d.h. die Werte, die der Vektor annimmt, **bevor** er in `factor`
-umgewandelt wird -- hier `1`, `2` und `3`. `labels` wird verwendet, um
-anzugeben, wie die Faktorstufen angezeigt werden sollen. Das ist ähnlich
-den Wertelabels, die man in SPSS vergeben kann. Der Unterschied in `R`:
-Wenn ich eine Variable in `factor` umwandle, kann ich damit keine
-numerischen Berechnungen mehr durchführen. Für `laune_faktor` kann ich
-keinen Mittelwert mehr berechnen, da Vektoren vom Typ `factor`
-kategoriale Variablen darstellen:
+Die Funktion `factor` wird hier genutzt, um numerische Werte in `factor`
+umzuwandeln. Dabei wurden `levels` spezifiziert, d.h. die Werte, die der
+ursprüngliche Vektor angenommen hat. Das Argument `labels` ordnet den
+`levels` eine Bezeichnung zu; diese wird uns angezeigt, wenn wir den
+Vektor aufrufen. Mit einem Vektor vom Typ `factor` kann ich keine
+numerischen Berechnungen mehr durchführen, da er **kategoriale** Daten
+beinhaltet. Etwa kann ich für `laune_faktor` keinen Mittelwert
+berechnen:
 
 ```{r}
-
 mean(laune)
-
 ```
 
 ```{r}
-
 mean(laune_faktor)
-
 ```
 
 Da die Berechnung nicht möglich ist, gibt `R` die folgende "Warnmeldung"
@@ -647,13 +583,13 @@ In mean.default(laune_faktor) :
 ### `NA`
 
 `R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren:
-`NA`.[^`r incref()`] Da wir mit echten Datensätzen arbeiten, die oftmals
-"messy" sind, d.h. nicht notwendigerweise vollständig, ist diese
-Eigenschaft sehr nützlich. Gerade bei der Arbeit mit Daten in der
-psychologischen Diagnostik ist dies wichtig: Menschen geben in
-Fragebögen eben nicht immer auf alle Fragen eine Antwort.
+`NA`.[^NA] Da wir mit echten Datensätzen arbeiten, die oftmals „messy“
+sind, d.h. nicht notwendigerweise vollständig, ist diese Eigenschaft
+sehr nützlich. Gerade bei der Arbeit mit Daten in der psychologischen
+Diagnostik ist dies wichtig: Menschen geben in Fragebögen eben nicht
+immer auf alle Fragen eine Antwort.
 
-[^`r incfnc()`]: Eigentlich ist `NA` kein eigener Datentyp. In `R` hat
+[^NA]: Eigentlich ist `NA` kein eigener Datentyp. In `R` hat
 jeder Vektor **nur genau einen** Datentyp. Es ist beispielsweise nicht
 möglich, dass in einem Vektor gleichzeitig Werte vom Typ `numeric`,
 `character` und `factor` vorkommen. `NA`-Werte können jedoch in
@@ -677,38 +613,32 @@ mean(messy_data) # geht nicht wegen des fehlenden Werts
 
 Man muss `R` explizit mitteilen, dass man trotz des Auftretens fehlender
 Werte einen Mittelwert ausrechnen möchte. Dies funktioniert mit dem
-*optionalen Argument* `na.rm`[^`r incref()`] der Funktion `mean`,
+*optionalen Argument* `na.rm`[^optional] der Funktion `mean`,
 welches wir auf `TRUE` setzen können. Mit dem *Argument* `na.rm` ("NA
 remove") teilt man `mean` mit, dass `NA` Werte bei der Berechnung des
 Mittelwerts nicht berücksichtigt werden sollen (andere Funktionen wie
 `sd` und `var` haben auch das Argument `na.rm`):
 
-[^`r incfnc()`]: Ein Argument heißt optional, wenn wir dafür keinen Wert
+[^optional]: Ein Argument heißt optional, wenn wir dafür keinen Wert
 angeben müssen. Stattdessen hat es einen sogenannten Standardwert, der
 angenommen wird, wenn wir das Argument nicht selber angeben. Der
 Standardwert des Arguments `na.rm` in der Funktion `mean` ist `FALSE`.
 
 
 ```{r}
-
 mean(messy_data, na.rm = TRUE)
-
 ```
 
 Hierbei nehmen wir zur Kenntnis, dass man Argumente von Funktionen
 benennen kann -- was wir aber nicht immer machen. Dazu später mehr.
 
-## Logische Vergleiche
+## Logische Vergleiche {#logischevergleiche}
 
 Wir können in `R` Eigenschaften von Vektoren mithilfe von logischen
 Vergleichen erfragen. So kann man beispielsweise prüfen, welche Werte
 eines numerischen Vektors (a) gleich, (b) größer (c) kleiner, (d) größer
-gleich, (e) kleiner gleich oder (f) ungleich einem bestimmten Wert
-sind. Diese Operationen sind fundamental für den weiteren Verlauf des
-Seminars. Es wird sich gegebenenfalls lohnen, bei den Themen
-Datenauswahl in Datentabellen noch einmal diesen Abschnitt zu
-konsultieren (in Kapitel [3](#subset)). Dieser Code-Abschnitt stellt die
-grundlegenden logischen Vergleiche dar:
+gleich, (e) kleiner gleich oder (f) ungleich einem bestimmten Wert sind.
+Dieser Code-Abschnitt stellt die grundlegenden logischen Vergleiche dar:
 
 ```{r}
 
@@ -741,9 +671,7 @@ Hierbei wird die Variable `daten` mit dem Wert in der Variablen
 `vergleichswert` überschrieben, da `=` als Zuweisung agiert:
 
 ```{r}
-
 daten
-
 ```
 
 Dies ist ein Beispiel für einen Fehler (*Bug*), den man nicht anhand von
@@ -755,19 +683,25 @@ Zugriff darauf vermutlich nicht beachten werde.
 Welche logischen Vergleiche möglich sind, hängt vom Datentyp eines
 Vektors ab. Für Vektoren vom typ `character` etwa macht eine
 kleiner/größer Abfrage keinen Sinn, jedoch eine Abfrage auf
-Gleichheit:[^`r incref()`]
-
-[^`r incfnc()`]: Für Vektoren vom Typ `factor` lässt sich auf dieselbe
-Art und Weise eine Abfrage auf Gleichheit umsetzen.
-
+Gleichheit.
 
 ```{r}
-
 text1 <- "Hallo Welt"
-
 text1 == "Hallo Welt"
 text1 == "Hallo Welt!"
+```
 
+
+Für Vektoren vom Typ `factor` lässt sich genauso eine Abfrage auf
+Gleichheit umsetzen. Hier wird beim Test auf Gleichheit das überprüfte
+`factor`-Label in Anführungszeichen gesetzt:
+
+```{r}
+geschlecht <- c(1, 2, 1, 1, 2, 1, 3)
+geschlecht <- factor(laune, levels = 1:3,
+                     labels = c("weiblich", "maennlich", "divers"))
+
+geschlecht == "maennlich"
 ```
 
 Wenn zwei Vektoren gleicher Länge mit logischen Operatoren verglichen
@@ -784,9 +718,7 @@ score_test1 == score_test2
 
 ```
 
-**Anwendungsbeispiel: Überprüfe das Gesetz der großen Zahlen**
-
-&nbsp;
+### Anwendungsbeispiel: Überprüfe das Gesetz der großen Zahlen
 
 Häufig verwendet man die Vergleichsoperatoren, um zu prüfen, wie viele
 Daten eine bestimmte Eigenschaft erfüllen. Dafür verknüpfen wir die
@@ -795,7 +727,7 @@ Vergleichsoperatoren mit den Funktionen `sum` oder `mean`.
 Dafür bietet sich ein Beispiel aus der Statistik an: Wie viele von 1,000
 Zufallsdaten aus einer Standardnormalverteilung sind größer als 1?  `R`
 hat zahlreiche Funktionen, um Zufallszahlen aus verschiedenen
-Verteilungen zu "samplen". Mit `rnorm` lassen sich Zufallszahlen
+Verteilungen zu generieren. Mit `rnorm` lassen sich Zufallszahlen
 generieren, die einer Normalverteilungen folgen; wenn man keine weiteren
 Argumente angibt, ist die Standardnormalverteilung gemeint, die einen
 Mittelwert von `0` und eine Standardabweichung von `1` hat:
@@ -832,7 +764,7 @@ zu überzeugen, dass sie tatsächlich normalverteilt sind -- sich also der
 Großteil der Daten um die `0` tummelt und extreme Werte in beide
 Richtungen seltener werden (dieser Code muss nicht verstanden werden):
 
-```R
+```{r}
 ## Male Histogram
 hist(zufallsdaten, freq = FALSE,
      main = "Schöne normalverteilte Daten",
@@ -845,24 +777,6 @@ curve(dnorm, col = "red", add = TRUE, lwd = 1.5)
 
 ## Zeichne eine graue Linie beim x-Wert `1` ein:
 abline(v = 1, lwd = 2, col = "darkgrey")
-```
-
-```{r, echo = FALSE}
-
-## Doppelter Code  wegen Formatierung =/ oben nur Ausgabe in Skript
-## Male Histogram
-hist(zufallsdaten, freq = FALSE,
-     main = "Schöne normalverteilte Daten",
-     xlab = "", ylab = "", las = 1,
-     xlim = c(-4, 4), ylim = c(0, 0.4),
-     cex.main = 0.5, cex.axis = 0.6)
-
-## Lege eine Normalverteilungskurve über die Daten
-curve(dnorm, col = "red", add = TRUE, lwd = 1.5)
-
-## Zeichne eine graue Linie beim x-Wert `1` ein:
-abline(v = 1, lwd = 2, col = "darkgrey")
-
 ```
 
 
@@ -879,14 +793,12 @@ Vektor `zufallsdaten`; wann immer ein Eintrag in `zufallsdaten` größer
 ist als 1, erhalten wir `TRUE`, andernfalls `FALSE`. `sum` gibt die Zahl
 der `TRUE` Einträge aus. **Das funktioniert, da `TRUE` und `FALSE` eine
 numerische Interpretation haben: `TRUE` wird als `1` interpretiert und
-`FALSE` als `0`**.[^`r incref()`]
+`FALSE` als `0`**.[^mathelogik]
 
-[^`r incfnc()`]: Wenn logische Vektoren einer numerischen Berechnung
+[^mathelogik]: Wenn logische Vektoren einer numerischen Berechnung
 übergeben werden, werden die `TRUE`/`FALSE` Elemente des Vektors
 automatisch in Zahlen, d.h. 1 und 0 umgewandelt. Deswegen funktioniert
-beispielsweise auch folgender Befehl:  
-`TRUE * 2`  
-`[1] 2`
+beispielsweise auch folgender Befehl: `TRUE + 1`
 
 Analog können wir mit `mean` den relativen Anteil der Daten bestimmen,
 die größer als 1 sind:
@@ -899,9 +811,9 @@ Der Erwartungswert, dass eine zufällige Zahl aus einer
 Standardnormalverteilung größer ist als `1` -- also mehr als eine
 Standardabweichung vom Mittelwert entfernt liegt -- liegt bei etwa
 15.9%. Den exakten Erwartungswert könnte ich in `R` mit der Funktion
-`pnorm` herausfinden:[^`r incref()`]
+`pnorm` herausfinden:[^pnorm]
 
-[^`r incfnc()`]: `pnorm` ist die kummulative Verteilungsfunktion der
+[^pnorm]: `pnorm` ist die kummulative Verteilungsfunktion der
 Normalverteilung. Sie sagt aus, wie viel % der Werte in einer
 Normalverteilung kleiner sind als der übergebene Wert. Um heraus zu
 finden, wie viele Werte **größer** als 1 sind, wird hier das Komplement,
@@ -909,9 +821,7 @@ also `1 - pnorm(1)`, gebildet. (Das funktioniert, da die Gesamtdichte
 einer Wahrscheinlichkeitsverteilung immer 1 ist.)
 
 ```{r}
-
 1 - pnorm(1)
-
 ```
 
 Nach dem Gesetz der großen Zahlen liegt der folgende Wert wahrscheinlich
@@ -933,10 +843,11 @@ durchführen kann.
 
 ### Der `%in%` Operator
 
-Um zu testen, ob ein oder mehrere Element in einem Vektor enthalten ist,
-kann man den `%in%` Operator verwenden. Der sieht zwar
+Um zu testen, ob ein oder mehrere Elemente in einem Vektor enthalten
+sind, kann man den `%in%`-Operator verwenden. Der sieht zwar
 gewöhnungsbedürftig aus, ist aber einfach zu verwenden und hat auch eine
-einfache verbale Interpretation: Ist A in Vektor B?
+einfache verbale Interpretation: Sind die Elemente aus Vektor A in
+Vektor B?
 
 ```{r}
 
@@ -951,8 +862,8 @@ einfache verbale Interpretation: Ist A in Vektor B?
 
 ```
 
-`%in%` testet für jedes der Elemente *vor* dem `%in%`-Operator, ob
-dieses im Vektor *nach* dem `%in%`-Operator enthalten ist:
+Der `%in%`-Operator testet für jedes der Elemente *vor* `%in%`, ob
+dieses im Vektor *nach* `%in%` enthalten ist:
 
 ```{r}
 
@@ -960,21 +871,25 @@ c(2, 3) %in% 3:5
 
 ```
 
+Die Ausgabe der `%in%`-Operation ist also ein logischer Vektor; die
+Länge  des Ausgabevektors entspricht dabei immer der Länge des Vektors
+auf der linken Seite von `%in%`.
+
 ## Zugriff auf Vektorelemente
 
 Der Zugriff auf Daten ist ein wichtiger Abschnitt unserer Einleitung in
 die Grundlagen `R`s. In diesem Abschnitt lernen wir, wie wir Elemente
-aus einfachen Vektoren "herausgreifen" können.
+aus einfachen Vektoren „herausgreifen“ können.
 
 ### Der `[·]`-Zugriff {#veczugriff}
 
 
-Daten können mit dem `[·]`-Zugriff[^`r incref()`] *indexbasiert* aus
+Daten können mit dem `[·]`-Zugriff[^eckig] *indexbasiert* aus
 Vektoren ausgewählt werden. Jedes Element im Vektor hat einen *Index*,
 der seiner Position im Vektor entspricht. Im folgenden Vektor etwa hat
 `2` den Index `1`, `4` den Index `2` und `1` den Index `3`:
 
-[^`r incfnc()`]: Ich nenne diese Operation `[·]`-Zugriff , da zur
+[^eckig]: Ich nenne diese Operation `[·]`-Zugriff , da zur
 Datenauswahl aus Vektoren hinter den Vektor eckigen Klammern gestellt
 werden. Die Klammern enthalten eine Angabe darüber, welche Elemente ich
 aus dem Vektor auswählen will. Etwa wählt `c(4, 2, 6)[1]` das erste
@@ -997,7 +912,7 @@ xx <- daten[3] # ein-elementiger Vektor
 xx
 ```
 
-Ebenso kann ich einen "Negativ"-Zugriff durchführen: Ich auswählen,
+Ebenso kann ich einen „Negativ“-Zugriff durchführen: Ich auswählen,
 welchen Index ich *nicht* in meinem Ergebnis haben will:
 
 ```{r}
@@ -1110,11 +1025,11 @@ daten
 Das würde man so "händisch" nicht machen, aber es soll zum Verständnis
 dessen dienen, was im folgenden -- anwendungsnäheren -- Beispiel
 passiert. Angenommen, bei einer Dateneingabe wurden fehlende Werte in
-einem Fragebogen mit `-99` kodiert.[^`r incref()`] Wir wollen `R`
+einem Fragebogen mit `-99` kodiert.[^codemissing] Wir wollen `R`
 mitteilen, diesen Wert als fehlend zu interpretieren. Hier kommt uns
 wiederum eine logische Abfrage zugute:
 
-[^`r incfnc()`]: Das macht beispielsweise Sinn, damit bei der Eingabe
+[^codemissing]: Das macht beispielsweise Sinn, damit bei der Eingabe
 explizit gemacht wird, dass der Wert fehlt. Andernfalls könnte das Datum
 bei der Eingabe auch vergessen worden sein.
 
@@ -1140,7 +1055,7 @@ Semantisch ist dieser Vorgang gut zu verstehen: Setze alle Werte, die
 einen fehlenden Wert enthalten -- d.h. mit -99 kodiert wurden -- auf
 `NA`, damit `R` für weitere Berechnungen weiß, dass diese Werte als
 fehlend zu verstehen sind. Technisch umgesetzt wird dies mit einem
-`TRUE` / `FALSE` Vektor, den wir mithilfe der Anweisung `daten == -99`
+`TRUE`/`FALSE` Vektor, den wir mithilfe der Anweisung `daten == -99`
 erstellt haben.
 
  &nbsp;
@@ -1148,7 +1063,7 @@ erstellt haben.
 Wir werden wohl selten "händisch" per Index oder logischem
 `TRUE`/`FALSE` Vektor eine Auswahl/Änderung von Daten durchführen. Aber
 in Zusammenarbeit mit den logischen Operatoren (`>`, `<`, `==`, `&`,
-`|`, etc.) ist die Auswahl von Elementen aus Vektoren -- und auch die
+`|` etc.) ist die Auswahl von Elementen aus Vektoren -- und auch die
 Auswahl von Daten aus Tabellen -- eine häufige Anwendung. Diese werden
 wir bei der gezielten Auswahl von Zeilen aus Datentabellen (siehe
 Kapitel 3) wiederfinden und uns zunutze machen. Das gegebene Beispiel
@@ -1164,13 +1079,13 @@ fehlende Werte gekennzeichnet werden.
     + Zahlen ("numeric")
     + Texte ("character")
     + Kategorielle Daten ("factor")
-    + `TRUE/FALSE` ("logical")
+    + `TRUE`/`FALSE` ("logical")
 - Mit dem `[·]`-Zugriff kann man Elemente aus Vektoren auswählen
     a. indem man die Position der Elemente angibt, die man auswählen
     will ("Positivauswahl")
 	b. indem man die Position der Elemente angibt, die man **nicht**
     auswählen will ("Negativauswahl")
-	c. indem man einen `TRUE/FALSE` Vektor angibt
+	c. indem man einen `TRUE`/`FALSE` Vektor angibt
 - Man kann mit logischen Vergleichen die Eigenschaften von Vektoren
   überprüfen
     + diese Operation lässt sich gut mit der `[·]`-Auswahl verbinden
@@ -1193,7 +1108,7 @@ paste0("item_", 1:10)[-c(1, 3, 9)]
 ```
 
 5. In `R` haben Elemente eines Vektors nur einen
-   Datentyp.  Der Befehl  
+   Datentyp.  Der Befehl
    `c(1, 'moep')` vermischt eine Zahl und einen Text miteinander, aber
    ergibt keinen Fehler -- was ist passiert?
 6. Was sind plausible Ergebnisse von `sum(rnorm(100) > 1.645)`? (Erst

@@ -24,13 +24,13 @@ entsprechenden Ordner wie folgt ein Projekt an:
 
 &nbsp;
 
-$\to$ File  
-$\to$ New project  
-$\to$ Associate a project with an existing working directory   
-$\to$ Browse  
-$\to$ *Zum Ordner navigieren*   
-$\to$ Open  
-$\to$ Create Project  
+$\to$ File
+$\to$ New project
+$\to$ Associate a project with an existing working directory
+$\to$ Browse
+$\to$ *Zum Ordner navigieren*
+$\to$ Open
+$\to$ Create Project
 
 &nbsp;
 
@@ -51,8 +51,8 @@ gehen wir über
 
 &nbsp;
 
-$\to$ Open Project  
-$\to$ *Zum Ordner navigieren*  
+$\to$ Open Project
+$\to$ *Zum Ordner navigieren*
 $\to$ *Projektdatei auswählen* (hat die Endung .Rproj)
 $\to$ *Öffnen*
 
@@ -105,16 +105,16 @@ Variablen, die sich derzeit in unserem Environment befinden. Also alle
 Variablen, die uns oben rechts im Panel auch angezeigt werden. Wenn wir
 zustimmen und das Projekt aus dem Ordner neu laden, werden beim nächsten
 Mal alle Variablen unserer Session neu geladen. Ich rate stark davon ab,
-so zu arbeiten. Ich würde bevorzugen, **immer**[^`r incref()`] mit einem
-leeren Environment zu starten. Der einfachste Weg, um dies zu
+so zu arbeiten. Ich würde bevorzugen, **immer**[^entscheidetselbst] mit
+einem leeren Environment zu starten. Der einfachste Weg, um dies zu
 bewerkstelligen, ist immer "Don't save" auszuwählen, wenn man gefragt
 wird. Wenn man aus Versehen mal auf "Save" geklickt hat, kann man das
-Environment beim nächsten Start des Projekts mit dem Befehl
-`rm(list = ls())` wieder leeren. Auf Dauer hilft dann aber nur, die
-angelegte Datei im RStudio Projektordner zu löschen (diese wird
-vermutlich ".RData" heißen).
+Environment beim nächsten Start des Projekts mit dem Befehl `rm(list =
+ls())` wieder leeren. Auf Dauer hilft dann aber nur, die angelegte Datei
+im RStudio Projektordner zu löschen (diese wird vermutlich ".RData"
+heißen).
 
-[^`r incfnc()`]: Natürlich gibt es auch hier Ausnahmen. Wenn ihr selber
-einen Grund findet, aus dem es für euch doch gut ist, die Variablen
-abzuspeichern -- etwa weil das Dateneinlesen sonst sehr lange dauert --,
-dann macht bitte das, was für euch sinnvoll ist.
+[^entscheidetselbst]: Natürlich gibt es auch hier Ausnahmen. Wenn ihr
+selber einen Grund findet, aus dem es für euch doch gut ist, die
+Variablen abzuspeichern -- etwa weil das Dateneinlesen sonst sehr lange
+dauert --, dann macht bitte das, was für euch sinnvoll ist.
