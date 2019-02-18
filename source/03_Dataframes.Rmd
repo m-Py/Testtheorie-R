@@ -145,7 +145,7 @@ Geschlecht auftaucht:
 table(mdf$Augenfarbe, mdf$Geschlecht)
 ```
 
-## Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation
+## Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation {#datenzugriffe}
 
 Einzelne Spalten können wir mit dem `$`-Zugriff aus `data.frames`
 auslesen. Wir lernen nun den `[·,·]`-Zugriff kennen, mit dem wir nicht
