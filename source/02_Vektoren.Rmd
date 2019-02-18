@@ -462,11 +462,11 @@ für binären Operator
 In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
 werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden; im
 Speziellen werden wir Vektoren vom Typ `character` nutzen, um Spalten in
-Datentabelle zu adressieren (siehe Kapitel 3 und 4). Zu diesem Zweck
-werden wir die Funktion `paste0` nutzen, die `character`-Vektoren
-beliebiger Länge erstellt. So lassen sich beispielsweise bequem 10
-durchnummerierte Itemnamen generieren, wodurch man gleich 10 Spalten aus
-einer Tabelle auswählen könnte:
+Datentabelle zu adressieren (siehe [Kapitel 3](#datenzugriffe)). Zu
+diesem Zweck werden wir die Funktion `paste0` nutzen, die
+`character`-Vektoren beliebiger Länge erstellt. So lassen sich
+beispielsweise bequem 10 durchnummerierte Itemnamen generieren, wodurch
+man gleich 10 Spalten aus einer Tabelle auswählen könnte:
 
 ```{r}
 items <- paste0("item_", 1:10)
@@ -480,9 +480,6 @@ folgt überprüfen können:
 length(items)
 items
 ```
-
-Mehr über solche Zugriffe auf Datentabellen lernen wir in [Kapitel
-3](#datenzugriffe).
 
 Wenn man mit der Funktion `paste0` mehrere ein-elementige Vektoren
 miteinander verknüpft, wird ein ein-elementiger Vektor vom Typ
