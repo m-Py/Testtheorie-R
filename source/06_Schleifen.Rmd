@@ -382,17 +382,6 @@ Auswahl der Spalten, die den jeweiligen Testwert berechnen; (2) zur
 Auswahl der Spalte des Items, für das die Trennschärfe bestimmt wird;
 (3) zum Abspeichern der Trennschärfe im Vektor `discriminations`.
 
-## Abstraktion -- Trennschärfe als Funktion
-
-Inhalte:
-
-- Abstraktion als Prinzip in Programmierung -- aber überlegen, wann
-  eine Abstraktion Sinn macht (kann man das voraussichtlich noch mal
-  gebrauchen, bzw. hat man eine Analyse schon oft durchgeführt?)
-- `if`-Statements zur Überprüfung der Korrektheit der Eingabe
-- Teste auf Typ der Eingabe (`class(input) == "data.frame"`)
-- `[, drop = FALSE]`
-
 ## for-loops are evil -- oder nicht?
 
 Inhalt folgt.
