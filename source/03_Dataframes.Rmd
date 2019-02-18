@@ -260,8 +260,8 @@ mdf[, paste0("Item", 1:2)]
 ```
 
 ```{block, type = "block"}
-**Merke**: Mit dem `[·,·]` Zugriff wird zuerst -- vor dem Komma -- die
-Zeile und dann -- nach dem Komma -- die Spalte adressiert. Man kann die
+**Merke**: Mit dem `[·,·]`-Zugriff wird vor dem Komma die
+Zeile und nach dem Komma die Spalte adressiert. Man kann die
 Auswahl nach numerischem Index, mit einem logischen Vektor oder mit
 einem `character` Vektor durchführen.
 ```
