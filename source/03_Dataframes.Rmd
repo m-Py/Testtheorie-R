@@ -409,7 +409,7 @@ und per Name ansprechen. Oftmals wollen wir die Namen von
 Funktionsargumenten explizit verwenden. Wie wir im Beispiel oben gesehen
 haben, kann das Weglassen von Argumenten aber zu Fehlern führen, wenn es
 die Identifikation der Argumente ihrer Reihenfolge nach verhindert.
-Außerdem haben viele Funktionen *optionale* Argumente haben -- also
+Außerdem haben viele Funktionen *optionale* Argumente -- also
 solche, die wir nicht immer angeben müssen. Dann können wir per Namen
 nur die Argumente ansprechen, die wir auch nutzen wirklich wollen. Wir
 können beispielsweise das Argument `select` weglassen, wenn wir eine
