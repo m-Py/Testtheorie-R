@@ -104,34 +104,32 @@ test_data$score <- rowSums(test_data)
 ### Item-Schwierigkeiten
 
 Die Schwierigkeit eines Items ist die mittlere Punktzahl aller Personen
-in diesem Item.[^`r incref()`] Das ist somit also einfach der Mittelwert
-der Einträge in jeder Spalte (engl: *column*) in unserem
+in diesem Item.[^schwieriglikert] Das ist somit also einfach der
+Mittelwert der Einträge in jeder Spalte (engl: *column*) in unserem
 Standardformat. Den Mittelwert pro Spalte kann ich mit der Funktion
 `colMeans` bestimmen (analog gibt es auch die Funktionen `colSums` und
 `rowMeans`):
 
-[^`r incfnc()`]: Auch bei Items, die nicht Korrektheit kodieren, kann
+[^schwieriglikert]: Auch bei Items, die nicht Korrektheit kodieren, kann
 man von Item-Schwierigkeit sprechen. Beispielsweise wäre dann die
 Item-Schwierigkeit die mittlere Zustimmungsrate für ein Item in einem
 Persönlichkeitsinventar, in dem Antworten auf einer 5-stufigen
 Likert-Skala gegeben werden.
 
 ```{r}
-
 colMeans(test_data)
-
 ```
 
 Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe,
 bekomme ich die mittlere Punktzahl der Schüler/innen in den 5 Testitems
 direkt mitgeliefert. Beachtet, dass ich hier eine numerische Funktion
 auf den ganzen `data.frame` angewendet habe. Hätte ich beispielsweise
-auch Spalten vom Typ `factor` oder `numeric` im `data.frame` gehabt,
+auch Spalten vom Typ `factor` oder `character` im `data.frame` gehabt,
 hätte ich Funktionen wie `rowSums` und `colMeans` nicht einfach auf den
-ganzen `data.frame` anwenden können.[^`r incref()`]
+ganzen `data.frame` anwenden können.[^subsetistsuper]
 
-[^`r incfnc()`]: In dem Fall könnte man mit `subset` nur die gewünschten
-Spalten auswählen.
+[^subsetistsuper]: In dem Fall könnte man mit der `[·,·]`-Notation oder
+der Funktion `subset` nur die gewünschten Spalten auswählen.
 
 ### Item-Interkorrelationen
 
@@ -178,11 +176,11 @@ Items aus der Gesamtpunktzahl ausgelassen wird. Somit wird eine
 "Kriterienkontamination" vermieden, die zu einer Erhöhung der
 Trennschärfe führt. Diese Kriterienkontamination ergibt sich bei der
 unkorrigierten Trennschärfe daraus, dass der Itemscore selbst in das
-"Kriterium" -- also den Gesamt-Testscore -- eingeht.[^`r incref()`] Eine
-Möglichkeit, die "part-whole" korrigierte Trennschärfe für eine Item
-(hier: Item 2) zu berechnen, bietet der folgende Code:
+"Kriterium" -- also den Gesamt-Testscore -- eingeht.[^diskrimination]
+Eine Möglichkeit, die "part-whole" korrigierte Trennschärfe für eine
+Item (hier: Item 2) zu berechnen, bietet der folgende Code:
 
-[^`r incfnc()`]: Praktisch gesehen werden unkorrigierte und korrigierte
+[^diskrimination]: Praktisch gesehen werden unkorrigierte und korrigierte
 Trennschärfe dieselbe relative Rangreihe zwischen den Items hinsichtlich
 ihrer Diskriminationsgüte abbilden.
 
@@ -202,7 +200,7 @@ names(test_data)
 ```{r}
 ## Wähle nun Antworten auf Items 1, 3, 4, 5 aus:
 select_items   <- paste0("Item_", (1:5)[-2])
-responses_no_item2 <- subset(test_data, select = select_items)
+responses_no_item2 <- test_data[, select_items]
 
 ## Betrachte die Tabelle:
 responses_no_item2
@@ -213,10 +211,10 @@ corrected_score <- rowSums(responses_no_item2)
 
 `corrected_score` ist nun der Testscore ohne Beachtung des zweiten
 Items. Das Vorgehen zur Berechnung der bereinigten Scores mithilfe der
-Funktionen `paste0`, `subset` und `rowSums` lässt sich allgemein mit
-beliebig vielen Items durchführen. Da wir an dieser Stelle nur eine
-Summe über vier Items bilden, hätte auch der folgende -- simplere --
-Code funktioniert:
+`[·,·]`-Notation und den Funktionen `paste0` und `rowSums` lässt sich
+allgemein mit beliebig vielen Items durchführen. Da wir an dieser Stelle
+nur eine Summe über vier Items bilden, hätte auch der folgende --
+simplere -- Code funktioniert:
 
 ```R
 corrected_score <- test_data$Item_1 + test_data$Item_3 +
@@ -256,8 +254,7 @@ und 3 wieder:
 - Die Negativ-Auswahl von Elementen aus Vektoren mit der `[·]`-Notation
 - Die Generierung eines "character"-Vektors mithilfe der Funktion
   `paste0`
-- Die Auswahl von Spalten in einem `data.frame` mit der Funktion
-  `subset`
+- Die Auswahl von Spalten in einem `data.frame` mit der `[·,·]`-Notation
 
 Wir merken, dass es mühsamer ist, die korrigierte Trennschärfe zu
 berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhalte
@@ -294,21 +291,21 @@ ich viele oder wenig Punkte bekommen habe, ist gänzlich zufällig.
 
 `R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu
 bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
-Cronbachs Alpha umsetzt.[^`r incref()`] Wir machen uns aber zunutze,
+Cronbachs Alpha umsetzt.[^guteuebung] Wir machen uns aber zunutze,
 dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt
 haben, und diese in einem *Paket* zur Verfügung gestellt haben. Eine
 Umsetzung von Cronbachs Alpha findet sich im Paket `psychometric`
 [@R-psychometric]. Mit der Funktion `library` kann ich Pakete laden, die
-nicht zur Grundausstattung von `R` gehören.[^`r incref()`] Voraussetzung
+nicht zur Grundausstattung von `R` gehören.[^tollepakete] Voraussetzung
 ist, dass ich das Paket auf meinem Rechner installiert habe.
 
 
-[^`r incfnc()`]: Das wäre sogar eine gute Übung. Die Formel findet sich
+[^guteuebung]: Das wäre sogar eine gute Übung. Die Formel findet sich
 unter
 [https://de.wikipedia.org/wiki/Cronbachs_Alpha](https://de.wikipedia.org/wiki/Cronbachs_Alpha)
 
 
-[^`r incfnc()`]: Die Erweiterbarkeit mit Paketen ist eine der großen
+[^tollepakete]: Die Erweiterbarkeit mit Paketen ist eine der großen
 Stärken von `R`.
 
 
@@ -333,9 +330,9 @@ kennzeichnen Testteilnehmer, Spalten kennzeichnen Items. **Wichtig ist
 aber nun**: Wir haben soeben den Testscore als zusätzliche Spalte an die
 Testdatentabelle angehängt. Diese geht aber nicht in die Berechnung von
 Cronbachs Alpha ein, sondern nur die Punktzahlen für die Items. Deswegen
-entferne ich die Spalte `score` wie folgt wieder:[^`r incref()`]
+entferne ich die Spalte `score` wie folgt wieder:[^rm]
 
-[^`r incfnc()`]: Wir haben gelernt, dass wir Variablen mit der Funktion
+[^rm]: Wir haben gelernt, dass wir Variablen mit der Funktion
 `rm` löschen können. `rm` können wir aber nicht nutzen, wenn wir Spalten
 aus `data.frames` entfernen wollen. Das liegt daran, dass die Spalte
 selber keine Variable ist, sondern zu einem `data.frame`
@@ -362,14 +359,14 @@ alpha(test_data) # erfordert Laden des Pakets psychometric
 ### Split-Half-Reliabilität
 
 Cronbachs Alpha ist ein Schätzer für die Reliabilität eines
-Tests.[^`r incref()`] Andere mögliche Schätzer sind die
+Tests.[^begrifflichkeiten] Andere mögliche Schätzer sind die
 Retest-Reliabilität und die Split-Half-Reliabilität. Diese basieren auf
 der Berechnung einer Korrelation zwischen zwei Punktwerten. Für die
 Bestimmung der Retest-Reliabilität lassen wir Testteilnehmer zweimal
 denselben Test bearbeiten und korrelieren die Punktwerte, die sich zu
 den zwei Testzeitpunkten ergeben.
 
-[^`r incfnc()`]: Eigentlich sprechen wir von der Reliabilität von
+[^begrifflichkeiten]: Eigentlich sprechen wir von der Reliabilität von
 Testpunkten und nicht von der Reliabilität von Tests.
 
 Noch leichter ist die Bestimmung der Split-Half-Reliabilität, welche
@@ -408,8 +405,8 @@ ein). Folgender Code berechnet eine Split-Half-Reliabilität:
 
 ## Wähle (a) die ersten drei und (b) die letzten zwei Items aus:
 
-first_half  <- subset(test_data, select = paste0("Item_", 1:3))
-second_half <- subset(test_data, select = paste0("Item_", 4:5))
+first_half  <- test_data[, paste0("Item_", 1:3)]
+second_half <- test_data[, paste0("Item_", 4:5)]
 
 ## Berechne die Korrelation zwischen den beiden Testhälften
 cor_halfs <- cor(rowSums(first_half), rowSums(second_half))
@@ -503,7 +500,7 @@ Daten:
 
 In psychometrischem Jargon: Für diese Aufgabe ist der Wert `2` der
 *Schlüssel* (engl.: *key*). Ein Schlüssel kodiert den Eingabewert der
-richtigen Antwort.[^`r incref()`] Wir lernen jetzt, wie wir solche
+richtigen Antwort.[^schluessel] Wir lernen jetzt, wie wir solche
 Umkodierungen in `R` umsetzen. Die Stärke einer Programmiersprache wie
 `R`: Wenn wir einmal gelernt haben, wie wir für eine
 Item-Schlüssel-Kombination Daten als richtig und falsch umkodieren,
@@ -512,7 +509,7 @@ viele Items wiederholen. Das *Narcissistic Personality Inventory* etwa
 hat 40 Items und wir haben keine Lust, 40 Mal eine Umkodierung
 "händisch" neu durchzuführen.
 
-[^`r incfnc()`]: Im Allgemeinen muss ein Schlüssel nicht Korrektheit
+[^schluessel]: Im Allgemeinen muss ein Schlüssel nicht Korrektheit
 anzeigen, sondern kann auch Merkmalsausprägung in einem
 Persönlichkeitsinventar kodieren. Wir werden das im Narcissistic
 Personality Inventory kennenlernen.
@@ -543,9 +540,9 @@ Was ist hier passiert? Ich habe im Vektor `bundesland_answers`
 hypothetische Antworten generiert; die Variable `bundesland_key` enthält
 den Schlüssel, d.h. die korrekte Antwort. Mithilfe der Funktion `ifelse`
 gleiche ich die Antworten mit dem Schlüssel ab.  `ifelse` nimmt drei
-Argumente entgegen. Diese heißen `test`, `yes`, und `no`:[^`r incref()`]
+Argumente entgegen. Diese heißen `test`, `yes`, und `no`:[^positionname]
 
-[^`r incfnc()`]: Wie wir gesehen haben, können wir Argumente in
+[^positionname]: Wie wir gesehen haben, können wir Argumente in
 Funktionen per Name und per Position ansteuern.
 
 - `test`: Vergleicht jede Antwort mit dem Schlüssel, hier:
@@ -659,7 +656,7 @@ Schauen wir uns die Daten an, um zu prüfen, ob die Transformation
 funktioniert hat:
 
 ```{r}
-subset(big5, select = c("item1", "item1_inv"))
+big5[, c("item1", "item1_inv")]
 ```
 
 Das hat geklappt! Schauen wir uns nun auch noch einmal die
@@ -680,9 +677,9 @@ interpretieren ist wie der ursprüngliche Wert.
 
 > Real data have missing values. Missing values are an integral part of
 > the R language.  Many functions have arguments that control how
-> missing values are to be handled. -- Patrick Burns[^`r incref()`]
+> missing values are to be handled. -- Patrick Burns[^zitatmissing]
 
-[^`r incfnc()`]:
+[^zitatmissing]:
 http://www.burns-stat.com/documents/tutorials/why-use-the-r-language/
 
 Wir lernen nun den rudimentären Umgang mit fehlenden Werten in `R`
@@ -737,10 +734,10 @@ summary(npi)
 
 Die Funktion `summary` ergibt für jede Spalte eine Tabelle. Wegen der
 Länge des Outputs von `summary(npi)` ist nicht der gesamte Output im
-Skript abgebildet.[^`r incref()`] Für die Variable `score` erhalten wir
+Skript abgebildet.[^selbstarbeiten] Für die Variable `score` erhalten wir
 folgende Informationen zum Narzissmus-Gesamtscore:
 
-[^`r incfnc()`]: Ich schlage vor, die Funktion selber auf den Datensatz
+[^selbstarbeiten]: Ich schlage vor, die Funktion selber auf den Datensatz
 aufzurufen, um die Zusammenfassung für alle Spalten zu betrachten.
 
 &nbsp;
@@ -760,13 +757,13 @@ kable(summary(npi)[,1], col.names = "score")
 &nbsp;
 
 Das NPI besteht aus 40 Items. Aus dem *Codebuch* des NPI
-Datensatzes[^`r incref()`] wissen wir, dass Antworten auf die NPI Items
+Datensatzes[^codebuch] wissen wir, dass Antworten auf die NPI Items
 die Werte 1 und 2 annehmen können.  Die Antwort auf jedes Item des NPI
 besteht aus einer "forced choice" zwischen zwei Aussagen; eine davon
 steht für Narzissmus. Item 1 besteht beispielsweise aus den folgenden
 beiden Aussagen:
 
-[^`r incfnc()`]: Dieses wird gemeinsam mit den Daten des "Open Source
+[^codebuch]: Dieses wird gemeinsam mit den Daten des "Open Source
 Psychometrics Project"
 [https://openpsychometrics.org/_rawdata](https://openpsychometrics.org/_rawdata)
 runtergeladen.
@@ -789,9 +786,9 @@ npi$Q1_score <- ifelse(npi$Q1 == 1, 1, 0)
 
 **Aber Vorsicht: so würden wir einen Fehler machen**! Die Spalte
 `npi$Q1` enthält nicht nur die Werte 1 und 2, sondern auch 0-Werte, wie
-wir mit dem Befehl `table(npi$Q1)` prüfen können:[^`r incref()`]
+wir mit dem Befehl `table(npi$Q1)` prüfen können:[^plausicheck]
 
-[^`r incfnc()`]: **Merke**: Es ist wichtig, sich einen Überblick über
+[^plausicheck]: **Merke**: Es ist wichtig, sich einen Überblick über
 Daten zu verschaffen und unplausible und fehlende Werte zu
 identifizieren. Die Funktionen `summary` und `table` sind dabei
 hilfreich.
@@ -806,9 +803,9 @@ kommt sogar `r table(npi$Q1)[1]` Mal die Antwortkategorie 0 vor --
 das?  Die Antwort ist: Bei der Bearbeitung des NPI-Fragebogens -- welche
 im Rahmen einer Online-Studie stattfand -- konnten Teilnehmer/innen
 Items unbeantwortet lassen. Fehlende Werte in den Antworten wurden mit
-einer 0 kodiert.[^`r incref()`]
+einer 0 kodiert.[^schlechtekodierung]
 
-[^`r incfnc()`]: Ich halte dies für kein gutes Vorgehen. Der Wert 0 ist
+[^schlechtekodierung]: Ich halte dies für kein gutes Vorgehen. Der Wert 0 ist
 nicht ausreichend unterschiedlich von anderen "legalen" Werten in den
 anderen Spalten. Der Gesamt-Testscore (`npi$score`) kann beispielsweise
 wirklich den Wert 0 annehmen, wenn Teilnehmer/innen kein einziges Mal
@@ -832,15 +829,15 @@ und die Fallnummer in einem neuen `data.frame` ab. Anhand dieses
 `data.frames` werden wir die Fallausschlüsse durchführen:
 
 ```{r}
-item_responses <- subset(npi, select = c("casenum", paste0("Q", 1:40)))
+item_responses <- npi[, c("casenum", paste0("Q", 1:40))]
 ```
 
 Wir können jetzt 0-Werte in `NA` umkodieren, indem wir ein Vorgehen
 verwenden, das wir in [Kapitel 2](#vektorAendern) für Vektoren
 kennengelernt haben. Dieses Vorgehen funktioniert bei `data.frames`
-tatsächlich genauso:[^`r incref()`]
+tatsächlich genauso:[^fortgeschritten]
 
-[^`r incfnc()`]: Der Befehl sieht recht harmlos aus, aber tatsächlich
+[^fortgeschritten]: Der Befehl sieht recht harmlos aus, aber tatsächlich
 steckt hier etwas mehr drin als wir bislang behandelt haben. Wir nehmen
 zunächst einmal einfach hin, dass man die Umkodierung von fehlenden
 Werten in `data.frames` genauso durchführen kann wie in
@@ -867,9 +864,9 @@ sum(is.na(item_responses$Q40))
 ```
 
 **Wichtig**: Man **muss** `is.na` verwenden, um zu prüfen, ob Werte `NA`
-sind; Folgendes geht schief:[^`r incref()`]
+sind; Folgendes geht schief:[^naisweird]
 
-[^`r incfnc()`]: Ein logischer Vergleich mit `NA` ergibt immer `NA`, da
+[^naisweird]: Ein logischer Vergleich mit `NA` ergibt immer `NA`, da
 beim fehlenden Wert keine Aussage darüber gemacht werden kann, ob er
 einem anderen Wert entspricht. Man kennt ihn ja nicht. Auch der Befehl
 `TRUE & NA` ergibt `NA`.
@@ -896,8 +893,8 @@ kable(summary(item_responses)[,2], col.names = "Q1")
 Jetzt, da wir fehlende Antworten per `NA` als fehlend gekennzeichnet
 haben, gibt es verschiedene Möglichkeiten, die zugehörigen Fälle
 auszuschließen. Eine Möglichkeit wäre eine Aneinanderreihung von vielen
-ODER-Verknüpfungen, an die wir eine Auswahl mit `subset`
-anschließen. Dies könnte wie folgt funktionieren:
+ODER-Verknüpfungen, an die wir eine Auswahl mit `subset` oder der
+`[·,·]`-Notation anschließen. Dies könnte wie folgt funktionieren:
 
 ```R
 
@@ -916,7 +913,7 @@ irgendwo_na <- is.na(item_responses$Q1) |
 nirgendwo_na <- !irgendwo_na
 
 ## Wähle diese Fälle aus:
-item_responses <- subset(item_responses, nirgendwo_na)
+item_responses <- item_responses[, nirgendwo_na]
 
 ```
 
@@ -926,7 +923,7 @@ Aneinanderreihung ist jedoch mühselig und fehleranfällig. Diese Arbeit
 wollen wir uns nicht machen.
 
 Eine weitere Methode, fehlende Werte zu identifizieren nutzt aus, dass
-die Funktion `rowSums`[^`r incref()`] `NA` ausgibt, wenn mindestens ein
+die Funktion `rowSums`[^schauzurueck] `NA` ausgibt, wenn mindestens ein
 Wert aus einer Zeile `NA` enthält -- zumindest wenn wir nicht das
 optionale Argument `na.rm` auf `TRUE` setzen. Dies ist analog zu der
 Funktion `sum`, die für einen einzelnen Vektor eine Summe bestimmt. Die
@@ -936,7 +933,7 @@ wurde. Die Funktion `rowSums` erweitert also auch im Hinblick auf den
 Umgang mit fehlenden Werten das Verhalten von `sum` auf alle Zeilen
 eines `data.frames`. Aus diesem Grund funktioniert das hier:
 
-[^`r incfnc()`]: siehe Abschnitt [Ausgedehntes Beispiel zum
+[^schauzurueck]: siehe das [ausgedehnte Beispiel zum
 Einstieg](#kap4einstieg)
 
 ```R
@@ -957,9 +954,9 @@ enthält, in denen mindestens ein `NA`-Wert vorlag. So müssen wir nicht
 selber die Zeilen identifizieren, die fehlende Werte enthalten.
 
 Vergleichen wir nun den ursprünglichen `data.frame` `npi` mit der
-"bereinigten" Tabelle:[^`r incref()`]
+"bereinigten" Tabelle:[^plausicheckagain]
 
-[^`r incfnc()`]: Es ist immer wichtig, solche
+[^plausicheckagain]: Es ist immer wichtig, solche
 Plausibilitätsüberprüfungen durchzuführen, nachdem man Daten geändert
 hat.
 
@@ -1002,13 +999,13 @@ names(npi_clean)
 
 Die Funktionsweise der Funktion `merge` soll hier nicht tiefergehend
 betrachtet werden. Es reicht zu wissen, dass sie Fälle aus zwei
-`data.frames` anhand ihrer Werte zuordnet.[^`r incref()`] Dabei werden
-Fälle weggelassen, die keinen "Partner" haben -- also hier Fälle, zu
-denen nur in einer Tabelle eine Fallnummer vorliegt. Die Fälle ohne
+`data.frames` anhand ihrer Werte zuordnet.[^fallnummeristwichtig] Dabei
+werden Fälle weggelassen, die keinen „Partner“ haben -- also hier Fälle,
+zu denen nur in einer Tabelle eine Fallnummer vorliegt. Die Fälle ohne
 Partner sind hierbei genau die Fälle, die aus `npi_clean` wegen
 fehlender Werte ausgeschlossen wurden.
 
-[^`r incfnc()`]: Hierfür war es wichtig, dass wir vorher eine eindeutige
+[^fallnummeristwichtig]: Hierfür war es wichtig, dass wir vorher eine eindeutige
 Fallnummer vergeben haben. Anhand dieser Fallnummer können wir nun die
 Fälle beider Tabellen eindeutig einander zuordnen.
 
@@ -1024,17 +1021,17 @@ npi_clean <- arrange(npi_clean, casenum)
 ```
 
 Voilá -- `npi_clean` ist der Datensatz, mit dem wir nun psychometrische
-Berechnungen durchführen können.[^`r incref()`] Dabei ist unser nächstes
-Ziel für alle 40 Items eine dichotome Bepunktung durchzuführen. Wir
-wissen bereits, wie wir das machen könnten, nämlich indem wir mit
-`ifelse` die Antworten auf jedes Item mit dem Schlüssel
-abgleichen. Der Schlüssel für den das NPI kodiert für jedes der 40 Items
-den Wert, der für Narzissmus steht. Dies wäre wie folgt möglich:
+Berechnungen durchführen können.[^nochmehrplausichecks] Dabei ist unser
+nächstes Ziel für alle 40 Items eine dichotome Bepunktung durchzuführen.
+Wir wissen bereits, wie wir das machen könnten, nämlich indem wir mit
+`ifelse` die Antworten auf jedes Item mit dem Schlüssel abgleichen. Der
+Schlüssel für den das NPI kodiert für jedes der 40 Items den Wert, der
+für Narzissmus steht. Dies wäre wie folgt möglich:
 
-[^`r incfnc()`]: Es ist zu bemerken, dass wir noch nicht alle Variablen
-auf ihre Plausibilität überprüft haben. Die Spalte `age` enthält
-ebenfalls noch fehlende sowie auch gänzlich unplausible Werte (etwa 366
-oder 509). Auch die Spalte `elapse`, die die Bearbeitungszeit
+[^nochmehrplausichecks]: Es ist zu bemerken, dass wir noch nicht alle
+Variablen auf ihre Plausibilität überprüft haben. Die Spalte `age`
+enthält ebenfalls noch fehlende sowie auch gänzlich unplausible Werte
+(etwa 366 oder 509). Auch die Spalte `elapse`, die die Bearbeitungszeit
 abspeichert, enthält teilweise unplausible Werte; das Maximum der
 gespeicherten Bearbeitungszeit liegt bei über 40 Jahren. Doch darauf
 soll erst einmal nicht unser Augenmerk liegen.

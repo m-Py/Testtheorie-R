@@ -23,12 +23,12 @@ Datenstruktur werden wir uns im vorliegenden Kapitel auseinandersetzen.
 
 Mit der Funktion `data.frame` können wir "händisch" einen `data.frame`
 erstellen. In der Praxis werden wir das eher selten machen und
-stattdessen Daten aus einer externen Datei einlesen.[^`r incref()`] Die
+stattdessen Daten aus einer externen Datei einlesen.[^excel] Die
 folgende unscheinbare Tabelle mit 5 Einträgen erstelle ich mit der
 Funktion `data.frame`; sie wird uns durch einen Großteil des Kapitels
 begleiten, um Grundlagen von `data.frame`-Operationen zu betrachten.
 
-[^`r incfnc()`]: Beispielsweise können die Daten in einem
+[^excel]: Beispielsweise können die Daten in einem
 *Spreadsheet-Editor* wie Excel eingegeben worden sein und wir
 importieren diese dann in `R`.
 
@@ -95,11 +95,11 @@ mdf$Testscore
 
 In diesem Beispiel kommt die `$`-Notation recht häufig zum Einsatz, was
 etwas gewöhnungsbedürftig aussieht. Aber es ist wichtig darauf zu
-achten. Die Variablen,[^`r incref()`] die wir verwenden, um den
+achten. Die Variablen,[^doppeldeutig] die wir verwenden, um den
 Testscore zu berechnen, "wohnen" in `mdf` und können nicht ohne Verweis
 darauf adressiert werden. Das hier geht schief:
 
-[^`r incfnc()`]: Es ist etwas unglücklich, dass der Begriff "Variable"
+[^doppeldeutig]: Es ist etwas unglücklich, dass der Begriff "Variable"
 doppeldeutig ist: (1) In `R` sind Variablen die Speicherorte von
 Objekten; ich erstelle sie mit der "`<-`"-Zuweisung.  (2) Andererseits
 werden auch Messwerte -- etwa die Punktzahlen in einem Testitem -- als
@@ -159,9 +159,9 @@ aller Fälle aus `mdf` auswählen, etwa nur die Personen mit blauen Augen,
 oder alle Personen, die den maximalen Testwert erreicht haben. Für
 solche Auswahlen hilft uns unser Wissen über [logische Vergleiche aus
 dem letzten Kapitel](#logischevergleiche). Betrachten wir zunächst ein
-Beispiel:[^`r incref()`]
+Beispiel:[^nurausgabe]
 
-[^`r incfnc()`]: Beachtet, dass durch diesen Aufruf der `data.frame`,
+[^nurausgabe]: Beachtet, dass durch diesen Aufruf der `data.frame`,
 der in der Variablen `mdf` abgespeichert ist, nicht verändert wird. Der
 `[·,·]`-Zugriff gibt stattdessen einen neuen `data.frame` zurück, der
 nur die Fälle enthält, bei denen `mdf$Augenfarbe == "blau"` `TRUE`
@@ -197,9 +197,9 @@ sollen, (b) ein logischer Vektor, der für jede Reihe/Spalte kodiert, ob
 diese in der Ausgabe enthalten sein soll (vgl. Kapitel
 [2](#logischerZugriff)), oder (c) Vektor vom Typ `character`, der die
 Namen der Zeilen/Spalten enthält, die ausgegeben werden sollen.
-[^`r incref()`]
+[^zeilennamen]
 
-[^`r incfnc()`]: Auch Zeilen können benannt sein. Den Fall hatten wir
+[^zeilennamen]: Auch Zeilen können benannt sein. Den Fall hatten wir
 bislang aber nicht und es kommt auch nicht oft vor, dass Zeilen explizit
 benannt sind. Häufiger ist der Fall, in dem wir Spalten nach Namen
 auswählen.
@@ -294,13 +294,13 @@ subset(mdf, Augenfarbe == "blau")
 
 Außerhalb der Funktion `subset` würde der Ausdruck `Augenfarbe ==
 "blau"` einen Fehler ausgeben; schließlich ist `Augenfarbe` selbst keine
-`R`-Variable, sondern nur eine Spalte von `mdf`.[^`r incref()`]
+`R`-Variable, sondern nur eine Spalte von `mdf`.[^innehalten]
 Innerhalb der Funktion `subset` kann die logische Bedingung in dieser
 Form jedoch verarbeitet werden. Durch Angabe von `mdf` im ersten
 Argument ist ja klar, aus welchem `data.frame` Zeilen ausgewählt werden
 sollen.
 
-[^`r incfnc()`]: Es macht an dieser Stelle Sinn, einen Moment inne zu
+[^innehalten]: Es macht an dieser Stelle Sinn, einen Moment inne zu
 halten und zu überlegen, warum es eigentlich außergewöhnlich ist, dass
 der Befehl `Augenfarbe == "blau"` innerhalb der Funktion `subset`
 funktioniert.
@@ -409,8 +409,8 @@ die Auswahl der Spalten habe ich jedoch den Argumentnamen angegeben.
 **Das war auch nötig**, da das zweite Argument ansonsten die Auswahl der
 Zeilen erwartet hätte.
 
-In `R` kann man **fast immer**[^`r incref()`] Argumente per Position und
-per Name ansprechen. Oftmals wollen wir die Namen von Funktionen
+In `R` kann man **fast immer**[^vieleargumente] Argumente per Position
+und per Name ansprechen. Oftmals wollen wir die Namen von Funktionen
 explizit verwenden, da viele Funktionen *optionale* Argumente haben --
 also solche, die wir nicht immer angeben müssen. Wir können
 beispielsweise das Argument `select` weglassen, wenn wir eine Auswahl
@@ -420,7 +420,7 @@ ausgegeben, aber nur eine Teilmenge der Spalten. Ähnlich ist es bei der
 Funktion `mean`: Das Argument `na.rm` geben wir normalerweise nur an,
 wenn ein Vektor fehlende Werte enthält.
 
-[^`r incfnc()`]: Eine Ausnahme bildet die Funktion `c`, für die wir
+[^vieleargumente]: Eine Ausnahme bildet die Funktion `c`, für die wir
 keine Funktionsnamen angeben. Hier gilt nämlich: Wir können beliebig
 viele Vektoren als Argumente angeben; deswegen gibt es natürlich keinen
 separaten Namen für jedes mögliche Argument. Feste Namen gibt es aber
@@ -462,11 +462,12 @@ subset(mdf, select = c(Augenfarbe, Alter))
 Genau wie die Zeilenauswahl, die ohne die `$`-Notation auskommt, ist es
 eine Besonderheit der Funktion `subset`, dass wir Spaltennamen ohne
 Anführungszeichen adressieren können. Einfach in die Konsole eingegeben
-würde der Ausdruck `c(Augenfarbe, Alter)` höchstwahrscheinlich[^`r
-incref()`] einen Fehler verursachen, da `Augenfarbe` und `Alter` nicht
-unbedingt als Variablen definiert sind; sie sind bloß Spalten von `mdf`.
+würde der Ausdruck `c(Augenfarbe, Alter)`
+höchstwahrscheinlich[^wannnicht] einen Fehler verursachen, da
+`Augenfarbe` und `Alter` nicht unbedingt als Variablen definiert sind;
+sie sind bloß Spalten von `mdf`.
 
-[^`r incfnc()`]: Unter welchen Umständen würde `R` keinen Fehler
+[^wannnicht]: Unter welchen Umständen würde `R` keinen Fehler
 ausgeben, wenn wir `c(Augenfarbe, Alter)` in die Konsole eingeben? Es
 ist nützlich, diesen Punkt zu verstehen.
 
@@ -651,13 +652,13 @@ tapply(mdf$Alter, mdf$Geschlecht, mean)
 
 Die Funktion `tapply` erhält als erstes Argument den Messwertvektor, für
 den Statistiken angefordert werden. Das zweite Argument ist die
-Gruppierungsvariable.[^`r incref()`] Interessanterweise ist das dritte
+Gruppierungsvariable.[^warumhier] Interessanterweise ist das dritte
 Argument eine Funktion, in diesem Fall die Funktion `mean`. So können
 wir die *mittlere* Punktzahl nach Geschlecht anfordern. Entsprechend
 könnten wir hier andere Funktionen übergeben, um etwa die
 Standardabweichung des Alters zu erfragen:
 
-[^`r incfnc()`]: Beachtet, dass sowohl Messwerte als auch
+[^warumhier]: Beachtet, dass sowohl Messwerte als auch
 Gruppierungsvariable als **Vektoren** übergeben werden. Ich behandle die
 Funktion `tapply` jedoch im Kapitel zu `data.frames`, da es zumeist so
 sein wird, dass wir beide Vektoren aus **einem** `data.frame` mit der
@@ -678,14 +679,14 @@ tapply(mdf$Alter, list(mdf$Geschlecht, mdf$Augenfarbe), mean)
 
 Mit nur fünf Datenpunkten macht diese Anfrage hier nur wenig Sinn, da
 jeder ausgegebene Mittelwert nur anhand eines einzelnen Wertes gebildet
-wurde,[^`r incref()`] was die Idee des Mittelwerts eher ad absurdum
+wurde,[^nochmaltable] was die Idee des Mittelwerts eher ad absurdum
 führt. Manche Kombinationen von Geschlecht und Augenfarbe kommen in
 unseren Daten sogar gar nicht vor; in diesen Fällen wird `NA`
 ausgegeben. `tapply` zeigt ihre Stärke vor allem, wenn man viele -- und
 nicht nur 5 -- Datenpunkte hat. Das gilt gerade dann, wenn wir mehrere
 Gruppierungsvariablen angeben.
 
-[^`r incfnc()`]: Wie viele Datenpunkte in die Berechnung jedes
+[^nochmaltable]: Wie viele Datenpunkte in die Berechnung jedes
 Mittelwerts eingehen, können wir in diesem Fall prüfen mit
 `table(mdf$Geschlecht, mdf$Augenfarbe)`.
 

@@ -12,17 +12,16 @@ Taschenrechner-Berechnungen oben. So gilt für die Berechnung `1 + 3`:
 Das Interessante an Vektoren ist, dass der ein-elementige Vektor nur ein
 Spezialfall ist. Im Normalfall können Vektoren mehrere Elemente
 enthalten; die "atomare" Einheit in `R` ist also nicht ein einzelnes
-Element, sondern gleich eine Aneinanderreihung beliebig vieler[^`r
-incref()`] gleichartiger Elemente, etwa Zahlen. Statistische
-Berechnungen -- wie die Berechnung eines Mittelwerts oder einer
-Standardabweichung -- lassen sich direkt auf einer Menge an Daten
-durchführen, da diese in **einem** Vektor gespeichert sind. Diese
-"Vektorbasiertheit" ist vermutlich die größte Stärke von `R` für
-statistische Berechnungen.
+Element, sondern gleich eine Aneinanderreihung beliebig vieler[^laenge0]
+gleichartiger Elemente, etwa Zahlen. Statistische Berechnungen -- wie
+die Berechnung eines Mittelwerts oder einer Standardabweichung -- lassen
+sich direkt auf einer Menge an Daten durchführen, da diese in **einem**
+Vektor gespeichert sind. Diese "Vektorbasiertheit" ist vermutlich die
+größte Stärke von `R` für statistische Berechnungen.
 
-[^`r incfnc()`]: Interessanterweise gibt es sogar Vektoren der Länge 0
--- also Vektoren, die gar kein Element beinhalten. Das soll uns aber
-erst einmal nicht beschäftigen.
+[^laenge0]: Interessanterweise gibt es sogar Vektoren der Länge 0 --
+also Vektoren, die gar kein Element beinhalten. Das soll uns aber erst
+einmal nicht beschäftigen.
 
 Elemente zu Vektoren zusammenfügen (sprich: **mehrere** Vektoren zu
 **einem** Vektor zusammenfügen) funktioniert mit der *Funktion* `c` --
@@ -54,11 +53,10 @@ c(0.5, 1, 1.5, c(1, 2, 3))
 Auf mehrelementigen Vektoren kann man statistische Berechnungen
 durchführen, wie etwa die Bestimmung des arithmetischen Mittels, einer
 Standardabweichung, der Varianz, oder des Minimums oder
-Maximums:[^`r incref()`]
+Maximums:[^laenge1]
 
-[^`r incfnc()`]: `R` würde oft auch bei einelementigen Vektoren ein
-Ergebnis ausgeben, aber das ist zum Beispiel beim Mittelwert wenig
-sinnvoll.
+[^laenge1]: `R` würde oft auch bei einelementigen Vektoren ein Ergebnis
+ausgeben, aber das ist zum Beispiel beim Mittelwert wenig sinnvoll.
 
 ```{r}
 
@@ -89,11 +87,11 @@ folgende Eigenschaften von Funktionen zu verstehen:
 - Hinter dem Namen einer Funktion werden in Klammern ein oder mehrere
   *Argumente* übergeben, etwa: ein Vektor
 - Wenn einer Funktion mehrere Argumente übergeben werden, werden diese
-  mit Kommata separiert, etwa: `c(1, 2, 3)`[^`r incref()`]
+  mit Kommata separiert, etwa: `c(1, 2, 3)`[^kommasep]
 - Funktionen führen eine Berechnung durch und geben uns das Ergebnis
   zurück
 
-[^`r incfnc()`]: In den obigen Beispielen einfacher statistischer
+[^kommasep]: In den obigen Beispielen einfacher statistischer
 Berechnungen wird jeweils genau ein Argument übergeben, nämlich der
 Vektor, für den wir den Mittelwert, die Standardabweichung
 etc. berechnen wollten. Es ist auch möglich -- und auch üblich --, dass
@@ -182,10 +180,10 @@ Berechnungen werden gleich auf alle Elemente eines Vektors angewendet:
 Hierbei werden die Operationen `* 2` bzw. `-1` direkt auf alle Elemente
 der Vektoren `1:10` bzw. `(1:10 * 2)` angewendet; die Ausgabe ist
 jeweils ein Vektor der Länge 10. Bei gleich langen Vektoren werden
-solche Operationen im Allgemeinen **paarweise**[^`r incref()`]
+solche Operationen im Allgemeinen **paarweise**[^komponentenweise]
 angewendet:
 
-[^`r incfnc()`]: Ich werde dazu oft auch *komponentenweise* sagen.
+[^komponentenweise]: Ich werde dazu oft auch *komponentenweise* sagen.
 
 ```{r}
 2:4 * 4:6 # entspricht c(2*4, 3*5, 4*6)
@@ -201,9 +199,9 @@ Vektor -- und so weiter.
 Werden ein ein-elementiger Vektor und ein mehr-elementiger Vektor mit
 einer Berechnung (etwa einer Addition) verknüpft, wird normalerweise das
 einzelne Element mit allen Elementen des anderen Vektors
-"gepaart".[^`r incref()`]
+"gepaart".[^ganzodereins]
 
-[^`r incfnc()`]: Wir werden nur diese Fälle betrachten: Entweder wird
+[^ganzodereins]: Wir werden nur diese Fälle betrachten: Entweder wird
 ein ein-elementiger Vektor mit einem längeren Vektor verknüpft oder zwei
 gleich lange Vektoren werden miteinander verknüpft. Es ist auch möglich,
 andere Kombinationen von Vektorlängen zu paaren, was wir jedoch erst
@@ -281,12 +279,12 @@ zugewiesen.
 ### Ausgabe versus Abspeichern {#ausgabevsabspeichern}
 
 Wir haben jetzt zwei verschiedene Möglichkeiten kennengelernt,
-Objekte[^`r incref()`] in `R` zu verwenden:
+Objekte[^objekte] in `R` zu verwenden:
 
 1. Wir geben Objekte in der Konsole aus.
 2. Wir speichern Objekte in einer Variable ab.
 
-[^`r incfnc()`]: Bis jetzt kennen wir nur das Vektor-Objekt. In `R` gibt
+[^objekte]: Bis jetzt kennen wir nur das Vektor-Objekt. In `R` gibt
 es aber ganz verschiedene "Datencontainer", die man allgemein als
 Objekte bezeichnet.
 
@@ -402,9 +400,9 @@ erklärbar. Um auszusagen, dass eine Variable "das mittlere Alter"
 enthält, müssen mindestens die Anteile "mittel" und "Alter" enthalten
 sein. Wie soll das verknüpft werden? Verschiedene Konventionen
 existieren; wichtig ist, dass ihr euch konsistent für eine Variante
-entscheidet.[^`r incref()`]
+entscheidet.[^norulesforme]
 
-[^`r incfnc()`]: Ich werde von dieser Regel in diesem Skript abweichen.
+[^norulesforme]: Ich werde von dieser Regel in diesem Skript abweichen.
 
 ```R
 ## Mögliche Konventionen der Namensgebung von Variablen:
@@ -449,10 +447,10 @@ mein_text2 <- c("Cronbachs", "Alpha")
 ```
 
 Mit Texten können wir andere Operationen durchführen als mit Zahlen,
-etwa ergibt Folgendes eine Fehlermeldung[^`r incref()`] und ergibt auch
+etwa ergibt Folgendes eine Fehlermeldung[^verstehichnicht] und ergibt auch
 gar keinen Sinn, da man Text nicht mit einer Zahl multiplizieren kann:
 
-[^`r incfnc()`]: Leider sind Fehlermeldungen in `R` oftmals sehr
+[^verstehichnicht]: Leider sind Fehlermeldungen in `R` oftmals sehr
 kryptisch und gerade für Anfänger schwer verständlich.
 
 ```R
@@ -512,9 +510,9 @@ Teilnehmer in einer Umfrage).
 
 Mit logischen Werten kann man die logischen Operationen UND (in `R`: `&`
 ), ODER (in `R`: `|` ) und NICHT (in `R`: `!` )
-durchführen:[^`r incref()`]
+durchführen:[^linkbool]
 
-[^`r incfnc()`]:
+[^linkbool]:
 https://de.wikipedia.org/wiki/Boolesche_Algebra# Zweielementige_boolesche_Algebra
 
 
@@ -598,14 +596,14 @@ In mean.default(laune_faktor) :
 
 ### `NA`
 
-`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren: `NA`.[^`r
-incref()`] Da wir mit echten Datensätzen arbeiten, die oftmals "messy"
+`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren:
+`NA`.[^NA] Da wir mit echten Datensätzen arbeiten, die oftmals „messy“
 sind, d.h. nicht notwendigerweise vollständig, ist diese Eigenschaft
 sehr nützlich. Gerade bei der Arbeit mit Daten in der psychologischen
 Diagnostik ist dies wichtig: Menschen geben in Fragebögen eben nicht
 immer auf alle Fragen eine Antwort.
 
-[^`r incfnc()`]: Eigentlich ist `NA` kein eigener Datentyp. In `R` hat
+[^NA]: Eigentlich ist `NA` kein eigener Datentyp. In `R` hat
 jeder Vektor **nur genau einen** Datentyp. Es ist beispielsweise nicht
 möglich, dass in einem Vektor gleichzeitig Werte vom Typ `numeric`,
 `character` und `factor` vorkommen. `NA`-Werte können jedoch in
@@ -629,13 +627,13 @@ mean(messy_data) # geht nicht wegen des fehlenden Werts
 
 Man muss `R` explizit mitteilen, dass man trotz des Auftretens fehlender
 Werte einen Mittelwert ausrechnen möchte. Dies funktioniert mit dem
-*optionalen Argument* `na.rm`[^`r incref()`] der Funktion `mean`,
+*optionalen Argument* `na.rm`[^optional] der Funktion `mean`,
 welches wir auf `TRUE` setzen können. Mit dem *Argument* `na.rm` ("NA
 remove") teilt man `mean` mit, dass `NA` Werte bei der Berechnung des
 Mittelwerts nicht berücksichtigt werden sollen (andere Funktionen wie
 `sd` und `var` haben auch das Argument `na.rm`):
 
-[^`r incfnc()`]: Ein Argument heißt optional, wenn wir dafür keinen Wert
+[^optional]: Ein Argument heißt optional, wenn wir dafür keinen Wert
 angeben müssen. Stattdessen hat es einen sogenannten Standardwert, der
 angenommen wird, wenn wir das Argument nicht selber angeben. Der
 Standardwert des Arguments `na.rm` in der Funktion `mean` ist `FALSE`.
@@ -827,9 +825,9 @@ Vektor `zufallsdaten`; wann immer ein Eintrag in `zufallsdaten` größer
 ist als 1, erhalten wir `TRUE`, andernfalls `FALSE`. `sum` gibt die Zahl
 der `TRUE` Einträge aus. **Das funktioniert, da `TRUE` und `FALSE` eine
 numerische Interpretation haben: `TRUE` wird als `1` interpretiert und
-`FALSE` als `0`**.[^`r incref()`]
+`FALSE` als `0`**.[^mathelogik]
 
-[^`r incfnc()`]: Wenn logische Vektoren einer numerischen Berechnung
+[^mathelogik]: Wenn logische Vektoren einer numerischen Berechnung
 übergeben werden, werden die `TRUE`/`FALSE` Elemente des Vektors
 automatisch in Zahlen, d.h. 1 und 0 umgewandelt. Deswegen funktioniert
 beispielsweise auch folgender Befehl:
@@ -847,9 +845,9 @@ Der Erwartungswert, dass eine zufällige Zahl aus einer
 Standardnormalverteilung größer ist als `1` -- also mehr als eine
 Standardabweichung vom Mittelwert entfernt liegt -- liegt bei etwa
 15.9%. Den exakten Erwartungswert könnte ich in `R` mit der Funktion
-`pnorm` herausfinden:[^`r incref()`]
+`pnorm` herausfinden:[^pnorm]
 
-[^`r incfnc()`]: `pnorm` ist die kummulative Verteilungsfunktion der
+[^pnorm]: `pnorm` ist die kummulative Verteilungsfunktion der
 Normalverteilung. Sie sagt aus, wie viel % der Werte in einer
 Normalverteilung kleiner sind als der übergebene Wert. Um heraus zu
 finden, wie viele Werte **größer** als 1 sind, wird hier das Komplement,
@@ -857,9 +855,7 @@ also `1 - pnorm(1)`, gebildet. (Das funktioniert, da die Gesamtdichte
 einer Wahrscheinlichkeitsverteilung immer 1 ist.)
 
 ```{r}
-
 1 - pnorm(1)
-
 ```
 
 Nach dem Gesetz der großen Zahlen liegt der folgende Wert wahrscheinlich
@@ -922,12 +918,12 @@ aus einfachen Vektoren "herausgreifen" können.
 ### Der `[·]`-Zugriff {#veczugriff}
 
 
-Daten können mit dem `[·]`-Zugriff[^`r incref()`] *indexbasiert* aus
+Daten können mit dem `[·]`-Zugriff[^eckig] *indexbasiert* aus
 Vektoren ausgewählt werden. Jedes Element im Vektor hat einen *Index*,
 der seiner Position im Vektor entspricht. Im folgenden Vektor etwa hat
 `2` den Index `1`, `4` den Index `2` und `1` den Index `3`:
 
-[^`r incfnc()`]: Ich nenne diese Operation `[·]`-Zugriff , da zur
+[^eckig]: Ich nenne diese Operation `[·]`-Zugriff , da zur
 Datenauswahl aus Vektoren hinter den Vektor eckigen Klammern gestellt
 werden. Die Klammern enthalten eine Angabe darüber, welche Elemente ich
 aus dem Vektor auswählen will. Etwa wählt `c(4, 2, 6)[1]` das erste
@@ -1063,11 +1059,11 @@ daten
 Das würde man so "händisch" nicht machen, aber es soll zum Verständnis
 dessen dienen, was im folgenden -- anwendungsnäheren -- Beispiel
 passiert. Angenommen, bei einer Dateneingabe wurden fehlende Werte in
-einem Fragebogen mit `-99` kodiert.[^`r incref()`] Wir wollen `R`
+einem Fragebogen mit `-99` kodiert.[^codemissing] Wir wollen `R`
 mitteilen, diesen Wert als fehlend zu interpretieren. Hier kommt uns
 wiederum eine logische Abfrage zugute:
 
-[^`r incfnc()`]: Das macht beispielsweise Sinn, damit bei der Eingabe
+[^codemissing]: Das macht beispielsweise Sinn, damit bei der Eingabe
 explizit gemacht wird, dass der Wert fehlt. Andernfalls könnte das Datum
 bei der Eingabe auch vergessen worden sein.
 
