@@ -409,15 +409,19 @@ die Auswahl der Spalten habe ich jedoch den Argumentnamen angegeben.
 Auswahl der Zeilen erwartet hätte.
 
 In `R` kann man **fast immer**[^vieleargumente] Argumente per Position
-und per Name ansprechen. Oftmals wollen wir die Namen von 
-Funktionsargumenten explizit verwenden, da viele Funktionen *optionale* 
-Argumente haben -- also solche, die wir nicht immer angeben müssen. Wir 
-können beispielsweise das Argument `select` weglassen, wenn wir eine Auswahl
-nach Zeilen, aber nicht nach Spalten treffen wollen. Umgekehrt muss ich
-das Argument `subset` nicht angeben -- in dem Fall werden alle Zeilen
-ausgegeben, aber nur eine Teilmenge der Spalten. Ähnlich ist es bei der
-Funktion `mean`: Das Argument `na.rm` geben wir normalerweise nur an,
-wenn ein Vektor fehlende Werte enthält.
+und per Name ansprechen. Oftmals wollen wir die Namen von
+Funktionsargumenten explizit verwenden. Wie wir im Beispiel oben gesehen
+haben, kann das Weglassen von Argumenten aber zu Fehlern führen, wenn es
+die Identifikation der Argumente ihrer Reihenfolge nach verhindert.
+Außerdem haben viele Funktionen *optionale* Argumente haben -- also
+solche, die wir nicht immer angeben müssen. Dann können wir per Namen
+nur die Argumente ansprechen, die wir auch nutzen wirklich wollen. Wir
+können beispielsweise das Argument `select` weglassen, wenn wir eine
+Auswahl nach Zeilen, aber nicht nach Spalten treffen wollen. Umgekehrt
+muss ich das Argument `subset` nicht angeben -- in dem Fall werden alle
+Zeilen ausgegeben, aber nur eine Teilmenge der Spalten. Ähnlich ist es
+bei der Funktion `mean`: Das Argument `na.rm` geben wir normalerweise
+nur an, wenn ein Vektor fehlende Werte enthält.
 
 [^vieleargumente]: Eine Ausnahme bildet die Funktion `c`, für die wir
 keine Funktionsnamen angeben. Hier gilt nämlich: Wir können beliebig
