@@ -66,20 +66,15 @@ beliebig vielen Computern installieren, und unsere Analysen mit jeder
 anderen Person teilen, da niemand eine Lizenz zur Nutzung benötigt. Da
 `R` mithilfe von *Paketen* beliebig erweitert werden kann, stehen neue
 statistische Verfahren häufig schnell zur Verfügung (etwa *Bayesianische
-Statistik*). Die Nutzung von `R` ist in den letzten Jahren stark
-angestiegen.[^link1] Auch in der psychologischen Forschung wird
-`R` immer mehr zum Standard.[^link2]
-
-[^link1]:
-https://stackoverflow.blog/2017/10/10/impressive-growth-r/
-
-[^link2]:
-https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r
+Statistik*). Die Nutzung von `R` ist in den letzten Jahren [stark
+angestiegen](https://stackoverflow.blog/2017/10/10/impressive-growth-r/).
+Auch in der psychologischen Forschung [wird `R` immer mehr zum
+Standard](https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r).
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
 Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch
 echte Datensätze verwendet, beispielsweise ein Datensatz zum
-*Narcissistic Personality Inventory*, der online frei über das “Open
+*Narcissistic Personality Inventory*, der online frei über das „Open
 Source Psychometrics Project”
 ([https://openpsychometrics.org/](https://openpsychometrics.org/))
 verfügbar ist.
@@ -101,7 +96,7 @@ erstellt.
 Wer `R` lernen möchte, muss sich klar machen, dass die reine
 Aufarbeitung einer oder mehrerer schriftlicher Lektüren zu diesem Zweck
 nicht ausreicht. Die praktische Anwendung -- das Ausprobieren und
-"Rumspielen" -- sollte einen mindestens genau so großen Anteil haben.
+„Rumspielen“ -- sollte einen mindestens genau so großen Anteil haben.
 Erst durch die Fehler, die man beim praktischen Arbeiten macht -- und
 die macht man immer --, lassen sich die eigenen `R`-Fertigkeiten
 weiterentwickeln.
@@ -111,19 +106,16 @@ Auswahl dessen vor, was `R` bietet. Notwendigerweise werden Inhalte
 ausgelassen. Bei der Darstellung wird vor allem Wert auf die inhaltliche
 Sinnhaftigkeit und Verständlichkeit gelegt; dafür kann es vorkommen,
 dass -- wenn angemessen -- Kompromisse bei der technischen Genauigkeit
-eingegangen werden.[^kompromisse] Für so gut wie jede allgemeine Regel
-gibt es Spezialfälle, die eine Ausnahme bilden. Auf solche Spezialfälle
-werde ich bei der Beschreibung allgemeiner Grundsätze der
-Programmiersprache `R` nicht immer Rücksicht nehmen.  Das Skript ist so
-ausgelegt, dass ein Grundstein an Kenntnissen gelegt wird, jedoch
-erfordert die Meisterung von `R` noch weitere eigenständige
-Einarbeitung.
-
-[^kompromisse]: Kapitel 2 enthält beispielsweise eine Beschreibung
+eingegangen werden. Kapitel 2 enthält beispielsweise eine Beschreibung
 verschiedener Datentypen in `R` (Zahlen, Text etc.). Diese Liste deckt
-zwar die für uns wichtigsten Datentypen ab, ist aber nicht
-vollständig. Aus inhaltlichen Gründen folgt sie außerdem nicht der
-internen „technischen“ Kategorisierung von Daten in `R`.
+zwar die für uns wichtigsten Datentypen ab, ist aber nicht vollständig.
+Aus inhaltlichen Gründen folgt sie außerdem nicht der `R`-internen
+„technischen“ Kategorisierung. Auch hat `R` für so gut wie jede
+allgemeine Regel mindestens eine Ausnahme. Auf solche Spezialfälle werde
+ich bei der Beschreibung allgemeiner Grundsätze der Programmiersprache
+`R` nicht immer Rücksicht nehmen. Das Skript ist so ausgelegt, dass ein
+Grundstein an Kenntnissen gelegt wird, jedoch erfordert die Meisterung
+von `R` noch weitere eigenständige Einarbeitung.
 
 ### Feedback und Fehlermeldungen
 
@@ -140,12 +132,12 @@ Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio und
 Ingo Weigel danke ich für Fehlermeldungen.
 
 Zur Erstellung des Skripts wurden `R` [@R-base] und die `R`-Pakete
-*bookdown* [@R-bookdown], *knitr* [@R-knitr], *rmarkdown*
-[@R-rmarkdown], *tufte* [@R-tufte] und *tint* [@R-tint] genutzt.
+*bookdown* [@R-bookdown], *knitr* [@R-knitr], *rmarkdown* [@R-rmarkdown]
+genutzt.
 
 ## Erste Schritte mit `R`
 
-Im Seminar nutzen wir die "integrierte Entwicklungsumgebung" (engl:
+Im Seminar nutzen wir die „integrierte Entwicklungsumgebung“ (engl:
 integrated developement environment; *IDE*) RStudio, um mit `R` zu
 arbeiten. Zum Nachvollziehen des Skripts und der Übungen solltet ihr
 deswegen RStudio auf eurem eigenen Rechner/Laptop
@@ -159,17 +151,17 @@ natürlich auch kein Problem. Alternativen sind beispielsweise rkward
 [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download)
 
 Vermutlich wollt ihr eine Installationsdatei für Windows herunterladen,
-es gibt aber auch Optionen für Linux und Mac.  Dafür schaut ihr unter
-"Installers for Supported Platforms" beispielsweise unter "RStudio
-1.1.442 - Windows Vista/7/8/10".
+es gibt aber auch Optionen für Linux und Mac. Dafür schaut ihr unter
+„Installers for Supported Platforms“ beispielsweise unter „RStudio
+1.1.442 - Windows Vista/7/8/10“.
 
 **Wichtig:** RStudio ist nur die `R`-Umgebung, die wir nutzen, aber
 nicht die Programmiersprache `R` selbst. `R` muss noch einmal unter
 [https://cran.r-project.org/](https://cran.r-project.org/) gesondert
 heruntergeladen werden.
 
-Hier könnt ihr beispielsweise über "Download R for Windows" $\to$
-"install R for the first time" gehen.
+Hier könnt ihr beispielsweise über „Download R for Windows“ $\to$
+„install R for the first time” gehen.
 
 ### Die `R`-Konsole
 
@@ -228,11 +220,11 @@ ausführen. Wenn wir einen Befehl in der Konsole geschrieben und mit
 Um Analysen übersichtlich, nachvollziehbar und reproduzierbar zu
 gestalten, speichern wir unseren Code in sogenannten Quellcode-Dateien
 ab. Dafür gibt es in RStudio (und auch in anderen `R`-Umgebungen) einen
-Texteditor. Wir können eine neue Quellcode-Datei unter "Datei $\to$ Neue
-Datei $\to$ R Skript" öffnen. Darin können wir unseren R-Code schreiben
+Texteditor. Wir können eine neue Quellcode-Datei unter „Datei $\to$ Neue
+Datei $\to$ R Skript“ öffnen. Darin können wir unseren R-Code schreiben
 und permanent auf unserem Computer abspeichern (und ggf. mit anderen
 Personen teilen). Textdateien, die R-Code enthalten, speichern wir mit
-der Dateiendung ".r" oder ".R" ab.
+der Dateiendung „.r“ oder „.R“ ab.
 
 [^pfeile]: Praktisch: Wenn ich mich in der Konsole befinde, kann
 ich mit den Pfeil-Tasten (vor allem wichtig: Pfeil-nach-oben) auf meine
@@ -240,7 +232,7 @@ letzten Befehle wieder zugreifen. Probiert es aus.
 
 Das Praktische: Wenn wir Code im Editor schreiben, können wir ihn auch
 direkt von dort ausführen; wir müssen ihn nicht noch einmal in die
-Konsole "copy-pasten". Das funktioniert so: Wenn sich mein Cursor in
+Konsole „copy-pasten“. Das funktioniert so: Wenn sich mein Cursor in
 einer Zeile befindet und ich `STRG-Enter` drücke, wird der Code in
 dieser Zeile ausgeführt. Wenn ich einen Code-Abschnitt markiere, kann
 ich ebenso mit `STRG-Enter` genau diesen Abschnitt ausführen. Der Code
@@ -260,17 +252,17 @@ nicht als R-Code ausgeführt. Beispiel:
 
 ```
 
-Man nutzt `#`, um Code zu "kommentieren", das heißt um zu erklären und
+Man nutzt `#`, um Code zu „kommentieren”, das heißt um zu erklären und
 zu dokumentieren, was der geschriebene Code macht. Diese Kommentare fügt
 man in den Quelldateien ein, in denen man die eigenen Analysen
 abspeichert. Dieses Skript enthält viel `R`-Code,[^codeimskript] den ich
 stets kommentiere. (Ich habe die Angewohnheit, ein doppeltes `##` am
 Anfang einer Zeile zu benutzen, aber das hat keinerlei Bedeutung.)
 Gewöhnt euch ebenfalls an, **immer** euren eigenen Code zu
-kommentieren. Das gilt sowohl für "richtige" Projekte als auch für
+kommentieren. Das gilt sowohl für „richtige“ Projekte als auch für
 Übungsaufgaben. Das Kommentieren von Code ist vor allem nützlich, um
 anderen Personen euren Code zugänglich und verständlich zu machen. Im
-häufigsten Fall seid ihr selbst in zwei Wochen diese "andere" Person.
+häufigsten Fall seid ihr selbst in zwei Wochen diese „andere” Person.
 
 [^codeimskript]: Codeblöcke im Skript bestehen immer aus dem
 eigentlichen Code (dieser ist leicht grau hinterlegt) und der *Ausgabe*,
