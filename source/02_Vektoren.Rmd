@@ -3,7 +3,8 @@
 
 Die einfachste und wichtigste Datenstruktur von `R` ist der
 *Vektor*. Ein Vektor ist beispielsweise eine einzelne Zahl wie in den
-Taschenrechner-Berechnungen oben. So gilt für die Berechnung `1 + 3`:
+Taschenrechner-Berechnungen in Kapitel 1. So gilt für die Berechnung 
+`1 + 3`:
 
 - `1` ist ein Vektor
 - `3` ein Vektor
@@ -11,12 +12,12 @@ Taschenrechner-Berechnungen oben. So gilt für die Berechnung `1 + 3`:
 
 Das Interessante an Vektoren ist, dass der ein-elementige Vektor nur ein
 Spezialfall ist. Im Normalfall können Vektoren mehrere Elemente
-enthalten; die "atomare" Einheit in `R` ist also nicht ein einzelnes
+enthalten; die „atomare“ Einheit in `R` ist also nicht ein einzelnes
 Element, sondern gleich eine Aneinanderreihung beliebig vieler[^laenge0]
 gleichartiger Elemente, etwa Zahlen. Statistische Berechnungen -- wie
 die Berechnung eines Mittelwerts oder einer Standardabweichung -- lassen
 sich direkt auf einer Menge an Daten durchführen, da diese in **einem**
-Vektor gespeichert sind. Diese "Vektorbasiertheit" ist vermutlich die
+Vektor gespeichert sind. Diese „Vektorbasiertheit“ ist vermutlich die
 größte Stärke von `R` für statistische Berechnungen.
 
 [^laenge0]: Interessanterweise gibt es sogar Vektoren der Länge 0 --
@@ -44,7 +45,7 @@ c(1)
 ```
 
 Folgendes geht auch, da `c` mehrere Vektoren zu **einem einzelnen**
-Vektor "verschmilzt":
+Vektor „verschmilzt“:
 
 ```{r}
 c(0.5, 1, 1.5, c(1, 2, 3))
@@ -87,18 +88,9 @@ folgende Eigenschaften von Funktionen zu verstehen:
 - Hinter dem Namen einer Funktion werden in Klammern ein oder mehrere
   *Argumente* übergeben, etwa: ein Vektor
 - Wenn einer Funktion mehrere Argumente übergeben werden, werden diese
-  mit Kommata separiert, etwa: `c(1, 2, 3)`[^kommasep]
+  mit Kommata separiert, etwa: `c(1, 2, 3)`
 - Funktionen führen eine Berechnung durch und geben uns das Ergebnis
   zurück
-
-[^kommasep]: In den obigen Beispielen einfacher statistischer
-Berechnungen wird jeweils genau ein Argument übergeben, nämlich der
-Vektor, für den wir den Mittelwert, die Standardabweichung
-etc. berechnen wollten. Es ist auch möglich -- und auch üblich --, dass
-Funktionen mehrere Argumente annehmen, die ihr Verhalten bestimmen. Die
-Funktion `plot` etwa verfügt über eine kaum überschaubare Menge an
-möglichen Argumenten, die verwendet werden können, um das Aussehen einer
-Abbildung zu spezifizieren.
 
 Einfach gesagt nehmen also Funktionen Daten entgegen und geben wiederum
 Daten zurück. Der Großteil unserer Arbeit mit `R` ist die Anwendung von
@@ -116,7 +108,7 @@ Varianz von 0.5, 1, und 1.5 gleich 0.25 ist. Diese Beobachtung offenbart
 eine weitere wichtige Eigenschaft von `R`: Wir können unseren Code immer
 als das verstehen, was er ergibt, wenn er von `R` ausgewertet wird. Es
 macht keinen Unterschied, ob ich das Ergebnis einer Berechnung selber
-"händisch" aufschreibe -- also hier 0.25 --, oder Code schreibe, der mir
+„händisch“ aufschreibe -- also hier 0.25 --, oder Code schreibe, der mir
 dieses Ergebnis generiert -- hier: `var(c(0.5, 1, 1.5))`.
 
 Eine nützliche und oft verwendete Kurzform, um Vektoren aufsteigender,
@@ -133,7 +125,7 @@ bis 1,000 berechnen:
 sum(1:1000)
 ```
 
-Man kann auch absteigende Sequenzen erstellen:
+Wir können auch absteigende Sequenzen erstellen:
 
 ```{r}
 5:-5
@@ -166,8 +158,10 @@ Vektor zurückgeben, aber die Länge des Ausgabevektors unterschiedlich
 sein kann. Die Funktionen `mean` und `sum` ergeben etwa Vektoren der
 Länge 1, da sie genau einen Kennwert bestimmen. Die Funktionen `sort`,
 `sqrt` und `round` geben hingegen einen Vektor zurück, der aus genauso
-viele Elementen besteht wie der Eingabevektor. Auch basale mathematische
-Berechnungen werden gleich auf alle Elemente eines Vektors angewendet:
+viele Elementen besteht wie der Eingabevektor. 
+
+Auch basale mathematische Berechnungen werden gleich auf alle Elemente 
+eines Vektors angewendet:
 
 ```{r}
 1:10 * 2
@@ -180,17 +174,14 @@ Berechnungen werden gleich auf alle Elemente eines Vektors angewendet:
 Hierbei werden die Operationen `* 2` bzw. `-1` direkt auf alle Elemente
 der Vektoren `1:10` bzw. `(1:10 * 2)` angewendet; die Ausgabe ist
 jeweils ein Vektor der Länge 10. Bei gleich langen Vektoren werden
-solche Operationen im Allgemeinen **paarweise**[^komponentenweise]
-angewendet:
-
-[^komponentenweise]: Ich werde dazu oft auch *komponentenweise* sagen.
+solche Operationen im Allgemeinen **komponentenweise**:
 
 ```{r}
 2:4 * 4:6 # entspricht c(2*4, 3*5, 4*6)
 ```
 
 Dieses Verhalten ist typisch für `R`: Viele Funktionen und Operationen
-in `R` arbeiten **komponentenweise**, wenn zwei Vektoren gleicher Länge
+in `R` arbeiten komponentenweise, wenn zwei Vektoren gleicher Länge
 übergeben werden. Das Element an Position 1 im einen Vektor wird dann
 mit dem Element an Position 1 im anderen Vektor gepaart, das Element an
 Position 2 im einen Vektor mit dem Element an Position 2 im anderen
@@ -199,14 +190,15 @@ Vektor -- und so weiter.
 Werden ein ein-elementiger Vektor und ein mehr-elementiger Vektor mit
 einer Berechnung (etwa einer Addition) verknüpft, wird normalerweise das
 einzelne Element mit allen Elementen des anderen Vektors
-"gepaart".[^ganzodereins]
+„gepaart“.[^ganzodereins]
 
 [^ganzodereins]: Wir werden nur diese Fälle betrachten: Entweder wird
 ein ein-elementiger Vektor mit einem längeren Vektor verknüpft oder zwei
 gleich lange Vektoren werden miteinander verknüpft. Es ist auch möglich,
 andere Kombinationen von Vektorlängen zu paaren, was wir jedoch erst
-einmal vernachlässigen (gebt bei Interesse einmal die Befehle
-`c(1,2) * 1:4` und `c(1,2) * 1:3` in die `R`-Konsole ein).
+einmal vernachlässigen; interessierte Leser können die Befehle `c(1,2) *
+1:4` und `c(1,2) * 1:3` in die `R`-Konsole eingeben und beobachten was
+passiert.
 
 ## Variablen
 
@@ -250,12 +242,12 @@ meinVektor - xx
 ```
 
 Variablen können an jeder Stelle verwendet werden, an der man Daten
-sonst "händisch" eingeben würde. Wir können jegliche Objekte -- nicht
+sonst „händisch“ eingeben würde. Wir können jegliche Objekte -- nicht
 nur Vektoren, sondern auch Datentabellen oder beliebig komplizierte
 Ergebnisse von Berechnungen -- in Variablen speichern. Der Workflow in
 `R` ist so ausgelegt, dass Zwischenergebnisse weiterverwendet werden
 können. Hierbei unterscheidet es sich fundamental von SPSS, das einen
-Unterschied zwischen Daten und "Output" macht. In `R` kann das Ergebnis
+Unterschied zwischen Daten und „Output“ macht. In `R` kann das Ergebnis
 jeglicher Berechnung als Input einer anderen Berechnung dienen.
 
 ```{block, type = "block"}
@@ -285,8 +277,8 @@ Objekte[^objekte] in `R` zu verwenden:
 2. Wir speichern Objekte in einer Variable ab.
 
 [^objekte]: Bis jetzt kennen wir nur das Vektor-Objekt. In `R` gibt
-es aber ganz verschiedene "Datencontainer", die man allgemein als
-Objekte bezeichnet.
+es aber ganz verschiedene „Datencontainer“, die allgemein als
+Objekte bezeichnet werden.
 
 Diese beiden Verwendungen sind **fundamental** unterschiedlich. Das mag
 erst einmal trivial erscheinen, aber ist im Einzelfall nicht unbedingt
@@ -327,7 +319,7 @@ bar <- sort(bar)
 
 In diesem Fall geht der Ursprungsvektor verloren und wir behalten nur
 den sortieren Vektor. Generell gilt: wenn wir Daten in der Konsole
-ausgeben lassen, verschwinden diese sozusagen im "Nirvana". Wenn wir mit
+ausgeben lassen, verschwinden diese sozusagen im „Nirvana“. Wenn wir mit
 Daten weiterarbeiten wollen, müssen wir die Ausgabe einer Funktion in
 einer Variablen speichern. Beide Verwendungszwecke sind denkbar:
 Manchmal benötige ich nur die Ausgabe einer Berechnung, manchmal möchte
@@ -349,10 +341,7 @@ den Zeichen `.` und `_`. Folgende Einschränkungen sind zu beachten:
     + `bla%bla <- c(1, 2)` funktioniert nicht
     + `bla_bla <- c(1, 2)` funktioniert
     + `bla.bla <- c(1, 2)` funktioniert
-- Groß-/Kleinschreibung ist relevant (man sagt, dass Variablennamen in
-  `R` "case-sensitive" sind)
-    + "`bla <- 1`" ist nicht das Gleiche wie "`Bla <- 1`" oder gar
-      "`BLA <- 1`"
+- `bla <- 1` ist nicht das Gleiche wie `Bla <- 1` oder gar `BLA <- 1`
 - Vermeidet Umlaute in Variablennamen. `R` wird diese zwar
   akzeptieren, aber ich würde dennoch davon abraten, sie zu nutzen.
 
@@ -396,8 +385,8 @@ Weiterhin ist es guter Stil *konsistent* in der Vergebung der
 Variablennamen zu sein. Variablennamen sollen einen semantischen Gehalt
 haben, das heißt sie machen eine Aussage darüber, welche Daten sie
 enthalten. Häufig ist diese Information nicht in einem Wort
-erklärbar. Um auszusagen, dass eine Variable "das mittlere Alter"
-enthält, müssen mindestens die Anteile "mittel" und "Alter" enthalten
+erklärbar. Um auszusagen, dass eine Variable „das mittlere Alter“
+enthält, müssen mindestens die Anteile „mittel“ und „Alter“ enthalten
 sein. Wie soll das verknüpft werden? Verschiedene Konventionen
 existieren; wichtig ist, dass ihr euch konsistent für eine Variante
 entscheidet.[^norulesforme]
@@ -417,9 +406,9 @@ meanage  <- mean(age)
 ## Datentypen von Vektoren
 
 In `R` hat jeder Vektor genau einen Datentyp. Bis jetzt haben wir nur
-mit dem Datentyp Zahl gearbeitet, der in `R` "numeric" heißt. Der
+mit dem Datentyp Zahl gearbeitet, der in `R` „`numeric`“ heißt. Der
 Datentyp eines Vektors bestimmt, was für Operationen wir damit
-durchführen können. Vektoren vom Typ "numeric" etwa kann man addieren,
+durchführen können. Vektoren vom Typ `numeric` etwa kann man addieren,
 multiplizieren und so weiter. Mit der Funktion `mode` können wir
 überprüfen, welchen Datentyp ein Vektor hat:
 
@@ -432,7 +421,7 @@ um unterschiedliche Informationen darzustellen.
 
 ### `character`
 
-der Datentyp für Text heißt `character`. Text wird mit doppelten oder
+Der Datentyp für Text heißt `character`. Text wird mit doppelten oder
 einfachen Anführungszeichen angegeben:
 
 ```{r}
@@ -461,12 +450,12 @@ für binären Operator
 
 In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
 werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden; im
-Speziellen werden wir Vektoren vom Typ `character` nutzen, um Spalten in
-Datentabelle zu adressieren (siehe [Kapitel 3](#datenzugriffe)). Zu
-diesem Zweck werden wir die Funktion `paste0` nutzen, die
-`character`-Vektoren beliebiger Länge erstellt. So lassen sich
-beispielsweise bequem 10 durchnummerierte Itemnamen generieren, wodurch
-man gleich 10 Spalten aus einer Tabelle auswählen könnte:
+Speziellen werden wir sie nutzen, um Spalten in Datentabelle zu
+adressieren (siehe [Kapitel 3](#datenzugriffe)). Zu diesem Zweck werden
+wir die Funktion `paste0` nutzen, die `character`-Vektoren beliebiger
+Länge erstellt. So lassen sich beispielsweise bequem 10 durchnummerierte
+Itemnamen generieren, wodurch man gleich 10 Spalten aus einer Tabelle
+auswählen könnte:
 
 ```{r}
 items <- paste0("item_", 1:10)
@@ -510,7 +499,7 @@ Mit logischen Werten kann man die logischen Operationen UND (in `R`: `&`
 durchführen:[^linkbool]
 
 [^linkbool]:
-https://de.wikipedia.org/wiki/Boolesche_Algebra# Zweielementige_boolesche_Algebra
+[https://de.wikipedia.org/wiki/Boolesche_Algebra#Zweielementige_boolesche_Algebra](https://de.wikipedia.org/wiki/Boolesche_Algebra#Zweielementige_boolesche_Algebra)
 
 
 ```{r}
@@ -890,7 +879,7 @@ auf der linken Seite von `%in%`.
 
 Der Zugriff auf Daten ist ein wichtiger Abschnitt unserer Einleitung in
 die Grundlagen `R`s. In diesem Abschnitt lernen wir, wie wir Elemente
-aus einfachen Vektoren "herausgreifen" können.
+aus einfachen Vektoren „herausgreifen“ können.
 
 ### Der `[·]`-Zugriff {#veczugriff}
 
@@ -923,7 +912,7 @@ xx <- daten[3] # ein-elementiger Vektor
 xx
 ```
 
-Ebenso kann ich einen "Negativ"-Zugriff durchführen: Ich auswählen,
+Ebenso kann ich einen „Negativ“-Zugriff durchführen: Ich auswählen,
 welchen Index ich *nicht* in meinem Ergebnis haben will:
 
 ```{r}
