@@ -118,5 +118,3 @@ heißen).
 selber einen Grund findet, aus dem es für euch doch gut ist, die
 Variablen abzuspeichern -- etwa weil das Dateneinlesen sonst sehr lange
 dauert --, dann macht bitte das, was für euch sinnvoll ist.
-
-# Referenzen

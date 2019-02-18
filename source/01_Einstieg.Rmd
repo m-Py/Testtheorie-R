@@ -30,6 +30,7 @@ institute: |
  | Institut für Experimentelle Psychologie
 
 bibliography: referenzen.bib
+csl: "apa.csl"
 fontsize: 12pt
 
 ---
@@ -327,3 +328,13 @@ unsere Arbeit automatisieren können.
 
 ```{r child = '101_Anhang.Rmd'}
 ```
+
+\clearpage
+
+# Referenzen
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+\setlength{\parskip}{8pt}
+
+\noindent
