@@ -367,6 +367,21 @@ Die Funktion `subset` hat drei benannte Argumente:
 - `subset`: wählt Zeilen aus
 - `select`: wählt Spalten aus
 
+Um eine Übersicht über die Argumente einer Funktion zu erhalten, können
+wir mit dem `?`-Operator die `R`-Hilfe anfordern:
+
+```R
+?subset
+```
+
+Leider ist die `R`-Hilfe oftmals kryptisch -- und das nicht nur für
+Anfänger. Sie ist die offizielle Dokumentation von Funktionen und legt
+deswegen zwar großen Wert auf technische Genauigkeit, ist aber nicht
+immer sonderlich ausführlich oder gar verständlich. Wir werden in
+[Kapitel 5](#funktionen) bei einer ausführlicheren Besprechung von
+Funktionen noch einmal darauf zurückkommen, wie wir mit der
+`R`-Hilfe umgehen können.
+
 Wenn wir die Namen der Argumente kennen, können wir die Funktion
 `subset` auch wie folgt aufrufen:
 
@@ -404,47 +419,12 @@ die Auswahl der Spalten habe ich jedoch den Argumentnamen angegeben.
 **Das war auch nötig**, da `subset` als zweites Argument ansonsten die
 Auswahl der Zeilen erwartet hätte.
 
-In `R` kann man **fast immer**[^vieleargumente] Argumente per Position
-und per Name ansprechen. Oftmals wollen wir die Namen von
-Funktionsargumenten explizit verwenden. Wie wir im Beispiel oben gesehen
-haben, kann das Weglassen von Argumenten aber zu Fehlern führen, wenn es
-die Identifikation der Argumente ihrer Reihenfolge nach verhindert.
-Außerdem haben viele Funktionen *optionale* Argumente -- also
-solche, die wir nicht immer angeben müssen. Dann können wir per Namen
-nur die Argumente ansprechen, die wir auch nutzen wirklich wollen. Wir
-können beispielsweise das Argument `select` weglassen, wenn wir eine
-Auswahl nach Zeilen, aber nicht nach Spalten treffen wollen. Umgekehrt
-muss ich das Argument `subset` nicht angeben -- in dem Fall werden alle
-Zeilen ausgegeben, aber nur eine Teilmenge der Spalten. Ähnlich ist es
-bei der Funktion `mean`: Das Argument `na.rm` geben wir normalerweise
-nur an, wenn ein Vektor fehlende Werte enthält.
-
-[^vieleargumente]: Eine Ausnahme bildet die Funktion `c`, für die wir
-keine Funktionsnamen angeben. Hier gilt nämlich: Wir können beliebig
-viele Vektoren als Argumente angeben; deswegen gibt es natürlich keinen
-separaten Namen für jedes mögliche Argument. Feste Namen gibt es aber
-dann, wenn es eine feste Anzahl an möglichen Argumenten gibt -- wie bei
-der Funktion `subset`.
-
-Um eine Übersicht über die Argumente einer Funktion zu erhalten, können
-wir mit dem `?`-Operator die `R`-Hilfe anfordern:
-
-```R
-?subset
-```
-
-Leider ist die `R`-Hilfe oftmals kryptisch -- und das nicht nur für
-Anfänger. Sie ist die offizielle Dokumentation von Funktionen und legt
-deswegen zwar großen Wert auf technische Genauigkeit, ist aber nicht
-immer sonderlich ausführlich oder gar verständlich. Wir werden in
-[Kapitel 5](#funktionen) bei einer ausführlicheren Besprechung von
-Funktionen noch einmal darauf zurückkommen, wie wir mit der
-`R`-Hilfe umgehen können.
-
 ```{block, type = "block"}
 **Merke**: In `R` können Funktionsargumente per Position und per Namen
 identifiziert werden. Die Identifikation per Name schlägt dabei die
-Identifikation per Position.
+Identifikation per Position. Argumente explizit mit ihrem Namen zu 
+benennen ist oft sicherer als auf die richtige Reihenfolge der Argumente 
+zu vertrauen.
 ```
 
 ### Sonderregeln zur Auswahl von Spalten {#spalteneinfach}
