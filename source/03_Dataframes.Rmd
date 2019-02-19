@@ -213,7 +213,7 @@ formulieren:
 
 ```{r}
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun", ]
-mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun" & mdf$Item1 == 1, ]
+mdf[(mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun") & mdf$Item1 == 1, ]
 ```
 
 Die `[·,·]`-Notation wird recht schnell unübersichtlich, wenn sie
