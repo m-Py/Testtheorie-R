@@ -720,7 +720,7 @@ library("dplyr")
 Voraussetzung dafür, dass ich das Paket `dplyr` nutzen kann ist, dass
 ich das Paket auf meinem Rechner installiert habe. Falls das Paket noch
 nicht installiert ist -- in dem Fall ergibt der Befehl
-`library('dyplr')` einen Fehler) --. können wir es es mit dem folgenden
+`library('dyplr')` einen Fehler) -- können wir es es mit dem folgenden
 Befehl installieren:
 
 ```R
