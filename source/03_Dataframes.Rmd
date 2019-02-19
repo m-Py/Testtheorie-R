@@ -793,6 +793,10 @@ mdf[, "Item1", drop = FALSE]
 ```
 
 ```R
+mdf["Item1"]
+```
+
+```R
 mdf[["Item1"]]
 ```
 
