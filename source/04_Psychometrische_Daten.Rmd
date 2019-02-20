@@ -2,8 +2,8 @@
 # Arbeiten mit psychometrischen Daten {#psychometrie}
 
 Dieses Kapitel arbeitet einige Kennwerte der klassischen Testtheorie auf
-und bespricht wie wir diese in `R` berechnen können. Dabei werden folgende
-Konzepte behandelt:
+und bespricht wie wir diese in `R` berechnen können. Dabei werden die
+folgenden Konzepte behandelt:
 
 - Testscores
 - Item-Schwierigkeit
@@ -22,7 +22,7 @@ für unsere Analysen benötigen. Wir lernen
 - Antworten zu invertieren
 - Fälle mit fehlenden Werten auszuschließen
 
-## Ausgedehntes Beispiel zum Einstieg{#kap4einstieg}
+## Ausgedehntes Beispiel zum Einstieg {#kap4einstieg}
 
 Es folgt ein Beispiel zur Berechnung einiger grundlegender
 psychometrischer Kennwerte. Angenommen, uns liegt eine Datentabelle vor,
@@ -47,20 +47,14 @@ test_data <- data.frame(Item_1 = c(1, 1, 1, 0, 0, 0, 1, 1, 1, 0),
 
 Die Variable `test_data` enthält nun die folgende Tabelle:
 
-&nbsp;
-
 ```{r, echo = FALSE}
 
 kable(test_data, row.names= TRUE)
 
 ```
 
-&nbsp;
-
-&nbsp;
-
-Wenn uns Daten in diesem Format vorliegen, können wir auf
-viele Funktionen in `R` zurückgreifen, um grundlegende psychometrische
+Wenn uns Daten in diesem Format vorliegen, können wir auf viele
+Funktionen in `R` zurückgreifen, um grundlegende psychometrische
 Auswertungen durchzuführen. Dies sind etwa die Bestimmung der
 Schwierigkeit und der Trennschärfe von Items, sowie die Bestimmung einer
 Split-Half Reliabilität. Für fortgeschrittenere Auswertungen -- wie etwa
@@ -89,7 +83,7 @@ kann man mit der Funktion `rowSums` bestimmen:
 
 ```{r}
 
-rowSums(test_data) # test_data ist die Tabelle von oben.
+rowSums(test_data)
 
 ```
 
@@ -122,11 +116,11 @@ colMeans(test_data)
 
 Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe,
 bekomme ich die mittlere Punktzahl der Schüler/innen in den 5 Testitems
-direkt mitgeliefert. Beachtet, dass ich hier eine numerische Funktion
-auf den ganzen `data.frame` angewendet habe. Hätte ich beispielsweise
-auch Spalten vom Typ `factor` oder `character` im `data.frame` gehabt,
-hätte ich Funktionen wie `rowSums` und `colMeans` nicht einfach auf den
-ganzen `data.frame` anwenden können. In dem Fall könnte man mit der
+direkt mitgeliefert. Beachtet, dass ich hier mit `colMeans` eine
+numerische Funktion auf den ganzen `data.frame` angewendet habe. Hätte
+der `data.frame` auch Spalten vom Typ `factor` oder `character`
+enthalten, ist es nicht möglich Funktionen wie `rowSums` und `colMeans`
+auf den `data.frame` anzuwenden. In dem Fall könnte man mit der
 `[·,·]`-Notation oder der Funktion `subset` nur die gewünschten Spalten
 auswählen.
 
@@ -147,13 +141,8 @@ item_correlations <- cor(test_data)
 kable(round(item_correlations, 2))
 ```
 
-&nbsp;
-
-&nbsp;
-
-Die Korrelationen wurden aus Darstellungszwecken auf zwei
-Nachkommastellen gerundet, was mit der Funktion `round` erreicht
-wurde.
+Die Korrelationen wurden aus Darstellungszwecken mit der Funktion
+`round` auf zwei Nachkommastellen gerundet.
 
 ### Item-Trennschärfen {#trennschaerfe}
 
@@ -169,71 +158,59 @@ viel und wenig Wissen (also einem hohen bzw. einem niedrigen
 Gesamt-Testscore) zu trennen. Die Trennschärfe ist ein Kennwert, der zur
 Beurteilung der Güte eines Items dienen kann.
 
-Oftmals wird die "part-whole" korrigierte Trennschärfe berechnet, bei
+Oftmals wird die „part-whole“ korrigierte Trennschärfe berechnet, bei
 der zur Berechnung der Trennschärfe jedes Items der Itemscore dieses
 Items aus der Gesamtpunktzahl ausgelassen wird. Somit wird eine
 "Kriterienkontamination" vermieden, die zu einer Erhöhung der
 Trennschärfe führt. Diese Kriterienkontamination ergibt sich bei der
 unkorrigierten Trennschärfe daraus, dass der Itemscore selbst in das
-"Kriterium" -- also den Gesamt-Testscore -- eingeht.[^diskrimination]
-Eine Möglichkeit, die "part-whole" korrigierte Trennschärfe für eine
-Item (hier: Item 2) zu berechnen, bietet der folgende Code:
+"Kriterium" -- also den Gesamt-Testscore -- eingeht.[^diskrimination] Im
+Folgenden berechnen wir eine part-whole korrigierte Trennschärfe für
+Item 2. Zunächst erstelle ich einen Vektor zur Auswahl der Items, die
+ich zur Berechnung des Testscores unter Ausschluss von Item 2
+heranziehe:
 
 [^diskrimination]: Praktisch gesehen werden unkorrigierte und korrigierte
 Trennschärfe dieselbe relative Rangreihe zwischen den Items hinsichtlich
 ihrer Diskriminationsgüte abbilden.
 
 ```{r}
-
-## Zunächst erstelle ich einen Vektor zur Auswahl der Items, die ich zur
-## Berechnung des Testscores heranziehe. Dabei wird Item 2
-## ausgelassen. An dieser Stelle müssen wir die Namen der Spalten
-## kennen, die wir auswählen wollen. Diese lassen sich mit dem Befehl
-## `names` herausfinden:
-
-names(test_data)
-
-```
-
-
-```{r}
-## Wähle nun Antworten auf Items 1, 3, 4, 5 aus:
+## Wähle Antworten auf Items 1, 3, 4, 5 aus:
 select_items   <- paste0("Item_", (1:5)[-2])
 responses_no_item2 <- test_data[, select_items]
 
 ## Betrachte die Tabelle:
-responses_no_item2
+head(responses_no_item2)
 
 ## Berechne den Testscore über Items 1, 3, 4 und 5:
 corrected_score <- rowSums(responses_no_item2)
 ```
 
-`corrected_score` ist nun der Testscore ohne Beachtung des zweiten
-Items. Das Vorgehen zur Berechnung der bereinigten Scores mithilfe der
-`[·,·]`-Notation und den Funktionen `paste0` und `rowSums` lässt sich
-allgemein mit beliebig vielen Items durchführen. Da wir an dieser Stelle
-nur eine Summe über vier Items bilden, hätte auch der folgende --
-simplere -- Code funktioniert:
+Die Variable `corrected_score` enthält nun die Testscores, die unter
+Ausschluss des zweiten Items gebildet wurden. Das Vorgehen zur
+Berechnung der bereinigten Scores lässt sich mithilfe der
+`[·,·]`-Notation und den Funktionen `paste0` und `rowSums` auch auf
+beliebig viele Items erweitern. Da wir hier den Summenwert nur über vier
+Items gebildet haben, hätte auch der folgende Code  funktioniert:
 
 ```R
 corrected_score <- test_data$Item_1 + test_data$Item_3 +
     test_data$Item_4 + test_data$Item_5
 ```
 
-Wie folgt können wir nun mithilfe der Funktion `cor` die "part-whole"
-korrigierte Trennschärfe für Item 2 bestimmen:
+Wie folgt können wir nun mithilfe der Funktion `cor` die korrigierte
+Trennschärfe für Item 2 bestimmen:
 
 ```{r}
 cor(test_data$Item_2, corrected_score)
 ```
 
-Wie wir sehen, liegt die korrigierte Trennschärfe von
-`r round(cor(test_data$Item_2, corrected_score), 2)` unter der
-unkorrigierten Trennschärfe von `r round(item_correlations[6,2], 2)`. Je
-weniger Items der Test hat, desto mehr Gewicht hat das einzelne Item für
-den Testscore, und umso stärker weichen korrigierte und unkorrigierte
-Trennschärfe voneinander ab. Bei nur 5 Items kann der Effekt
-substantiell sein.
+Die korrigierte Trennschärfe von `r round(cor(test_data$Item_2,
+corrected_score), 2)` liegt unter der unkorrigierten Trennschärfe von `r
+round(item_correlations[6,2], 2)`. Je weniger Items ein Test hat, desto
+mehr Gewicht hat das einzelne Item für den Testscore und umso stärker
+weichen korrigierte und unkorrigierte Trennschärfe voneinander ab. Bei
+nur 5 Items kann der Effekt substantiell sein.
 
 Es ist zu beachten, dass die Funktion `cor` an dieser Stelle anders
 verwendet wird als oben: Hier übergebe ich der Funktion `cor` mit dem
@@ -302,7 +279,6 @@ ist, dass ich das Paket auf meinem Rechner installiert habe.
 [^guteuebung]: Das wäre sogar eine gute Übung. Die Formel findet sich
 unter
 [https://de.wikipedia.org/wiki/Cronbachs_Alpha](https://de.wikipedia.org/wiki/Cronbachs_Alpha)
-
 
 [^tollepakete]: Die Erweiterbarkeit mit Paketen ist eine der großen
 Stärken von `R`.
