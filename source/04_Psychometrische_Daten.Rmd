@@ -117,12 +117,11 @@ colMeans(test_data)
 Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe,
 bekomme ich die mittlere Punktzahl der Schüler/innen in den 5 Testitems
 direkt mitgeliefert. Beachtet, dass ich hier mit `colMeans` eine
-numerische Funktion auf den ganzen `data.frame` angewendet habe. Hätte
+numerische Funktion auf den ganzen `data.frame` angewendet habe. Würde
 der `data.frame` auch Spalten vom Typ `factor` oder `character`
-enthalten, ist es nicht möglich Funktionen wie `rowSums` und `colMeans`
-auf den `data.frame` anzuwenden. In dem Fall könnte man mit der
-`[·,·]`-Notation oder der Funktion `subset` nur die gewünschten Spalten
-auswählen.
+enthalten, wäre es nicht möglich Funktionen wie `rowSums` und `colMeans`
+anzuwenden. In dem Fall könnte man mit der `[·,·]`-Notation oder der
+Funktion `subset` nur die gewünschten Spalten auswählen.
 
 ### Item-Interkorrelationen
 
