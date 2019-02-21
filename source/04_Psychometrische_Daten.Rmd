@@ -10,7 +10,7 @@ folgenden Konzepte behandelt:
 - Item-Trennschärfe
 - Item-Interkorrelation
 - Reliabilität
-    + Interne Konsistenz ("Cronbachs Alpha")
+    + Interne Konsistenz („Cronbachs Alpha“)
     + Split-Half/Odd-Even-Reliabilität
 - Spearman-Brown-Formel
 
@@ -115,11 +115,11 @@ colMeans(test_data)
 ```
 
 Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe,
-bekomme ich die mittlere Punktzahl der Schüler/innen in den 5 Testitems
+bekomme ich die mittlere Punktzahl der Schüler/innen in den fünf Testitems
 direkt mitgeliefert. Beachtet, dass ich hier mit `colMeans` eine
 numerische Funktion auf den ganzen `data.frame` angewendet habe. Würde
 der `data.frame` auch Spalten vom Typ `factor` oder `character`
-enthalten, wäre es nicht möglich Funktionen wie `rowSums` und `colMeans`
+enthalten, wäre es nicht möglich, Funktionen wie `rowSums` und `colMeans`
 anzuwenden. In dem Fall könnte man mit der `[·,·]`-Notation oder der
 Funktion `subset` nur die gewünschten Spalten auswählen.
 
@@ -160,10 +160,10 @@ Beurteilung der Güte eines Items dienen kann.
 Oftmals wird die „part-whole“ korrigierte Trennschärfe berechnet, bei
 der zur Berechnung der Trennschärfe jedes Items der Itemscore dieses
 Items aus der Gesamtpunktzahl ausgelassen wird. Somit wird eine
-"Kriterienkontamination" vermieden, die zu einer Erhöhung der
+„Kriterienkontamination“ vermieden, die zu einer Erhöhung der
 Trennschärfe führt. Diese Kriterienkontamination ergibt sich bei der
 unkorrigierten Trennschärfe daraus, dass der Itemscore selbst in das
-"Kriterium" -- also den Gesamt-Testscore -- eingeht.[^diskrimination] Im
+„Kriterium“ -- also den Gesamt-Testscore -- eingeht.[^diskrimination] Im
 Folgenden berechnen wir eine part-whole korrigierte Trennschärfe für
 Item 2. Zunächst erstelle ich einen Vektor zur Auswahl der Items, die
 ich zur Berechnung des Testscores unter Ausschluss von Item 2
@@ -190,7 +190,7 @@ Ausschluss des zweiten Items gebildet wurden. Das Vorgehen zur
 Berechnung der bereinigten Scores lässt sich mithilfe der
 `[·,·]`-Notation und den Funktionen `paste0` und `rowSums` auch auf
 beliebig viele Items erweitern. Da wir hier den Summenwert nur über vier
-Items gebildet haben, hätte auch der folgende Code  funktioniert:
+Items gebildet haben, hätte auch der folgende Code funktioniert:
 
 ```R
 corrected_score <- test_data$Item_1 + test_data$Item_3 +
@@ -209,7 +209,7 @@ corrected_score), 2)` liegt unter der unkorrigierten Trennschärfe von `r
 round(item_correlations[6,2], 2)`. Je weniger Items ein Test hat, desto
 mehr Gewicht hat das einzelne Item für den Testscore und umso stärker
 weichen korrigierte und unkorrigierte Trennschärfe voneinander ab. Bei
-nur 5 Items kann der Effekt substantiell sein.
+nur fünf Items kann der Effekt substantiell sein.
 
 Es ist zu beachten, dass die Funktion `cor` an dieser Stelle anders
 verwendet wird als oben: Hier übergebe ich der Funktion `cor` mit dem
@@ -227,7 +227,7 @@ und 3 wieder:
 
 - Die Erstellung von Vektoren mit der `1:n`-Notation
 - Die Negativ-Auswahl von Elementen aus Vektoren mit der `[·]`-Notation
-- Die Generierung eines "character"-Vektors mithilfe der Funktion
+- Die Generierung eines „character“-Vektors mithilfe der Funktion
   `paste0`
 - Die Auswahl von Spalten in einem `data.frame` mit der `[·,·]`-Notation
 
@@ -239,7 +239,7 @@ Code---investieren. Um jedoch die korrigierte Trennschärfe zu bestimmen,
 muss ich bei *n* Items *n* Mal einen korrigierten Gesamtscore
 berechnen. Für jedes Item muss ich dann jeweils die Item-Antworten mit
 diesem korrigierten Score korrelieren. Wenn wir das für jedes Item
-"händisch" machen, wäre das sehr aufwendig (beispielsweise könnten wir
+„händisch“ machen, wäre das sehr aufwendig (beispielsweise könnten wir
 den Code oben *n* Mal kopieren und jeweils die Itemnummern anpassen --
 das wäre sehr fehleranfällig). Einer der Hauptgründe, aus denen wir `R`
 lernen, ist dass wir uns solche Arbeit nicht machen wollen. Stattdessen
@@ -251,7 +251,7 @@ Aufwand und arbeiten weniger fehleranfällig.
 
 ### Cronbachs Alpha
 
-Als Nächstes bestimmen wir "Cronbachs Alpha" als Maß für die interne
+Als Nächstes bestimmen wir „Cronbachs Alpha“ als Maß für die interne
 Konsistenz der Antworten der Schüler/innen. Cronbachs Alpha ist ein
 Schätzer für die Reliabilität eines Tests. Im Falle eines Leistungstest
 mit dichotomer Bepunktung gibt es eine Antwort auf die Frage: Haben
@@ -311,7 +311,7 @@ aus `data.frames` entfernen wollen. Das liegt daran, dass die Spalte
 selber keine Variable ist, sondern zu einem `data.frame`
 gehört. Deswegen muss man Spalten mit dem Befehl
 `data.frame$spalte <- NULL` entfernen. `NULL` ist in `R` ein Wert, der
-für "Nicht-Existenz" steht.
+für „Nicht-Existenz“ steht.
 
 
 ```{r}
@@ -446,7 +446,7 @@ Beispiel oben bereits gegeben: Jeder Wert kodierte genau die
 Information, die wir brauchten -- nämlich ob Schüler/innen eine Aufgabe
 korrekt gelöst haben oder nicht (dargestellt durch `1` und `0`). In
 echten Daten muss die relevante Information jedoch häufig erst noch aus
-den dokumentierten Werten "abgeleitet" werden. Die Antwort der
+den dokumentierten Werten „abgeleitet“ werden. Die Antwort der
 Schüler/innen im Test könnte beispielsweise ein Kreuz in einem
 Multiple-Choice-Item sein:
 
@@ -476,7 +476,7 @@ Item-Schlüssel-Kombination Daten als richtig und falsch umkodieren,
 können wir mit nur ein wenig mehr Aufwand diesen Prozess für beliebig
 viele Items wiederholen. Das *Narcissistic Personality Inventory* etwa
 hat 40 Items und wir haben keine Lust, 40 Mal eine Umkodierung
-"händisch" neu durchzuführen.
+„händisch“ neu durchzuführen.
 
 [^schluessel]: Im Allgemeinen muss ein Schlüssel nicht Korrektheit
 anzeigen, sondern kann auch Merkmalsausprägung in einem
@@ -571,7 +571,7 @@ und zwar über beide Items hinweg. Im vorliegenden Fall macht es aber
 keinen Sinn, die Punktzahlen beider Items zu addieren. Die höchste
 Ausprägung in Extraversion würde sich dann ergeben, wenn ein Item
 extravertiert beantwortet wird, aber das andere introvertiert. Damit die
-Punktzahlen in beiden Items "in dieselbe Richtung" zu verstehen sind,
+Punktzahlen in beiden Items „in dieselbe Richtung“ zu verstehen sind,
 wollen wir die Antworten auf Item 1 *invertieren*, sodass auch hier eine
 hohe Punktzahl für eine hohe Merkmalsausprägung in Extraversion
 steht. Das heißt, wir wollen die folgende Abbildung durchführen:
@@ -662,11 +662,11 @@ kennenlernen:
 
 Für dieses Beispiel laden wir Daten des Narcissistic Personality
 Inventory [NPI; @raskin1988] ein. Die Daten von mehr als 11,000
-Bearbeitungen des NPI sind erfreulicherweise über das "Open Source
-Psychometrics Project" unter
+Bearbeitungen des NPI sind erfreulicherweise über das „Open Source
+Psychometrics Project“ unter
 [https://openpsychometrics.org/_rawdata](https://openpsychometrics.org/_rawdata)
 abrufbar. Wenn wir die Daten heruntergeladen haben und die Datei
-"data.csv" in unserem RStudio-Projektordner liegt (siehe
+„data.csv“ in unserem RStudio-Projektordner liegt (siehe
 [Anhang](#datenEinlesen)), können wir den Datensatz wie folgt einlesen:
 
 ```{r}
@@ -720,12 +720,12 @@ kable(summary(npi)[,1], col.names = "score")
 Das NPI besteht aus 40 Items. Aus dem *Codebuch* des NPI
 Datensatzes[^codebuch] wissen wir, dass Antworten auf die NPI Items
 die Werte 1 und 2 annehmen können.  Die Antwort auf jedes Item des NPI
-besteht aus einer "forced choice" zwischen zwei Aussagen; eine davon
+besteht aus einer „forced choice“ zwischen zwei Aussagen; eine davon
 steht für Narzissmus. Item 1 besteht beispielsweise aus den folgenden
 beiden Aussagen:
 
-[^codebuch]: Dieses wird gemeinsam mit den Daten des "Open Source
-Psychometrics Project"
+[^codebuch]: Dieses wird gemeinsam mit den Daten des „Open Source
+Psychometrics Project“
 [https://openpsychometrics.org/_rawdata](https://openpsychometrics.org/_rawdata)
 runtergeladen.
 
@@ -734,10 +734,10 @@ runtergeladen.
 
 Die Wahl von Aussage 1 wird mit 1 kodiert, die Wahl von Aussage 2
 mit 2. Nachgeschaltet wird folgende Umkodierung vorgenommen, die die
-Item-Scores berechnet: Wird die "narzisstische Aussage" ausgewählt (hier
-Aussage 1: "I have a natural talent for influencing people."), wird das
+Item-Scores berechnet: Wird die „narzisstische Aussage“ ausgewählt (hier
+Aussage 1: „I have a natural talent for influencing people.“), wird das
 Item mit 1 bepunktet. Wird die Aussage gewählt, die nicht für Narzissmus
-steht (hier Aussage 2: "I am not good at influencing people."), wird
+steht (hier Aussage 2: „I am not good at influencing people.“), wird
 eine 0 vergeben. Wie wir zu Beginn des Abschnitts gelernt haben, könnten
 wir Item 1 deswegen wie folgt bepunkten:
 
@@ -767,7 +767,7 @@ Items unbeantwortet lassen. Fehlende Werte in den Antworten wurden mit
 einer 0 kodiert.[^schlechtekodierung]
 
 [^schlechtekodierung]: Ich halte dies für kein gutes Vorgehen. Der Wert 0 ist
-nicht ausreichend unterschiedlich von anderen "legalen" Werten in den
+nicht ausreichend unterschiedlich von anderen „legalen Werten“ in den
 anderen Spalten. Der Gesamt-Testscore (`npi$score`) kann beispielsweise
 wirklich den Wert 0 annehmen, wenn Teilnehmer/innen kein einziges Mal
 der narzisstischen Aussage zugestimmt haben -- und dies kam tatsächlich
@@ -806,7 +806,7 @@ Vektoren. Beachtet, dass hier ein Zugriff auf `data.frames` mit eckigen
 Klammern stattfindet (siehe [Kapitel 3.5](#fortgeschritten); tatsächlich
 ist dieser Zugriff aber sogar noch etwas spezieller als der in Kapitel
 3.5 beschriebene -- hier ist das Objekt in den eckigen Klammern eine
-*Matrix* vom Typ "logical").
+*Matrix* vom Typ „logical“).
 
 ```{r}
 item_responses[item_responses == 0] <- NA
@@ -915,7 +915,7 @@ enthält, in denen mindestens ein `NA`-Wert vorlag. So müssen wir nicht
 selber die Zeilen identifizieren, die fehlende Werte enthalten.
 
 Vergleichen wir nun den ursprünglichen `data.frame` `npi` mit der
-"bereinigten" Tabelle:[^plausicheckagain]
+„bereinigten“ Tabelle:[^plausicheckagain]
 
 [^plausicheckagain]: Es ist immer wichtig, solche
 Plausibilitätsüberprüfungen durchzuführen, nachdem man Daten geändert
