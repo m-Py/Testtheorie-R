@@ -4,3 +4,4 @@ data.csv
 /source/libs/
 /source/01_Einstieg_files/
 *.html
+.Rproj.user
