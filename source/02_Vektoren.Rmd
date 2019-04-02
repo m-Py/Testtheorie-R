@@ -1072,6 +1072,90 @@ Form umsetzen, da wir sonst die Daten des Narcissistic Personality
 Inventory nicht auswerten können. Bevor die Analyse starten kann, müssen
 fehlende Werte gekennzeichnet werden.
 
+## Präzedenz {#praezedenz}
+
+Durch Klammerung können wir die *Präzedenz* von `R`-Befehlen steuern.
+Präzendenz bezieht sich auf die Reihenfolge, in der `R`-Befehle
+ausgeführt werden. Betrachten wir das folgende Beispiel: 
+
+```{r}
+TRUE | TRUE & FALSE
+```
+
+Die Ausgabe ist `TRUE`. Daraus können wir schlussfolgern, dass die
+Befehle ODER und UND **nicht** von links nach rechts ausgeführt wurden.
+In dem  Fall wäre nämlich zunächst `TRUE | TRUE` ausgeführt worden, was
+`TRUE` ergibt. Dieses Ergebnis (also `TRUE`) wäre dann per UND mit
+`FALSE` verknüpft worden, was insgesamt `FALSE` ausgegeben hätte. Wir
+haben aber `TRUE` bekommen. Warum?
+
+Der Grund: **Die UND-Operation hat eine höhere Präzedenz als die
+ODER-Operation**. Wenn UND und ODER in einem logischen Ausdruck verbunden
+werden, wird zunächst die UND und dann die ODER-Operation ausgeführt,
+unabhängig davon, in welcher Reihenfolge wir die Befehle aufschreiben.
+Möchten wir forcieren, dass die ODER-Operation zuerst durchgeführt wird,
+können wir -- ganz analog zu mathematischen Berechnungen -- Klammern
+verwenden:
+
+```{r}
+(TRUE | TRUE) & FALSE
+```
+
+Die Präzendenzregeln gelten ebenfalls, wenn die logischen Vektoren aus
+mehr als einem Element bestehen. Betrachten wir dazu die folgenden
+Beispiele:
+
+```{r}
+c(FALSE, TRUE) | c(FALSE, FALSE) & c(TRUE, FALSE)
+```
+
+```{r}
+(c(FALSE, TRUE) | c(FALSE, FALSE)) & c(TRUE, FALSE)
+```
+
+Wir werden logische Ausdrücke vor allem zur Fallauswahl in Datentabellen
+verwenden (siehe [Kapitel 3](#datenzugriffe)). Dann kann es sehr wichtig
+sein auf korrekte Klammerung zu achten. Andernfalls besteht die Gefahr,
+dass wir nicht genau die Fälle auswählen, die wir eigentlich auswählen
+wollen. 
+
+Betrachten wir ein weiteres Beispiel zur Steuerung von Präzedenz: Nehmen
+wir an, wir benötigen eine Sequenz aller Zahlen zwischen 1 und 10 --
+außer der 8.[^kommtspaeter] Ein naheliegender Befehl wäre folgender:
+
+[^kommtspaeter]: Das Beispiel mag hier artifiziell wirken, aber genau 
+so etwas werden wir in [Kapitel 4](#trennschaerfe) machen.
+
+```{r}
+1:10[-8]
+```
+
+Das hat aber nicht funktioniert, die 8 ist in der Ausgabe enthalten.
+Woran liegt das? **Die Auswahl per eckiger Klammer hat eine höhere
+Präzedenz als der Doppelpunktoperator.** Die Klammerungsoperation zur
+Auswahl aus einem Vektor wurde also nicht auf den Vektor `1:10`, sondern
+auf den Vektor `10` angewendet (Erinnerung: einzelne Zahlen sind
+Vektoren). Das heißt in diesem Beispiel wurde als erstes das achte
+Element aus dem Vektor `10` ausgeschlossen, das aber gar nicht
+existiert. Stattdessen erhalten wir einfach wieder `10`:
+
+```{r}
+10[-8]
+```
+
+Durch Klammerung können wir das gewünschte Ergebnis erhalten:
+
+```{r}
+(1:10)[-8]
+```
+
+```{block, type = "block"}
+**Merke**: Im Zweifel verwenden wir lieber einmal zu viel als einmal zu 
+wenig Klammern.
+```
+
+\clearpage
+
 ## Zusammenfassung
 
 - Wir haben `R`s grundlegendste Datenstruktur, den Vektor, kennengelernt
