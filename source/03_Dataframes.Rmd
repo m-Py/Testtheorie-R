@@ -216,7 +216,7 @@ mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun", ]
 mdf[(mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun") & mdf$Item1 == 1, ]
 ```
 
-Beachtet, dass wir hier ohne Klammerung der ODER-Operation andere
+Beachtet, dass wir hier ohne Klammerung der ODER-Operation eine andere
 Ausgabe erhalten (Erinnerung: Diesen Fall kennen wir auch aus [Kapitel
 2](#praezedenz)):
 
