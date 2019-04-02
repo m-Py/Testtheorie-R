@@ -1115,7 +1115,7 @@ c(FALSE, TRUE) | c(FALSE, FALSE) & c(TRUE, FALSE)
 
 Wir werden logische Ausdrücke vor allem zur Fallauswahl in Datentabellen
 verwenden (siehe [Kapitel 3](#datenzugriffe)). Dann kann es sehr wichtig
-sein auf korrekte Klammerung zu achten. Andernfalls besteht die Gefahr,
+sein, auf korrekte Klammerung zu achten. Andernfalls besteht die Gefahr,
 dass wir nicht genau die Fälle auswählen, die wir eigentlich auswählen
 wollen. 
 
@@ -1134,8 +1134,8 @@ Das hat aber nicht funktioniert, die 8 ist in der Ausgabe enthalten.
 Woran liegt das? **Die Auswahl per eckiger Klammer hat eine höhere
 Präzedenz als der Doppelpunktoperator.** Die Klammerungsoperation zur
 Auswahl aus einem Vektor wurde also nicht auf den Vektor `1:10`, sondern
-auf den Vektor `10` angewendet (Erinnerung: einzelne Zahlen sind
-Vektoren). Das heißt in diesem Beispiel wurde als erstes das achte
+auf den Vektor `10` angewendet (Erinnerung: Einzelne Zahlen sind
+Vektoren). Das heißt, in diesem Beispiel wurde als Erstes das achte
 Element aus dem Vektor `10` ausgeschlossen, das aber gar nicht
 existiert. Stattdessen erhalten wir einfach wieder `10`:
 
@@ -1150,8 +1150,8 @@ Durch Klammerung können wir das gewünschte Ergebnis erhalten:
 ```
 
 ```{block, type = "block"}
-**Merke**: Im Zweifel verwenden wir lieber einmal zu viel als einmal zu 
-wenig Klammern.
+**Merke**: Im Zweifel verwenden wir Klammern lieber einmal zu viel als 
+einmal zu wenig.
 ```
 
 \clearpage
