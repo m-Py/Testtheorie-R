@@ -1090,12 +1090,12 @@ In dem  Fall wäre nämlich zunächst `TRUE | TRUE` ausgeführt worden, was
 haben aber `TRUE` bekommen. Warum?
 
 Der Grund: **Die UND-Operation hat eine höhere Präzedenz als die
-ODER-Operation**. Wenn UND und ODER in einem logischen Ausdruck verbunden
-werden, wird zunächst die UND und dann die ODER-Operation ausgeführt,
-unabhängig davon, in welcher Reihenfolge wir die Befehle aufschreiben.
-Möchten wir forcieren, dass die ODER-Operation zuerst durchgeführt wird,
-können wir -- ganz analog zu mathematischen Berechnungen -- Klammern
-verwenden:
+ODER-Operation**. Wenn UND und ODER in einem logischen Ausdruck
+verbunden werden, wird zunächst die UND und dann die ODER-Operation
+ausgeführt, unabhängig davon, in welcher Reihenfolge wir die Befehle
+aufschreiben. Möchten wir erzwingen, dass die ODER-Operation zuerst
+durchgeführt wird, können wir -- ganz analog zu mathematischen
+Berechnungen -- Klammern verwenden:
 
 ```{r}
 (TRUE | TRUE) & FALSE
@@ -1123,14 +1123,14 @@ Betrachten wir ein weiteres Beispiel zur Steuerung von Präzedenz: Nehmen
 wir an, wir benötigen eine Sequenz aller Zahlen zwischen 1 und 10 --
 außer der 8.[^kommtspaeter] Ein naheliegender Befehl wäre folgender:
 
-[^kommtspaeter]: Das Beispiel mag hier artifiziell wirken, aber genau 
-so etwas werden wir in [Kapitel 4](#trennschaerfe) machen.
+[^kommtspaeter]: Das Beispiel mag hier künstlich wirken, aber genau  so
+etwas werden wir in [Kapitel 4](#trennschaerfe) machen.
 
 ```{r}
 1:10[-8]
 ```
 
-Das hat aber nicht funktioniert, die 8 ist in der Ausgabe enthalten.
+Das hat aber nicht funktioniert, die Acht ist in der Ausgabe enthalten.
 Woran liegt das? **Die Auswahl per eckiger Klammer hat eine höhere
 Präzedenz als der Doppelpunktoperator.** Die Klammerungsoperation zur
 Auswahl aus einem Vektor wurde also nicht auf den Vektor `1:10`, sondern
