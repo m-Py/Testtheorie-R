@@ -11,3 +11,12 @@ Inhalte:
 - `if`-Statements zur Überprüfung der Korrektheit der Eingabe
 - Teste auf Typ der Eingabe (`class(input) == "data.frame"`)
 - `[, drop = FALSE]`
+
+
+## Kapitel 4 in zwei Kapitel aufteilen
+
+- Teil 1: Psychometrische Datenauswertungen
+    + Hinzufügen: Bivariate Zusammenhänge
+    + Scatterplots (+ random jitter), cor(), cor.test(), lm(),
+      abline()    
+- Teil 2: Umgang mit Rohdaten
