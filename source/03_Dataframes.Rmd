@@ -158,19 +158,19 @@ Der `[·,·]`-Zugriff erlaubt es uns, eine Teilmenge aller Fälle aus
 Personen, die den maximalen Testwert erreicht haben. Für solche
 Auswahlen hilft uns unser Wissen über [logische Vergleiche aus dem
 letzten Kapitel](#logischevergleiche). Betrachten wir zunächst ein
-Beispiel:[^nurausgabe]
+Beispiel:
 
-[^nurausgabe]: Beachtet, dass durch diesen Aufruf der `data.frame`,
-der in der Variablen `mdf` abgespeichert ist, nicht verändert wird. Der
+```{r}
+mdf[mdf$Augenfarbe == "blau", ]
+```
+
+Beachtet, dass durch diesen Aufruf der `data.frame`, der in der
+Variablen `mdf` abgespeichert ist, nicht verändert wird. Der
 `[·,·]`-Zugriff gibt stattdessen einen neuen `data.frame` zurück, der
 nur die Fälle enthält, bei denen `mdf$Augenfarbe == "blau"` `TRUE`
 ergibt. Wir müssten das Ergebnis der Funktion in einer Variablen
 speichern, wenn wir damit weiter arbeiten wollen (Erinnerung: [Kapitel
 2](#ausgabevsabspeichern)).
-
-```{r}
-mdf[mdf$Augenfarbe == "blau", ]
-```
 
 Wie das folgende Beispiel zeigt, können wir mit der `[·,·]`-Notation
 auch gezielt Spalten aus `data.frames` auswählen:
