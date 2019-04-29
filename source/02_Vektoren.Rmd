@@ -821,6 +821,33 @@ die größer als 1 sind:
 mean(zufallsdaten > 1)
 ```
 
+Der Aufruf `mean(zufallsdaten > 1)` ergibt also den relativen Anteil der
+Datenpunkte, die größer sind als 1. Es lohnt sich ein wenig darüber
+nachzudenken, warum wir die Funktion `mean` hier verwendet können, um
+einen relativen Anteil zu bestimmen. Normalerweise sind wir es eher
+gewohnt, dass Mittelwerte und relative Anteile etwas Unterschiedliches
+sind. Der Grund dafür ist folgender: Für eine Variable, bei der die
+Werte nur 1 oder 0 annehmen können (analog in R: `TRUE`/`FALSE`),
+entspricht der Mittelwert dieser Variablen dem relativen Anteil der
+Werte, die 1 bzw. `TRUE` sind. Als Beispiel betrachten wir den folgenden
+Vektor:
+
+```{r} 
+beispiel_01 <- c(1, 0, 1, 1)
+```
+
+Der Mittelwert des Vektors ist `(1 + 0 + 1 + 1) / 4`, also 0.75 -- und
+damit genau der relative Anteil der 1-Elemente. Dies ist eine praktische
+Eigenschaft der 1/0- bzw. `TRUE`/`FALSE`-Kodierung und macht logische
+Abfragen in `R` so mächtig. 
+
+Wenn wir einen relativen Anteil in eine Prozentzahl umwandeln wollen,
+können wir den relativen Anteil einfach mit 100 multiplizieren:
+
+```{r}
+mean(zufallsdaten > 1) * 100
+```
+
 Der Erwartungswert, dass eine zufällige Zahl aus einer
 Standardnormalverteilung größer ist als `1` -- also mehr als eine
 Standardabweichung vom Mittelwert entfernt liegt -- liegt bei etwa
@@ -886,7 +913,7 @@ c(2, 3) %in% 3:5
 ```
 
 Die Ausgabe der `%in%`-Operation ist also ein logischer Vektor; die
-Länge  des Ausgabevektors entspricht dabei immer der Länge des Vektors
+Länge des Ausgabevektors entspricht dabei immer der Länge des Vektors
 auf der linken Seite von `%in%`.
 
 ## Zugriff auf Vektorelemente
