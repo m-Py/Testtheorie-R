@@ -616,7 +616,6 @@ Man kann selber Vektoren erstellen, die fehlende Werte enthalten:
 ```{r}
 messy_data <- c(1, 3, 2, 9, 3, NA, 6, NA, 5)
 ```
-`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren:
 
 Die Anwesenheit von fehlenden Werten hat Auswirkungen darauf, welche
 Berechnungen `R` mit dem Vektor anstellen kann. Etwa können wir nicht
@@ -823,7 +822,7 @@ mean(zufallsdaten > 1)
 
 Der Aufruf `mean(zufallsdaten > 1)` ergibt also den relativen Anteil der
 Datenpunkte, die größer sind als 1. Es lohnt sich ein wenig darüber
-nachzudenken, warum wir die Funktion `mean` hier verwendet können, um
+nachzudenken, warum wir die Funktion `mean` hier verwenden können, um
 einen relativen Anteil zu bestimmen. Normalerweise sind wir es eher
 gewohnt, dass Mittelwerte und relative Anteile etwas Unterschiedliches
 sind. Der Grund dafür ist folgender: Für eine Variable, bei der die
@@ -859,8 +858,8 @@ Standardabweichung vom Mittelwert entfernt liegt -- liegt bei etwa
 Normalverteilung. Sie sagt aus, wie viel % der Werte in einer
 Normalverteilung kleiner sind als der übergebene Wert. Um heraus zu
 finden, wie viele Werte **größer** als 1 sind, wird hier das Komplement,
-also `1 - pnorm(1)`, gebildet. (Das funktioniert, da die Gesamtdichte
-einer Wahrscheinlichkeitsverteilung immer 1 ist.)
+also `1 - pnorm(1)`, gebildet. Das funktioniert, da die Gesamtdichte
+einer Wahrscheinlichkeitsverteilung immer 1 ist.
 
 ```{r}
 1 - pnorm(1)
