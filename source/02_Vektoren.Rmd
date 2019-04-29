@@ -174,7 +174,7 @@ eines Vektors angewendet:
 Hierbei werden die Operationen `* 2` bzw. `-1` direkt auf alle Elemente
 der Vektoren `1:10` bzw. `(1:10 * 2)` angewendet; die Ausgabe ist
 jeweils ein Vektor der Länge 10. Bei gleich langen Vektoren werden
-solche Operationen im Allgemeinen **komponentenweise**:
+solche Operationen im Allgemeinen **komponentenweise** angewendet:
 
 ```{r}
 2:4 * 4:6 # entspricht c(2*4, 3*5, 4*6)
