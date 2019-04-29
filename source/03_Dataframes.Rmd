@@ -179,12 +179,12 @@ auch gezielt Spalten aus `data.frames` auswählen:
 mdf[, c("Augenfarbe", "Alter")]
 ```
 
-Die zwei Beispiele zeigen, dass das Komma in der `[·,·]`-Notation
-dafür entscheident ist, ob eine Auswahl nach Zeilen oder Spalten
-stattfindet. **Vor dem Komma werden Zeilen adressiert, nach dem
-Komma Spalten.** Es ist auch eine gleichzeitige Auswahl nach Zeilen
-**und** Spalten möglich. Allgemein ist die Syntax zum Ansprechen von
-`data.frames` mit dem `[·,·]`-Zugriff die folgende:
+Die zwei Beispiele zeigen, dass das Komma in der `[·,·]`-Notation dafür
+entscheidend ist, ob eine Auswahl nach Zeilen oder Spalten stattfindet.
+**Vor dem Komma werden Zeilen adressiert, nach dem Komma Spalten.** Es
+ist auch eine gleichzeitige Auswahl nach Zeilen **und** Spalten möglich.
+Allgemein ist die Syntax zum Ansprechen von `data.frames` mit dem
+`[·,·]`-Zugriff die folgende:
 
 ```
 data.frame[Reihenvektor, Spaltenvektor]
