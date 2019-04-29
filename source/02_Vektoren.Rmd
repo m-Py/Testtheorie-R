@@ -496,11 +496,7 @@ Teilnehmer in einer Umfrage).
 
 Mit logischen Werten kann man die logischen Operationen UND (in `R`: `&`
 ), ODER (in `R`: `|` ) und NICHT (in `R`: `!` )
-durchführen:[^linkbool]
-
-[^linkbool]:
-[https://de.wikipedia.org/wiki/Boolesche_Algebra#Zweielementige_boolesche_Algebra](https://de.wikipedia.org/wiki/Boolesche_Algebra#Zweielementige_boolesche_Algebra)
-
+durchführen:
 
 ```{r}
 
@@ -525,17 +521,35 @@ FALSE | FALSE
 
 ```
 
-Auch diese logischen Operationen arbeiten komponentenweise
-auf Vektoren, die mehr als ein Element enthalten:
+Die logischen Operationen UND und ODER verknüpfen zwei logische Elemente
+miteinander (logische Elemente = `TRUE`/`FALSE`). Die ODER-Operation
+ergibt `TRUE`, sobald mindestens eines der Elemente `TRUE` ist. Das
+logische UND ergibt nur dann `TRUE`, wenn beide Elemente `TRUE` sind.
+Das logische NICHT invertiert die Eingabe: Aus `TRUE` wird `FALSE` und
+umgekehrt. 
+
+Die logischen Operationen UND und ODER arbeiten komponentenweise auf
+Vektoren, die mehr als ein Element enthalten:
 
 ```{r}
-
 c(TRUE, FALSE, FALSE) & c(TRUE, TRUE, FALSE)
 
 c(TRUE, FALSE, FALSE) | c(TRUE, TRUE, FALSE)
-
 ```
 
+Auch das logische NICHT arbeitet vektorisiert, d.h. kann auf einen
+logischen Vektor angewendet werden, der beliebig viele Elemente enthält
+und invertiert alle Element darin:
+
+```{r}
+!c(TRUE, FALSE)
+```
+
+Während die Operationen UND, ODER und NICHT an dieser Stelle nur
+abstrakt eingeführt werden, werden wir in weiteren Abschnitten ([Kapitel
+2](#logischerZugriff) und [Kapitel 3](#datenzugriffe)) noch lernen, wie
+wir logische Bedingungen verwenden, um gezielt Daten mit bestimmten
+Eigenschaften auszuwählen. 
 
 ### `factor`
 
@@ -602,6 +616,7 @@ Man kann selber Vektoren erstellen, die fehlende Werte enthalten:
 ```{r}
 messy_data <- c(1, 3, 2, 9, 3, NA, 6, NA, 5)
 ```
+`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren:
 
 Die Anwesenheit von fehlenden Werten hat Auswirkungen darauf, welche
 Berechnungen `R` mit dem Vektor anstellen kann. Etwa können wir nicht
@@ -690,7 +705,6 @@ text1 <- "Hallo Welt"
 text1 == "Hallo Welt"
 text1 == "Hallo Welt!"
 ```
-
 
 Für Vektoren vom Typ `factor` lässt sich genauso eine Abfrage auf
 Gleichheit umsetzen. Hier wird beim Test auf Gleichheit das überprüfte
