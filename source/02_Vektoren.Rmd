@@ -539,7 +539,7 @@ c(TRUE, FALSE, FALSE) | c(TRUE, TRUE, FALSE)
 
 Auch das logische NICHT arbeitet vektorisiert. Es kann auf einen
 logischen Vektor angewendet werden, der beliebig viele Elemente enthält
-und invertiert alle Elemente darin:
+und kehrt alle Elemente darin um:
 
 ```{r}
 !c(TRUE, FALSE)
