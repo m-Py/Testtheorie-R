@@ -842,7 +842,7 @@ Eigenschaft der 1/0- bzw. `TRUE`/`FALSE`-Kodierung und macht logische
 Abfragen in `R` so mächtig. 
 
 Wenn wir einen relativen Anteil in eine Prozentzahl umwandeln wollen,
-können wir den relativen Anteil einfach mit 100 multiplizieren:
+können wir ihn einfach mit 100 multiplizieren:
 
 ```{r}
 mean(zufallsdaten > 1) * 100
