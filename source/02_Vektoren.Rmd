@@ -711,7 +711,7 @@ Gleichheit umsetzen. Hier wird beim Test auf Gleichheit das überprüfte
 
 ```{r}
 geschlecht <- c(1, 2, 1, 1, 2, 1, 3)
-geschlecht <- factor(laune, levels = 1:3,
+geschlecht <- factor(geschlecht, levels = 1:3,
                      labels = c("weiblich", "maennlich", "divers"))
 
 geschlecht == "maennlich"

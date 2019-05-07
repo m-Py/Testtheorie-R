@@ -471,8 +471,9 @@ Von „links nach rechts“ wählt der Doppelpunktperator alle Spalten
 zwischen einschließlich `Item1` und `Geschlecht` aus. Auch hier
 verzichten wir auf die Angabe von Anführungszeichen.
 
-Eine weitere Vereinfachung durch die Funktion `subset`: Wir können
-angeben, welche Spalten wir **nicht** ausgeben wollen:
+Es gibt noch eine weitere Vereinfachung, die uns die Funktion `subset`
+bietet. Wir können angeben, welche Spalten wir **nicht** ausgeben
+wollen:
 
 ```{r}
 subset(mdf, select = -c(Geschlecht, Alter))
