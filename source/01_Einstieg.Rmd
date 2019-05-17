@@ -38,7 +38,6 @@ fontsize: 12pt
 ```{r evalAll, echo = FALSE, message = FALSE, warning= FALSE}
 
 library("knitr")
-library("tufte")
 opts_chunk$set(message=FALSE, warning=FALSE, comment = "",
                fig.align = "center",
                fig.cap="")
@@ -84,14 +83,14 @@ verfügbar ist.
 Dieses Skript wurde als Begleitmaterial für eine Lehrveranstaltung
 konzipiert. Die Veranstaltung selbst hat einen starken praktischen
 Anteil; in jeder Stunde werden Übungsaufgaben in `R` bearbeitet. Das
-Skript bietet den theoretischen Unterbau. Die Übungen des Seminars aus
-dem Sommersemester 2018 und die zur Bearbeitung nötigen Daten -- wie
-auch der jeweils aktuelle Stand dieses Skripts -- können unter
+Skript bietet den theoretischen Unterbau. Die Übungen des Seminars und
+die zur Bearbeitung nötigen Daten -- wie auch der jeweils aktuelle Stand
+dieses Skripts -- können unter
 [https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden. Unter
 [https://m-py.github.io/TesttheorieR/](https://m-py.github.io/TesttheorieR/)
-findet sich eine online lesbare Version. Das Skript wird stetig
-aktualisiert; diese Version wurde am `r format(Sys.Date(), "%d. %B %Y")`
-erstellt.
+findet sich eine online lesbare Version des Skripts. Das Skript wird
+stetig aktualisiert; diese Version wurde am `r format(Sys.Date(), "%d.
+%B %Y")` erstellt.
 
 Wer `R` lernen möchte, muss sich klar machen, dass die reine
 Aufarbeitung einer oder mehrerer schriftlicher Lektüren zu diesem Zweck
