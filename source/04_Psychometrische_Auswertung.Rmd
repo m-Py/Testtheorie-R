@@ -110,7 +110,7 @@ enthalten, wäre es nicht möglich, Funktionen wie `rowSums` und `colMeans`
 anzuwenden. In dem Fall könnte man mit der `[·,·]`-Notation oder der
 Funktion `subset` nur die gewünschten Spalten auswählen.
 
-### Item-Interkorrelationen
+## Item-Interkorrelationen
 
 Als nächstes geben wir die Korrelationen zwischen allen Items als
 Korrelationsmatrix aus. Dies funktioniert mit der Funktion `cor`. Wenn
