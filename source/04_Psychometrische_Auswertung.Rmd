@@ -341,33 +341,41 @@ $$r' = \frac{r \, n}{1 + (n - 1) r}$$
 Hierbei ist *r'* die um die Testlänge korrigierte Reliabilität. *r* ist
 der derzeitige Reliabilitätsschätzer, also beispielsweise die
 Korrelation von zwei Testhälften. *n* ist der Faktor, um den der Test
-hypothetisch verlängert wird.
+hypothetisch verlängert wird. Für die Schätzung der
+Split-Half-Reliabilität muss man einen Verlängerungsfaktor von 2
+annehmen, da man die Reliabilität nur mit einem halbierten Test schätzt
+(im Vergleich dazu geht bei der Bestimmung der Retest-Reliabilität
+zweimal der gesamte Test in die Korrelation ein). 
 
-Für die Schätzung der Split-Half-Reliabilität muss man einen
-Verlängerungsfaktor von 2 annehmen, da man die Reliabilität nur mit
-einem halbierten Test schätzt (im Vergleich dazu geht bei der Bestimmung
-der Retest-Reliabilität zweimal der gesamte Test in die Korrelation
-ein). Folgender Code berechnet eine Split-Half-Reliabilität:
+Um die Spearman-Brown-korrigierte Split-Half-Reliabilität zu schätzen,
+teilen wir zunächst die Items in zwei Mengen auf; hier ist es nicht
+möglich gleich große Teile zu generieren, also wählen wir die ersten
+drei und die letzten zwei Items aus:
+
+```{r}
+first_half  <- test_data[, paste0("Item_", 1:3)]
+second_half <- test_data[, paste0("Item_", 4:5)]
+```
+
+Als nächstes berechnen wir die Korrelation zwischen den beiden
+Testhälften:
+
+```{r}
+cor_halfs <- cor(rowSums(first_half), rowSums(second_half))
+cor_halfs
+```
+
+Nun wollen wir diese Korrelation mit der Spearman-Brown-Formel
+korrigieren. Zu diesem Zweck definieren wir eine eigene Funktion,  die
+die Spearman-Brown-Formel umsetzt. An dieser Stelle reicht es aus, das
+Konzept einer eigenen Funktion zur Kenntnis zu nehmen -- es wird in
+Kapitel 6 wieder aufgegriffen:
 
 ```{r}
 
-## Wähle (a) die ersten drei und (b) die letzten zwei Items aus:
-
-first_half  <- test_data[, paste0("Item_", 1:3)]
-second_half <- test_data[, paste0("Item_", 4:5)]
-
-## Berechne die Korrelation zwischen den beiden Testhälften
-cor_halfs <- cor(rowSums(first_half), rowSums(second_half))
-cor_halfs
-
-## Führe die Spearman-Brown Korrektur durch:
-
-## Hier ist ein erstes Beispiel einer selbst geschriebenen Funktion. Es
-## reicht, das Konzept zur Kenntnis zu nehmen -- es wird in Kap. 5
-## wieder aufgegriffen:
-
-## SPEARMAN-BROWN Funktion. Nimmt zwei Argumente an: (a) einen
-## Reliabilitäts-Schätzer; (b) einen Verlängerungsfaktor
+## Definiere eine SPEARMAN-BROWN Funktion. Sie Nimmt zwei Argumente an: 
+## (a) einen Reliabilitäts-Schätzer
+## (b) einen Verlängerungsfaktor
 
 spearman_brown <- function(reliability, factor) {
     numerator  <- reliability * factor
@@ -375,17 +383,21 @@ spearman_brown <- function(reliability, factor) {
     corrected_reliability <- numerator / denominator
     return(corrected_reliability)
 }
+```
 
-## Rufe die selbst geschriebene SPEARMAN-BROWN Funktion auf. Unser
-## initialer Schätzer der Reliabilität ist die Korrelation zwischen den
-## zwei Testhälften.  Der Verlängerungsfaktor ist 2, da wir die
-## Reliabilität für die doppelte Testlänge schätzen wollen:
+Wenn wir die Funktion definiert haben --, das heißt: den Funktions-Code
+in der Konsole ausgeführt haben -- können wir sie wie andere bekannte
+Funktionen aufrufen. Wir müssen zwei Argumente angeben: (1) Unseren
+initialen Schätzer der Reliabilität, also die Korrelation zwischen den
+zwei Testhälften; (2) den Verlängerungsfaktor, hier 2, da wir die
+Reliabilität für die doppelte Testlänge schätzen wollen:
+
+```{r}
 split_half <- spearman_brown(cor_halfs, 2)
 split_half
 
 ## Vergleiche mit Cronbachs Alpha:
 alpha(test_data)
-
 ```
 
 Wie wir sehen, liegt die Spearman-Brown-korrigierte
