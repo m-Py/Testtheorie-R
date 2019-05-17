@@ -1,0 +1,97 @@
+---
+output:
+  bookdown::pdf_book:
+    keep_tex: no
+    pandoc_args: [
+      "-fmarkdown-implicit_figures"
+    ]
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    includes:
+      before_body: "00_Lizenz.tex"
+
+header-includes:
+  - \usepackage{dsfont}
+  - \usepackage{upgreek}
+  - \usepackage{soul}
+  - \usepackage[german]{babel}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks = true}
+
+title:  |
+    | Testtheorie mit R
+subtitle: ''
+author: |
+    | Martin Papenberg
+shortauthor: ""
+institute: |
+ | Heinrich-Heine-Universität Düsseldorf
+ | Institut für Experimentelle Psychologie
+
+bibliography: referenzen.bib
+csl: "apa.csl"
+fontsize: 12pt
+
+---
+
+```{r evalAll, echo = FALSE, message = FALSE, warning= FALSE}
+
+library("knitr")
+opts_chunk$set(message=FALSE, warning=FALSE, comment = "",
+               fig.align = "center",
+               fig.cap="")
+
+set.seed(42)
+
+```
+
+\clearpage
+
+```{r child = '01_Einstieg.Rmd'}
+```
+
+\clearpage
+
+```{r child = '02_Vektoren.Rmd'}
+```
+
+\clearpage
+
+```{r child = '03_Dataframes.Rmd'}
+```
+
+\clearpage
+
+```{r child = '04_Psychometrische_Auswertung.Rmd'}
+```
+
+\clearpage
+
+```{r child = '05_Rohdaten.Rmd'}
+```
+
+\clearpage
+
+```{r child = '06_Funktionen.Rmd'}
+```
+
+\clearpage
+
+```{r child = '07_Schleifen.Rmd'}
+```
+
+\clearpage
+
+```{r child = '101_Anhang.Rmd'}
+```
+
+\clearpage
+
+# Referenzen
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+\setlength{\parskip}{8pt}
+
+\noindent
