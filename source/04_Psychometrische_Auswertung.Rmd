@@ -112,7 +112,7 @@ Funktion `subset` nur die gewünschten Spalten auswählen.
 
 ## Item-Interkorrelationen
 
-Als nächstes geben wir die Korrelationen zwischen allen Items als
+Als Nächstes geben wir die Korrelationen zwischen allen Items als
 Korrelationsmatrix aus. Dies funktioniert mit der Funktion `cor`. Wenn
 `cor` als Argument einen `data.frame` erhält, wird eine Tabelle
 ausgegeben, die die Korrelation zwischen allen Spalten -- d.h. Items --
@@ -366,14 +366,14 @@ cor_halfs
 ```
 
 Nun wollen wir diese Korrelation mit der Spearman-Brown-Formel
-korrigieren. Zu diesem Zweck definieren wir eine eigene Funktion,  die
+korrigieren. Zu diesem Zweck definieren wir eine eigene Funktion, die
 die Spearman-Brown-Formel umsetzt. An dieser Stelle reicht es aus, das
 Konzept einer eigenen Funktion zur Kenntnis zu nehmen -- es wird in
 Kapitel 6 wieder aufgegriffen:
 
 ```{r}
 
-## Definiere eine SPEARMAN-BROWN Funktion. Sie Nimmt zwei Argumente an: 
+## Definiere eine SPEARMAN-BROWN Funktion. Sie nimmt zwei Argumente an: 
 ## (a) einen Reliabilitäts-Schätzer
 ## (b) einen Verlängerungsfaktor
 
@@ -385,8 +385,8 @@ spearman_brown <- function(reliability, factor) {
 }
 ```
 
-Wenn wir die Funktion definiert haben --, das heißt: den Funktions-Code
-in der Konsole ausgeführt haben -- können wir sie wie andere bekannte
+Wenn wir die Funktion definiert haben -- das heißt: den Funktions-Code
+in der Konsole ausgeführt haben --, können wir sie wie andere bekannte
 Funktionen aufrufen. Wir müssen zwei Argumente angeben: (1) Unseren
 initialen Schätzer der Reliabilität, also die Korrelation zwischen den
 zwei Testhälften; (2) den Verlängerungsfaktor, hier 2, da wir die
