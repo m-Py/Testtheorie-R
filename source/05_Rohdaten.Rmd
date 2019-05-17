@@ -1,450 +1,24 @@
 
-# Arbeiten mit psychometrischen Daten {#psychometrie}
-
-Dieses Kapitel arbeitet einige Kennwerte der klassischen Testtheorie auf
-und bespricht wie wir diese in `R` berechnen können. Dabei werden die
-folgenden Konzepte behandelt:
-
-- Testscores
-- Item-Schwierigkeit
-- Item-Trennschärfe
-- Item-Interkorrelation
-- Reliabilität
-    + Interne Konsistenz („Cronbachs Alpha“)
-    + Split-Half/Odd-Even-Reliabilität
-- Spearman-Brown-Formel
-
-Ein weiterer Teil des Kapitels beschäftigt sich mit der Aufbereitung von
-Rohdaten, die im Normalfall leider nicht in der Form vorliegen, die wir
-für unsere Analysen benötigen. Wir lernen
-
-- Antworten umzukodieren
-- Antworten zu invertieren
-- Fälle mit fehlenden Werten auszuschließen
-
-## Ausgedehntes Beispiel zum Einstieg {#kap4einstieg}
-
-Es folgt ein Beispiel zur Berechnung einiger grundlegender
-psychometrischer Kennwerte. Angenommen, uns liegt eine Datentabelle vor,
-die die Punktzahlen der Antworten von 10 Schulkindern auf 5 Aufgaben
-einer Klassenarbeit beinhaltet. Diese kann man gut in einer $10 \times
-5$ (Reihe $\times$ Spalten) Datentabelle darstellen. Ein Eintrag
-kodiert, ob das Kind (*Reihe*) die Aufgabe (*Spalte*) korrekt gelöst
-hat. Korrekte Antworten werden mit 1 kodiert, falsche Antworten mit 0 --
-ein typisches Datenformat in der psychologischen Diagnostik.
-
-Um das fortführende Beispiel selbst nachzuvollziehen, müsst ihr den
-folgenden `data.frame` erstellen:
-
-
-```{r}
-test_data <- data.frame(Item_1 = c(1, 1, 1, 0, 0, 0, 1, 1, 1, 0),
-                        Item_2 = c(0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
-                        Item_3 = c(1, 0, 1, 0, 1, 1, 1, 0, 1, 0),
-                        Item_4 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0),
-                        Item_5 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0))
-```
-
-Die Variable `test_data` enthält nun die folgende Tabelle:
-
-```{r, echo = FALSE}
-
-kable(test_data, row.names= TRUE)
-
-```
-
-Wenn uns Daten in diesem Format vorliegen, können wir auf viele
-Funktionen in `R` zurückgreifen, um grundlegende psychometrische
-Auswertungen durchzuführen. Dies sind etwa die Bestimmung der
-Schwierigkeit und der Trennschärfe von Items, sowie die Bestimmung einer
-Split-Half Reliabilität. Für fortgeschrittenere Auswertungen -- wie etwa
-die Berechnung von Cronbachs Alpha oder einer Faktorenanalyse -- werden
-wir auf Pakete zurückgreifen, die uns über die Basics in `R` hinaus
-weitere Funktionalitäten bieten. Aber auch für diese Analysen benötigen
-wir genau dieses Datenformat!
-
-```{block, type = "block"}
-**Merke**: Das ist das Standard-Datenformat für all
-unsere psychometrischen Berechnungen: (a) Zeilen sind Fälle; (b) Spalten
-sind Items bzw. Messvariablen; (c) Zellen enthalten Datenpunkte, etwa
-die Korrektheit von Antworten (kodiert mit 1/0). Datenpunkte müssen
-nicht unbedingt -- wie es in diesem Beispiel der Fall ist -- dichotom
-sein, sondern können beispielsweise auch die Antworten in einem
-Persönlichkeitsfragebogen auf einer Likert-Skala repräsentieren.
-```
-
-
-### Testscores
-
-Wir bestimmen zunächst die Testscores der 10 Kinder. Da jede Zeile ein
-Kind repräsentiert, ist der Gesamt-Testscore ist die Summe der Werte in
-jeder Reihe. Die Summe der Reihen eines `data.frames` (engl: *rows*)
-kann man mit der Funktion `rowSums` bestimmen:
-
-```{r}
-
-rowSums(test_data)
-
-```
-
-Es ist manchmal praktisch Berechnungen, die pro Fall einen Wert ergeben,
-direkt an den ursprünglichen `data.frame` anzuhängen. Wie in Kapitel 3
-erklärt, ist das mit der `$`-Notation möglich:
-
-```{r}
-test_data$score <- rowSums(test_data)
-```
-
-### Item-Schwierigkeiten
-
-Die Schwierigkeit eines Items ist die mittlere Punktzahl aller Personen
-in diesem Item.[^schwieriglikert] Das ist somit also einfach der
-Mittelwert der Einträge in jeder Spalte (engl: *column*) in unserem
-Standardformat. Den Mittelwert pro Spalte kann ich mit der Funktion
-`colMeans` bestimmen (analog gibt es auch die Funktionen `colSums` und
-`rowMeans`):
-
-[^schwieriglikert]: Auch bei Items, die nicht Korrektheit kodieren, kann
-man von Item-Schwierigkeit sprechen. Beispielsweise wäre dann die
-Item-Schwierigkeit die mittlere Zustimmungsrate für ein Item in einem
-Persönlichkeitsinventar, in dem Antworten auf einer 5-stufigen
-Likert-Skala gegeben werden.
-
-```{r}
-colMeans(test_data)
-```
-
-Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe,
-bekomme ich die mittlere Punktzahl der Schüler/innen in den fünf Testitems
-direkt mitgeliefert. Beachtet, dass ich hier mit `colMeans` eine
-numerische Funktion auf den ganzen `data.frame` angewendet habe. Würde
-der `data.frame` auch Spalten vom Typ `factor` oder `character`
-enthalten, wäre es nicht möglich, Funktionen wie `rowSums` und `colMeans`
-anzuwenden. In dem Fall könnte man mit der `[·,·]`-Notation oder der
-Funktion `subset` nur die gewünschten Spalten auswählen.
-
-### Item-Interkorrelationen
-
-Als nächstes geben wir die Korrelationen zwischen allen Items als
-Korrelationsmatrix aus. Dies funktioniert mit der Funktion `cor`. Wenn
-`cor` als Argument einen `data.frame` erhält, wird eine Tabelle
-ausgegeben, die die Korrelation zwischen allen Spalten -- d.h. Items --
-des `data.frames` enthält.
-
-```R
-round(cor(test_data), 2)
-```
-
-```{r, echo = FALSE}
-item_correlations <- cor(test_data)
-kable(round(item_correlations, 2))
-```
-
-Die Korrelationen wurden aus Darstellungszwecken mit der Funktion
-`round` auf zwei Nachkommastellen gerundet.
-
-### Item-Trennschärfen {#trennschaerfe}
-
-Interessant ist die letzte Spalte (bzw. genauso die letzte Zeile) der
-Tabelle der Item-Korrelationen. Diese gibt an, wie stark die Korrelation
-zwischen jedem Item und dem Testscore ausfällt. Dieser Kennwert ist die
-(unkorrigierte) Trennschärfe der Items; wir erhalten sie, da wir oben
-den Testscore als Spalte an unseren `data.frame` angehängt haben. Die
-Item-Trennschärfe macht eine Aussage darüber, wie stark das Abschneiden
-in einem Item mit dem Gesamt-Testscore zusammenhängt. Je höher die
-Trennschärfe, desto besser vermag das Item zwischen Schüler/innen mit
-viel und wenig Wissen (also einem hohen bzw. einem niedrigen
-Gesamt-Testscore) zu trennen. Die Trennschärfe ist ein Kennwert, der zur
-Beurteilung der Güte eines Items dienen kann.
-
-Oftmals wird die „part-whole“ korrigierte Trennschärfe berechnet, bei
-der zur Berechnung der Trennschärfe jedes Items der Itemscore dieses
-Items aus der Gesamtpunktzahl ausgelassen wird. Somit wird eine
-„Kriterienkontamination“ vermieden, die zu einer Erhöhung der
-Trennschärfe führt. Diese Kriterienkontamination ergibt sich bei der
-unkorrigierten Trennschärfe daraus, dass der Itemscore selbst in das
-„Kriterium“ -- also den Gesamt-Testscore -- eingeht.[^diskrimination] Im
-Folgenden berechnen wir eine part-whole korrigierte Trennschärfe für
-Item 2. Zunächst erstelle ich einen Vektor zur Auswahl der Items, die
-ich zur Berechnung des Testscores unter Ausschluss von Item 2
-heranziehe:
-
-[^diskrimination]: Praktisch gesehen werden unkorrigierte und korrigierte
-Trennschärfe dieselbe relative Rangreihe zwischen den Items hinsichtlich
-ihrer Diskriminationsgüte abbilden.
-
-```{r}
-## Wähle Antworten auf Items 1, 3, 4, 5 aus:
-select_items   <- paste0("Item_", (1:5)[-2])
-responses_no_item2 <- test_data[, select_items]
-
-## Betrachte die Tabelle:
-head(responses_no_item2)
-
-## Berechne den Testscore über Items 1, 3, 4 und 5:
-corrected_score <- rowSums(responses_no_item2)
-```
-
-Die Variable `corrected_score` enthält nun die Testscores, die unter
-Ausschluss des zweiten Items gebildet wurden. Das Vorgehen zur
-Berechnung der bereinigten Scores lässt sich mithilfe der
-`[·,·]`-Notation und den Funktionen `paste0` und `rowSums` auch auf
-beliebig viele Items erweitern. Da wir hier den Summenwert nur über vier
-Items gebildet haben, hätte auch der folgende Code funktioniert:
-
-```R
-corrected_score <- test_data$Item_1 + test_data$Item_3 +
-    test_data$Item_4 + test_data$Item_5
-```
-
-Wie folgt können wir nun mithilfe der Funktion `cor` die korrigierte
-Trennschärfe für Item 2 bestimmen:
-
-```{r}
-cor(test_data$Item_2, corrected_score)
-```
-
-Die korrigierte Trennschärfe von `r round(cor(test_data$Item_2,
-corrected_score), 2)` liegt unter der unkorrigierten Trennschärfe von `r
-round(item_correlations[6,2], 2)`. Je weniger Items ein Test hat, desto
-mehr Gewicht hat das einzelne Item für den Testscore und umso stärker
-weichen korrigierte und unkorrigierte Trennschärfe voneinander ab. Bei
-nur fünf Items kann der Effekt substantiell sein.
-
-Es ist zu beachten, dass die Funktion `cor` an dieser Stelle anders
-verwendet wird als oben: Hier übergebe ich der Funktion `cor` mit dem
-Befehl `cor(test_data$Item_2, corrected_score)` zwei Vektoren gleicher
-Länge. Ein Vektor enthält die Korrektheiten der Antworten auf Item 2,
-der andere Vektor enthält den um Item 2 bereinigten Testscore. Oben habe
-ich der Funktion `cor` nur ein Argument übergeben, nämlich den
-`data.frame` `test_data`. In dem Fall wurde eine Tabelle ausgegeben --
-eine *Korrelationsmatrix* --, die die Korrelationen zwischen allen
-Spalten enthält.
-
-Ich empfehle den Code-Block zur Berechnung der korrigierten Trennschärfe
-genau zu studieren. Darin finden sich viele der Grundlagen aus Kapitel 2
-und 3 wieder:
-
-- Die Erstellung von Vektoren mit der `1:n`-Notation
-- Die Negativ-Auswahl von Elementen aus Vektoren mit der `[·]`-Notation
-- Die Generierung eines „character“-Vektors mithilfe der Funktion
-  `paste0`
-- Die Auswahl von Spalten in einem `data.frame` mit der `[·,·]`-Notation
-
-Wir merken, dass es mühsamer ist, die korrigierte Trennschärfe zu
-berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhalte
-ich einfach, indem ich einen `data.frame` an die Funktion `cor`
-übergebe. Ich muss nur einen einzigen Funktionsaufruf---oder eine Zeile
-Code---investieren. Um jedoch die korrigierte Trennschärfe zu bestimmen,
-muss ich bei *n* Items *n* Mal einen korrigierten Gesamtscore
-berechnen. Für jedes Item muss ich dann jeweils die Item-Antworten mit
-diesem korrigierten Score korrelieren. Wenn wir das für jedes Item
-„händisch“ machen, wäre das sehr aufwendig (beispielsweise könnten wir
-den Code oben *n* Mal kopieren und jeweils die Itemnummern anpassen --
-das wäre sehr fehleranfällig). Einer der Hauptgründe, aus denen wir `R`
-lernen, ist dass wir uns solche Arbeit nicht machen wollen. Stattdessen
-wollen wir lernen, wie wir repetitive Arbeiten automatisieren können. Im
-nächsten Kapitel werden wir Programmierelemente von `R` kennenlernen,
-die uns ermöglichen, ohne wesentlich mehr Aufwand für beliebig viele
-Items korrigierte Trennschärfen zu bestimmen. So sparen wir gleichzeitig
-Aufwand und arbeiten weniger fehleranfällig.
-
-### Cronbachs Alpha
-
-Als Nächstes bestimmen wir „Cronbachs Alpha“ als Maß für die interne
-Konsistenz der Antworten der Schüler/innen. Cronbachs Alpha ist ein
-Schätzer für die Reliabilität eines Tests. Im Falle eines Leistungstest
-mit dichotomer Bepunktung gibt es eine Antwort auf die Frage: Haben
-Kinder, die ein Item richtig beantworten, auch eine erhöhte
-Wahrscheinlichkeit, andere Items richtig zu beantworten?  (Ebenso: haben
-Kinder, die ein Item falsch beantworten, auch eine erhöhte
-Wahrscheinlichkeit, andere Items falsch zu beantworten?). Je näher
-Cronbachs Alpha an 1 ist, desto stärker ist das der Fall -- desto
-stärker ist die interne Konsistenz der Punktwerte. Ein Wert von 0
-spricht dafür, dass gar keine Systematik in den Punktzahlen liegt -- ob
-ich viele oder wenig Punkte bekommen habe, ist gänzlich zufällig.
-
-`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu
-bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
-Cronbachs Alpha umsetzt.[^guteuebung] Wir machen uns aber zunutze,
-dass bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt
-haben, und diese in einem *Paket* zur Verfügung gestellt haben. Eine
-Umsetzung von Cronbachs Alpha findet sich im Paket `psychometric`
-[@R-psychometric]. Mit der Funktion `library` kann ich Pakete laden, die
-nicht zur Grundausstattung von `R` gehören.[^tollepakete] Voraussetzung
-ist, dass ich das Paket auf meinem Rechner installiert habe.
-
-
-[^guteuebung]: Das wäre sogar eine gute Übung. Die Formel findet sich
-unter
-[https://de.wikipedia.org/wiki/Cronbachs_Alpha](https://de.wikipedia.org/wiki/Cronbachs_Alpha)
-
-[^tollepakete]: Die Erweiterbarkeit mit Paketen ist eine der großen
-Stärken von `R`.
-
-
-```{r}
-## Das Paket `psychometric` enthält eine Funktion, die Cronbachs Alpha
-## berechnet
-library("psychometric")
-
-```
-
-Falls das Paket nicht installiert ist, kann ich es mit dem folgenden
-Befehl installieren:
-
-```R
-install.packages("psychometric")
-```
-
-Praktischerweise arbeitet die Funktion `alpha` aus dem `psychometric`
-Paket genau mit dem Standard-Datenformat, das uns vorliegt: Zeilen
-kennzeichnen Testteilnehmer, Spalten kennzeichnen Items. **Wichtig ist
-aber nun**: Wir haben soeben den Testscore als zusätzliche Spalte an die
-Testdatentabelle angehängt. Diese geht aber nicht in die Berechnung von
-Cronbachs Alpha ein, sondern nur die Punktzahlen für die Items. Deswegen
-entferne ich die Spalte `score` wie folgt wieder:[^rm]
-
-[^rm]: Wir haben gelernt, dass wir Variablen mit der Funktion
-`rm` löschen können. `rm` können wir aber nicht nutzen, wenn wir Spalten
-aus `data.frames` entfernen wollen. Das liegt daran, dass die Spalte
-selber keine Variable ist, sondern zu einem `data.frame`
-gehört. Deswegen muss man Spalten mit dem Befehl
-`data.frame$spalte <- NULL` entfernen. `NULL` ist in `R` ein Wert, der
-für „Nicht-Existenz“ steht.
-
-
-```{r}
-
-test_data$score <- NULL
-
-## Prüfe, dass die Spalte wirklich weg ist:
-names(test_data)
-```
-
-Nachdem wir das Paket `psychometric` geladen haben, können wir
-Cronbachs Alpha mit der Funktion `alpha` bestimmen:
-
-```{r}
-alpha(test_data) # erfordert Laden des Pakets psychometric
-```
-
-### Split-Half-Reliabilität
-
-Cronbachs Alpha ist ein Schätzer für die Reliabilität eines
-Tests.[^begrifflichkeiten] Andere mögliche Schätzer sind die
-Retest-Reliabilität und die Split-Half-Reliabilität. Diese basieren auf
-der Berechnung einer Korrelation zwischen zwei Punktwerten. Für die
-Bestimmung der Retest-Reliabilität lassen wir Testteilnehmer zweimal
-denselben Test bearbeiten und korrelieren die Punktwerte, die sich zu
-den zwei Testzeitpunkten ergeben.
-
-[^begrifflichkeiten]: Eigentlich sprechen wir von der Reliabilität von
-Testpunkten und nicht von der Reliabilität von Tests.
-
-Noch leichter ist die Bestimmung der Split-Half-Reliabilität, welche
-nicht das mehrmalige Bearbeiten desselben Tests erfordert. Dabei teilen
-wir die Items des Tests in zwei Gruppen ein und bilden Summenwerte für
-die beiden Testhälften, welche wir dann miteinander korrelieren.  Wir
-müssen dabei berücksichtigen, dass wir nur die Hälfte des Tests zur
-Schätzung der Reliabilität verwenden. Dies kann mithilfe der
-*Spearman-Brown-Formel* korrigiert werden.
-
-Die Spearman-Brown-Formel schätzt die Reliabilität eines Tests für den
-hypothetischen Fall, dass man diesen um einen bestimmten Faktor
-verlängern würde (d.h. man würde die bestehenden Items replizieren). Man
-kann sie verwenden, um den Reliabilitätsschätzer einer
-Split-Half-Korrelation zu korrigieren, da in diesen nur die Hälfte der
-Items eingehen. Die Spearman-Brown Formel ist diese:
-
-$$r' = \frac{r \, n}{1 + (n - 1) r}$$
-
-Hierbei ist *r'* die um die Testlänge korrigierte Reliabilität. *r* ist
-der derzeitige Reliabilitätsschätzer, also beispielsweise die
-Korrelation von zwei Testhälften. *n* ist der Faktor, um den der Test
-hypothetisch verlängert wird.
-
-Für die Schätzung der Split-Half-Reliabilität muss man einen
-Verlängerungsfaktor von 2 annehmen, da man die Reliabilität nur mit
-einem halbierten Test schätzt (im Vergleich dazu geht bei der Bestimmung
-der Retest-Reliabilität zweimal der gesamte Test in die Korrelation
-ein). Folgender Code berechnet eine Split-Half-Reliabilität:
-
-```{r}
-
-## Wähle (a) die ersten drei und (b) die letzten zwei Items aus:
-
-first_half  <- test_data[, paste0("Item_", 1:3)]
-second_half <- test_data[, paste0("Item_", 4:5)]
-
-## Berechne die Korrelation zwischen den beiden Testhälften
-cor_halfs <- cor(rowSums(first_half), rowSums(second_half))
-cor_halfs
-
-## Führe die Spearman-Brown Korrektur durch:
-
-## Hier ist ein erstes Beispiel einer selbst geschriebenen Funktion. Es
-## reicht, das Konzept zur Kenntnis zu nehmen -- es wird in Kap. 5
-## wieder aufgegriffen:
-
-## SPEARMAN-BROWN Funktion. Nimmt zwei Argumente an: (a) einen
-## Reliabilitäts-Schätzer; (b) einen Verlängerungsfaktor
-
-spearman_brown <- function(reliability, factor) {
-    numerator  <- reliability * factor
-    denominator <- 1 + (factor-1) * reliability
-    corrected_reliability <- numerator / denominator
-    return(corrected_reliability)
-}
-
-## Rufe die selbst geschriebene SPEARMAN-BROWN Funktion auf. Unser
-## initialer Schätzer der Reliabilität ist die Korrelation zwischen den
-## zwei Testhälften.  Der Verlängerungsfaktor ist 2, da wir die
-## Reliabilität für die doppelte Testlänge schätzen wollen:
-split_half <- spearman_brown(cor_halfs, 2)
-split_half
-
-## Vergleiche mit Cronbachs Alpha:
-alpha(test_data)
-
-```
-
-Wie wir sehen, liegt die Spearman-Brown-korrigierte
-Split-Half-Reliabilität näher an Cronbachs Alpha als die unkorrigierte
-Korrelation der zwei Testhälften. Das liegt daran, dass die Korrelation
-der zwei Testhälften die Reliabilität systematisch unterschätzt, da
-dieser Schätzer nur auf der Hälfte der Items beruht. Es ist sogar so,
-dass Cronbachs Alpha genau der Mittelwert aller möglichen Spearman-Brown
-korrigierten Split-Half-Koeffizienten ist.
-
-Alternativ hätten wir auch die Odd-Even-Reliabilität berechnen können,
-die die Testitems in gerade und ungerade Items einteilt, also hier zwei
-Testscores einerseits für die Items 1, 3 und 5, und andererseits für die
-Items 2 und 4 berechnet. Diese lässt sich mit nur wenig Änderungen am
-Code oben umsetzen -- ich schlage vor, dies als Übung zu machen.
-
-## Umgang mit echten Daten
+# Aufarbeitung von Fragebogendaten
 
 Unser Ziel ist die Auswertung echter Daten von
-Persönlichkeits-Inventaren wie den BIG-5 und dem Narcissistic
+Persönlichkeits-Fragebögen wie den BIG-5 und dem Narcissistic
 Personality Inventory. Leider liegen in echten Daten die Werte oftmals
-nicht in der Form vor, die wir brauchen. In dem vorherigen Beispiel habe
-ich die Daten selber generiert und konnte deswegen direkt mit der
-Analyse starten. Echte Daten jedoch enthalten in Rohform unter Umständen
-gar nicht die Informationen, die ich benötige oder haben fehlende
-Werte. Deswegen werden wir uns als nächstes mit den folgenden Themen
-beschäftigen:
+nicht in der Form vor, die wir brauchen. Echte Daten enthalten in
+Rohform unter Umständen gar nicht die Informationen, die ich benötige --
+oder haben fehlende Werte. Deswegen werden wir uns als nächstes mit den
+folgenden Themen beschäftigen:
 
 1. Umkodierung von Antworten
 2. Invertierung von Antworten
 3. Umgang mit fehlenden Werten
 
-### Umkodierung von Variablen {#umkodierung}
+## Umkodierung von Variablen {#umkodierung}
 
 Eine wichtige Voraussetzung für eine psychometrische Analyse war im
-Beispiel oben bereits gegeben: Jeder Wert kodierte genau die
+Beispiel in Kapitel 4 bereits gegeben: Jeder Wert kodierte genau die
 Information, die wir brauchten -- nämlich ob Schüler/innen eine Aufgabe
-korrekt gelöst haben oder nicht (dargestellt durch `1` und `0`). In
+korrekt gelöst hatten oder nicht (dargestellt durch `1` und `0`). In
 echten Daten muss die relevante Information jedoch häufig erst noch aus
 den dokumentierten Werten „abgeleitet“ werden. Die Antwort der
 Schüler/innen im Test könnte beispielsweise ein Kreuz in einem
@@ -483,11 +57,7 @@ anzeigen, sondern kann auch Merkmalsausprägung in einem
 Persönlichkeitsinventar kodieren. Wir werden das im Narcissistic
 Personality Inventory kennenlernen.
 
-&nbsp;
-
-**Die Funktion `ifelse`**
-
-&nbsp;
+### Die Funktion `ifelse`
 
 Mit der Funktion `ifelse` lassen sich Transformationen, die anhand
 eines Schlüssels Korrektheit kodieren, bequem durchführen. Das folgende
@@ -527,10 +97,9 @@ bundesland_answers == bundesland_key
 - `yes`: Der Wert, der angenommen werden soll für Elemente, für die der
   `test` `TRUE` ergab (hier: `1`)
 - `no`: Der Wert, der angenommen werden soll für Elemente, für die der
-  `test` `FALSE` ergab (hier: `0`)
-    + praktisch: ich muss nicht angeben, welche falschen Werte alle
-      möglich sind; es reicht aus, den richtigen Wert anzugeben, alle
-      anderen sind automatisch falsch
+  `test` `FALSE` ergab (hier: `0`). Praktisch: ich muss nicht angeben,
+  welche falschen Werte alle möglich sind; es reicht aus, den richtigen
+  Wert anzugeben, alle anderen sind automatisch falsch
 
 Nach der Umkodierung können wir beispielsweise die Schwierigkeit des
 Bundesland-Items mit der `mean` Funktion berechnen:
@@ -550,7 +119,7 @@ ganze Tests und nicht nur einzelne Items bepunkten können.  Bevor wir
 das jedoch effizient machen können, werden wir im nächsten Kapitel noch
 ein paar Grundlagen zur Programmierung mit `R` lernen.
 
-### Invertierung von Antworten
+## Invertierung von Antworten
 
 Eine mögliche Umkodierung von Antworten ist das Abgleichen mit einem
 Schlüssel, etwa zur Feststellung der Korrektheit von Antworten. Eine
@@ -642,7 +211,7 @@ das ist genau das, was wir mit der Invertierung erreichen wollten: Einen
 Punktwert errechnen, der genau in die entgegengesetzte Richtung zu
 interpretieren ist wie der ursprüngliche Wert.
 
-### Umgang mit fehlenden Werten
+## Umgang mit fehlenden Werten
 
 > Real data have missing values. Missing values are an integral part of
 > the R language.  Many functions have arguments that control how
@@ -766,13 +335,13 @@ im Rahmen einer Online-Studie stattfand -- konnten Teilnehmer/innen
 Items unbeantwortet lassen. Fehlende Werte in den Antworten wurden mit
 einer 0 kodiert.[^schlechtekodierung]
 
-[^schlechtekodierung]: Ich halte dies für kein gutes Vorgehen. Der Wert 0 ist
-nicht ausreichend unterschiedlich von anderen „legalen Werten“ in den
-anderen Spalten. Der Gesamt-Testscore (`npi$score`) kann beispielsweise
-wirklich den Wert 0 annehmen, wenn Teilnehmer/innen kein einziges Mal
-der narzisstischen Aussage zugestimmt haben -- und dies kam tatsächlich
-73 Mal vor. Der Wert `-99` wäre beispielsweise ein besserer Wert
-gewesen, um fehlende Werte zu kodieren.
+[^schlechtekodierung]: Ich halte dies für kein gutes Vorgehen. Der Wert
+0 ist nicht ausreichend unterschiedlich von anderen „legalen Werten“ in
+den anderen Spalten. Der Gesamt-Testscore (`npi$score`) kann
+beispielsweise wirklich den Wert 0 annehmen, wenn Teilnehmer/innen kein
+einziges Mal der narzisstischen Aussage zugestimmt haben -- und dies kam
+tatsächlich 73 Mal vor. Der Wert `-99` wäre beispielsweise ein besserer
+Wert gewesen, um fehlende Werte zu kodieren.
 
 &nbsp;
 
@@ -1015,33 +584,3 @@ Da wir nicht denselben Code -- mit leichten Abwandlungen -- 40 Mal
 wiederholen wollen, werden wir in Kapitel 6 lernen, diese Umkodierungen
 effizient durchzuführen. Anschließend werden wir die psychometrischen
 Eigenschaften des NPI untersuchen.
-
-## Zusammenfassung
-
-- Wir haben das Standard-Datenformat der psychometrischen
-  Datenauswertung kennengelernt: Zeilen repräsentieren Fälle, Spalten
-  repräsentieren Items
-- Wir haben einige grundlegende psychometrische Berechnungen
-  durchgeführt
-- Wir haben gelernt, wie wir Antworten umkodieren und invertieren können
-- Wir haben gelernt, wie wir Fälle mit fehlenden Werten identifizieren
-  und aus `data.frames` ausschließen können
-
-## Fragen zum vertiefenden Verständnis
-
-1. Gegeben ist der Antwortvektor `c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3)` und
-   der Schlüssel `2`. Wie kann ich die Item-Schwierigkeit ohne Anwendung
-   der Funktion `ifelse()` bestimmen? Was ist die Item-Schwierigkeit?
-```{r, eval = FALSE, echo = FALSE}
-mean(c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3) == 2)
-```
-
-3. Gegeben ist der Antwortvektor `c(2, 3, 2, 4, 5, 6, 2, 3)`, der die
-   Antworten auf das Item eines Persönlichkeitsinventars enthält. Die
-   Antworten wurden auf einer Likertskala gegeben, die zwischen 1 und 6
-   kodiert war.  Da das Item negativ gepolt ist, müssen die Antworten
-   vor der Analyse invertiert werden. Was ist der Mittelwert der
-   umgepolten Antworten (d.h. die Item-Schwierigkeit)?
-```{r, eval = FALSE, echo = FALSE}
-mean(c(2, 3, 2, 4, 5, 6, 2, 3) * (-1) + 7)
-```

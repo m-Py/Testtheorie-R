@@ -12,7 +12,7 @@
 Rscript render_script.R
 
 # 2. pdf verschieben und umbenennen
-mv 01_Einstieg.pdf "../Testtheorie mit R.pdf"
+mv 00_Setup.pdf "../Testtheorie mit R.pdf"
 
 # 3. html-Dateien kopieren und verschieben
 cp einstieg.html index.html
@@ -21,11 +21,11 @@ mv **/*.html ../../m-Py.github.io/TesttheorieR
 
 # 4. Libraries und Bilder-Dateien für html-Dokumente verschieben
 # 4a.Alte Versionen löschen
-rm -r ../../m-Py.github.io/TesttheorieR/01_Einstieg_files
+rm -r ../../m-Py.github.io/TesttheorieR/00_Setup_files
 rm -r ../../m-Py.github.io/TesttheorieR/libs
 
 # 4b. Neue Version einfügen
-mv 01_Einstieg_files ../../m-Py.github.io/TesttheorieR
+mv 00_Setup_files ../../m-Py.github.io/TesttheorieR
 mv libs ../../m-Py.github.io/TesttheorieR
 
 # 5. Kopiere Bilderordner in anderes Repo

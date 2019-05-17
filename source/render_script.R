@@ -10,6 +10,6 @@
 ## Dann diesen Code ausführen:
 library("rmarkdown")
 library("bookdown")
-render("01_Einstieg.Rmd", "bookdown::pdf_book")
-render("01_Einstieg.Rmd", "bookdown::gitbook",
+render("00_Setup.Rmd", "bookdown::pdf_book")
+render("00_Setup.Rmd", "bookdown::gitbook",
        output_options = list(css = "style.css"))

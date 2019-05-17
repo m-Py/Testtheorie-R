@@ -1,59 +1,10 @@
----
-output:
-  bookdown::pdf_book:
-    keep_tex: no
-    pandoc_args: [
-      "-fmarkdown-implicit_figures"
-    ]
-    toc: true
-    toc_depth: 2
-    number_sections: true
-    includes:
-      before_body: "00_Lizenz.tex"
-
-header-includes:
-  - \usepackage{dsfont}
-  - \usepackage{upgreek}
-  - \usepackage{soul}
-  - \usepackage[german]{babel}
-  - \usepackage{hyperref}
-  - \hypersetup{colorlinks = true}
-
-title:  |
-    | Testtheorie mit R
-subtitle: ''
-author: |
-    | Martin Papenberg
-shortauthor: ""
-institute: |
- | Heinrich-Heine-Universität Düsseldorf
- | Institut für Experimentelle Psychologie
-
-bibliography: referenzen.bib
-csl: "apa.csl"
-fontsize: 12pt
-
----
-
-```{r evalAll, echo = FALSE, message = FALSE, warning= FALSE}
-
-library("knitr")
-opts_chunk$set(message=FALSE, warning=FALSE, comment = "",
-               fig.align = "center",
-               fig.cap="")
-
-set.seed(42)
-
-```
-
-\clearpage
 
 # Einstieg
 
-„Testtheorie mit R“ bietet einen Einstieg in die statistische
-Programmiersprache `R`. Es wurde ursprünglich als Begleitskript für eine
-ein-semestrige Lehrveranstaltung im Master-Studiengang Psychologie an
-der Heinrich-Heine-Universität Düsseldorf entworfen. Im Seminar wird
+Das Skript „Testtheorie mit R“ bietet einen Einstieg in die statistische
+Programmiersprache `R`. Es wurde ursprünglich als Begleitmaterial für
+eine ein-semestrige Lehrveranstaltung im Master-Studiengang Psychologie
+an der Heinrich-Heine-Universität Düsseldorf entworfen. Im Seminar wird
 kein `R`-Vorwissen vorausgesetzt. Ich habe das Skript in der Hoffnung
 öffentlich gemacht, dass es auch für andere `R`-Einsteiger nützlich sein
 kann.
@@ -273,59 +224,14 @@ Element der Ausgabe eines Vektors gekennzeichnet (siehe Kapitel 2).
 
 ## Ausblick
 
-In den nächsten zwei Kapiteln beschäftigen wir uns zunächst damit, wie
-`R` Daten darstellt. Dabei betrachten wir zunächst die grundlegenste
-Datenstruktur, den Vektor ([Kapitel 2](#vektoren)). Danach lernen wir
-`data.frames` kennen ([Kapitel 3](#dataframes)), die in `R`
-Datentabellen darstellen, wie wir sie auch aus Excel oder SPSS kennen.
-In [Kapitel 4](#psychometrie) werden wir psychometrische
+In den ersten zwei Kapiteln beschäftigen wir uns mit wichtigen
+Grundlagen, nämlich damit, wie `R` Daten darstellt. Dabei betrachten wir
+zunächst die grundlegenste Datenstruktur, den Vektor ([Kapitel
+2](#vektoren)). Danach lernen wir `data.frames` kennen ([Kapitel
+3](#dataframes)) -- also Datentabellen, wie wir sie auch aus Excel oder
+SPSS kennen. In [Kapitel 4](#psychometrie) werden wir psychometrische
 Datenauswertungen durchführen und dabei das Wissen anwenden, das wir
 zuvor erworben haben. In den Kapiteln [5](#funktionen) und
 [6](#schleifen) lernen wir mit Funktionen und Schleifen wichtige
 Programmiersprachenelemente kennen und werden sehen, wie wir damit
 unsere Arbeit automatisieren können.
-
-\clearpage
-
-```{r child = '02_Vektoren.Rmd'}
-```
-
-\clearpage
-
-```{r child = '03_Dataframes.Rmd'}
-```
-
-\clearpage
-
-```{r child = '04_Psychometrische_Daten.Rmd'}
-```
-
-\clearpage
-
-```{r child = '05_Funktionen.Rmd'}
-```
-
-\clearpage
-
-```{r child = '06_Schleifen.Rmd'}
-```
-
-\clearpage
-
-```{r child = '07_Simulationen.Rmd'}
-```
-
-\clearpage
-
-```{r child = '101_Anhang.Rmd'}
-```
-
-\clearpage
-
-# Referenzen
-
-\setlength{\parindent}{-0.5in}
-\setlength{\leftskip}{0.5in}
-\setlength{\parskip}{8pt}
-
-\noindent
