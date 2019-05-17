@@ -36,7 +36,7 @@ for (Schleifenvariable in vector) {
 ```
 
 Das sieht erst einmal etwas beunruhigend aus. Gehen wir die einzelnen
-Bestandteile der Schleife einmal durch schauen uns danach eine
+Bestandteile der Schleife einmal durch und schauen uns danach eine
 `for`-Schleife in Aktion an.
 
 Den Anfang der Schleife definieren wir mit dem Schlagwort `for`. Die
@@ -123,7 +123,7 @@ vorliegt, der alle Fälle ohne fehlende Antworten enthält.
 
 # for-Schleife für die Kodierung:
 for (i in 1:40) {
-    # 1. Wähle Spaltenname des i'ten Items aus:
+    # 1. Wähle Spaltenname des i-ten Items aus:
     colname <- paste0("Q", i)
     # 2. Wähle aus Spalte die Antworten aus:
     ith_item <- npi_clean[[colname]]
@@ -154,7 +154,7 @@ folgende Aufruf mit der `$`-Notation würde nicht funktionieren:
 der Variable `colname` enthaltenen Spaltennamen (etwa `Q23`) verwenden.
 
 Der dritte Befehl führt mit einem Aufruf der Funktion `ifelse` die
-eigentliche Umkodierung durch. Es wird kodiert, ob Probanden beim i'ten
+eigentliche Umkodierung durch. Es wird kodiert, ob Probanden beim i-ten
 Item die narzisstische Aussage ausgewählt haben. Eine 1 wird vergeben,
 wenn das der Fall war, andernfalls eine Null. Ich speichere diesen
 numerischen Vektor aus Einsen und Nullen in der Variablen
