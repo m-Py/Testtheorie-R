@@ -4,16 +4,16 @@
 Unser Ziel ist die Auswertung echter Daten von
 Persönlichkeits-Fragebögen wie den BIG-5 und dem Narcissistic
 Personality Inventory. Leider liegen in echten Daten die Werte oftmals
-nicht in der Form vor, die wir brauchen. Echte Daten enthalten in
-Rohform unter Umständen gar nicht die Informationen, die ich benötige --
-oder haben fehlende Werte. Deswegen werden wir uns als nächstes mit den
+nicht in der Form vor, die wir brauchen. Daten enthalten in Rohform
+unter Umständen gar nicht die Informationen, die wir benötigen, oder
+haben fehlende Werte. Deswegen werden wir uns als nächstes mit den
 folgenden Themen beschäftigen:
 
 1. Umkodierung von Antworten
 2. Invertierung von Antworten
 3. Umgang mit fehlenden Werten
 
-## Umkodierung von Variablen {#umkodierung}
+## Umkodierung von Antworten {#umkodierung}
 
 Eine wichtige Voraussetzung für eine psychometrische Analyse war im
 Beispiel in Kapitel 4 bereits gegeben: Jeder Wert kodierte genau die
