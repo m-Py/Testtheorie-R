@@ -4,10 +4,10 @@
 Unser Ziel ist die Auswertung echter Daten von
 Persönlichkeits-Fragebögen wie den BIG-5 und dem Narcissistic
 Personality Inventory. Leider liegen in echten Daten die Werte oftmals
-nicht in der Form vor, die wir brauchen. Daten enthalten in Rohform
-unter Umständen gar nicht die Informationen, die wir benötigen, oder
-haben fehlende Werte. Deswegen werden wir uns als nächstes mit den
-folgenden Themen beschäftigen:
+nicht in der Form vor, die wir brauchen; sie enthalten unter Umständen
+gar nicht die benötigten Informationen oder haben fehlende Werte.
+Deswegen werden wir uns als Nächstes mit den folgenden Themen 
+beschäftigen:
 
 1. Umkodierung von Antworten
 2. Invertierung von Antworten
