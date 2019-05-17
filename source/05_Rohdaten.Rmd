@@ -1,5 +1,5 @@
 
-# Aufarbeitung von Fragebogendaten
+# Aufarbeitung von Fragebogendaten {#rohdaten}
 
 Unser Ziel ist die Auswertung echter Daten von
 Persönlichkeits-Fragebögen wie den BIG-5 und dem Narcissistic
@@ -581,6 +581,5 @@ npi$Q40_score <- ifelse(npi$Q40 == npi_key[40], 1, 0)
 ```
 
 Da wir nicht denselben Code -- mit leichten Abwandlungen -- 40 Mal
-wiederholen wollen, werden wir in Kapitel 6 lernen, diese Umkodierungen
-effizient durchzuführen. Anschließend werden wir die psychometrischen
-Eigenschaften des NPI untersuchen.
+wiederholen wollen, werden wir in Kapitel 7 lernen, diese Umkodierungen
+effizient durchzuführen. 

@@ -224,14 +224,16 @@ Element der Ausgabe eines Vektors gekennzeichnet (siehe Kapitel 2).
 
 ## Ausblick
 
-In den ersten zwei Kapiteln beschäftigen wir uns mit wichtigen
-Grundlagen, nämlich damit, wie `R` Daten darstellt. Dabei betrachten wir
-zunächst die grundlegenste Datenstruktur, den Vektor ([Kapitel
-2](#vektoren)). Danach lernen wir `data.frames` kennen ([Kapitel
-3](#dataframes)) -- also Datentabellen, wie wir sie auch aus Excel oder
-SPSS kennen. In [Kapitel 4](#psychometrie) werden wir psychometrische
-Datenauswertungen durchführen und dabei das Wissen anwenden, das wir
-zuvor erworben haben. In den Kapiteln [5](#funktionen) und
-[6](#schleifen) lernen wir mit Funktionen und Schleifen wichtige
+In den ersten zwei Kapiteln beschäftigen wir uns damit, wie `R` Daten
+darstellt. Dabei betrachten wir zunächst die grundlegenste
+Datenstruktur, den Vektor ([Kapitel 2](#vektoren)). Danach lernen wir
+`data.frames` kennen ([Kapitel 3](#dataframes)) -- also Datentabellen,
+wie wir sie auch aus Excel oder SPSS kennen. In [Kapitel
+4](#psychometrie) werden wir psychometrische Datenauswertungen
+durchführen und dabei das Wissen anwenden, das wir zuvor erworben haben.
+In Kapiteln [5](#rohdaten) lernen wir, wie wir mit Rohdaten aus
+Fragebögen umgehen, also fehlende Werte auszuschließen und Antworten
+umzukodieren. In den Kapiteln [6](#funktionen) und [7](#schleifen)
+lernen wir mit Funktionen und Schleifen wichtige
 Programmiersprachenelemente kennen und werden sehen, wie wir damit
 unsere Arbeit automatisieren können.

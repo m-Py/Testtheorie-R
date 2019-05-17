@@ -367,7 +367,7 @@ Das Verständnis von Rückgabewerten führt uns etwas tiefer in die
 Innereien der `R`-Programmiersprache. Betrachten wir im folgenden
 Beispiel die Funktion `t.test`, die einen *t*-Test durchführt und dabei
 die Mittelwerte zweier Vektoren vergleicht. Ich verwende den
-NPI-Datensatz aus Kapitel 4 und vergleiche den mittleren
+NPI-Datensatz aus Kapitel 5 und vergleiche den mittleren
 Narzissmus-Gesamtwert (Spalte `score`) zwischen weiblichen und
 männlichen Testnehmenden (Spalte `gender`; Kodierung: männlich = 1,
 weiblich = 2).[^vektorgrundlagen]
@@ -473,15 +473,13 @@ oberflächlichen Einführung belassen. Manchmal ist die Unterscheidung in
 Seiteneffekte und Rückgabe sinnvoll; wenn wir etwa die Ergebnisse einer
 Funktion weiter verwenden möchten, ist es wichtig zu wissen, welche
 Datenstruktur die Funktion ausgibt und wie wir auf die ausgegebenen
-Werte zugreifen können. Um Power-Analysen für t-Tests zu simulieren
-(eine Einführung in solche Simulationen wird in Kapitel 7 folgen), ist
+Werte zugreifen können. Um Power-Analysen für t-Tests zu simulieren, ist
 es beispielsweise nötig, die exakten p-Werte aus der Ausgabe der
 Funktion `t.test` auszulesen. In dem Fall werden wir die Funktion
 `t.test` gegebenenfalls 10,000 Mal aufrufen und können es uns nicht
 leisten, den p-Wert jedes Mal aus der Konsolen-Ausgabe abzulesen.
-Stattdessen wollen wir den Prozess der p-Wert-Extraktion
-automatisieren; und genau für solche Automatisierungen lernen wir das
-Programmieren.
+Stattdessen wollen wir den Prozess der p-Wert-Extraktion automatisieren;
+und genau für solche Automatisierungen lernen wir das Programmieren.
 
 ## Selbst geschriebene Funktionen
 
@@ -510,7 +508,7 @@ unklar. Durch das Copy-Pasten des Codes ist mir sogar ein Fehler
 unterlaufen, denn ich habe in der zweiten Zeile einmal vergessen den
 Wert 0.23 durch 0.47 auszutauschen -- solche Fehler passieren häufig
 und sind sehr schwierig zu entdecken [siehe @li2006]. Durch die Nutzung
-der Funktion, die ich in Kapitel 4 definiert habe, ist der Code
+der Funktion, die ich in Kapitel 5 definiert habe, ist der Code
 lesbarer geworden und einfach interpretierbar: Ich möchte drei
 Reliabilitätsschätzer um die Faktoren 2, 3 bzw. 4 korrigieren. Sofern
 ich bei der Definition meiner Funktion keinen Fehler gemacht habe, sind
@@ -531,7 +529,7 @@ sinnvolle Benennung unerlässlich.
 
 ### Definition der eigenen Funktion
 
-Erinnern wir uns an die Spearman-Brown-Funktion, die ich in Kapitel 4
+Erinnern wir uns an die Spearman-Brown-Funktion, die ich in Kapitel 5
 definiert habe:
 
 ```R
@@ -571,8 +569,8 @@ Funktion in die Variable `corrected_reliability` geschrieben wird, ist
 der Rückgabewert der Funktion.
 
 [^imaketherules]: Es ist nicht unbedingt nötig, `return` zur Definition
-von Rückgabewerten zu verwenden. Aber ich mache es so und verrate die
-Alternative auch nicht.
+von Rückgabewerten zu verwenden. Aber ich und verrate die Alternative
+erst mal nicht.
 
 ### Lokale Variablen
 
