@@ -31,12 +31,12 @@ Schleifen hat, kann sich mithilfe einer Google-Suche mit der
 
 ```R
 for (Schleifenvariable in vector) {
-  ... # hier steht beliebiger R-Code
+  # hier steht beliebiger R-Code
 }
 ```
 
 Das sieht erst einmal etwas beunruhigend aus. Gehen wir die einzelnen
-Bestandteile der Schleife einmal durch; danach schauen wir uns eine
+Bestandteile der Schleife einmal durch schauen uns danach eine
 `for`-Schleife in Aktion an.
 
 Den Anfang der Schleife definieren wir mit dem Schlagwort `for`. Die
