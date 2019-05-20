@@ -14,13 +14,13 @@ folgenden Konzepte behandelt:
     + Split-Half/Odd-Even-Reliabilität
 - Spearman-Brown-Formel
 
-Angenommen, uns liegt eine Datentabelle vor, die die Punktzahlen der
-Antworten von 10 Schulkindern auf 5 Aufgaben einer Klassenarbeit
-beinhaltet. Diese kann man gut in einer $10 \times 5$ (Reihe $\times$
-Spalten) Datentabelle darstellen. Ein Eintrag kodiert, ob das Kind
-(*Reihe*) die Aufgabe (*Spalte*) korrekt gelöst hat. Korrekte Antworten
-werden mit 1 kodiert, falsche Antworten mit 0 -- ein typisches
-Datenformat in der psychologischen Diagnostik.
+Angenommen, eine Datentabelle enthält die Punktzahlen von 10
+Schulkindern in einer Klassenarbeit mit 5 Aufgaben. Diese kann man gut
+in einer $10 \times 5$ (Reihe $\times$ Spalten) Datentabelle darstellen.
+Ein Eintrag kodiert, ob das Kind (*Reihe*) die Aufgabe (*Spalte*)
+korrekt gelöst hat. Korrekte Antworten werden mit 1 kodiert, falsche
+Antworten mit 0 -- ein typisches Datenformat in der psychologischen
+Diagnostik.
 
 Um das fortführende Beispiel selbst nachzuvollziehen, müsst ihr den
 folgenden `data.frame` erstellen:
