@@ -60,8 +60,7 @@ sein, sondern können beispielsweise auch die Antworten in einem
 Persönlichkeitsfragebogen auf einer Likert-Skala repräsentieren.
 ```
 
-
-## Testscores
+## Summenwerte
 
 Wir bestimmen zunächst die Testscores der 10 Kinder. Da jede Zeile ein
 Kind repräsentiert, ist der Gesamt-Testscore ist die Summe der Werte in
