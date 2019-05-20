@@ -347,7 +347,7 @@ annehmen, da man die Reliabilität nur mit einem halbierten Test schätzt
 (im Vergleich dazu geht bei der Bestimmung der Retest-Reliabilität
 zweimal der gesamte Test in die Korrelation ein). 
 
-Um die Spearman-Brown-korrigierte Split-Half-Reliabilität zu schätzen,
+Um die spearman-brown-korrigierte Split-Half-Reliabilität zu schätzen,
 teilen wir zunächst die Items in zwei Mengen auf; hier ist es nicht
 möglich gleich große Teile zu generieren, also wählen wir die ersten
 drei und die letzten zwei Items aus:
