@@ -31,8 +31,10 @@ Multiple-Choice-Item sein:
 > (3) 19
 > (4) 21
 
-Ob ein Kreuz bei (1), (2), (3) oder (4) gesetzt wird, ist für die
-Auswertung nicht von Belang. Relevant ist, ob die Frage richtig
+Bei der Dateneingabe des Tests würde vermutlich zwischen 1 und 4
+kodiert,  welche der vier Optionen ausgewählt wurde. Ob ein Kreuz bei
+(1), (2), (3) oder (4) gesetzt wird, ist für die Auswertung nicht
+unbedingt  von Belang. Erst einmal ist relevant, ob die Frage richtig
 beantwortet wurde -- wir benötigen also die folgende Umkodierung der
 Daten:
 
@@ -102,7 +104,7 @@ bundesland_answers == bundesland_key
   Wert anzugeben, alle anderen sind automatisch falsch
 
 Nach der Umkodierung können wir beispielsweise die Schwierigkeit des
-Bundesland-Items mit der `mean` Funktion berechnen:
+Bundesland-Items mit der Funktion `mean` berechnen:
 
 ```{r}
 mean(bundesland_score)
@@ -284,7 +286,7 @@ kable(summary(npi)[,1], col.names = "score")
 
 &nbsp;
 
-**Identifikation von fehlenden Werten im NPI Datensatz**
+### Identifikation von fehlenden Werten
 
 Das NPI besteht aus 40 Items. Aus dem *Codebuch* des NPI
 Datensatzes[^codebuch] wissen wir, dass Antworten auf die NPI Items
@@ -315,8 +317,8 @@ npi$Q1_score <- ifelse(npi$Q1 == 1, 1, 0)
 ```
 
 **Aber Vorsicht: so würden wir einen Fehler machen**! Die Spalte
-`npi$Q1` enthält nicht nur die Werte 1 und 2, sondern auch 0-Werte, wie
-wir mit dem Befehl `table(npi$Q1)` prüfen können:[^plausicheck]
+`npi$Q1` enthält nicht nur die Werte 1 und 2, sondern auch Null-Werte,
+wie wir mit dem Befehl `table(npi$Q1)` prüfen können:[^plausicheck]
 
 [^plausicheck]: **Merke**: Es ist wichtig, sich einen Überblick über
 Daten zu verschaffen und unplausible und fehlende Werte zu
@@ -343,26 +345,35 @@ einziges Mal der narzisstischen Aussage zugestimmt haben -- und dies kam
 tatsächlich 73 Mal vor. Der Wert `-99` wäre beispielsweise ein besserer
 Wert gewesen, um fehlende Werte zu kodieren.
 
-&nbsp;
-
-**Ausschluss von Fällen mit fehlenden Werten**
-
-&nbsp;
-
-Wir wollen als nächstes alle Fälle ausschließen, bei denen mindestens
+Als nächstes wollen wir alle Fälle ausschließen, bei denen mindestens
 ein fehlender Wert in den Antworten auf die 40 NPI Items vorliegt,
 d.h. für mindestens eine der Spalten `npi$Q1`, ..., `npi$Q40` der Wert 0
-ist. Erst danach können wir die Itemscores berechnen.
+ist. Der erste Schritt dabei wird sein, alle fehlenden Werte 
+in `NA` umzuwandeln. Nur `NA` interpretiert 
+`R` tatsächlich als fehlend; Konventionen, die Werte wie -99 oder Null 
+als fehlend klassifizieren, kennt `R` nicht. Dabei werden uns folgende 
+Funktionen helfen:
 
-Zu diesem Zweck speichern wir zunächst die Antworten auf die 40 Items
-und die Fallnummer in einem neuen `data.frame` ab. Anhand dieses
-`data.frames` werden wir die Fallausschlüsse durchführen:
+- `is.na`: Gibt für einen Vektor aus, welche Elemente `NA` sind
+- `complete.cases`: Gibt für einen `data.frame` aus, welche Zeilen 
+  **keine** fehlenden Werte enthalten
+- `na.omit`: Gibt von einem `data.frame` nur die Zeilen ohne fehlende 
+  Werte aus
+
+Wir betrachten im Folgenden zwei Möglichkeiten alle Fälle mit fehlenden 
+Antworten auszuschließen.
+
+### Ausschluss von Fällen -- Methode 1
+
+Um fehlende Fälle auszuschließen, speichern wir zunächst die Antworten
+auf die 40 Items und die Fallnummer in einem neuen `data.frame` ab.
+Anhand dieses `data.frames` werden wir die Fallausschlüsse durchführen:
 
 ```{r}
-item_responses <- npi[, c("casenum", paste0("Q", 1:40))]
+ items <- npi[, c("casenum", paste0("Q", 1:40))]
 ```
 
-Wir können jetzt 0-Werte in `NA` umkodieren, indem wir ein Vorgehen
+Wir können jetzt Null-Werte in `NA` umkodieren, indem wir ein Vorgehen
 verwenden, das wir in [Kapitel 2](#vektorAendern) für Vektoren
 kennengelernt haben. Dieses Vorgehen funktioniert bei `data.frames`
 tatsächlich genauso:[^fortgeschritten]
@@ -378,7 +389,7 @@ ist dieser Zugriff aber sogar noch etwas spezieller als der in Kapitel
 *Matrix* vom Typ „logical“).
 
 ```{r}
-item_responses[item_responses == 0] <- NA
+items[items == 0] <- NA
 ```
 
 Für einzelne Spalten kann man mithilfe der Funktion `is.na`
@@ -389,33 +400,36 @@ logischen Vektor, der kodiert, ob jedes Element des übergebenen Vektors
 überprüfen, wie viele Personen keine Antwort angegeben haben:
 
 ```{r}
-sum(is.na(item_responses$Q1))
-sum(is.na(item_responses$Q40))
+sum(is.na(items$Q1))
+sum(is.na(items$Q40))
 ```
 
 **Wichtig**: Man **muss** `is.na` verwenden, um zu prüfen, ob Werte `NA`
-sind; Folgendes geht schief:[^naisweird]
-
-[^naisweird]: Ein logischer Vergleich mit `NA` ergibt immer `NA`, da
-beim fehlenden Wert keine Aussage darüber gemacht werden kann, ob er
-einem anderen Wert entspricht. Man kennt ihn ja nicht. Auch der Befehl
-`TRUE & NA` ergibt `NA`.
+sind; Folgendes geht schief:
 
 ```{r}
 ## Nutze head, um nicht alle 11,000 Vergleiche auszugeben
-head(item_responses$Q1 == NA)
+head(items$Q1 == NA)
 ```
 
-Um insgesamt einen Überblick über die Verteilung der fehlenden Fälle zu
-erhalten, bietet sich eine erneute Anwendung der Funktion `summary`
-an. Diese gibt nämlich direkt für jede Spalte eines `data.frames` die
-Zahl der fehlenden Fälle an. Folgende Information gibt es zum ersten
-Item:
+Ein logischer Vergleich mit `NA` ergibt immer `NA`, da beim fehlenden
+Wert keine Aussage darüber gemacht werden kann, ob er einem anderen Wert
+entspricht. Man kennt ihn ja nicht. Nach derselben Logik können wir auch
+vorhersagen, was der Befehl `TRUE & NA` ausgibt, nämlich `NA`. Je
+nachdem, ob der fehlende Wert `TRUE`  oder `FALSE` wäre, würde sich ja
+eine unterschiedliche Ausgabe ergeben. `TRUE | NA` hingegen ergibt
+`TRUE`, da auf jeden Fall schon eine Bedingung erfüllt ist und insgesamt
+die ODER-Bedingung `TRUE` ergibt.
+
+Um einen Überblick über die Verteilung der fehlenden Fälle zu
+erhalten, bietet sich eine erneute Anwendung der Funktion `summary` an.
+Diese gibt nämlich direkt für jede Spalte eines `data.frames` die Zahl
+der fehlenden Fälle an. Folgende Information gibt es zum ersten Item:
 
 &nbsp;
 
 ```{r, echo = FALSE}
-kable(summary(item_responses)[,2], col.names = "Q1")
+kable(summary(items)[,2], col.names = "Q1")
 ```
 
 &nbsp;
@@ -432,18 +446,18 @@ ODER-Verknüpfungen, an die wir eine Auswahl mit `subset` oder der
 ## fehlenden Wert haben (hier nur exemplarisch, kein
 ## legaler R-Code, da Items 4 bis 39 nicht ausgeschrieben
 ## sind):
-irgendwo_na <- is.na(item_responses$Q1) |
-    is.na(item_responses$Q2) |
-    is.na(item_responses$Q3) |
+irgendwo_na <- is.na(items$Q1) |
+    is.na(items$Q2) |
+    is.na(items$Q3) |
     ... |
-    is.na(item_responses$Q40)
+    is.na(items$Q40)
 
 ## Negation durchführen, um die Fälle zu erwischen, die
 ## *keinen* fehlenden Wert enthalten
 nirgendwo_na <- !irgendwo_na
 
 ## Wähle diese Fälle aus:
-item_responses <- item_responses[, nirgendwo_na]
+items <- items[, nirgendwo_na]
 
 ```
 
@@ -469,14 +483,14 @@ Einstieg](#kap4einstieg)
 ```R
 ## Identifiziere Fälle, die in irgendeinem Item einen
 ## fehlenden Wert haben:
-irgendwo_na <- is.na(rowSums(item_responses))
+irgendwo_na <- is.na(rowSums(items))
 ```
 
 Am bequemsten ist es jedoch, wenn wir die Funktion `na.omit` nutzen, die
 uns einfach so alle Fälle ausschließt, die fehlende Werte enthalten:
 
 ```{r}
-item_responses <- na.omit(item_responses)
+items <- na.omit(items)
 ```
 
 Die Funktion `na.omit` gibt einen `data.frame` aus, der keine der Zeilen
@@ -484,27 +498,23 @@ enthält, in denen mindestens ein `NA`-Wert vorlag. So müssen wir nicht
 selber die Zeilen identifizieren, die fehlende Werte enthalten.
 
 Vergleichen wir nun den ursprünglichen `data.frame` `npi` mit der
-„bereinigten“ Tabelle:[^plausicheckagain]
-
-[^plausicheckagain]: Es ist immer wichtig, solche
-Plausibilitätsüberprüfungen durchzuführen, nachdem man Daten geändert
-hat.
+„bereinigten“ Tabelle:
 
 ```{r}
 nrow(npi)
-nrow(item_responses)
+nrow(items)
 ```
 
-Wie wir sehen, haben wir `r nrow(npi) - nrow(item_responses)` Fälle
+Wie wir sehen, haben wir `r nrow(npi) - nrow(items)` Fälle
 wegen fehlender Werte ausgeschlossen. Etwas unschön ist, dass in unseren
 bereinigten Daten einige Variablen -- wie das Geschlecht und das Alter
 -- fehlen. Das liegt daran, dass wir für den Ausschluss von Fällen nur
 die Item-Antworten berücksichtigt haben, die wir zuvor im `data.frame`
-`item_responses` abgespeichert haben. Vergleichen wir:
+`items` abgespeichert haben. Vergleichen wir:
 
 ```{r}
 names(npi)
-names(item_responses)
+names(items)
 ```
 
 Um einen `data.frame` zu erhalten, in dem alle Informationen zu den
@@ -512,10 +522,10 @@ vollständigen Fällen enthalten sind, machen wir uns zunutze, dass die
 relevanten Informationen noch im Urspungs-`data.frame` `npi`
 abgespeichert sind. Wie folgt können wir mit der Funktion `merge` die
 ursprüngliche Tabelle `npi` mit der um fehlende Fälle bereinigten
-Tabelle `item_responses` zusammenführen.
+Tabelle `items` zusammenführen.
 
 ```{r}
-npi_clean <- merge(npi, item_responses)
+npi_clean <- merge(npi, items)
 ```
 
 Wir erhalten in der Variablen `npi_clean` einen Datensatz, der nur Fälle
@@ -550,13 +560,16 @@ library("dplyr") # falls noch nicht geladen
 npi_clean <- arrange(npi_clean, casenum)
 ```
 
-Voilá -- `npi_clean` ist der Datensatz, mit dem wir nun psychometrische
-Berechnungen durchführen können.[^nochmehrplausichecks] Dabei ist unser
-nächstes Ziel für alle 40 Items eine dichotome Bepunktung durchzuführen.
-Wir wissen bereits, wie wir das machen könnten, nämlich indem wir mit
-`ifelse` die Antworten auf jedes Item mit dem Schlüssel abgleichen. Der
-Schlüssel für den das NPI kodiert für jedes der 40 Items den Wert, der
-für Narzissmus steht. Dies wäre wie folgt möglich:
+## Arbeiten mit dem bereinigten Datensatz
+
+Mit dem Datensatz `npi_clean` können wir nun psychometrische
+Berechnungen durchführen können, da wir nur vollständige Datensätze
+ausgewählt haben.[^nochmehrplausichecks] Dabei ist unser nächstes Ziel
+für alle 40 Items eine dichotome Bepunktung durchzuführen. Wir wissen
+bereits, wie das funktioniert, nämlich indem wir mit `ifelse` die
+Antworten auf jedes Item mit dem Schlüssel abgleichen. Der Schlüssel für
+den das NPI kodiert für jedes der 40 Items den Wert, der für Narzissmus
+steht. Dies wäre wie folgt möglich:
 
 [^nochmehrplausichecks]: Es ist zu bemerken, dass wir noch nicht alle
 Variablen auf ihre Plausibilität überprüft haben. Die Spalte `age`
