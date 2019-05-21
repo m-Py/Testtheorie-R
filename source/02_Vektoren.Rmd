@@ -1001,7 +1001,7 @@ auswahl
 ```
 
 Der logische Vektor `auswahl` kodiert, welche Elemente des Vektors
-`meinVektor` größer als 5 sind (spezifisch: an welchen Positionen
+`meinVektor` größer sind als 5 (spezifisch: an welchen Positionen
 `meinVektor` ein Element enthält, das größer ist als 5). Ich kann nun
 `auswahl` in der `[·]`-Notation verwenden, um nur die Elemente
 auszuwählen, die größer sind als 5:
