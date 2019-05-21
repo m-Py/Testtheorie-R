@@ -32,7 +32,7 @@ Multiple-Choice-Item sein:
 > (4) 21
 
 Bei der Dateneingabe des Tests kann zwischen 1 und 4 kodiert werden,
-welche der vier Antowortoptionen ausgewählt wurde. Ob ein Kreuz bei (1),
+welche der vier Antwortoptionen ausgewählt wurde. Ob ein Kreuz bei (1),
 (2), (3) oder (4) gesetzt wird, ist für die Datenauswertung aber nicht
 unbedingt von Belang. Es ist vor allem relevant, ob die Frage richtig
 beantwortet wurde -- wir benötigen also die folgende Umkodierung der
@@ -434,8 +434,8 @@ fehlen. Es gibt einige weitere Funktionen, um das Vorliegen von
 fehlenden Werten zu prüfen. 
 
 Eine allgemein nützliche Funktion zum Betrachten von `data.frames` ist
-die Funktion `summary`. Sie gibt uns wie folgt einen schnellen Überblick über alle
-Spalten eines `data.frames`: 
+die Funktion `summary`. Sie gibt uns wie folgt einen schnellen Überblick
+über alle Spalten eines `data.frames`: 
 
 ```R
 summary(npi)
