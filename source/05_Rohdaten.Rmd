@@ -416,11 +416,8 @@ Items den Wert, der für Narzissmus steht. Dies wäre wie folgt möglich:
 npi_key <- c(1, 1, ..., 2) # 40 Schlüsselemente
 
 npi$Q1_score <- ifelse(npi$Q1 == npi_key[1], 1, 0)
-npi$Q2_score <- ifelse(npi$Q2 == npi_key[2], 1, 0)
 
-...
-...
-...
+# ...
 
 npi$Q40_score <- ifelse(npi$Q40 == npi_key[40], 1, 0)
 ```
@@ -445,11 +442,10 @@ summary(npi)
 # Ausgabe unterdrückt, da pro Spalte eine Tabelle ausgegeben wird
 ```
 
-Neben einigen deskriptiven Statistiken gibt `summary` für jede Spalte
-auch an, wie viele Werte in dieser Spalte fehlen. 
-
-Für einzelne Spalten können wir auch mit der Funktion `is.na`
-überprüfen, ob diese fehlende Werte enthalten:
+Neben einigen deskriptiven Statistiken gibt `summary` auch für jede
+Spalte an, wie viele Werte darin fehlen. Für eine einzelne Spalte können
+wir auch mit der Funktion `is.na` überprüfen, ob sie fehlende Werte
+enthält:
 
 ```{r}
 sum(is.na(temp$Q1))
@@ -468,10 +464,18 @@ head(npi$Q1 == NA)
 
 Ein logischer Vergleich mit `NA` ergibt immer `NA`, da beim fehlenden
 Wert keine Aussage darüber gemacht werden kann, ob er einem anderen Wert
-entspricht. Man kennt ihn ja nicht. Nach derselben Logik können wir auch
-vorhersagen, was der Befehl `TRUE & NA` ausgibt -- nämlich `NA`. Je
-nachdem, ob der fehlende Wert `TRUE` oder `FALSE` wäre, wäre das
-Ergebnis ja auch `TRUE` oder `FALSE`. `TRUE | NA` hingegen ergibt
-`TRUE`, da auf jeden Fall schon eine Bedingung erfüllt ist und
-die ODER-Bedingung insgesamt `TRUE` ergibt.
+entspricht. Man kennt den fehlenden Wert zwar nicht, aber irgendeine
+Ausprägung hat er in der Realität. 
 
+Interessant ist auch der Umgang der UND- und ODER-Operationen mit
+fehlenden Werten. Der Befehl `TRUE & NA` gibt `NA` aus. Denn je nachdem,
+ob der fehlende Wert `TRUE` oder `FALSE` wäre, wäre das Ergebnis auch
+entweder `TRUE` oder `FALSE`. Wir können in diesem Fall nicht
+voraussagen, was das Ergebnis der UND-Operation wäre, da der fehlende
+Wert unbekannt, aber kritisch für das Ergebnis ist. Anders sieht es bei
+dem Befehl `TRUE | NA` aus. Dieser ergibt `TRUE`, da auf jeden Fall eine
+Bedingung erfüllt ist und nur eine Bedingung erfüllt sein muss, damit
+die ODER-Bedingung `TRUE` ergibt. Mit diesen Erklärungen im Hinterkopf
+können wir auch nachvollziehen, was passiert, wenn wir `FALSE` mit `NA`
+per UND und ODER verknüpfen: `FALSE | NA` ergibt `NA`, `FALSE & NA`
+ergibt `FALSE`.
