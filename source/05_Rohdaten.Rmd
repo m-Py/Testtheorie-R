@@ -334,10 +334,10 @@ tatsächlich gleichermaßen:[^fortgeschritten]
 [^fortgeschritten]: Beachtet, dass hier ein Zugriff auf `data.frames`
 mit eckigen Klammern stattfindet (siehe [Kapitel
 3.5](#fortgeschritten)). Der Befehl sieht recht harmlos aus, aber
-tatsächlich steckt hier etwas mehr drin als wir bislang behandelt haben.
+tatsächlich steckt hier etwas mehr dahinter, als wir bislang behandelt haben.
 Wir nehmen zunächst einmal einfach hin, dass man die Umkodierung von
 Werten in `data.frames` genauso durchführen kann wie in Vektoren. Wie
-wir  schon bei Vektoren kennengelernt haben, sind viele Operationen in
+wir schon bei Vektoren kennengelernt haben, sind viele Operationen in
 `R` so allgemein, dass sie auf allen Daten eines Objekts stattfinden. 
 
 ```{r, eval = FALSE}
@@ -348,9 +348,9 @@ Dabei ergibt sich jedoch ein Problem: Fehlende Werte wurden im Datensatz
 zwar mit 0 kodiert, jedoch existiert eine Spalte (`score`), die den Wert
 0 aus zwei Gründen enthalten kann:
 
-1. Der Wert fehlt
+1. Der Wert fehlt.
 2. Eine Person hat in keinem der 40 Items der narzisstischen Aussage 
-   zugestimmt
+   zugestimmt.
 
 Der Gesamt-Testscore (`npi$score`) kann also wirklich den Wert 0
 annehmen, wenn Teilnehmer/innen kein einziges Mal der narzisstischen
@@ -359,7 +359,7 @@ wir alle Personen ausschließen, die in irgendeiner Spalte den Wert 0
 haben, würden wir zu viele Personen ausschließen. Wir würden sogar eine
 Verzerrung in den Datensatz einfügen, da wir gezielt die Personen
 ausschließen, die besonders wenig narzisstisch sind. Hier war es also
-kein gutes Vorgehen, 0 als Kodierung für fehlende Werte zu nehmen. Der
+kein gutes Vorgehen, 0 als Kodierung für fehlende Werte zu verwenden. Der
 Wert ist nicht ausreichend unterschiedlich von anderen „legalen Werten“.
 Der Wert `-99` wäre ein besserer Wert gewesen, um fehlende Werte zu
 kodieren. 
@@ -380,7 +380,7 @@ Nun setzen wir in diesem temporären `data.frame` alle Nullen auf `NA`:
 temp[temp == 0] <- NA
 ```
 
-Als nächstes nutzen wir die Funktion `complete.cases`, um
+Als Nächstes nutzen wir die Funktion `complete.cases`, um
 herauszufinden, in welchen Zeilen von `temp` fehlende Werte vorliegen:
 
 ```{r}
@@ -389,7 +389,7 @@ head(is_complete, n = 10)
 ```
 
 Die Funktion `complete.cases` gibt einen logischen Vektor der Länge
-`nrow(temp)` zurück, der pro Zeile kodiert, ob irgendwie ein fehlender
+`nrow(temp)` zurück, der pro Zeile kodiert, ob irgendwo ein fehlender
 Wert vorliegt. Also können wir wie folgt überprüfen, wie viele Fälle mit
 fehlenden Werten es insgesamt gibt:
 
@@ -408,10 +408,10 @@ nrow(npi_clean)
 
 Mit dem Datensatz `npi_clean` können wir nun psychometrische
 Berechnungen durchführen können, da wir nur vollständige Datensätze
-ausgewählt haben. Dabei ist unser nächstes Ziel für alle 40 Items eine
+ausgewählt haben. Dabei ist unser nächstes Ziel, für alle 40 Items eine
 dichotome Bepunktung durchzuführen. Wir wissen bereits, wie das
 funktioniert, nämlich indem wir mit `ifelse` die Antworten auf jedes
-Item mit dem Schlüssel abgleichen. Der Schlüssel für den das NPI kodiert
+Item mit dem Schlüssel abgleichen. Der Schlüssel für das NPI kodiert
 für jedes der 40 Items den Wert, der für Narzissmus steht. Dies wäre wie
 folgt möglich:
 
@@ -437,11 +437,11 @@ effizient  durchzuführen, also auf einmal für alle 40 Spalten.
 ### Vergleiche mit `NA`
 
 Die Funktion `complete.cases` gibt uns pro Zeile aus, ob darin Werte
-fehlen. Es gibt einige weitere Funktionen, um das Vorliegen  von
+fehlen. Es gibt einige weitere Funktionen, um das Vorliegen von
 fehlenden Werten zu prüfen. 
 
-Eine allgemein nützlich Funktion zum Betrachten von `data.frames` ist
-die Funktion `summary`. Sie gibt uns  wie folgt einen schnellen Überblick über alle
+Eine allgemein nützliche Funktion zum Betrachten von `data.frames` ist
+die Funktion `summary`. Sie gibt uns wie folgt einen schnellen Überblick über alle
 Spalten eines `data.frames`: 
 
 ```R
@@ -449,7 +449,7 @@ summary(npi)
 # Ausgabe unterdrückt, da pro Spalte eine Tabelle ausgegeben wird
 ```
 
-Neben einigen deskriptiven Statistiken, gibt `summary` für jede Spalte
+Neben einigen deskriptiven Statistiken gibt `summary` für jede Spalte
 auch an, wie viele Werte in dieser Spalte fehlen. 
 
 Für einzelne Spalten können wir auch mit der Funktion `is.na`
@@ -474,8 +474,8 @@ Ein logischer Vergleich mit `NA` ergibt immer `NA`, da beim fehlenden
 Wert keine Aussage darüber gemacht werden kann, ob er einem anderen Wert
 entspricht. Man kennt ihn ja nicht. Nach derselben Logik können wir auch
 vorhersagen, was der Befehl `TRUE & NA` ausgibt -- nämlich `NA`. Je
-nachdem, ob der fehlende Wert `TRUE`  oder `FALSE` wäre, wäre das
-Ergebnis  ja auch `TRUE` oder `FALSE`. `TRUE | NA` hingegen ergibt
-`TRUE`, da auf jeden Fall schon eine Bedingung erfüllt ist und insgesamt
-die ODER-Bedingung `TRUE` ergibt.
+nachdem, ob der fehlende Wert `TRUE` oder `FALSE` wäre, wäre das
+Ergebnis ja auch `TRUE` oder `FALSE`. `TRUE | NA` hingegen ergibt
+`TRUE`, da auf jeden Fall schon eine Bedingung erfüllt ist und
+die ODER-Bedingung insgesamt `TRUE` ergibt.
 
