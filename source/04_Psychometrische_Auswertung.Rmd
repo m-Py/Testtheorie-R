@@ -14,8 +14,8 @@ folgenden Konzepte behandelt:
     + Split-Half/Odd-Even-Reliabilität
 - Spearman-Brown-Formel
 
-Angenommen, eine Datentabelle enthält die Punktzahlen von 10
-Schulkindern in einer Klassenarbeit mit 5 Aufgaben. Diese kann man gut
+Angenommen, eine Datentabelle enthält die Punktzahlen von zehn
+Schulkindern in einer Klassenarbeit mit fünf Aufgaben. Diese kann man gut
 in einer $10 \times 5$ (Reihe $\times$ Spalten) Datentabelle darstellen.
 Ein Eintrag kodiert, ob das Kind (*Reihe*) die Aufgabe (*Spalte*)
 korrekt gelöst hat. Korrekte Antworten werden mit 1 kodiert, falsche
