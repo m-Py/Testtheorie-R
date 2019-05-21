@@ -31,10 +31,10 @@ Multiple-Choice-Item sein:
 > (3) 19
 > (4) 21
 
-Bei der Dateneingabe des Tests würde vermutlich zwischen 1 und 4
-kodiert,  welche der vier Optionen ausgewählt wurde. Ob ein Kreuz bei
-(1), (2), (3) oder (4) gesetzt wird, ist für die Auswertung nicht
-unbedingt  von Belang. Erst einmal ist relevant, ob die Frage richtig
+Bei der Dateneingabe des Tests kann zwischen 1 und 4 kodiert werden,
+welche der vier Antowortoptionen ausgewählt wurde. Ob ein Kreuz bei (1),
+(2), (3) oder (4) gesetzt wird, ist für die Datenauswertung aber nicht
+unbedingt von Belang. Es ist vor allem relevant, ob die Frage richtig
 beantwortet wurde -- wir benötigen also die folgende Umkodierung der
 Daten:
 
