@@ -332,13 +332,13 @@ kennengelernt haben. Dieses Vorgehen funktioniert bei `data.frames`
 tatsächlich gleichermaßen:[^fortgeschritten]
 
 [^fortgeschritten]: Beachtet, dass hier ein Zugriff auf `data.frames`
-mit eckigen Klammern stattfindet (siehe [Kapitel
+mit eckigen Klammern stattfindet (siehe [Kapitel 
 3.5](#fortgeschritten)). Der Befehl sieht recht harmlos aus, aber
-tatsächlich steckt hier etwas mehr dahinter, als wir bislang behandelt haben.
-Wir nehmen zunächst einmal einfach hin, dass man die Umkodierung von
-Werten in `data.frames` genauso durchführen kann wie in Vektoren. Wie
-wir schon bei Vektoren kennengelernt haben, sind viele Operationen in
-`R` so allgemein, dass sie auf allen Daten eines Objekts stattfinden. 
+tatsächlich steckt hier etwas mehr dahinter, als wir bislang behandelt
+haben. Wir nehmen zunächst einmal einfach hin, dass die Umkodierung von
+Werten in `data.frames` ebenso funktioniert wie bei Vektoren. Wie wir
+schon bei Vektoren kennengelernt haben, sind viele Operationen in `R` so
+allgemein, dass sie auf allen Daten eines Objekts stattfinden. 
 
 ```{r, eval = FALSE}
 npi[npi == 0] <- NA
