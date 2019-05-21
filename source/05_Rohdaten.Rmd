@@ -407,13 +407,12 @@ nrow(npi_clean)
 ```
 
 Mit dem Datensatz `npi_clean` können wir nun psychometrische
-Berechnungen durchführen können, da wir nur vollständige Datensätze
-ausgewählt haben. Dabei ist unser nächstes Ziel, für alle 40 Items eine
-dichotome Bepunktung durchzuführen. Wir wissen bereits, wie das
-funktioniert, nämlich indem wir mit `ifelse` die Antworten auf jedes
-Item mit dem Schlüssel abgleichen. Der Schlüssel für das NPI kodiert
-für jedes der 40 Items den Wert, der für Narzissmus steht. Dies wäre wie
-folgt möglich:
+Berechnungen durchführen, da wir nur vollständige Datensätze ausgewählt
+haben. Dabei ist unser nächstes Ziel, für alle 40 Items eine dichotome
+Bepunktung durchzuführen. Wir wissen bereits, wie das funktioniert,
+nämlich indem wir mit `ifelse` die Antworten auf jedes Item mit dem
+Schlüssel abgleichen. Der Schlüssel für das NPI kodiert für jedes der 40
+Items den Wert, der für Narzissmus steht. Dies wäre wie folgt möglich:
 
 ```R
 # Hier kein legaler R-Code, nur exemplarisch:
