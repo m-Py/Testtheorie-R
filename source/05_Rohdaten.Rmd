@@ -355,6 +355,12 @@ haben, würden wir zu viele Personen ausschließen. Wir würden sogar eine
 Verzerrung in den Datensatz einfügen, da wir gezielt die Personen
 ausschließen, die besonders wenig narzisstisch sind. Hier war es also
 kein gutes Vorgehen, 0 als Kodierung für fehlende Werte zu verwenden.
+Stattdessen wird oftmals ein Wert verwendet, der selbst nicht Teil des
+legalen Wertebereichs ist -- idealerweise sollte der Wert in gar keiner
+Spalte einer Datentabelle vorkommen können. Eine Konvention ist es die
+Zahl -99 zu verwenden. Sie ist in den meisten Fällen nicht Teil des
+legalen Wertebereichs und auch hinreichend unähnlich zu allen anderen
+Werten.
 
 Um Personen mit fehlenden Werten zu identifizieren, erstellen wir
 zunächst einen `data.frame`, der die Spalte `score` nicht enthält. Da
