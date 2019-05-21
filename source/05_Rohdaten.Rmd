@@ -359,10 +359,7 @@ wir alle Personen ausschließen, die in irgendeiner Spalte den Wert 0
 haben, würden wir zu viele Personen ausschließen. Wir würden sogar eine
 Verzerrung in den Datensatz einfügen, da wir gezielt die Personen
 ausschließen, die besonders wenig narzisstisch sind. Hier war es also
-kein gutes Vorgehen, 0 als Kodierung für fehlende Werte zu verwenden. Der
-Wert ist nicht ausreichend unterschiedlich von anderen „legalen Werten“.
-Der Wert `-99` wäre ein besserer Wert gewesen, um fehlende Werte zu
-kodieren. 
+kein gutes Vorgehen, 0 als Kodierung für fehlende Werte zu verwenden.
 
 Um Personen mit fehlenden Werten zu identifizieren, erstellen wir
 zunächst einen `data.frame`, der die Spalte `score` nicht enthält. Da
