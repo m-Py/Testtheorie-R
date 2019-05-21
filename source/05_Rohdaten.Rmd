@@ -2,8 +2,8 @@
 # Aufarbeitung von Fragebogendaten {#rohdaten}
 
 Unser Ziel ist die Auswertung echter Daten aus Fragebögen wie den BIG-5
-und dem Narcissistic Personality Inventory. Leider aber liegen echten
-Daten oftmals noch nicht in der Form vor, die wir brauchen. Echte Daten
+und dem Narcissistic Personality Inventory. Allerdings liegen echte
+Daten oftmals nicht in der Form vor, die wir benötigen. Echte Daten
 haben fehlende Werte, und meistens müssen wichtige Informationen erst
 aus den bestehenden Variablen abgeleitet werden. Aus diesem Grund
 beschäftigen wir uns im vorliegenden Kapitel mit den folgenden Themen:
@@ -17,11 +17,11 @@ beschäftigen wir uns im vorliegenden Kapitel mit den folgenden Themen:
 Eine wichtige Voraussetzung für eine psychometrische Analyse war im
 Beispiel in Kapitel 4 bereits gegeben: Jeder Wert kodierte genau die
 Information, die wir brauchten -- nämlich ob Schüler/innen eine Aufgabe
-korrekt gelöst hatten oder nicht (dargestellt durch `1` und `0`). In
-echten Daten muss die relevante Information jedoch häufig erst noch aus
-den dokumentierten Werten abgeleitet werden. Die Antwort der
-Schüler/innen im Test könnte beispielsweise ein Kreuz in einem
-Multiple-Choice-Item sein:
+korrekt gelöst hatten oder nicht (dargestellt durch `1` und `0`).  Bei
+echten Datenerhebungen wird im Normalfall aber nicht direkt Korrektheit
+kodiert, sondern diese wird aus der eigentlichen Antwort abgeleitet. Die
+Antwort könnte beispielsweise ein Kreuz in einem Multiple-Choice-Item
+sein:
 
 > Aus wie vielen Bundesländern besteht die Bundesrepublik Deutschland?
 
