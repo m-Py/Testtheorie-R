@@ -112,9 +112,9 @@ mean(bundesland_score)
 In diesem Fall hätten `r round(mean(bundesland_score)*100)`% der
 Testteilnehmer das Bundesland-Item korrekt beantwortet. Diese
 Information konnten wir aus den ursprünglichen Antwortkategorien 1, 2, 3
-und 4 nicht herleiten. Auch für die Bestimmung von Item-Trennschärfen,
-Cronbachs Alpha, sowie anderen Kennwerten ist die Umkodierung eine
-notwendige Voraussetzung. 
+und 4 nicht herleiten. Auch um Item-Trennschärfen, Cronbachs Alpha oder
+andere Kennwerte zu bestimmen, ist die Umkodierung eine notwendige
+Voraussetzung.
 
 ## Invertierung von Antworten
 
