@@ -93,7 +93,7 @@ In diesem Fall wird dem Argument `test` der folgende logische Vektor
 bundesland_answers == bundesland_key
 ```
 
-An allen Positionen, an denen der Vergleich `TRUE` ergibt, gibt die
+An allen Positionen, an denen dieser Vergleich `TRUE` ergibt, gibt die
 Funktion `ifelse` den Wert 1 aus -- also den Wert, der dem Argument
 `yes` übergeben wurde. An allen anderen Positionen steht 0 -- also der
 Wert, der dem Argument `no` übergeben wurde. Praktisch: Ich muss nicht
