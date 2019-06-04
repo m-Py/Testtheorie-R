@@ -69,7 +69,6 @@ Beispiel basiert auf dem obigen Multiple-Choice-Item:
 # Hypothetische Antworten auf das Bundesland Multiple-Choice-Item:
 bundesland_answers <- c(1, 2, 1, 3, 2, 4, 2)
 bundesland_key     <- 2
-
 bundesland_score   <- ifelse(test = bundesland_answers == bundesland_key,
                              yes = 1, no = 0)
 bundesland_score
@@ -80,27 +79,26 @@ Was ist hier passiert? Ich habe im Vektor `bundesland_answers`
 hypothetische Antworten generiert; die Variable `bundesland_key` enthält
 den Schlüssel, d.h. die korrekte Antwort. Mithilfe der Funktion `ifelse`
 gleiche ich die Antworten mit dem Schlüssel ab.  `ifelse` nimmt drei
-Argumente entgegen. Diese heißen `test`, `yes`, und `no`:[^positionname]
+Argumente entgegen. Diese heißen `test`, `yes`, und `no`:
 
-[^positionname]: Wie wir gesehen haben, können wir Argumente in
-Funktionen per Name und per Position ansteuern.
+- `test`: Ein logischer Vektor -- hier der Vergleich jeder 
+  Antwort mit dem Schlüssel
+- `yes`: Die Ausgabe an den Positionen, an denen der `test` `TRUE` ergab
+- `no`: Die Ausgabe an den Positionen, an denen der `test` `FALSE` ergab
 
-- `test`: Vergleicht jede Antwort mit dem Schlüssel, hier:
-  `bundesland_answers == bundesland_key`. Ergebnis dieses Vergleichs ist
-  der folgende logische Vektor (im Allgemeinen kann `test` einen
-  beliebigen logischen Vektor als Argument annehmen):
+Das Ergebnis des Vergleichs, der dem Argument `test` übergeben  wird,
+ist in diesem Fall dieser folgende logische Vektor:
 
-
-```{r, echo = FALSE}
+```{r}
 bundesland_answers == bundesland_key
 ```
 
-- `yes`: Der Wert, der angenommen werden soll für Elemente, für die der
-  `test` `TRUE` ergab (hier: `1`)
-- `no`: Der Wert, der angenommen werden soll für Elemente, für die der
-  `test` `FALSE` ergab (hier: `0`). Praktisch: ich muss nicht angeben,
-  welche falschen Werte alle möglich sind; es reicht aus, den richtigen
-  Wert anzugeben, alle anderen sind automatisch falsch
+An allen Positionen, an denen der Vergleich `TRUE` ergab, steht in der
+Ausgabe der Wert 1, also der Wert, der dem Argument `yes` übergeben
+wurde. An den anderen Positionen steht 0. Praktisch: Ich muss nicht
+angeben, welche falschen Werte alle auftreten können; es reicht aus, im
+`test` mit dem richtigen Wert zu vergleichen. Alle anderen Werten werden
+dann automatisch als falsch interpretiert.
 
 Nach der Umkodierung können wir mit der Funktion `mean` die
 Schwierigkeit des Items berechnen:
