@@ -83,20 +83,21 @@ Argumente entgegen. Diese heißen `test`, `yes`, und `no`:
 
 - `test`: Ein logischer Vektor -- hier der Vergleich jeder 
   Antwort mit dem Schlüssel
-- `yes`: Die Ausgabe an den Positionen, an denen der `test` `TRUE` ergab
-- `no`: Die Ausgabe an den Positionen, an denen der `test` `FALSE` ergab
+- `yes`: Die Ausgabe an den Positionen, an denen der `test` `TRUE` ergibt
+- `no`: Die Ausgabe an den Positionen, an denen der `test` `FALSE` ergibt
 
-Das Ergebnis des Vergleichs, der dem Argument `test` übergeben  wird,
-ist in diesem Fall dieser folgende logische Vektor:
+In diesem Fall wird dem Argument `test` der folgende logische Vektor
+übergeben:
 
 ```{r}
 bundesland_answers == bundesland_key
 ```
 
-An allen Positionen, an denen der Vergleich `TRUE` ergab, steht in der
-Ausgabe der Wert 1, also der Wert, der dem Argument `yes` übergeben
-wurde. An den anderen Positionen steht 0. Praktisch: Ich muss nicht
-angeben, welche falschen Werte alle auftreten können; es reicht aus, im
+An allen Positionen, an denen der Vergleich `TRUE` ergibt, gibt die
+Funktion `ifelse` den Wert 1 aus -- also den Wert, der dem Argument
+`yes` übergeben wurde. An allen anderen Positionen steht 0 -- also der
+Wert, der dem Argument `no` übergeben wurde. Praktisch: Ich muss nicht
+angeben, welche falschen Werte alle möglich sind; es reicht aus, im
 `test` mit dem richtigen Wert zu vergleichen. Alle anderen Werten werden
 dann automatisch als falsch interpretiert.
 
