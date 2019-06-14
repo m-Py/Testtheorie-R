@@ -142,15 +142,8 @@ wollen -- stattdessen "vertrauen" wir auf die Standardwerte --,
 ist es sehr hilfreich, dass wir Funktionsargumente per Namen ansprechen
 können. So können wir nur genau die optionalen Argumente auswählen,
 die wir anpassen wollen; für die anderen belassen wir den Standardwert.
-Das haben wir bei der Funktion `mean` kennengelernt: Nur wenn wir
-fehlende Werte von der Berechnung des Mittelwerts ausschließen wollen,
-weisen wir dem Argument `na.rm` den Wert `TRUE` zu:
 
-```{r}
-mean(c(1, 2, 3, NA), na.rm = TRUE)
-```
-
-Interessanterweise wissen wir bislang gar nicht, ob wir an dieser Stelle
+Interessanterweise wissen wir bislang gar nicht, ob wir das Argument
 `na.rm` tatsächlich mit Namen ansteuern müssen. In Funktionen können wir
 Argumente ja anhand ihres Namens *oder* ihrer Position ansprechen. Wenn
 `na.rm` das zweite Argument wäre, könnten wir auch folgenden Aufruf
