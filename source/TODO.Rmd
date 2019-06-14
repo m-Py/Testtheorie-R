@@ -1,5 +1,9 @@
 
-An das Ende von Kap 6 packen:
+## Bei "for-loops are evil" apply einführen
+
+- apply performed als Ersatz für rowSums viel besser
+  als for-loop
+- Macht hier bereits ein Verweis auf lapply/replicate Sinn? ("The R way")
 
 ## Abstraktion -- Trennschärfe als Funktion
 
@@ -12,11 +16,24 @@ Inhalte:
 - Teste auf Typ der Eingabe (`class(input) == "data.frame"`)
 - `[, drop = FALSE]`
 
+## In Kapitel 5 
 
-## Kapitel 4 in zwei Kapitel aufteilen
+- Neuer Abschnitt: Bivariate Zusammenhänge
+    + Scatterplots (+ random jitter)
+    + cor()
+    + cor.test()
+    + lm()
+    + abline()
 
-- Teil 1: Psychometrische Datenauswertungen
-    + Hinzufügen: Bivariate Zusammenhänge
-    + Scatterplots (+ random jitter), cor(), cor.test(), lm(),
-      abline()    
-- Teil 2: Umgang mit Rohdaten
+## Anhang
+
+- Trouble-Shooting
+    + Objekte inspizieren (in Konsole ausführen)
+    + Insbesondere: Existiert Spalte von data.frame?
+    + table()
+- Konsole ist "stuck", `+` bei der Eingabe -> in RStudio mit Esc beenden
+- Im Zweifel: Environment aufräumen und Code neu durchführen -- 
+  manchmal funktioniert es dann (vielleicht hat man ja auch vergessen,
+  ein paar Zeilen Code überhaupt auszuführen)
+- Fehlermeldungen: kryptisch, Meldung googeln hilft oftmals aber
+- Einen Spaziergang machen und danach den Code noch mal anschauen
