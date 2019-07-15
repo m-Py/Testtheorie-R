@@ -63,8 +63,8 @@ Persönlichkeitsfragebogen auf einer Likert-Skala repräsentieren.
 ## Summenwerte
 
 Wir bestimmen zunächst die Testscores der 10 Kinder. Da jede Zeile ein
-Kind repräsentiert, ist der Gesamt-Testscore ist die Summe der Werte in
-jeder Reihe. Die Summe der Reihen eines `data.frames` (engl: *rows*)
+Kind repräsentiert, ist der Gesamt-Testscore die Summe der Werte in
+jeder Reihe. Die Summe der Reihen (engl: *rows*) eines `data.frames` 
 kann man mit der Funktion `rowSums` bestimmen:
 
 ```{r}
