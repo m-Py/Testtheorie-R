@@ -477,3 +477,25 @@ die ODER-Bedingung `TRUE` ergibt. Mit diesen Erklärungen im Hinterkopf
 können wir auch nachvollziehen, was passiert, wenn wir `FALSE` mit `NA`
 per UND und ODER verknüpfen: `FALSE | NA` ergibt `NA`, `FALSE & NA`
 ergibt `FALSE`.
+
+
+## Fragen zum vertiefenden Verständnis
+
+1. Gegeben ist der Antwortvektor `c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3)` und
+   der Schlüssel `2`. Wie kann ich die Item-Schwierigkeit ohne Anwendung
+   der Funktion `ifelse()` bestimmen? Was ist die Item-Schwierigkeit?
+
+```{r, eval = FALSE, echo = FALSE}
+mean(c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3) == 2)
+```
+
+3. Gegeben ist der Antwortvektor `c(2, 3, 2, 4, 5, 6, 2, 3)`, der die
+   Antworten auf das Item eines Persönlichkeitsinventars enthält. Die
+   Antworten wurden auf einer Likertskala gegeben, die zwischen 1 und 6
+   kodiert war.  Da das Item negativ gepolt ist, müssen die Antworten
+   vor der Analyse invertiert werden. Was ist der Mittelwert der
+   umgepolten Antworten (d.h. die Item-Schwierigkeit)?
+
+```{r, eval = FALSE, echo = FALSE}
+mean(c(2, 3, 2, 4, 5, 6, 2, 3) * (-1) + 7)
+```

@@ -412,24 +412,3 @@ die die Testitems in gerade und ungerade Items einteilt, also hier zwei
 Testscores einerseits für die Items 1, 3 und 5, und andererseits für die
 Items 2 und 4 berechnet. Diese lässt sich mit nur wenig Änderungen am
 Code oben umsetzen -- ich schlage vor, dies als Übung zu machen.
-
-## Fragen zum vertiefenden Verständnis
-
-1. Gegeben ist der Antwortvektor `c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3)` und
-   der Schlüssel `2`. Wie kann ich die Item-Schwierigkeit ohne Anwendung
-   der Funktion `ifelse()` bestimmen? Was ist die Item-Schwierigkeit?
-
-```{r, eval = FALSE, echo = FALSE}
-mean(c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3) == 2)
-```
-
-3. Gegeben ist der Antwortvektor `c(2, 3, 2, 4, 5, 6, 2, 3)`, der die
-   Antworten auf das Item eines Persönlichkeitsinventars enthält. Die
-   Antworten wurden auf einer Likertskala gegeben, die zwischen 1 und 6
-   kodiert war.  Da das Item negativ gepolt ist, müssen die Antworten
-   vor der Analyse invertiert werden. Was ist der Mittelwert der
-   umgepolten Antworten (d.h. die Item-Schwierigkeit)?
-
-```{r, eval = FALSE, echo = FALSE}
-mean(c(2, 3, 2, 4, 5, 6, 2, 3) * (-1) + 7)
-```
