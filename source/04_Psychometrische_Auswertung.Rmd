@@ -191,11 +191,11 @@ cor(test_data$Item_2, corrected_score)
 ```
 
 Die korrigierte Trennschärfe von `r round(cor(test_data$Item_2,
-corrected_score), 2)` liegt unter der unkorrigierten Trennschärfe von `r
-round(item_correlations[6,2], 2)`. Je weniger Items ein Test hat, desto
-mehr Gewicht hat das einzelne Item für den Testscore und umso stärker
-weichen korrigierte und unkorrigierte Trennschärfe voneinander ab. Bei
-nur fünf Items kann der Effekt substantiell sein.
+corrected_score), 2)` liegt unter der unkorrigierten Trennschärfe von 
+`r round(item_correlations[6,2], 2)`. Je weniger Items ein Test hat,
+desto mehr Gewicht hat das einzelne Item für den Testscore und umso
+stärker weichen korrigierte und unkorrigierte Trennschärfe voneinander
+ab. Bei nur fünf Items kann der Effekt substantiell sein.
 
 Es ist zu beachten, dass die Funktion `cor` an dieser Stelle anders
 verwendet wird als oben: Hier übergebe ich der Funktion `cor` mit dem
