@@ -224,7 +224,7 @@ Ausgabe erhalten (Erinnerung: Diesen Fall kennen wir auch aus [Kapitel
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun" & mdf$Item1 == 1, ]
 ```
 
-Wie wir merken, wird die `[·,·]`-Notation wird recht schnell
+Wie wir merken, wird die `[·,·]`-Notation recht schnell
 unübersichtlich, wenn sie komplexere logische Anfragen enthält. Die
 Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
 `%in%`-Operator verkürzen:
