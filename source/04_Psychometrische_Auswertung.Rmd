@@ -218,22 +218,23 @@ und 3 wieder:
 - Die Auswahl von Spalten in einem `data.frame` mit der `[·,·]`-Notation
 
 Wir merken, dass es mühsamer ist, die korrigierte Trennschärfe zu
-berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhalte
-ich einfach, indem ich einen `data.frame` an die Funktion `cor`
-übergebe. Ich muss nur einen einzigen Funktionsaufruf---oder eine Zeile
-Code---investieren. Um jedoch die korrigierte Trennschärfe zu bestimmen,
-muss ich bei *n* Items *n* Mal einen korrigierten Gesamtscore
-berechnen. Für jedes Item muss ich dann jeweils die Item-Antworten mit
-diesem korrigierten Score korrelieren. Wenn wir das für jedes Item
-„händisch“ machen, wäre das sehr aufwendig (beispielsweise könnten wir
-den Code oben *n* Mal kopieren und jeweils die Itemnummern anpassen --
-das wäre sehr fehleranfällig). Einer der Hauptgründe, aus denen wir `R`
-lernen, ist dass wir uns solche Arbeit nicht machen wollen. Stattdessen
-wollen wir lernen, wie wir repetitive Arbeiten automatisieren können. Im
-nächsten Kapitel werden wir Programmierelemente von `R` kennenlernen,
-die uns ermöglichen, ohne wesentlich mehr Aufwand für beliebig viele
-Items korrigierte Trennschärfen zu bestimmen. So sparen wir gleichzeitig
-Aufwand und arbeiten weniger fehleranfällig.
+berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhielt
+ich oben einfach, indem ich einen ganzen `data.frame` an die Funktion
+`cor` übergebe haben. Ich musste nur einen einzigen
+Funktionsaufruf---oder eine Zeile Code---investieren. Um jedoch die
+korrigierte Trennschärfe zu bestimmen, muss ich bei *n* Items *n* Mal
+einen korrigierten Gesamtscore berechnen. Für jedes Item muss ich dann
+jeweils das Item mit diesem korrigierten Score korrelieren. Wenn wir das
+für jedes Item „händisch“ machen, wäre das sehr aufwendig
+(beispielsweise könnten wir den Code oben *n* Mal kopieren und jeweils
+die Itemnummern anpassen -- das wäre sehr fehleranfällig). Einer der
+Hauptgründe, aus denen wir `R` lernen, ist dass wir uns solche Arbeit
+nicht machen wollen. Stattdessen wollen wir lernen, wie wir repetitive
+Arbeiten automatisieren können. Im nächsten Kapitel werden wir
+Programmierelemente von `R` kennenlernen, die uns ermöglichen, ohne
+wesentlich mehr Aufwand für beliebig viele Items korrigierte
+Trennschärfen zu bestimmen. So sparen wir gleichzeitig Aufwand und
+arbeiten weniger fehleranfällig.
 
 ## Cronbachs Alpha
 
@@ -260,7 +261,6 @@ von Cronbachs Alpha findet sich im Paket `psychometric`
 nicht zur Grundausstattung von `R` gehören. Voraussetzung ist, dass ich
 das Paket auf meinem Rechner installiert habe. Die Erweiterbarkeit durch
 Pakete ist eine der großen Stärken von `R`.
-
 
 [^guteuebung]: Das wäre sogar eine gute Übung. Die Formel findet sich
 unter
