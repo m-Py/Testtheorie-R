@@ -225,7 +225,7 @@ Funktionsaufruf---oder eine Zeile Code---investieren. Um jedoch die
 korrigierte Trennschärfe zu bestimmen, muss ich bei *n* Items *n* Mal
 einen korrigierten Gesamtscore berechnen. Für jedes Item muss ich dann
 jeweils das Item mit diesem korrigierten Score korrelieren. Wenn wir das
-für jedes Item „händisch“ machen, wäre das sehr aufwendig
+für jedes Item „händisch“ machen würden, wäre das sehr aufwendig
 (beispielsweise könnten wir den Code oben *n* Mal kopieren und jeweils
 die Itemnummern anpassen -- das wäre sehr fehleranfällig). Einer der
 Hauptgründe, aus denen wir `R` lernen, ist dass wir uns solche Arbeit
