@@ -220,7 +220,7 @@ und 3 wieder:
 Wir merken, dass es mühsamer ist, die korrigierte Trennschärfe zu
 berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhielt
 ich oben einfach, indem ich einen ganzen `data.frame` an die Funktion
-`cor` übergebe haben. Ich musste nur einen einzigen
+`cor` übergeben haben. Ich musste nur einen einzigen
 Funktionsaufruf---oder eine Zeile Code---investieren. Um jedoch die
 korrigierte Trennschärfe zu bestimmen, muss ich bei *n* Items *n* Mal
 einen korrigierten Gesamtscore berechnen. Für jedes Item muss ich dann
