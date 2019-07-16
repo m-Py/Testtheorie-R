@@ -228,7 +228,7 @@ jeweils das Item mit diesem korrigierten Score korrelieren. Wenn wir das
 für jedes Item „händisch“ machen würden, wäre das sehr aufwendig
 (beispielsweise könnten wir den Code oben *n* Mal kopieren und jeweils
 die Itemnummern anpassen -- das wäre sehr fehleranfällig). Einer der
-Hauptgründe, aus denen wir `R` lernen, ist dass wir uns solche Arbeit
+Hauptgründe aus denen wir `R` lernen ist, dass wir uns solche Arbeit
 nicht machen wollen. Stattdessen wollen wir lernen, wie wir repetitive
 Arbeiten automatisieren können. Im nächsten Kapitel werden wir
 Programmierelemente von `R` kennenlernen, die uns ermöglichen, ohne
