@@ -33,12 +33,13 @@ begleiten, um Grundlagen von `data.frame`-Operationen zu betrachten.
 importieren diese dann in `R`.
 
 ```{r}
- mdf <- data.frame(Nummer = 1:5,
-                   Item1 = c(1, 0, 0, 1, 1),
-                   Item2 = c(1, 1, 0, 0, 1),
-                   Alter = c(13, 14, 13, 12, 15),
-                   Geschlecht = c("w", "m", "m", "w", "m")
-                   )
+mdf <- data.frame(
+  Nummer = 1:5,
+  Item1 = c(1, 0, 0, 1, 1),
+  Item2 = c(1, 1, 0, 0, 1),
+  Alter = c(13, 14, 13, 12, 15),
+  Geschlecht = c("w", "m", "m", "w", "m")
+)
 mdf
 ```
 
@@ -73,7 +74,7 @@ per "`<-`" einen Vektor zuweise:
 
 ```{r}
 ## Beachtet die Länge des Vektors
-mdf$Augenfarbe <- c("blau", "grau", "blau", "braun", "gruen")
+mdf$Augenfarbe <- c("blau", "braun", "blau", "braun", "gruen")
 ```
 
 ```{r}
@@ -137,11 +138,11 @@ die Häufigkeiten aller Werte, die in einem Vektor vorkommen. Wir nutzen
 Wert ein "legaler" Wert, der auch vorkommen sollte?) Ich kann die
 Funktion `table` auch verwenden, um die Häufigkeit der Kombination von
 mehreren Variablen zu erfragen, etwa wie häufig welcher Testscore nach
-Geschlecht auftaucht:
+Augenfarbe auftaucht:
 
 ```{r}
 ## Erstelle Kreuztabelle von Geschlecht und Augenfarbe:
-table(mdf$Augenfarbe, mdf$Geschlecht)
+table(mdf$Augenfarbe, mdf$Testscore)
 ```
 
 ## Zugriff auf Spalten und Zeilen: die `[·,·]`-Notation {#datenzugriffe}
