@@ -1,33 +1,25 @@
 ---
 output:
   bookdown::pdf_book:
-    keep_tex: no
-    pandoc_args: [
-      "-fmarkdown-implicit_figures"
-    ]
     toc: true
     toc_depth: 2
     number_sections: true
     includes:
       before_body: "00_Lizenz.tex"
 
+lang: de-DE
 header-includes:
   - \usepackage{dsfont}
   - \usepackage{upgreek}
   - \usepackage{soul}
-  - \usepackage[german]{babel}
+  - \usepackage{csquotes}
   - \usepackage{hyperref}
   - \hypersetup{colorlinks = true}
 
-title:  |
-    | Testtheorie mit R
-subtitle: ''
-author: |
-    | Martin Papenberg
-shortauthor: ""
-institute: |
- | Heinrich-Heine-Universität Düsseldorf
- | Institut für Experimentelle Psychologie
+geometry: "left=2.55cm,right=2.55cm,top=2.55cm,bottom=2.55cm"
+
+title: Testtheorie mit R
+author: Martin Papenberg
 
 bibliography: referenzen.bib
 csl: "apa.csl"
