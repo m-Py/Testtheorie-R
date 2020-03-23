@@ -234,9 +234,19 @@ abrufbar. Wenn wir die Daten heruntergeladen haben und die Datei
 „data.csv“ in unserem RStudio-Projektordner liegt (siehe
 [Anhang](#datenEinlesen)), können wir den Datensatz wie folgt einlesen:
 
-```{r}
-## Lese Daten ein
+```{r, eval = FALSE}
+# Lese Daten ein
 npi <- read.csv("data.csv")
+```
+
+```{r, echo = FALSE} 
+# Alternativ können wir folgenden Code verwenden, der die Daten direkt 
+# aus dem Internet herunterlädt und in der Variablen `npi` speichert:
+temp <- tempfile()
+download.file("http://openpsychometrics.org/_rawdata/NPI.zip", temp)
+npi <- read.csv(unz(temp, "NPI/data.csv"))
+unlink(temp)
+rm(temp)
 ```
 
 Wie folgt verschaffen wir uns einen Überblick über die Daten:
@@ -271,17 +281,18 @@ Psychometrics Project“
 [https://openpsychometrics.org/_rawdata](https://openpsychometrics.org/_rawdata)
 runtergeladen.
 
-> 1. I have a natural talent for influencing people.
-> 2. I am not good at influencing people.
+> 1. Ich habe eine natürliche Begabung, auf Menschen Einfluss zu nehmen.
+> 2. Ich kann nicht besonders gut Einfluss auf jemanden ausüben.
 
-Die Wahl von Aussage 1 wird mit 1 kodiert, die Wahl von Aussage 2 mit 2.
-Nachgeschaltet wird folgende Umkodierung vorgenommen, die die
-Item-Scores berechnet: Wird die „narzisstische Aussage“ ausgewählt (hier
-Aussage 1: „I have a natural talent for influencing people.“), wird das
-Item mit 1 bepunktet. Wird die Aussage gewählt, die nicht für Narzissmus
-steht (hier Aussage 2: „I am not good at influencing people.“), wird
-eine 0 vergeben. Wie wir zu Beginn dieses Kapitels gelernt haben, können
-wir Item 1 wie folgt bepunkten:
+Die Wahl von Aussage 1 wird mit 1 kodiert, die Wahl von Aussage 2 mit 2. 
+Nachgeschaltet wird folgende Umkodierung vorgenommen, die die 
+Item-Scores berechnet: Wird die „narzisstische Aussage“ ausgewählt (hier 
+Aussage 1: „Ich habe eine natürliche Begabung, auf Menschen Einfluss zu 
+nehmen.“), wird das Item mit 1 bepunktet. Wird die Aussage gewählt, die 
+nicht für Narzissmus steht (hier Aussage 2: „Ich kann nicht besonders 
+gut Einfluss auf jemanden ausüben.“), wird eine 0 vergeben. Wie wir zu 
+Beginn dieses Kapitels gelernt haben, können wir Item 1 wie folgt 
+bepunkten:
 
 ```R
 npi$Q1_score <- ifelse(npi$Q1 == 1, 1, 0)
