@@ -275,15 +275,30 @@ einem `character` Vektor durchführen.
 
 ## Die Funktion `subset` {#subset}
 
-In diesem Abschnitt lernen wir die Funktion `subset` kennen, die zwei
-wichtige Zugriffe auf `data.frames` vereinfacht:
+In diesem Abschnitt lernen wir die Funktion `subset` kennen, die wir 
+ebenfalls verwenden können, um Zeilen und Spalten aus `data.frames` 
+auszulesen. Ganz ähnlich zur `[·,·]`-Notation funktioniert etwa der 
+folgende Aufruf:
+
+```{r}
+subset(mdf, mdf$Augenfarbe == "blau", c("Item1", "Augenfarbe"))
+```
+
+Als erstes Argument nimmt die Funktion `subset` immer den `data.frame` 
+an, aus dem wir Daten auslesen wollen. Danach folgen Argumente zur 
+Auswahl von Zeilen und zur Auswahl von Spalten.
+
+Wie hier gezeigt wäre im Vergleich zur `[·,·]`-Notation jedoch noch 
+nicht viel gewonnen. Was die Funktion `subset` so nützlich macht, ist 
+dass sie zwei wichtige Zugriffe auf `data.frames` vereinfacht:
 
 1. [Die Auswahl von Zeilen mithilfe logischer Bedingungen](#zeileneinfach)
 2. [Die Auswahl von Spalten durch Angabe von Spaltennamen](#spalteneinfach)
 
-Des Weiteren bietet der Abschnitt einen ersten allgemeinen Überblick über
-die [Arbeitsweise von Funktionen](#teaserfunktionen), der in [Kapitel
-5](#funktionen) vertieft wird.
+Diese Vereinfachungen besprechen wir im Folgenden. Des Weiteren bietet 
+dieser Abschnitt einen ersten theoretischen Überblick über die 
+[Arbeitsweise von Funktionen in `R`](#teaserfunktionen), der in [Kapitel 
+6](#funktionen) vertieft wird.
 
 ### Vereinfachte Zeilenauswahl {#zeileneinfach}
 
@@ -294,13 +309,19 @@ Zeilenauswahl zu formulieren, ohne die `$`-Notation zu verwenden:
 subset(mdf, Augenfarbe == "blau")
 ```
 
-Außerhalb der Funktion `subset` würde der Ausdruck `Augenfarbe ==
-"blau"` einen Fehler ausgeben; schließlich ist `Augenfarbe` selbst keine
-`R`-Variable, sondern nur eine Spalte von `mdf`.[^innehalten]
-Innerhalb der Funktion `subset` kann die logische Bedingung in dieser
-Form jedoch verarbeitet werden. Durch Angabe von `mdf` im ersten
-Argument teilen wir `subset` mit, aus welchem `data.frame` Zeilen
-ausgewählt werden sollen.
+Folgendermaßen könnte man durch Verwendung von `$` einen äquivalent 
+Aufruf durchführen:
+
+```{r}
+subset(mdf, mdf$Augenfarbe == "blau")
+```
+
+Außerhalb der Funktion `subset` würde der Ausdruck `Augenfarbe == 
+"blau"` einen Fehler ausgeben; schließlich ist `Augenfarbe` selbst keine 
+`R`-Variable, sondern nur eine Spalte von `mdf`.[^innehalten] Innerhalb 
+der Funktion `subset` kann die logische Bedingung in dieser Form jedoch 
+verarbeitet werden. Durch Angabe von `mdf` im ersten Argument teilen wir 
+`subset` mit, aus welchem `data.frame` Zeilen ausgewählt werden sollen.
 
 [^innehalten]: Es macht an dieser Stelle Sinn, einen Moment inne zu
 halten und zu überlegen, warum es eigentlich außergewöhnlich ist, dass
