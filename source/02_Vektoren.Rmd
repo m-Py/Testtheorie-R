@@ -605,6 +605,22 @@ In mean.default(laune_faktor) :
   argument is not numeric or logical: returning NA
 ```
 
+Beachtet, dass sich ein Faktor in den meisten Fällen genauso wie ein 
+Vektor vom Typ `character` verhält. Inhaltlich macht das Sinn: In beiden 
+Fällen ist ein Vektorelement ein „Text“ beziehungsweise eine verbale 
+Beschreibung. Der Unterschied ist, dass wir Faktoren oftmals so 
+generieren, dass wir eine numerische Kodierung in eine für Menschen 
+verständliche verbale Beschreibung umwandeln. Bei einer Dateneingabe 
+werden oftmals numerische Kodierungen eingegeben, da dies schneller geht 
+als einen Text einzugeben.[^Textfeld] Ein Beispiel dafür, dass sich 
+Faktoren genauso verhalten wie Vektoren vom Typ `character`, findet sich 
+im Abschnitt [Logische Vergleiche](#logischevergleiche) in diesem 
+Kapitel.
+
+[^Textfeld]: Das macht natürlich nur dann Sinn, wenn es eine 
+vordefinierte Anzahl an Ausprägungen einer Variable gibt, nicht etwa 
+wenn Studienteilnehmer*innen ein freies Textfeld ausfüllen. 
+
 ### `NA`
 
 `R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren:
@@ -654,8 +670,9 @@ Standardwert des Arguments `na.rm` in der Funktion `mean` ist `FALSE`.
 mean(messy_data, na.rm = TRUE)
 ```
 
-Hierbei nehmen wir zur Kenntnis, dass man Argumente von Funktionen
-benennen kann -- was wir aber nicht immer machen. Dazu später mehr.
+Hierbei nehmen wir zur Kenntnis, dass man Argumente von Funktionen 
+benennen kann (per `na.rm = `), was wir aber nicht immer machen. Dazu 
+mehr in [Kapitel 3](#subset).
 
 ## Logische Vergleiche {#logischevergleiche}
 
