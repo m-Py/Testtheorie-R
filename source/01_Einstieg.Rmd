@@ -9,17 +9,30 @@ kein `R`-Vorwissen vorausgesetzt. Ich habe das Skript in der Hoffnung
 öffentlich gemacht, dass es auch für andere `R`-Einsteiger nützlich sein
 kann.
 
-`R` kann -- unter anderem -- als eine Alternative zur kommerziellen
-Statistik-Software IBM-SPSS verwendet werden. Anders als SPSS ist `R`
-*frei*, d.h. wir können es gratis aus dem Internet runterladen, auf
-beliebig vielen Computern installieren, und unsere Analysen mit jeder
-anderen Person teilen, da niemand eine Lizenz zur Nutzung benötigt. Da
-`R` mithilfe von *Paketen* beliebig erweitert werden kann, stehen neue
-statistische Verfahren häufig schnell zur Verfügung (etwa *Bayesianische
-Statistik*). Die Nutzung von `R` ist in den letzten Jahren [stark
-angestiegen](https://stackoverflow.blog/2017/10/10/impressive-growth-r/).
-Auch in der psychologischen Forschung [wird `R` immer mehr zum
-Standard](https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r).
+`R` kann -- unter anderem -- als eine Alternative zur kommerziellen 
+Statistik-Software IBM-SPSS verwendet werden. Anders als SPSS ist `R` 
+*frei*, d.h. wir können es gratis aus dem Internet runterladen, auf 
+beliebig vielen Computern installieren, und unsere Analysen mit jeder 
+anderen Person teilen, da niemand eine Lizenz zur Nutzung benötigt. Da 
+`R` mithilfe von *Paketen* beliebig erweitert werden kann, stehen neue 
+statistische Verfahren häufig schnell zur Verfügung (etwa *Bayesianische 
+Statistik*). Die Nutzung von `R` ist in den letzten Jahren [stark 
+angestiegen](https://stackoverflow.blog/2017/10/10/impressive-growth-r/)
+. Auch in der psychologischen Forschung [wird `R` immer mehr zum 
+Standard](https://www.psychologicalscience.org/observer/why-you-should-
+become-a-user-a-brief-introduction-to-r). Inzwischen ist es normal, dass 
+Datensätze zusammen mit `R`-Code zur Reproduzierbarkeit von 
+Forschungsergebnissen auf offenen Internetportalen wie dem [*Open 
+Science Framework*](https://osf.io/) zur Verfügung gestellt werden. 
+Etwa [hier](https://osf.io/zc8n2/) findet sich öffentlicher `R`-Code aus 
+einem meiner eigenen Forschungsprojekte. Mithilfe von [R 
+Markdown](https://rmarkdown.rstudio.com/) können sogar 
+Forschungsberichte erstellt werden, bei denen die Datenauswertung per 
+`R`-Code direkt im Text integriert wird. Das geht sogar [im 
+APA-Format](https://github.com/crsh/papaja) (ein Beispiel für einen 
+solchen Bericht findet sich [hier](https://osf.io/wnxcj/)). Dieses 
+Skript selbst wurde ebenfalls mit `R` und R Markdown erstellt. Die 
+Quelldateien finden sich unter https://github.com/m-Py/Testtheorie-R.
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
 Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch
@@ -77,7 +90,7 @@ martin.papenberg@hhu.de gesendet werden.
 
 ### Danksagung
 
-Ich danke Juliane Tkotz für ihre wertvollen Beiträge und ihr nützliches
+Ich danke Jul Tkotz für ihre wertvollen Beiträge und ihr nützliches
 Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio und
 Ingo Weigel danke ich für Fehlermeldungen.
 
