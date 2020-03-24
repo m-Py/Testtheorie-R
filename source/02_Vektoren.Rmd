@@ -25,7 +25,7 @@ also Vektoren, die gar kein Element beinhalten. Das soll uns aber erst
 einmal nicht beschäftigen.
 
 Elemente zu Vektoren zusammenfügen (sprich: **mehrere** Vektoren zu
-**einem** Vektor zusammenfügen) funktioniert mit der *Funktion* `c` --
+**einem** Vektor zusammenfügen) funktioniert mit der *Funktion* `c()` --
 die vermutlich basalste Funktion in `R`. Sie ist so simpel und
 grundlegend, dass man sie gegebenenfalls vergisst, wenn man sie braucht
 -- versucht, sie zu erinnern!
@@ -37,14 +37,14 @@ c(0.5, 1, 1.5) # Kommazahlen mit DezimalPUNKT schreiben
 
 ```
 
-Man kann die Funktion `c` auch auf eine einzelne Zahl anwenden. Das
+Man kann die Funktion `c()` auch auf eine einzelne Zahl anwenden. Das
 ist dasselbe als würde man nur die Zahl eingeben:
 
 ```{r}
 c(1)
 ```
 
-Folgendes geht auch, da `c` mehrere Vektoren zu **einem einzelnen**
+Folgendes geht auch, da `c()` mehrere Vektoren zu **einem einzelnen**
 Vektor „verschmilzt“:
 
 ```{r}
@@ -89,8 +89,8 @@ folgende Eigenschaften von Funktionen zu verstehen:
   *Argumente* übergeben, etwa: ein Vektor
 - Wenn einer Funktion mehrere Argumente übergeben werden, werden diese
   mit Kommata separiert, etwa: `c(1, 2, 3)`
-- Funktionen führen eine Berechnung durch und geben uns das Ergebnis
-  zurück
+- Funktionen führen mit den übergebenen Daten eine Berechnung durch und 
+geben uns das Ergebnis zurück
 
 Einfach gesagt nehmen also Funktionen Daten entgegen und geben wiederum
 Daten zurück. Der Großteil unserer Arbeit mit `R` ist die Anwendung von
@@ -101,8 +101,8 @@ Beispiel zeigte:
 sqrt(var(c(0.5, 1, 1.5)))
 ```
 
-Hier wertet die Funktion `sqrt` (die Wurzel; engl. *square root*) das
-Ergebnis der Funktion `var` aus, um eine Standardabweichnung zu
+Hier wertet die Funktion `sqrt()` (die Wurzel; engl. *square root*) das
+Ergebnis der Funktion `var()` aus, um eine Standardabweichnung zu
 bestimmen. Der Aufruf ist also äquivalent zu `sqrt(0.25)`, da die
 Varianz von 0.5, 1, und 1.5 gleich 0.25 ist. Diese Beobachtung offenbart
 eine weitere wichtige Eigenschaft von `R`: Wir können unseren Code immer
@@ -153,14 +153,16 @@ an) und jeweils selber auch einen Vektor zurückgeben:
 
  &nbsp;
 
-Für die Funktionen in dieser Tabelle gilt, dass sie zwar alle einen
-Vektor zurückgeben, aber die Länge des Ausgabevektors unterschiedlich
-sein kann. Die Funktionen `mean` und `sum` ergeben etwa Vektoren der
-Länge 1, da sie genau einen Kennwert bestimmen. Die Funktionen `sort`,
-`sqrt` und `round` geben hingegen einen Vektor zurück, der aus genauso
-vielen Elementen besteht wie der Eingabevektor. 
+Für die Funktionen in dieser Tabelle gilt, dass sie zwar alle einen 
+Vektor zurückgeben, aber die Länge des Ausgabevektors unterschiedlich 
+sein kann. Die Funktionen `mean()` und `sum()` ergeben etwa Vektoren der 
+Länge 1, da sie genau einen Kennwert bestimmen. Die Funktionen `sort()`, 
+`sqrt()` und `round()` geben hingegen einen Vektor zurück, der aus 
+genauso vielen Elementen besteht wie der Eingabevektor. 
 
-Auch basale mathematische Berechnungen werden gleich auf alle Elemente 
+## Vektorisierung
+
+Basale mathematische Berechnungen werden gleich auf alle Elemente 
 eines Vektors angewendet:
 
 ```{r}
@@ -289,7 +291,7 @@ bar <- c(3, 2, 6, 3, 9, 5, 7, -3)
 sort(bar)
 ```
 
-Die Funktion `sort` sortiert den numerischen Vektor `bar` aufsteigend.
+Die Funktion `sort()` sortiert den numerischen Vektor `bar` aufsteigend.
 Wie sieht der Vektor `bar` nach der Operation aus? Es gibt zwei
 Möglichkeiten:
 
@@ -372,7 +374,7 @@ wie immer kurz Zeit nehmen, einen sinnigen Namen zu finden -- das
 zukünftige Selbst wird es einem danken. Unsinnige Variablennamen sind in
 Ordnung, wenn man sich zu 100% sicher ist, dass man die Variable nach
 einmaliger Nutzung nicht mehr verwendet. Wenn man eine Variable nicht
-mehr benutzen möchte, kann man sie mit der `rm` Funktion löschen:
+mehr benutzen möchte, kann man sie mit der `rm()` Funktion löschen:
 
 ```R
 foo <- 1:10 # Wegwerfvariable
@@ -452,7 +454,7 @@ In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
 werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden; im
 Speziellen werden wir sie einsetzen, um Spalten in Datentabellen zu
 adressieren (siehe [Kapitel 3](#datenzugriffe)). Zu diesem Zweck werden
-wir die Funktion `paste0` nutzen, die `character`-Vektoren beliebiger
+wir die Funktion `paste0()` nutzen, die `character`-Vektoren beliebiger
 Länge erstellt. So lassen sich beispielsweise bequem 10 durchnummerierte
 Itemnamen generieren, wodurch man gleich 10 Spalten aus einer Tabelle
 auswählen könnte:
@@ -472,13 +474,13 @@ items
 
 Diese Operation ist nützlich, da Spaltennamen in echten Datentabellen
 oft aus einem fixen Teil -- hier `item` -- und einem variablen Teil
-bestehen -- hier die Zahlen von 1 bis 10. Die Funktion `paste0`
+bestehen -- hier die Zahlen von 1 bis 10. Die Funktion `paste0()`
 ermöglicht uns dann, den fixen Teil nicht mehrfach aufschreiben zu
 müssen. Außerdem besteht der variable Teil oftmals aus einer
 aufsteigenden Zahlenfolge, die wir mit sehr wenig Aufwand mit dem
 Doppelpunktoperator erstellen können.
 
-Wenn man mit der Funktion `paste0` mehrere ein-elementige Vektoren
+Wenn man mit der Funktion `paste0()` mehrere ein-elementige Vektoren
 miteinander verknüpft, wird ein ein-elementiger Vektor vom Typ
 `character` ausgegeben:
 
@@ -487,7 +489,7 @@ paste0("item", "_", 1)
 ```
 
 So sehen wir, dass die Funktion `paste0` mehr als zwei Vektoren
-zusammenfügen kann -- im Allgemeinen beliebig viele.
+zusammenfügen kann -- im Allgemeinen sogar beliebig viele.
 
 ### `logical`
 
@@ -564,28 +566,47 @@ Eigenschaften auszuwählen.
 
 ### `factor`
 
-Vektoren vom Typ `factor` stellen kategoriale Variablen dar -- etwa die
-unabhängigen Variablen in einer ANOVA. So können wir einen Vektor vom
-Typ `factor` erstellen:
+Vektoren vom Typ `factor` stellen kategoriale Variablen dar -- etwa die 
+unabhängigen Variablen in einer Varianzanalyse. Mithilfe der Funktion 
+`factor()` können wir einen Vektor vom Typ `factor` erstellen:
 
 ```{r}
 
 laune <- c(1, 2, 3, 1, 2, 1)
 
-laune_faktor <- factor(laune, levels = c(1, 2, 3),
-                       labels = c(":(", ":)", ":D"))
+laune_faktor <- factor(
+  laune, 
+  c(1, 2, 3),
+  c(":(", ":)", ":D")
+)
 
 laune_faktor
 ```
 
-Die Funktion `factor` wird hier genutzt, um numerische Werte in `factor`
-umzuwandeln. Dabei wurden `levels` spezifiziert, d.h. die Werte, die der
-ursprüngliche Vektor angenommen hat. Das Argument `labels` ordnet den
-`levels` eine Bezeichnung zu; diese wird uns angezeigt, wenn wir den
-Vektor aufrufen. Mit einem Vektor vom Typ `factor` kann ich keine
-numerischen Berechnungen mehr durchführen, da er **kategoriale** Daten
-beinhaltet. Etwa kann ich für `laune_faktor` keinen Mittelwert
-berechnen:
+Die Funktion `factor()` wandelt die numerischen Werte im Vektor `laune` 
+in den Typ `factor` um. Das heißt: den numerischen Kategorien (1, 2 und 
+3) in `laune` wurde eine textuelle Beschreibung zugeordnet, umgesetzt 
+durch unterschiedlich fröhliche Smileys. Welche Ausprägungen im 
+Eingangsvektor möglich sind habe ich mit dem zweiten Argument 
+spezifiziert. Das macht deutlich, dass es nur dann Sinn hat einen Vektor 
+vom Typ `factor` anzulegen, wenn eine numerische Variable eine 
+vordefinierte Zahl an Ausprägungen aufweist -- wie das eben bei 
+kategorialen Daten normalerweise der Fall ist. 
+
+Die Darstellung als `factor` ist für Menschen besser zu verarbeiten als 
+numerische Kategorien. Die Bedeutung der numerischen Kodierung stellt 
+eine Gedächtnisbelastung dar: War beispielsweise ein höherer Wert in 
+`laune` besonders traurig oder besonders fröhlich? Ein Problem ist 
+oftmals die Kodierung des Geschlecht von Studienteilnehmer*innen: Wurde 
+weibliche Teilnehmerinnen jetzt mit einer 1 oder mit einer 2 kodiert? 
+Bei einer Dateneingabe werden oftmals numerische Kodierungen eingegeben, 
+da dies schneller geht als einen Text abzutippen. In Datenauswertungen 
+sollten solche numerische kategoriale Variablen jedoch **immer** in 
+`factor` umgewandelt werden, damit die Kodierung eindeutig ist.
+
+Mit einem Vektor vom Typ `factor` kann ich keine numerischen 
+Berechnungen mehr durchführen, da er **kategoriale** Daten beinhaltet. 
+Etwa kann ich für `laune_faktor` keinen Mittelwert berechnen:
 
 ```{r}
 mean(laune)
@@ -605,21 +626,14 @@ In mean.default(laune_faktor) :
   argument is not numeric or logical: returning NA
 ```
 
-Beachtet, dass sich ein Faktor in den meisten Fällen genauso wie ein 
-Vektor vom Typ `character` verhält. Inhaltlich macht das Sinn: In beiden 
-Fällen ist ein Vektorelement ein „Text“ beziehungsweise eine verbale 
-Beschreibung. Der Unterschied ist, dass wir Faktoren oftmals so 
-generieren, dass wir eine numerische Kodierung in eine für Menschen 
-verständliche verbale Beschreibung umwandeln. Bei einer Dateneingabe 
-werden oftmals numerische Kodierungen eingegeben, da dies schneller geht 
-als einen Text einzugeben.[^Textfeld] Ein Beispiel dafür, dass sich 
-Faktoren genauso verhalten wie Vektoren vom Typ `character`, findet sich 
-im Abschnitt [Logische Vergleiche](#logischevergleiche) in diesem 
-Kapitel.
-
-[^Textfeld]: Das macht natürlich nur dann Sinn, wenn es eine 
-vordefinierte Anzahl an Ausprägungen einer Variable gibt, nicht etwa 
-wenn Studienteilnehmer*innen ein freies Textfeld ausfüllen. 
+In den meisten Fällen verhält sich ein Faktor wie ein Vektor vom Typ 
+`character` und nicht wie ein numerischer Vektor (ein Beispiel dafür 
+findet sich im Abschnitt [Logische Vergleiche](#logischevergleiche) in 
+diesem Kapitel). Inhaltlich macht das Sinn: In beiden Fällen ist das 
+Vektorelement ein „Text“ -- eine verbale Beschreibung. Der Unterschied 
+ist, dass wir Faktoren normalerweise erhalten, indem wir eine numerische 
+Kodierung in eine für Menschen verständliche verbale Beschreibung 
+umwandeln. 
 
 ### `NA`
 
