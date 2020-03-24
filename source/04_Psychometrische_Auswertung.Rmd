@@ -27,11 +27,13 @@ folgenden `data.frame` erstellen:
 
 
 ```{r}
-test_data <- data.frame(Item_1 = c(1, 1, 1, 0, 0, 0, 1, 1, 1, 0),
-                        Item_2 = c(0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
-                        Item_3 = c(1, 0, 1, 0, 1, 1, 1, 0, 1, 0),
-                        Item_4 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0),
-                        Item_5 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0))
+test_data <- data.frame(
+  Item_1 = c(1, 1, 1, 0, 0, 0, 1, 1, 1, 0),
+  Item_2 = c(0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+  Item_3 = c(1, 0, 1, 0, 1, 1, 1, 0, 1, 0),
+  Item_4 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0),
+  Item_5 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
+)
 ```
 
 Die Variable `test_data` enthält nun die folgende Tabelle:
