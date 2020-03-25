@@ -576,7 +576,7 @@ laune <- c(1, 2, 3, 1, 2, 1)
 
 laune_faktor <- factor(
   laune, 
-  c(1, 2, 3),
+  1:3,
   c(":(", ":)", ":D")
 )
 
@@ -585,24 +585,24 @@ laune_faktor
 
 Die Funktion `factor()` wandelt die numerischen Werte im Vektor `laune` 
 in den Typ `factor` um. Das heißt: den numerischen Kategorien (1, 2 und 
-3) in `laune` wurde eine textuelle Beschreibung zugeordnet, umgesetzt 
-durch unterschiedlich fröhliche Smileys. Welche Ausprägungen im 
-Eingangsvektor möglich sind habe ich mit dem zweiten Argument 
-spezifiziert. Das macht deutlich, dass es nur dann Sinn hat einen Vektor 
-vom Typ `factor` anzulegen, wenn eine numerische Variable eine 
-vordefinierte Zahl an Ausprägungen aufweist -- wie das eben bei 
-kategorialen Daten normalerweise der Fall ist. 
+3) in `laune` wird eine textuelle Beschreibung zugeordnet, hier 
+umgesetzt durch unterschiedlich fröhliche Smileys. Es macht nur dann 
+Sinn hat einen Vektor vom Typ `factor` anzulegen, wenn eine numerische 
+Variable eine vordefinierte Zahl an Ausprägungen aufweist. Welche 
+Ausprägungen im Eingangsvektor in diesem Fall möglich sind habe ich mit 
+dem zweiten Argument -- `1:3` -- spezifiziert.
 
 Die Darstellung als `factor` ist für Menschen besser zu verarbeiten als 
 numerische Kategorien. Die Bedeutung der numerischen Kodierung stellt 
 eine Gedächtnisbelastung dar: War beispielsweise ein höherer Wert in 
 `laune` besonders traurig oder besonders fröhlich? Ein Problem ist 
-oftmals die Kodierung des Geschlecht von Studienteilnehmer*innen: Wurde 
-weibliche Teilnehmerinnen jetzt mit einer 1 oder mit einer 2 kodiert? 
-Bei einer Dateneingabe werden oftmals numerische Kodierungen eingegeben, 
-da dies schneller geht als einen Text abzutippen. In Datenauswertungen 
-sollten solche numerische kategoriale Variablen jedoch **immer** in 
-`factor` umgewandelt werden, damit die Kodierung eindeutig ist.
+oftmals auch die Kodierung des Geschlecht von Studienteilnehmer*innen: 
+Wurde weibliche Teilnehmerinnen jetzt mit einer 1 oder mit einer 2 
+kodiert? Bei einer Dateneingabe werden oftmals numerische Kodierungen 
+eingegeben, da dies schneller geht als einen Text abzutippen. In der 
+Datenauswertung sollten solche numerischen kategorialen Variablen jedoch 
+**immer** in `factor` umgewandelt werden, damit die Kodierung eindeutig 
+ist.
 
 Mit einem Vektor vom Typ `factor` kann ich keine numerischen 
 Berechnungen mehr durchführen, da er **kategoriale** Daten beinhaltet. 
@@ -616,20 +616,19 @@ mean(laune)
 mean(laune_faktor)
 ```
 
-Da die Berechnung nicht möglich ist, gibt `R` die folgende "Warnmeldung"
-aus:
+Da die Berechnung nicht möglich ist, gibt `R` folgende recht technisch 
+klingende "Warnmeldung" aus:
 
 ```R
-
 Warnmeldung:
 In mean.default(laune_faktor) :
-  argument is not numeric or logical: returning NA
+  Argument ist weder numerisch noch boolesch: gebe NA zurück
 ```
 
 In den meisten Fällen verhält sich ein Faktor wie ein Vektor vom Typ 
 `character` und nicht wie ein numerischer Vektor (ein Beispiel dafür 
-findet sich im Abschnitt [Logische Vergleiche](#logischevergleiche) in 
-diesem Kapitel). Inhaltlich macht das Sinn: In beiden Fällen ist das 
+findet sich im Abschnitt [Logische Vergleiche](#logischevergleiche) 
+weiter unten). Inhaltlich macht das Sinn: In beiden Fällen ist das 
 Vektorelement ein „Text“ -- eine verbale Beschreibung. Der Unterschied 
 ist, dass wir Faktoren normalerweise erhalten, indem wir eine numerische 
 Kodierung in eine für Menschen verständliche verbale Beschreibung 
@@ -637,19 +636,19 @@ umwandeln.
 
 ### `NA`
 
-`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren:
-`NA`.[^NA] Da wir mit echten Datensätzen arbeiten, die oftmals „messy“
-sind, d.h. nicht notwendigerweise vollständig, ist diese Eigenschaft
-sehr nützlich. Gerade bei der Arbeit mit Daten in der psychologischen
-Diagnostik ist dies wichtig: Menschen geben in Fragebögen eben nicht
+`R` hat einen eigenen Datentyp, um fehlende Werte zu kodieren: 
+`NA`.[^NA] Da wir mit echten Datensätzen arbeiten, die oftmals „messy“ 
+sind, also nicht notwendigerweise vollständig, ist diese Eigenschaft 
+sehr nützlich. Gerade bei der Arbeit mit Daten in der psychologischen 
+Diagnostik ist das wichtig: Menschen geben in Fragebögen eben nicht 
 immer auf alle Fragen eine Antwort.
 
-[^NA]: Eigentlich ist `NA` kein eigener Datentyp. In `R` hat
-jeder Vektor **nur genau einen** Datentyp. Es ist beispielsweise nicht
-möglich, dass in einem Vektor gleichzeitig Werte vom Typ `numeric`,
-`character` und `factor` vorkommen. `NA`-Werte können jedoch in
-Kombination mit jedem Datentyp vorkommen. Sie kodieren dann die
-Abwesenheit eines Datums; dieses Datum hätte -- wenn es nicht fehlen
+[^NA]: Eigentlich ist `NA` kein eigener Datentyp. In `R` hat jeder 
+Vektor **nur genau einen** Datentyp. Es ist beispielsweise nicht 
+möglich, dass in einem Vektor gleichzeitig Werte vom Typ `numeric`, 
+`character` und `factor` vorkommen. `NA`-Werte können jedoch in 
+Kombination mit jedem Datentyp vorkommen. Sie kodieren dann die 
+Abwesenheit eines Datums; dieses Datum hätte -- wenn es nicht fehlen 
 würde -- den Datentyp des Vektors.
 
 Man kann selber Vektoren erstellen, die fehlende Werte enthalten:
@@ -666,35 +665,37 @@ mehr ohne Weiteres einen Mittelwert berechnen:
 mean(messy_data) # geht nicht wegen des fehlenden Werts
 ```
 
-Man muss `R` explizit mitteilen, dass man trotz des Auftretens fehlender
-Werte einen Mittelwert ausrechnen möchte. Dies funktioniert mit dem
-*optionalen Argument* `na.rm`[^optional] der Funktion `mean`,
-welches wir auf `TRUE` setzen können. Mit dem *Argument* `na.rm` ("NA
-remove") teilt man `mean` mit, dass `NA` Werte bei der Berechnung des
-Mittelwerts nicht berücksichtigt werden sollen (andere Funktionen wie
-`sd` und `var` haben auch das Argument `na.rm`):
+Man muss `R` explizit mitteilen, dass man trotz des Auftretens fehlender 
+Werte einen Mittelwert ausrechnen möchte. Dies funktioniert mit dem 
+*optionalen Argument* `na.rm`[^optional] der Funktion `mean`, welches 
+wir auf `TRUE` setzen können. Mit dem *Argument* `na.rm` ("NA remove") 
+teilen wir der Funktion `mean()` mit, dass fehlende Werte bei der 
+Berechnung des Mittelwerts nicht berücksichtigt werden sollen. Ähnliche 
+Funktionen wie `sd()` und `var()` nehmen auch das Argument `na.rm` an; 
+andere Funktionen hingegen ignorieren fehlende Werte schon von Haus aus. 
 
-[^optional]: Ein Argument heißt optional, wenn wir dafür keinen Wert
-angeben müssen. Stattdessen hat es einen sogenannten Standardwert, der
-angenommen wird, wenn wir das Argument nicht selber angeben. Der
-Standardwert des Arguments `na.rm` in der Funktion `mean` ist `FALSE`.
-
+[^optional]: Ein Argument heißt optional, wenn wir dafür keinen Wert 
+angeben müssen. Stattdessen hat es einen sogenannten Standardwert, der 
+angenommen wird, wenn wir das Argument nicht selber angeben. Der 
+Standardwert des Arguments `na.rm` der Funktion `mean()` ist `FALSE`.
 
 ```{r}
 mean(messy_data, na.rm = TRUE)
 ```
 
 Hierbei nehmen wir zur Kenntnis, dass man Argumente von Funktionen 
-benennen kann (per `na.rm = `), was wir aber nicht immer machen. Dazu 
-mehr in [Kapitel 3](#subset).
+benennen kann (per "`na.rm =`"), was wir aber nicht immer machen. Zu 
+diesem Thema mehr in [Kapitel 3](#subset).
 
 ## Logische Vergleiche {#logischevergleiche}
 
-Wir können in `R` Eigenschaften von Vektoren mithilfe von logischen
-Vergleichen erfragen. So kann man beispielsweise prüfen, welche Werte
-eines numerischen Vektors (a) gleich, (b) größer (c) kleiner, (d) größer
-gleich, (e) kleiner gleich oder (f) ungleich einem bestimmten Wert sind.
-Dieser Code-Abschnitt stellt die grundlegenden logischen Vergleiche dar:
+Wir können in `R` mithilfe von logischen Abfragen überprüfen, ob die 
+Elemente in einem Vektor bestimmte Eigenschaften aufweisen. So können 
+wir beispielsweise erfragen, welche Werte eines numerischen Vektors (a) 
+gleich, (b) größer (c) kleiner, (d) größer gleich, (e) kleiner gleich 
+oder (f) ungleich einem bestimmten Wert sind. Der folgende 
+Code-Abschnitt stellt die grundlegenden logischen Vergleiche für 
+numerische Vektoren dar:
 
 ```{r}
 
@@ -709,18 +710,16 @@ daten != vergleichswert
 
 ```
 
-Das Ergebnis dieser Operationen ist ein Vektor aus `TRUE` und `FALSE`
-Werten. Die Werte nehmen `TRUE` an, wenn die Zahlen die
-kleiner/größer/gleich Bedingung erfüllen -- andernfalls
-`FALSE`. **Beachtet, dass auf Gleichheit mit dem "doppelten" `==`
-Operator getestet wird und nicht mit einem einfachen `=`.** Dies ist
-eine häufige Quelle von Fehlern, die schwierig zu entdecken
-sind. Betrachtet etwa folgenden Code -- was geht hier schief?
+Das Ergebnis dieser Operationen ist ein logischer Vektor aus `TRUE` und 
+`FALSE` Werten. Die Werte nehmen `TRUE` an, wenn die Zahlen die 
+kleiner/größer/gleich Bedingung erfüllen -- andernfalls `FALSE`. 
+**Beachtet, dass auf Gleichheit mit dem "doppelten" `==` Operator 
+getestet wird und nicht mit einem einfachen `=`.** Dies ist eine häufige 
+Quelle von Fehlern, die schwierig zu entdecken sind. Betrachtet etwa 
+folgenden Code -- was geht hier schief?
 
 ```{r}
-
 daten = vergleichswert
-
 ```
 
 Hierbei wird die Variable `daten` mit dem Wert in der Variablen
@@ -736,10 +735,9 @@ ist jedoch problematisch, dass ich an dieser Stelle meine Daten mit
 einem irrelevanten Wert überschrieben habe, und das bei einem späteren
 Zugriff darauf vermutlich nicht beachten werde.
 
-Welche logischen Vergleiche möglich sind, hängt vom Datentyp eines
-Vektors ab. Für Vektoren vom typ `character` etwa macht eine
-kleiner/größer Abfrage keinen Sinn, jedoch eine Abfrage auf
-Gleichheit.
+Welche logischen Vergleiche möglich sind, hängt vom Datentyp eines 
+Vektors ab. Für Vektoren vom Typ `character` etwa macht eine 
+Kleiner/Größer-Abfrage keinen Sinn, jedoch eine Abfrage auf Gleichheit:
 
 ```{r}
 text1 <- "Hallo Welt"
@@ -747,17 +745,22 @@ text1 == "Hallo Welt"
 text1 == "Hallo Welt!"
 ```
 
-Für Vektoren vom Typ `factor` lässt sich genauso eine Abfrage auf
-Gleichheit umsetzen. Hier wird beim Test auf Gleichheit das überprüfte
-`factor`-Label in Anführungszeichen gesetzt:
+Gleiches funktioniert mit Vektoren vom Typ `factor`, die sich ja 
+größtenteils wie Vektoren vom Typ `character` verhalten. Hier wird beim 
+Test auf Gleichheit das überprüfte `factor`-Label in Anführungszeichen 
+gesetzt:
 
 ```{r}
 geschlecht <- c(1, 2, 1, 1, 2, 1, 3)
-geschlecht <- factor(geschlecht, levels = 1:3,
-                     labels = c("weiblich", "maennlich", "divers"))
-
+geschlecht <- factor(
+  geschlecht, 
+  1:3,
+  c("weiblich", "maennlich", "divers")
+)
 geschlecht == "maennlich"
 ```
+
+### Komponentenweise Vergleiche
 
 Wenn zwei Vektoren gleicher Länge mit logischen Operatoren verglichen
 werden, werden die Elemente komponentenweise verglichen:
@@ -773,25 +776,36 @@ score_test1 == score_test2
 
 ```
 
+Wiederholt lernen wir nun schon dieses komponentenweise Verhalten 
+kennen. Wir können noch eine Schippe drauf legen, indem wir 
+vektorisierte logische Vergleiche mit vektorisierten UND- oder 
+ODER-Operationen verbinden:
+
+```{r}
+(score_test1 > score_test2) | (score_test1 > 23)
+```
+
+Es macht an dieser Stelle Sinn, darüber nachzudenken, wie diese Ausgabe 
+zustande kommt.
+
 ### Anwendungsbeispiel: Überprüfe das Gesetz der großen Zahlen
 
-Häufig verwendet man die Vergleichsoperatoren, um zu prüfen, wie viele
-Daten eine bestimmte Eigenschaft erfüllen. Dafür verknüpfen wir die
-Vergleichsoperatoren mit den Funktionen `sum` oder `mean`.
+Häufig verwendet man die Vergleichsoperatoren, um zu prüfen, wie viele 
+Daten eine bestimmte Eigenschaft erfüllen. Dafür können wir die 
+Vergleichsoperatoren mit den Funktionen `sum()` oder `mean()` 
+verknüpfen.
 
 Dafür bietet sich ein Beispiel aus der Statistik an: Wie viele von 1,000
-Zufallsdaten aus einer Standardnormalverteilung sind größer als 1?  `R`
-hat zahlreiche Funktionen, um Zufallszahlen aus verschiedenen
-Verteilungen zu generieren. Mit `rnorm` lassen sich Zufallszahlen
-generieren, die einer Normalverteilungen folgen; wenn man keine weiteren
-Argumente angibt, ist die Standardnormalverteilung gemeint, die einen
+Zufallsdaten aus einer Standardnormalverteilung sind größer als 1?  `R` 
+hat zahlreiche Funktionen, um Zufallszahlen aus verschiedenen 
+Verteilungen zu generieren. Mit `rnorm()` lassen sich Zufallszahlen 
+generieren, die einer Normalverteilung folgen; wenn man keine weiteren 
+Argumente angibt, ist die Standardnormalverteilung gemeint, die einen 
 Mittelwert von `0` und eine Standardabweichung von `1` hat:
 
 ```{r}
-
-## Erstelle 1,000 Zufallsdaten:
+# Erstelle 1,000 Zufallsdaten:
 zufallsdaten <- rnorm(1000)
-
 ```
 
 Zur Verdeutlichung: Der Vektor `zufallsdaten` enthält jetzt 1,000
@@ -803,9 +817,9 @@ length(zufallsdaten)
 
 ```
 
-Die Funktion `head` zeigt uns die ersten sechs Werte des Vektors an.
-`head` ist sehr praktisch, um sich schnell einen Blick über Daten zu
-verschaffen. Das machen wir hier auch, da wir nicht alle 1,000 Werte in
+Die Funktion `head()` zeigt uns die ersten sechs Werte des Vektors an; 
+sie ist sehr praktisch, um sich schnell einen Blick über Daten zu 
+verschaffen. Das machen wir hier auch, da wir nicht alle 1,000 Werte in 
 die Konsole schreiben wollen:
 
 ```{r}
@@ -820,18 +834,21 @@ Großteil der Daten um die `0` tummelt und extreme Werte in beide
 Richtungen seltener werden (dieser Code muss nicht verstanden werden):
 
 ```{r}
-## Male Histogram
-hist(zufallsdaten, freq = FALSE,
-     main = "Schöne normalverteilte Daten",
-     xlab = "", ylab = "", las = 1,
-     xlim = c(-4, 4), ylim = c(0, 0.4),
-     cex.main = 0.5, cex.axis = 0.6)
-
-## Lege eine Normalverteilungskurve über die Daten
+# Male Histogram
+hist(
+  zufallsdaten, 
+  freq = FALSE,
+  main = "Schöne normalverteilte Daten",
+  xlab = "", 
+  ylab = "", 
+  las = 1,
+  xlim = c(-4, 4), 
+  ylim = c(0, 0.4),
+)
+# Lege eine Normalverteilungskurve über die Daten
 curve(dnorm, col = "red", add = TRUE, lwd = 1.5)
-
-## Zeichne eine graue Linie beim x-Wert `1` ein:
-abline(v = 1, lwd = 2, col = "darkgrey")
+# Zeichne eine blue Linie beim x-Wert `1` ein:
+abline(v = 1, lwd = 3, col = "blue")
 ```
 
 
@@ -842,89 +859,86 @@ mit `sum` testen, wie viele der 1,000 Zufallsdaten größer als 1 sind:
 sum(zufallsdaten > 1)
 ```
 
-Zur Erinnerung: Der Befehl "`zufallsdaten > 1`" ergibt einen Vektor aus
-`TRUE` und `FALSE` Werten, der genauso viele Elemente enthält wie der
-Vektor `zufallsdaten`; wann immer ein Eintrag in `zufallsdaten` größer
-ist als 1, erhalten wir `TRUE`, andernfalls `FALSE`. `sum` gibt die Zahl
-der `TRUE` Einträge aus. **Das funktioniert, da `TRUE` und `FALSE` eine
-numerische Interpretation haben: `TRUE` wird als `1` interpretiert und
-`FALSE` als `0`**.[^mathelogik]
+Zur Erinnerung: Der Befehl "`zufallsdaten > 1`" ergibt einen Vektor aus 
+`TRUE` und `FALSE` Werten, der genauso viele Elemente enthält wie der 
+Vektor `zufallsdaten`; wann immer ein Eintrag in `zufallsdaten` größer 
+ist als 1, erhalten wir `TRUE`, andernfalls `FALSE`. Die Funktion 
+`sum()` gibt die Zahl der `TRUE` Einträge aus. **Das funktioniert, da 
+`TRUE` und `FALSE` eine numerische Interpretation haben: `TRUE` wird als 
+`1` interpretiert und `FALSE` als `0`**.[^mathelogik]
 
-[^mathelogik]: Wenn logische Vektoren einer numerischen Berechnung
-übergeben werden, werden die `TRUE`/`FALSE` Elemente des Vektors
-automatisch in Zahlen, d.h. 1 und 0 umgewandelt. Deswegen funktioniert
+[^mathelogik]: Wenn logische Vektoren einer numerischen Berechnung 
+übergeben werden, werden die `TRUE`/`FALSE` Elemente des Vektors 
+automatisch in Zahlen, d.h. 1 und 0 umgewandelt. Deswegen funktioniert 
 beispielsweise auch folgender Befehl: `TRUE + 1`
 
-Analog können wir mit `mean` den relativen Anteil der Daten bestimmen,
+Analog können wir mit `mean()` den relativen Anteil der Daten bestimmen,
 die größer als 1 sind:
 
 ```{r}
 mean(zufallsdaten > 1)
 ```
 
-Der Aufruf `mean(zufallsdaten > 1)` ergibt also den relativen Anteil der
-Datenpunkte, die größer sind als 1. Es lohnt sich ein wenig darüber
-nachzudenken, warum wir die Funktion `mean` hier verwenden können, um
-einen relativen Anteil zu bestimmen. Normalerweise sind wir es eher
-gewohnt, dass Mittelwerte und relative Anteile etwas Unterschiedliches
-sind. Der Grund dafür ist folgender: Für eine Variable, bei der die
-Werte nur 1 oder 0 annehmen können (analog in R: `TRUE`/`FALSE`),
-entspricht der Mittelwert dieser Variablen dem relativen Anteil der
-Werte, die 1 bzw. `TRUE` sind. Als Beispiel betrachten wir den folgenden
-Vektor:
+Der Aufruf `mean(zufallsdaten > 1)` ergibt also den relativen Anteil der 
+Datenpunkte, die größer sind als 1. Es lohnt sich ein wenig darüber 
+nachzudenken, warum wir `mean()` hier verwenden können, um den relativen 
+Anteil zu bestimmen. Normalerweise sind wir es eher gewohnt, dass 
+Mittelwerte und relative Anteile etwas Unterschiedliches sind. Der Grund 
+dafür ist folgender: Für eine Variable, bei der die Werte nur 1 oder 0 
+annehmen können (analog in R: `TRUE`/`FALSE`), entspricht der Mittelwert 
+dieser Variablen dem relativen Anteil der Werte, die 1 bzw. `TRUE` sind. 
+Als Beispiel betrachten wir den folgenden Vektor:
 
 ```{r} 
 beispiel_01 <- c(1, 0, 1, 1)
 mean(beispiel_01)
 ```
 
-Der Mittelwert des Vektors ist `(1 + 0 + 1 + 1) / 4`, also 0.75 -- und
-damit genau der relative Anteil der 1-Elemente. Dies ist eine praktische
-Eigenschaft der 1/0- bzw. `TRUE`/`FALSE`-Kodierung und macht logische
+Der Mittelwert des Vektors ist `(1 + 0 + 1 + 1) / 4`, also 0.75 -- und 
+damit genau der relative Anteil der 1-Elemente. Dies ist eine praktische 
+Eigenschaft der 1/0- bzw. `TRUE`/`FALSE`-Kodierung und macht logische 
 Abfragen in `R` so mächtig. 
 
-Wenn wir einen relativen Anteil in eine Prozentzahl umwandeln wollen,
+Wenn wir einen relativen Anteil in eine Prozentzahl umwandeln wollen, 
 können wir ihn einfach mit 100 multiplizieren:
 
 ```{r}
 mean(zufallsdaten > 1) * 100
 ```
 
-Der Erwartungswert, dass eine zufällige Zahl aus einer
-Standardnormalverteilung größer ist als `1` -- also mehr als eine
-Standardabweichung vom Mittelwert entfernt liegt -- liegt bei etwa
-15.9%. Den exakten Erwartungswert könnte ich in `R` mit der Funktion
-`pnorm` herausfinden:[^pnorm]
-
-[^pnorm]: `pnorm` ist die kummulative Verteilungsfunktion der
-Normalverteilung. Sie sagt aus, wie viel % der Werte in einer
-Normalverteilung kleiner sind als der übergebene Wert. Um heraus zu
-finden, wie viele Werte **größer** als 1 sind, wird hier das Komplement,
-also `1 - pnorm(1)`, gebildet. Das funktioniert, da die Gesamtdichte
-einer Wahrscheinlichkeitsverteilung immer 1 ist.
+Der Erwartungswert, dass eine zufällige Zahl aus einer 
+Standardnormalverteilung größer ist als `1` -- also mehr als eine 
+Standardabweichung vom Mittelwert entfernt liegt -- liegt bei etwa 
+15.9%. Den exakten Erwartungswert könnte ich in `R` mit der Funktion 
+`pnorm()` herausfinden:
 
 ```{r}
 1 - pnorm(1)
 ```
 
-Nach dem Gesetz der großen Zahlen liegt der folgende Wert wahrscheinlich
-näher an 15.9% als der Schätzer, der auf 1,000 Zufallszahlen basiert:
+Die Funktion `pnorm()` ist die kumulative Verteilungsfunktion der
+Normalverteilung. Sie sagt aus, wie viel Prozent der Werte in einer
+Normalverteilung kleiner sind als der übergebene Wert. Um heraus zu
+finden, wie viele Werte **größer** als 1 sind, wird hier das Komplement,
+also `1 - pnorm(1)`, gebildet. Das funktioniert, da die Gesamtdichte
+einer Wahrscheinlichkeitsverteilung immer 1 ist.
+
+Nach dem Gesetz der großen Zahlen liegt der folgende Wert wahrscheinlich 
+näher am "wahren Wert" von 15.9% als der Schätzer, der auf 1,000 
+Zufallszahlen basiert:
 
 ```{r}
-
-## 100,000 Zufallsdaten sind für R kein Problem
-zufallsdaten <- rnorm(100000) # 100000
+# 100,000 Zufallsdaten sind für R kein Problem
+zufallsdaten <- rnorm(100000) 
 mean(zufallsdaten > 1)
-
 ```
 
-Ihr könnt für das Gesetz der großen Zahlen selber ein Gefühl entwickeln,
-wenn ihr mehrfach `mean(rnorm(1000)>1)` und `mean(rnorm(100000)>1)` in
-die `R`-Konsole eingebt und beobachtet, welcher Wert häufiger näher an
-0.159 liegt. Beachtet wie schnell `R` Operationen mit 100,000 Zahlen
-durchführen kann.
+Ihr könnt für das Gesetz der großen Zahlen selber ein Gefühl entwickeln, 
+wenn ihr mehrfach `mean(rnorm(1000) > 1)` und `mean(rnorm(100000) > 1)` 
+in die `R`-Konsole eingebt und beobachtet, welcher Wert häufiger näher 
+an 0.159 liegt.
 
-### Der `%in%` Operator
+### Der `%in%`-Operator
 
 Um zu testen, ob ein oder mehrere Elemente in einem Vektor enthalten
 sind, kann man den `%in%`-Operator verwenden. Der sieht zwar
@@ -933,36 +947,48 @@ einfache verbale Interpretation: Sind die Elemente aus Vektor A in
 Vektor B?
 
 ```{r}
-
 2 %in% 1:3
-
 ```
 
 
 ```{r}
-
 4 %in% 1:3
-
 ```
 
-Der `%in%`-Operator testet für jedes der Elemente *vor* `%in%`, ob
-dieses im Vektor *nach* `%in%` enthalten ist:
+Wir können den `%in%`-Operator als eine Aneinanderreihung mehrerer 
+ODER-Bedingungen verstehen. Folgendes ist äquivalent zu den obigen 
+Aufrufen von `%in%`:
 
 ```{r}
+zu_testen <- 2
+zu_testen == 1 | zu_testen == 2 | zu_testen == 3
 
-c(2, 3) %in% 3:5
-
+zu_testen <- 4
+zu_testen == 1 | zu_testen == 2 | zu_testen == 3
 ```
 
-Die Ausgabe der `%in%`-Operation ist also ein logischer Vektor; die
-Länge des Ausgabevektors entspricht dabei immer der Länge des Vektors
-auf der linken Seite von `%in%`.
+Der `%in%`-Operator ist wie so vieles in `R` „vektorisiert“, das heißt 
+wir können für mehrere Elemente gleichzeitig testen, ob sie in einem 
+Vektor enthalten sind:
+
+```{r}
+c(2, 3) %in% 3:5
+```
+
+In diesem Fall wird für jedes der Vektorelemente *vor* `%in%` geprüft, 
+ob dieses im Vektor *nach* `%in%` enthalten ist. Die Ausgabe der 
+`%in%`-Operation ist immer ein logischer Vektor; die Länge des 
+Ausgabevektors entspricht der Länge des Vektors auf der linken Seite von 
+`%in%`.
 
 ## Zugriff auf Vektorelemente
 
-Der Zugriff auf Daten ist ein wichtiger Abschnitt unserer Einleitung in
-die Grundlagen `R`s. In diesem Abschnitt lernen wir, wie wir Elemente
-aus einfachen Vektoren „herausgreifen“ können.
+Der Zugriff auf Daten ist ein wichtiger Abschnitt unserer Einleitung in 
+die Grundlagen von `R`. In diesem Abschnitt lernen wir, wie wir Elemente 
+aus Vektoren „herausgreifen“ können und wie wir einzelne Elemente in 
+einem Vektor ändern können. In [Kapitel 3](#datenzugriffe) wird als 
+Fortführung behandelt, wie wir Daten aus Tabellen (wie wir sie etwa aus 
+Excel kennen) auswählen können.
 
 ### Der `[·]`-Zugriff {#veczugriff}
 
@@ -1006,7 +1032,7 @@ daten[-1]
 
 Interessant wird diese Art des Zugriffs, da der Index in den `[·]`
 Klammern auch ein mehr-elementiger numerischer Vektor sein kann -- hier
-nutzen wir die `c` Funktion:
+nutzen wir die Funktion `c()`:
 
 ```{r}
 daten[c(1, 2)]
@@ -1141,19 +1167,17 @@ fehlend zu verstehen sind. Technisch umgesetzt wird dies mit einem
 `TRUE`/`FALSE` Vektor, den wir mithilfe der Anweisung `daten == -99`
 erstellt haben.
 
- &nbsp;
-
-Wir werden wohl selten "händisch" per Index oder logischem
-`TRUE`/`FALSE` Vektor eine Auswahl/Änderung von Daten durchführen. Aber
-in Zusammenarbeit mit den logischen Operatoren (`>`, `<`, `==`, `&`,
-`|` etc.) ist die Auswahl von Elementen aus Vektoren -- und auch die
-Auswahl von Daten aus Tabellen -- eine häufige Anwendung. Diese werden
-wir bei der gezielten Auswahl von Zeilen aus Datentabellen (siehe
-Kapitel 3) wiederfinden und uns zunutze machen. Das gegebene Beispiel
-zum Umkodieren von fehlenden Werten werden wir in einer sehr ähnlichen
-Form umsetzen, da wir sonst die Daten des Narcissistic Personality
-Inventory nicht auswerten können. Bevor die Analyse starten kann, müssen
-fehlende Werte gekennzeichnet werden.
+Wir werden wohl selten "händisch" per Index oder logischem 
+`TRUE`/`FALSE` Vektor eine Auswahl/Änderung von Daten durchführen. Aber 
+in Zusammenarbeit mit den logischen Operatoren (`>`, `<`, `==`, `&`, `|` 
+etc.) ist die Auswahl von Elementen aus Vektoren -- und auch die Auswahl 
+von Daten aus Tabellen -- eine häufige Anwendung. Diese werden wir bei 
+der gezielten Auswahl von Zeilen aus Datentabellen (siehe Kapitel 3) 
+wiederfinden und uns zunutze machen. Das gegebene Beispiel zur
+Umkodierung von fehlenden Werten werden wir in einer sehr ähnlichen 
+Form in [Kapitel 5](#missingvalues) nutzen, da wir sonst Daten aus 
+dem Narcissistic Personality Inventory nicht auswerten können. Bevor 
+die Analyse startet, müssen fehlende Werte gekennzeichnet werden.
 
 ## Präzedenz {#praezedenz}
 
@@ -1241,7 +1265,7 @@ einmal zu wenig.
 
 ## Zusammenfassung
 
-- Wir haben `R`s grundlegendste Datenstruktur, den Vektor, kennengelernt
+- Wir haben die grundlegendste Datenstruktur von `R`, den Vektor, kennengelernt
 - Vektoren enthalten beliebig viele Elemente gleichartiger Daten, etwa
     + Zahlen ("numeric")
     + Texte ("character")
@@ -1261,11 +1285,11 @@ einmal zu wenig.
 ## Fragen zum vertiefenden Verständnis
 
 1. Wie berechnet man den Standardfehler von `1:10`?
-2. Was für Objekte nimmt die Funktion `c` entgegen, und was gibt sie
+2. Was für Objekte nimmt die Funktion `c()` entgegen, und was gibt sie
    zurück?
 3. Was ergibt `1:6 + 1:2`? Was passiert? Warum gibt `1:4 + 1:3` eine
 Warnmeldung aus?
-4. Nutzt `paste0`, den `:`-Operator und den `[·]`-Negativ-Zugriff, um
+4. Nutzt `paste0()`, den `:`-Operator und den `[·]`-Negativ-Zugriff, um
    den folgenden Vektor zu erstellen:
 
 ```{r, echo = FALSE}

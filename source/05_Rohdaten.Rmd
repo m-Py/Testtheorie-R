@@ -226,7 +226,7 @@ das ist genau das, was wir mit der Invertierung erreichen wollten: Einen
 Punktwert errechnen, der genau in die entgegengesetzte Richtung zu
 interpretieren ist wie der ursprüngliche Wert.
 
-## Umgang mit fehlenden Werten
+## Umgang mit fehlenden Werten {#missingvalues}
 
 > Real data have missing values. Missing values are an integral part of
 > the R language.  Many functions have arguments that control how
