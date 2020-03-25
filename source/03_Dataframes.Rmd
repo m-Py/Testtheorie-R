@@ -56,7 +56,7 @@ wurde jede Spalte mit der Funktion `c()` oder dem Doppelpunktoperator
 mit genau einem Vektor befüllt. Alle Spalten wurden bei der Erstellung 
 benannt. **Dieser Punkt ist sehr wichtig, da wir Spalten anhand ihrer 
 Namen gezielt auswählen können**. Wenn ich die Spaltennamen eines 
-`data.frames` nicht mehr weiß, kann ich sie mit der Funktion `names` 
+`data.frames` nicht mehr weiß, kann ich sie mit der Funktion `names()` 
 abrufen:
 
 ```{r}
@@ -83,7 +83,11 @@ per "`<-`" einen Vektor zuweise:
 mdf$Augenfarbe <- c("braun", "blau", "blau", "braun", "gruen")
 ```
 
-Die Tabelle `mdf` hat nun eine zusätzliche Spalte: 
+Die Tabelle `mdf`[^technischkorrekt] hat nun eine zusätzliche Spalte: 
+
+[^technischkorrekt]: Technisch korrekt müsste ich sagen: Der 
+`data.frame`, der in der Variablen `mdf` abgespeichert ist, hat nun eine 
+zusätzliche Spalte.
 
 ```{r}
 mdf
@@ -295,9 +299,10 @@ Als erstes Argument nimmt die Funktion `subset()` immer den `data.frame`
 an, aus dem wir Daten auslesen wollen. Danach folgen Argumente zur 
 Auswahl von Zeilen und zur Auswahl von Spalten.
 
-Wie hier gezeigt ist im Vergleich zur `[·,·]`-Notation noch nicht viel 
-gewonnen. Was die Funktion `subset()` so nützlich macht, ist dass sie 
-zwei wichtige Zugriffe auf `data.frames` vereinfacht:
+Wie hier angewendet, ist durch die Funktion `subset()` im Vergleich zur 
+`[·,·]`-Notation noch nicht viel gewonnen. Was die Funktion `subset()` 
+so nützlich macht, ist dass sie zwei wichtige Zugriffe auf `data.frames` 
+vereinfacht:
 
 1. [Die Auswahl von Zeilen mithilfe logischer Bedingungen](#zeileneinfach)
 2. [Die Auswahl von Spalten durch Angabe von Spaltennamen](#spalteneinfach)
