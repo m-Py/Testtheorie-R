@@ -35,7 +35,7 @@ https://github.com/m-Py/Testtheorie-R.
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
 Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch
-echte Datensätze verwendet, beispielsweise ein Datensatz zum
+echte Datensätze verwendet, beispielsweise einen Datensatz zum
 *Narcissistic Personality Inventory*, der online frei über das „Open
 Source Psychometrics Project”
 ([https://openpsychometrics.org/](https://openpsychometrics.org/))
@@ -43,17 +43,17 @@ verfügbar ist.
 
 ## Über dieses Skript
 
-Dieses Skript wurde als Begleitmaterial für eine Lehrveranstaltung
-konzipiert. Die Veranstaltung selbst hat einen starken praktischen
-Anteil; in jeder Stunde werden Übungsaufgaben in `R` bearbeitet. Das
-Skript bietet den theoretischen Unterbau. Die Übungen des Seminars und
-die zur Bearbeitung nötigen Daten -- wie auch der jeweils aktuelle Stand
-dieses Skripts -- können unter
-[https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden. Unter
-[https://m-py.github.io/TesttheorieR/](https://m-py.github.io/TesttheorieR/)
-findet sich eine online lesbare Version des Skripts. Das Skript wird
-stetig aktualisiert; diese Version wurde am `r format(Sys.Date(), "%d.
-%B %Y")` erstellt.
+Dieses Skript wurde als Begleitmaterial für eine Lehrveranstaltung 
+konzipiert. Die Veranstaltung selbst hat einen starken praktischen 
+Anteil; in jeder Woche werden Übungsaufgaben in `R` bearbeitet. Das 
+Skript bietet den theoretischen Unterbau zu den Übungen. Die Übungen des 
+Seminars und die zur Bearbeitung nötigen Daten -- wie auch der jeweils 
+aktuelle Stand dieses Skripts -- können unter 
+[https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden. Unter 
+[https://m-py.github.io/TesttheorieR/](https://m-py.github.io/ 
+TesttheorieR/) findet sich eine online lesbare Version des Skripts. Das 
+Skript wird stetig aktualisiert; diese Version wurde am `r 
+format(Sys.Date(), "%d. %B %Y")` erstellt.
 
 Wer `R` lernen möchte, muss sich klar machen, dass die reine
 Aufarbeitung einer oder mehrerer schriftlicher Lektüren zu diesem Zweck
@@ -167,7 +167,7 @@ Zum Beispiel können wir die `R`-Konsole als Taschenrechner benutzen:
 
 10 / 5
 
-## Auf Klammerung achten:
+# Auf Klammerung achten:
 (3 + 5) / 2
 
 3 + 5 / 2
