@@ -18,7 +18,7 @@ header-includes:
 
 geometry: "left=2.55cm,right=2.55cm,top=2.55cm,bottom=2.55cm"
 
-title: Testtheorie mit R
+title: Testtheorie mit `R`
 author: Martin Papenberg
 
 bibliography: referenzen.bib
