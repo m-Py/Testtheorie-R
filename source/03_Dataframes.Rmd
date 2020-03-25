@@ -673,9 +673,9 @@ nach Zeilen -- oder beidem -- geschehen.
 
 ## Nützliche Funktionen zum Arbeiten mit `data.frames` {#convenient}
 
-### `tapply` {#tapply}
+### `tapply()` {#tapply}
 
-Die Funktion `tapply` kann ich verwenden, um mir deskriptive
+Die Funktion `tapply()` kann ich verwenden, um mir deskriptive
 Statistiken anhand von Gruppierungsvariablen ausgeben zu lassen, hier
 etwa die mittlere Punktzahl oder das mittlere Alter nach Geschlecht der
 Schüler/innen:
@@ -685,80 +685,76 @@ tapply(mdf$Testscore, mdf$Geschlecht, mean)
 tapply(mdf$Alter, mdf$Geschlecht, mean)
 ```
 
-Die Funktion `tapply` erhält als erstes Argument den Messwertvektor, für
-den Statistiken angefordert werden. Das zweite Argument ist die
-Gruppierungsvariable.[^warumhier] Interessanterweise ist das dritte
-Argument eine Funktion, in diesem Fall die Funktion `mean`. So können
-wir die *mittlere* Punktzahl nach Geschlecht anfordern. Entsprechend
-könnten wir hier andere Funktionen übergeben, um etwa die
+Die Funktion `tapply()` erhält als erstes Argument den Messwertvektor, für
+den Statistiken angefordert werden. Das zweite Argument ist die 
+Gruppierungsvariable.[^warumhier] Interessanterweise ist das dritte 
+Argument eine Funktion, in diesem Fall die Funktion `mean()`. So können 
+wir die *mittlere* Punktzahl nach Geschlecht anfordern. Entsprechend 
+könnten wir hier andere Funktionen übergeben, um etwa die 
 Standardabweichung des Alters zu erfragen:
 
-[^warumhier]: Beachtet, dass sowohl Messwerte als auch
-Gruppierungsvariable als **Vektoren** übergeben werden. Ich behandle die
-Funktion `tapply` jedoch im Kapitel zu `data.frames`, da es zumeist so
-sein wird, dass wir beide Vektoren aus **einem** `data.frame` mit der
+[^warumhier]: Beachtet, dass sowohl Messwerte als auch 
+Gruppierungsvariable als **Vektoren** übergeben werden. Ich behandle die 
+Funktion `tapply()` jedoch im Kapitel zu `data.frames`, da es zumeist so 
+sein wird, dass wir beide Vektoren aus **einem** `data.frame` mit der 
 `$`-Notation auslesen werden.
 
 ```{r}
 tapply(mdf$Alter, mdf$Geschlecht, sd)
 ```
 
-Wie `table` kann auch `tapply` deskriptive Statistiken anhand mehrerer
-Gruppierungsvariablen anfordern. Um mehrere Gruppierungsvariablen
-anzufordern, klammern wir `list(...)` um die Gruppierungsvektoren im
-zweiten Argument:
+Wie `table()` kann auch `tapply()` deskriptive Statistiken anhand 
+mehrerer Gruppierungsvariablen anfordern. Um mehrere 
+Gruppierungsvariablen anzufordern, klammern wir `list(...)` um die 
+Gruppierungsvektoren im zweiten Argument:
 
 ```{r}
 tapply(mdf$Alter, list(mdf$Geschlecht, mdf$Augenfarbe), mean)
 ```
 
-Mit nur fünf Datenpunkten macht diese Anfrage hier nur wenig Sinn, da
-jeder ausgegebene Mittelwert nur anhand eines einzelnen Wertes gebildet
-wurde,[^nochmaltable] was die Idee des Mittelwerts eher ad absurdum
-führt. Manche Kombinationen von Geschlecht und Augenfarbe kommen in
-unseren Daten sogar gar nicht vor; in diesen Fällen wird `NA`
-ausgegeben. `tapply` zeigt ihre Stärke vor allem, wenn man viele -- und
-nicht nur fünf -- Datenpunkte hat. Das gilt gerade dann, wenn wir mehrere
-Gruppierungsvariablen angeben.
+Mit nur fünf Datenpunkten macht diese Anfrage hier nur wenig Sinn, da 
+jeder ausgegebene Mittelwert nur anhand eines einzelnen Wertes gebildet 
+wurde,[^nochmaltable] was die Idee des Mittelwerts eher ad absurdum 
+führt. Manche Kombinationen von Geschlecht und Augenfarbe kommen in 
+unseren Daten sogar gar nicht vor; in diesen Fällen wird `NA` 
+ausgegeben. Die Funktion `tapply()` zeigt ihre Stärke vor allem, wenn 
+man viele -- und nicht nur fünf -- Datenpunkte hat. Das gilt gerade 
+dann, wenn wir mehrere Gruppierungsvariablen angeben.
 
 [^nochmaltable]: Wie viele Datenpunkte in die Berechnung jedes
 Mittelwerts eingehen, können wir in diesem Fall prüfen mit
 `table(mdf$Geschlecht, mdf$Augenfarbe)`.
 
-### `nrow` und `ncol`
+### `nrow()` und `ncol()`
 
-Die Zahl der Zeilen eines `data.frame`s -- d.h. oftmals die Zahl der
-*Fälle* -- lässt sich mit der Funktion `nrow` bestimmen, die man sehr
-häufig verwendet:
+Wie viele Zeilen ein `data.frame` hat -- d.h. oftmals die Zahl der
+*Fälle* -- lässt sich mit der Funktion `nrow()` bestimmen:
 
 ```{r}
 nrow(mdf)
 ```
 
-Analog ergibt `ncol` die Zahl der Spalten:
+Analog gibt `ncol()` die Zahl der Spalten aus:
 
 ```{r}
 ncol(mdf)
 ```
 
-### `head` und `tail`
+### `head()` und `tail()`
 
-Um sich einen Überblick über einen `data.frame` zu verschaffen, sind die
-Funktionen `head` und `tail` sehr nützlich. `head` gibt die ersten
-Zeilen eines `data.frames` zurück, `tail` entsprechend die letzten
-Zeilen. Beide Funktionen haben ein zweites Argument *n*, welches wir
-nutzen können, um zu steuern, wie viele Zeilen ausgegeben werden
-sollen. Wenn wir *n* nicht angeben, werden sechs Zeilen ausgegeben (in
-`R`-Jargon: 6 ist der "default"-, also Standardwert des *optionalen
-Arguments* n). Beispiel:
+Um sich einen Überblick über einen `data.frame` zu verschaffen, sind die 
+Funktionen `head()` und `tail()` sehr nützlich. Die Funktion `head()` 
+gibt die ersten Zeilen eines `data.frames` aus; `tail()` gibt 
+entsprechend die letzten Zeilen aus. Beide Funktionen haben ein zweites 
+Argument `n`, mit dem wir spezifizieren können, wie viele Zeilen 
+ausgegeben werden sollen. Wenn wir `n` nicht angeben, werden sechs 
+Zeilen ausgegeben (in `R`-Jargon: 6 ist der Standardwert des *optionalen 
+Arguments* `n`). Wir können die Funktionen wie folgt nutzen:
 
 ```{r}
 head(mdf, n = 2)
-tail(mdf)
+tail(mdf, n = 3)
 ```
-
-Im letzteren Fall werden einfach alle Zeilen zurückgegeben, da unser
-`data.frame` insgesamt nur fünf Zeilen hat -- und somit weniger als sechs.
 
 ### Sortieren: `dplyr::arrange`
 
@@ -773,18 +769,18 @@ library("dplyr")
 Voraussetzung dafür, dass ich das Paket `dplyr` nutzen kann ist, dass
 ich das Paket auf meinem Rechner installiert habe. Falls das Paket noch
 nicht installiert ist -- in dem Fall ergibt der Befehl
-`library('dyplr')` einen Fehler) --. können wir es es mit dem folgenden
+`library('dyplr')` einen Fehler -- können wir es es mit dem folgenden
 Befehl installieren:
 
 ```R
 install.packages("dplyr")
 ```
 
-Pakete stellen zusätzliche Funktionen zur Verfügung, die in der
-Basisversion von `R` nicht enthalten sind. Um ein Paket zu nutzen,
-müssen wir es mit der Funktion `library` in unsere `R`-Umgebung laden.
-Andernfalls könnten wir die Funktionen nicht nutzen, die etwa `dplyr`
-enthält. Die Funktion `arrange` aus `dplyr` ermöglicht es uns, einen
+Pakete stellen zusätzliche Funktionen zur Verfügung, die in der 
+Basisversion von `R` nicht enthalten sind. Um ein Paket zu nutzen, 
+müssen wir es mit der Funktion `library` in unsere `R`-Umgebung laden. 
+Andernfalls könnten wir die Funktionen nicht nutzen, die etwa `dplyr` 
+enthält. Die Funktion `arrange()` aus `dplyr` ermöglicht es uns, einen 
 `data.frame` zu sortieren:
 
 ```{r}
@@ -818,16 +814,16 @@ arrange(mdf, Geschlecht, -Testscore)
   psychometrischen Daten kennengelernt
 - Wir haben die `$`-Notation für den Zugriff auf einzelne Spalten von 
   `data.frames` kennengelernt
-- Mit der `[·,·]`-Notation und der Funktion `subset` können wir Zeilen 
+- Mit der `[·,·]`-Notation und der Funktion `subset()` können wir Zeilen 
   und Spalten aus `data.frames` auslesen
 - Zur Anforderung von deskriptiven Statistiken können wir die Funktionen
-  `table` und `tapply` verwenden
+  `table()` und `tapply()` verwenden
 - Wir haben weitere Funktionen kennengelernt, die uns einen Überblick
   über `data.frames` verschaffen:
-    + `names`
-    + `nrow/ncol`
-    + `head/tail`
-    + `dplyr::arrange`
+    + `names()`
+    + `nrow()/ncol()`
+    + `head()/tail()`
+    + `dplyr::arrange()`
 
 ## Fragen zum vertiefenden Verständnis
 
