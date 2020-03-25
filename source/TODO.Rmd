@@ -1,11 +1,12 @@
 
 ## Bei "for-loops are evil" apply einführen
 
-- apply performed als Ersatz für rowSums viel besser
-  als for-loop
+- apply performed als Ersatz für rowSums viel besser als for-loop
+- Vergleich mit Schlüssel durch spaltenweisen logischen Vergleich, ganz 
+ohne apply, mapply oder for Schleife
 - Macht hier bereits ein Verweis auf lapply/replicate Sinn? ("The R way")
 
-## Abstraktion -- Trennschärfe als Funktion
+## Neues Kapitel: Anwendung: Trennschärfe als Funktion
 
 Inhalte:
 
@@ -14,16 +15,21 @@ Inhalte:
   gebrauchen, bzw. hat man eine Analyse schon oft durchgeführt?)
 - `if`-Statements zur Überprüfung der Korrektheit der Eingabe
 - Teste auf Typ der Eingabe (`class(input) == "data.frame"`)
-- `[, drop = FALSE]`
+- `[, drop = FALSE]` -- man muss mehr aufpassen, wenn die Eingabe 
+beliebig sein kann und nicht auf den einen Datensatz beschränkt ist, 
+den man gerade bearbeitet (Kosten/Nutzen-Abrechnung: Wie viel 
+Generalisierbarkeit lohnt sich?)
 
-## In Kapitel 5 
+## Neues Kapitel: Anwendung: Invertierung von `data.frames`
 
-- Neuer Abschnitt: Bivariate Zusammenhänge
-    + Scatterplots (+ random jitter)
-    + cor()
-    + cor.test()
-    + lm()
-    + abline()
+## Neues Kapitel: Bivariate Zusammenhänge
+
+- Scatterplots (+ random jitter)
+- cor()
+- cor.test()
+- lm()
+- abline()
+- Ausblick: Multivariate Regression
 
 ## Anhang
 
