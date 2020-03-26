@@ -778,7 +778,7 @@ install.packages("dplyr")
 
 Pakete stellen zusätzliche Funktionen zur Verfügung, die in der 
 Basisversion von `R` nicht enthalten sind. Um ein Paket zu nutzen, 
-müssen wir es mit der Funktion `library` in unsere `R`-Umgebung laden. 
+müssen wir es mit der Funktion `library()` in unsere `R`-Umgebung laden. 
 Andernfalls könnten wir die Funktionen nicht nutzen, die etwa `dplyr` 
 enthält. Die Funktion `arrange()` aus `dplyr` ermöglicht es uns, einen 
 `data.frame` zu sortieren:
