@@ -5,7 +5,7 @@ Wir haben gelernt, dass `R` Daten in Vektoren abspeichert. Im Normalfall
 haben wir in der psychometrischen Datenauswertung aber eine große
 Datenmenge vorliegen, die wir nicht sinnvoll als einzelnen Vektor
 darstellen können. Etwa: 150 Studierende bearbeiten in einer
-Diagnostikklausur 42 Multiple-Choice-Klausuritems. Wir stellen solche
+Diagnostikklausur 42 Multifple-Choice-Klausuritems. Wir stellen solche
 Daten in Tabellen dar, wie man sie auch aus Excel oder SPSS kennt. In
 diesen Tabellen repräsentieren Spalten Messvariablen, etwa die
 Punktzahlen in einer Klausuraufgabe. Zeilen stellen Fälle dar, etwa
@@ -787,10 +787,10 @@ enthält. Die Funktion `arrange()` aus `dplyr` ermöglicht es uns, einen
 arrange(mdf, Testscore) # dplyr muss geladen sein
 ```
 
-In der Funktion `arrange` geben wir als erstes Argument den zu
+In der Funktion `arrange()` geben wir als erstes Argument den zu
 sortierenden `data.frame` an. Darauf folgen -- mit Komma separiert --
 alle Spalten nach denen wir sortieren wollen (hier erst mal nur der
-Testscore). Standardmäßig sortiert `arrange` *aufsteigend*; wenn wir
+Testscore). Standardmäßig sortiert `arrange()` *aufsteigend*; wenn wir
 eine absteigende Sortierung wünschen, müssen wir ein Minus vor die
 Sortierspalte setzen:
 
