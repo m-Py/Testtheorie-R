@@ -584,10 +584,10 @@ laune_faktor
 ```
 
 Die Funktion `factor()` wandelt die numerischen Werte im Vektor `laune` 
-in den Typ `factor` um. Das heißt: den numerischen Kategorien (1, 2 und 
+in den Typ `factor` um. Das heißt: Den numerischen Kategorien (1, 2 und 
 3) in `laune` wird eine textuelle Beschreibung zugeordnet, hier 
 umgesetzt durch unterschiedlich fröhliche Smileys. Es macht nur dann 
-Sinn hat einen Vektor vom Typ `factor` anzulegen, wenn eine numerische 
+Sinn einen Vektor vom Typ `factor` anzulegen, wenn eine numerische 
 Variable eine vordefinierte Zahl an Ausprägungen aufweist. Welche 
 Ausprägungen im Eingangsvektor in diesem Fall möglich sind habe ich mit 
 dem zweiten Argument -- `1:3` -- spezifiziert.
@@ -596,7 +596,7 @@ Die Darstellung als `factor` ist für Menschen besser zu verarbeiten als
 numerische Kategorien. Die Bedeutung der numerischen Kodierung stellt 
 eine Gedächtnisbelastung dar: War beispielsweise ein höherer Wert in 
 `laune` besonders traurig oder besonders fröhlich? Ein Problem ist 
-oftmals auch die Kodierung des Geschlecht von Studienteilnehmer*innen: 
+oftmals auch die Kodierung des Geschlechts von Studienteilnehmer*innen: 
 Wurde weibliche Teilnehmerinnen jetzt mit einer 1 oder mit einer 2 
 kodiert? Bei einer Dateneingabe werden oftmals numerische Kodierungen 
 eingegeben, da dies schneller geht als einen Text abzutippen. In der 
@@ -667,7 +667,7 @@ mean(messy_data) # geht nicht wegen des fehlenden Werts
 
 Man muss `R` explizit mitteilen, dass man trotz des Auftretens fehlender 
 Werte einen Mittelwert ausrechnen möchte. Dies funktioniert mit dem 
-*optionalen Argument* `na.rm`[^optional] der Funktion `mean`, welches 
+*optionalen Argument* `na.rm`[^optional] der Funktion `mean()`, welches 
 wir auf `TRUE` setzen können. Mit dem *Argument* `na.rm` ("NA remove") 
 teilen wir der Funktion `mean()` mit, dass fehlende Werte bei der 
 Berechnung des Mittelwerts nicht berücksichtigt werden sollen. Ähnliche 
@@ -692,7 +692,7 @@ diesem Thema mehr in [Kapitel 3](#subset).
 Wir können in `R` mithilfe von logischen Abfragen überprüfen, ob die 
 Elemente in einem Vektor bestimmte Eigenschaften aufweisen. So können 
 wir beispielsweise erfragen, welche Werte eines numerischen Vektors (a) 
-gleich, (b) größer (c) kleiner, (d) größer gleich, (e) kleiner gleich 
+gleich, (b) größer, (c) kleiner, (d) größer gleich, (e) kleiner gleich 
 oder (f) ungleich einem bestimmten Wert sind. Der folgende 
 Code-Abschnitt stellt die grundlegenden logischen Vergleiche für 
 numerische Vektoren dar:
@@ -745,7 +745,7 @@ text1 == "Hallo Welt"
 text1 == "Hallo Welt!"
 ```
 
-Gleiches funktioniert mit Vektoren vom Typ `factor`, die sich ja 
+Das funktioniert auch mit Vektoren vom Typ `factor`, die sich ja 
 größtenteils wie Vektoren vom Typ `character` verhalten. Hier wird beim 
 Test auf Gleichheit das überprüfte `factor`-Label in Anführungszeichen 
 gesetzt:
@@ -776,10 +776,10 @@ score_test1 == score_test2
 
 ```
 
-Wiederholt lernen wir nun schon dieses komponentenweise Verhalten 
-kennen. Wir können noch eine Schippe drauf legen, indem wir 
-vektorisierte logische Vergleiche mit vektorisierten UND- oder 
-ODER-Operationen verbinden:
+Erneut treffen wir auf dieses komponentenweise Verhalten. Wir 
+können noch eine Schippe drauf legen, indem wir vektorisierte 
+logische Vergleiche mit vektorisierten UND- oder ODER-Operationen 
+verbinden:
 
 ```{r}
 (score_test1 > score_test2) | (score_test1 > 23)
@@ -818,7 +818,7 @@ length(zufallsdaten)
 ```
 
 Die Funktion `head()` zeigt uns die ersten sechs Werte des Vektors an; 
-sie ist sehr praktisch, um sich schnell einen Blick über Daten zu 
+sie ist sehr praktisch, um sich schnell einen Überblick über Daten zu 
 verschaffen. Das machen wir hier auch, da wir nicht alle 1,000 Werte in 
 die Konsole schreiben wollen:
 
