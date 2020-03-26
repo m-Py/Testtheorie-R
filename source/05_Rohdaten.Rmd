@@ -58,9 +58,9 @@ anzeigen, sondern kann auch Merkmalsausprägung in einem
 Persönlichkeitsinventar kodieren. Wir werden das im Narcissistic
 Personality Inventory kennenlernen.
 
-### Die Funktion `ifelse`
+### Die Funktion `ifelse()`
 
-Mit der Funktion `ifelse` lassen sich Transformationen, die anhand
+Mit der Funktion `ifelse()` lassen sich Transformationen, die anhand
 eines Schlüssels Korrektheit kodieren, bequem durchführen. Das folgende
 Beispiel basiert auf dem obigen Multiple-Choice-Item:
 
@@ -76,11 +76,11 @@ bundesland_score   <- ifelse(
 bundesland_score
 ```
 
-Was ist hier passiert? Ich habe im Vektor `bundesland_answers`
-hypothetische Antworten generiert; die Variable `bundesland_key` enthält
-den Schlüssel, d.h. die korrekte Antwort. Mithilfe der Funktion `ifelse`
-gleiche ich die Antworten mit dem Schlüssel ab.  `ifelse` nimmt drei
-Argumente entgegen. Diese heißen `test`, `yes`, und `no`:
+Was ist hier passiert? Ich habe im Vektor `bundesland_answers` 
+hypothetische Antworten generiert; die Variable `bundesland_key` enthält 
+den Schlüssel, d.h. die korrekte Antwort. Mithilfe der Funktion 
+`ifelse()` gleiche ich die Antworten mit dem Schlüssel ab. Sie nimmt 
+drei Argumente entgegen: `test`, `yes`, und `no`.
 
 - `test`: Ein logischer Vektor -- hier der Vergleich jeder 
   Antwort mit dem Schlüssel
@@ -95,30 +95,32 @@ bundesland_answers == bundesland_key
 ```
 
 An allen Positionen, an denen dieser Vergleich `TRUE` ergibt, gibt die 
-Funktion `ifelse` den Wert 1 aus -- also den Wert, der dem Argument 
+Funktion `ifelse()` den Wert 1 aus -- also den Wert, der dem Argument 
 `yes` übergeben wurde. An allen anderen Positionen steht 0 -- also der 
 Wert, der dem Argument `no` übergeben wurde. Praktisch: Ich muss nicht 
 angeben, welche falschen Werte alle möglich sind; es reicht aus, im 
 `test` mit dem richtigen Wert zu vergleichen. Alle anderen Werten werden 
 dann automatisch als falsch interpretiert.
 
-Nach der Umkodierung können wir mit der Funktion `mean` die
+Nach der Umkodierung können wir mit der Funktion `mean()` die
 Schwierigkeit des Items berechnen:
 
 ```{r}
 mean(bundesland_score)
 ```
 
-In diesem Fall hätten `r round(mean(bundesland_score)*100)`% der
-Testteilnehmer das Bundesland-Item korrekt beantwortet. Diese
-Information konnten wir aus den ursprünglichen Antwortkategorien 1, 2, 3
-und 4 nicht herleiten. Auch um Item-Trennschärfen, Cronbachs Alpha oder
-andere Kennwerte zu bestimmen, ist die Umkodierung eine notwendige
+In diesem Fall hätten `r round(mean(bundesland_score)*100)`% der 
+Testteilnehmer das Bundesland-Item korrekt beantwortet. Diese 
+Information konnten wir aus den ursprünglichen Antwortkategorien 1, 2, 3 
+und 4 nicht herleiten. Auch um Item-Trennschärfen, Cronbachs Alpha oder 
+andere Kennwerte zu bestimmen, ist die Umkodierung eine notwendige 
 Voraussetzung.
 
-Beachtet, dass die Argumente `yes` und `no` im allgemeinen Fall 
-„vektorisiert“ sind, also dieselbe Länge wie das Argument `test` haben 
-können. In diesem Fall wird positionsweise entschieden, welche Elemente 
+### Vektorisierung der Funktion `ifelse()`
+
+Die Argumente `yes` und `no` der Funktion `ifelse()` sind im allgemeinen 
+Fall „vektorisiert“, d.h. sie können dieselbe Länge haben wie das 
+Argument `test`. Dann wird positionsweise entschieden, welche Elemente 
 in der Ausgabe enthalten sind. Wenn beispielsweise `test` an der ersten 
 Position `TRUE` ergibt, ist das erste Element Ausgabe das erste Element 
 des Arguments `yes`. Wenn `test` an der zweiten Position `FALSE` ergibt, 
@@ -129,10 +131,32 @@ Ein kurzes Beispiel ist durch den folgenden Code gegeben:
 ifelse(c(TRUE, FALSE), c(1, 2), c(11, 12))
 ```
 
-Diese Vektorisierung ist oftmals der Grund, warum man die Funktion 
-`ifelse` überhaupt verwendet, für aber uns erst mal nicht von Interesse. 
-Wir nutzen `ifelse` zunächst nur zur dichotomen Bepunktung von Items 
-(durch Abgleich von Antworten mit einem Schlüssel). 
+Diese Funktionalität ist vor allem dann wichtig, wenn wir in einem 
+Vektor nur manche Elemente umkodieren wollen, während andere Elemente 
+unverändert bleiben sollen. Etwa: 
+
+```{r}
+mein_vektor <- 1:10
+
+ifelse(mein_vektor <= 5, mein_vektor * (-1), mein_vektor)
+```
+
+Ein weiteres Beispiel:
+
+```{r}
+ifelse(mein_vektor <= 5, -100, mein_vektor)
+```
+
+Frage: Was ist in diesem Fall der Unterschied zum folgenden Befehl:
+
+```{r}
+mein_vektor[mein_vektor <= 5] <- -100
+```
+
+Die Vektorisierung von `ifelse()` ist oftmals der Grund, warum man die 
+Funktion überhaupt verwendet, für uns aber erst einmal nicht von 
+Interesse. Wir nutzen `ifelse()` zunächst nur zur dichotomen Bepunktung 
+von Items (durch Abgleich von Antworten mit einem Schlüssel). 
 
 ## Invertierung von Antworten
 
@@ -166,9 +190,10 @@ steht. Das heißt, wir wollen die folgende Abbildung durchführen:
 - `4` $\to$ `2`
 - `5` $\to$ `1`
 
-Wir könnten dies mit mehrfacher Anwendung von `ifelse` hinbekommen,
-was jedoch mühsam wäre. Es gibt eine mathematische Umformung, welche wir
-auch mit nur wenig Code umsetzen können:
+Wir könnten dies mit mehrfacher Anwendung von `ifelse()` hinbekommen, 
+was jedoch mühsam wäre. Glücklicherweise gibt es zur Invertierung eine 
+mathematische Umformung, die wir auch mit nur wenig Code umsetzen 
+können:
 
 > Invertierter Wert = Ursprungswert * (-1) + Höchster Skalenwert + 1
 
@@ -177,14 +202,16 @@ höchstmöglichen Skalenwert liegen. Probieren wir es mit ein paar
 hypothetischen Antworten aus:
 
 ```{r}
-big5 <- data.frame(item1 = c(2, 3, 2, 1, 4, 2, 1, 5),
-                   item2 = c(5, 3, 3, 4, 3, 5, 3, 2))
+big5 <- data.frame(
+  item1 = c(2, 3, 2, 1, 4, 2, 1, 5),
+  item2 = c(5, 3, 3, 4, 3, 5, 3, 2)
+)
 
 ## Betrachte den data.frame:
 big5
 ```
 
-Wir können uns mit der `cor` Funktion die Korrelation zwischen den
+Wir können uns mit der `cor()` Funktion die Korrelation zwischen den
 zwei Items ausgeben lassen:
 
 ```{r}
@@ -226,6 +253,38 @@ das ist genau das, was wir mit der Invertierung erreichen wollten: Einen
 Punktwert errechnen, der genau in die entgegengesetzte Richtung zu
 interpretieren ist wie der ursprüngliche Wert.
 
+### Invertierung mit `ifelse()`
+
+Wie oben erwähnt, können wir auch durch mehrfachen Aufruf von `ifelse()` 
+eine Item-Invertierung umsetzen. In dem Fall wird jede der nötigen 
+Umformungen (1 $\to$ 5; 2 $\to$ 4; 3 $\to$ 3; 4 $\to$ 2; 5 $\to$ 1) 
+durch einen separaten Aufruf von `ifelse()` umgesetzt. Anstatt einmal 
+die Invertierungsformel aufzurufen müssen wir also fünfmal `ifelse()` 
+benutzen. Folgender Code zeigt, wie das funktionieren würde:
+
+```{r}
+item1_inv <- ifelse(big5$item1 == 1, 5, NA)
+item1_inv <- ifelse(big5$item1 == 2, 4, item1_inv)
+item1_inv <- ifelse(big5$item1 == 3, 3, item1_inv)
+item1_inv <- ifelse(big5$item1 == 4, 2, item1_inv)
+item1_inv <- ifelse(big5$item1 == 5, 1, item1_inv)
+```
+
+Auch hier können wir durch Korrelation zwischen dem ursprünglichen Item 
+und dem invertiertem Item feststellen, ob die Invertierung erfolgreich 
+war: 
+
+```{r}
+cor(item1_inv, big5$item1)
+```
+
+Bei mehrfacher Verwendung von `ifelse()` zur Umkodierung verschiedener 
+Werte in einem Vektor nutzen wir `NA` als Platzhalter für die Elemente, 
+die bislang noch nicht umkodiert wurden. Wenn keine mathematische 
+Formulierung für eine Umkodierung existiert, ist es durchaus gängig, 
+dass Umkodierungen genau in dieser Form per mehrfacher Verwendung von 
+`ifelse()` umsetzt werden. 
+
 ## Umgang mit fehlenden Werten {#missingvalues}
 
 > Real data have missing values. Missing values are an integral part of
@@ -254,18 +313,22 @@ abrufbar. Wenn wir die Daten heruntergeladen haben und die Datei
 [Anhang](#datenEinlesen)), können wir den Datensatz wie folgt einlesen:
 
 ```{r, eval = FALSE}
-# Lese Daten ein
 npi <- read.csv("data.csv")
 ```
 
-```{r, echo = FALSE} 
-# Alternativ können wir folgenden Code verwenden, der die Daten direkt 
-# aus dem Internet herunterlädt und in der Variablen `npi` speichert:
-temp <- tempfile()
-download.file("http://openpsychometrics.org/_rawdata/NPI.zip", temp)
-npi <- read.csv(unz(temp, "NPI/data.csv"))
-unlink(temp)
-rm(temp)
+```{r, echo = FALSE}
+# Lese Daten ein
+if (file.exists("data.csv")) {
+  npi <- read.csv("data.csv")
+} else {
+  # Alternativ können wir folgenden Code verwenden, der die Daten direkt 
+  # aus dem Internet herunterlädt und in der Variablen `npi` speichert:
+  temp <- tempfile()
+  download.file("http://openpsychometrics.org/_rawdata/NPI.zip", temp)
+  npi <- read.csv(unz(temp, "NPI/data.csv"))
+  unlink(temp)
+  rm(temp)
+}
 ```
 
 Wie folgt verschaffen wir uns einen Überblick über die Daten:
@@ -339,9 +402,9 @@ Dafür wenden wir ein recht radikales Vorgehen an: Wir schließen einfach
 alle Personen aus, bei denen mindestens eine Antwort fehlt. Folgende
 Funktionen können uns dabei helfen:
 
-- `complete.cases`: Gibt für einen `data.frame` aus, welche Zeilen 
+- `complete.cases()`: Gibt für einen `data.frame` aus, welche Zeilen 
   **keine** fehlenden Werte enthalten (als logischen Vektor)
-- `na.omit`: Gibt von einem `data.frame` nur die Zeilen ohne fehlende 
+- `na.omit()`: Gibt von einem `data.frame` nur die Zeilen ohne fehlende 
   Werte aus
 
 Der erste Schritt ist, alle fehlenden Werte -- die derzeit mit 0 kodiert
@@ -405,7 +468,7 @@ Nun setzen wir in diesem temporären `data.frame` alle Nullen auf `NA`:
 temp[temp == 0] <- NA
 ```
 
-Als Nächstes nutzen wir die Funktion `complete.cases`, um
+Als Nächstes nutzen wir die Funktion `complete.cases()`, um
 herauszufinden, in welchen Zeilen von `temp` fehlende Werte vorliegen:
 
 ```{r}
@@ -413,7 +476,7 @@ is_complete <- complete.cases(temp)
 head(is_complete, n = 10)
 ```
 
-Die Funktion `complete.cases` gibt einen logischen Vektor der Länge
+Die Funktion `complete.cases()` gibt einen logischen Vektor der Länge
 `nrow(temp)` zurück, der pro Zeile kodiert, ob irgendwo ein fehlender
 Wert vorliegt. Also können wir wie folgt überprüfen, wie viele Fälle mit
 fehlenden Werten es insgesamt gibt:
@@ -435,7 +498,7 @@ Mit dem Datensatz `npi_clean` können wir nun psychometrische
 Berechnungen durchführen, da wir nur vollständige Datensätze ausgewählt
 haben. Dabei ist unser nächstes Ziel, für alle 40 Items eine dichotome
 Bepunktung durchzuführen. Wir wissen bereits, wie das funktioniert,
-nämlich indem wir mit `ifelse` die Antworten auf jedes Item mit dem
+nämlich indem wir mit `ifelse()` die Antworten auf jedes Item mit dem
 Schlüssel abgleichen. Der Schlüssel für das NPI kodiert für jedes der 40
 Items den Wert, der für Narzissmus steht. Dies wäre wie folgt möglich:
 
@@ -457,12 +520,12 @@ effizient  durchzuführen, also auf einmal für alle 40 Spalten.
 
 ### Vergleiche mit `NA`
 
-Die Funktion `complete.cases` gibt uns pro Zeile aus, ob darin Werte
+Die Funktion `complete.cases()` gibt uns pro Zeile aus, ob darin Werte
 fehlen. Es gibt einige weitere Funktionen, um das Vorliegen von
 fehlenden Werten zu prüfen. 
 
 Eine allgemein nützliche Funktion zum Betrachten von `data.frames` ist
-die Funktion `summary`. Sie gibt uns wie folgt einen schnellen Überblick
+die Funktion `summary()`. Sie gibt uns wie folgt einen schnellen Überblick
 über alle Spalten eines `data.frames`: 
 
 ```R
@@ -470,9 +533,9 @@ summary(npi)
 # Ausgabe unterdrückt, da pro Spalte eine Tabelle ausgegeben wird
 ```
 
-Neben einigen deskriptiven Statistiken gibt `summary` auch für jede
+Neben einigen deskriptiven Statistiken gibt `summary()` auch für jede
 Spalte an, wie viele Werte darin fehlen. Für eine einzelne Spalte können
-wir auch mit der Funktion `is.na` überprüfen, ob sie fehlende Werte
+wir auch mit der Funktion `is.na()` überprüfen, ob sie fehlende Werte
 enthält:
 
 ```{r}
@@ -480,9 +543,9 @@ sum(is.na(temp$Q1))
 sum(is.na(temp$Q40))
 ```
 
-Die Funktion `is.na` prüft in einem Vektor, welche Werte `NA` sind und
+Die Funktion `is.na()` prüft in einem Vektor, welche Werte `NA` sind und
 gibt an den entsprechenden Positionen `TRUE` zurück, ansonsten `FALSE`.
-**Wichtig**: Man **muss** `is.na` verwenden, um zu prüfen, ob Werte in
+**Wichtig**: Man **muss** `is.na()` verwenden, um zu prüfen, ob Werte in
 einem Vektor `NA` sind. Folgender „naiver“ Vergleich mit `NA` geht
 schief:
 
