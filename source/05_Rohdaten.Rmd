@@ -116,7 +116,7 @@ und 4 nicht herleiten. Auch um Item-Trennschärfen, Cronbachs Alpha oder
 andere Kennwerte zu bestimmen, ist die Umkodierung eine notwendige 
 Voraussetzung.
 
-### Vektorisierung der Funktion `ifelse()`
+### Vektorisierung der Funktion `ifelse()` {#ifelsevektor}
 
 Die Argumente `yes` und `no` der Funktion `ifelse()` sind im allgemeinen 
 Fall „vektorisiert“, d.h. sie können dieselbe Länge haben wie das 
@@ -279,11 +279,12 @@ cor(item1_inv, big5$item1)
 ```
 
 Bei mehrfacher Verwendung von `ifelse()` zur Umkodierung verschiedener 
-Werte in einem Vektor nutzen wir `NA` als Platzhalter für die Elemente, 
-die bislang noch nicht umkodiert wurden. Wenn keine mathematische 
-Formulierung für eine Umkodierung existiert, ist es durchaus gängig, 
-dass Umkodierungen genau in dieser Form per mehrfacher Verwendung von 
-`ifelse()` umsetzt werden. 
+Werte eines Vektors nutzen wir die Vektorisierung des Arguments `no` 
+(wie [oben](#ifelsevektor) erklärt). `NA` dient dabei als Platzhalter 
+für die Elemente, die bislang noch nicht umkodiert wurden. Wenn keine 
+mathematische Formulierung für eine Umkodierung existiert, ist es 
+durchaus gängig, dass Umkodierungen genau in dieser Form per mehrfacher 
+Verwendung von `ifelse()` umsetzt werden. 
 
 ## Umgang mit fehlenden Werten {#missingvalues}
 
