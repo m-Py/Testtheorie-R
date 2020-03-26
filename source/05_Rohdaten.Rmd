@@ -260,11 +260,11 @@ die Invertierungsformel aufzurufen müssen wir also fünfmal `ifelse()`
 benutzen. Folgender Code zeigt, wie das funktionieren würde:
 
 ```{r}
-item1_inv <- ifelse(big5$item1 == 1, 5, NA)
-item1_inv <- ifelse(big5$item1 == 2, 4, item1_inv)
-item1_inv <- ifelse(big5$item1 == 3, 3, item1_inv)
-item1_inv <- ifelse(big5$item1 == 4, 2, item1_inv)
-item1_inv <- ifelse(big5$item1 == 5, 1, item1_inv)
+item1i <- ifelse(big5$item1 == 1, 5, NA)
+item1i <- ifelse(big5$item1 == 2, 4, item1i)
+item1i <- ifelse(big5$item1 == 3, 3, item1i)
+item1i <- ifelse(big5$item1 == 4, 2, item1i)
+item1i <- ifelse(big5$item1 == 5, 1, item1i)
 ```
 
 Auch hier können wir durch Korrelation zwischen dem ursprünglichen Item 
@@ -272,7 +272,7 @@ und dem invertiertem Item feststellen, ob die Invertierung erfolgreich
 war: 
 
 ```{r}
-cor(item1_inv, big5$item1)
+cor(item1i, big5$item1)
 ```
 
 Bei mehrfacher Verwendung von `ifelse()` zur Umkodierung verschiedener 
