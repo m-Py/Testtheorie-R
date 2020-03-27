@@ -23,7 +23,7 @@ Antworten mit 0 -- ein typisches Datenformat in der psychologischen
 Diagnostik.
 
 Um das fortführende Beispiel selbst nachzuvollziehen, müsst ihr den
-folgenden `data.frame` erstellen:
+folgenden `data.frame` in `R` einlesen:
 
 
 ```{r}
@@ -31,15 +31,9 @@ test_data <- data.frame(
   Item_1 = c(1, 1, 1, 0, 0, 0, 1, 1, 1, 0),
   Item_2 = c(0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
   Item_3 = c(1, 0, 1, 0, 1, 1, 1, 0, 1, 0),
-  Item_4 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0),
+  Item_4 = c(1, 0, 1, 0, 1, 0, 0, 0, 1, 0),
   Item_5 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
 )
-```
-
-Die Variable `test_data` enthält nun die folgende Tabelle:
-
-```{r, echo = FALSE}
-kable(test_data, row.names= TRUE)
 ```
 
 Wenn uns Daten in diesem Format vorliegen, können wir auf viele
@@ -67,7 +61,7 @@ Persönlichkeitsfragebogen auf einer Likert-Skala repräsentieren.
 Wir bestimmen zunächst die Testscores der 10 Kinder. Da jede Zeile ein
 Kind repräsentiert, ist der Gesamt-Testscore die Summe der Werte in
 jeder Reihe. Die Summe der Reihen (engl: *rows*) eines `data.frames` 
-kann man mit der Funktion `rowSums` bestimmen:
+können wir mit der Funktion `rowSums()` bestimmen:
 
 ```{r}
 
@@ -85,12 +79,12 @@ test_data$score <- rowSums(test_data)
 
 ## Item-Schwierigkeiten
 
-Die Schwierigkeit eines Items ist die mittlere Punktzahl aller Personen
-in diesem Item.[^schwieriglikert] Das ist somit also einfach der
-Mittelwert der Einträge in jeder Spalte (engl: *column*) in unserem
-Standardformat. Den Mittelwert pro Spalte kann ich mit der Funktion
-`colMeans` bestimmen (analog gibt es auch die Funktionen `colSums` und
-`rowMeans`):
+Die Schwierigkeit eines Items ist die mittlere Punktzahl aller Personen 
+in diesem Item.[^schwieriglikert] Das ist somit also einfach der 
+Mittelwert der Einträge in jeder Spalte (engl: *column*) in unserem 
+Standardformat. Den Mittelwert pro Spalte kann ich mit der Funktion 
+`colMeans` bestimmen (analog gibt es auch die Funktionen `colSums()` und 
+`rowMeans()`):
 
 [^schwieriglikert]: Auch bei Items, die nicht Korrektheit kodieren, kann
 man von Item-Schwierigkeit sprechen. Beispielsweise wäre dann die
@@ -102,22 +96,22 @@ Likert-Skala gegeben werden.
 colMeans(test_data)
 ```
 
-Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe,
-bekomme ich die mittlere Punktzahl der Schüler/innen in den fünf Testitems
-direkt mitgeliefert. Beachtet, dass ich hier mit `colMeans` eine
-numerische Funktion auf den ganzen `data.frame` angewendet habe. Würde
-der `data.frame` auch Spalten vom Typ `factor` oder `character`
-enthalten, wäre es nicht möglich, Funktionen wie `rowSums` und `colMeans`
-anzuwenden. In dem Fall könnte man mit der `[·,·]`-Notation oder der
-Funktion `subset` nur die gewünschten Spalten auswählen.
+Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe, 
+bekomme ich die mittlere Punktzahl der Schüler/innen in den fünf 
+Testitems direkt mitgeliefert. Beachtet, dass ich hier mit `colMeans()` 
+eine numerische Funktion auf den ganzen `data.frame` angewendet habe. 
+Würde der `data.frame` auch Spalten vom Typ `factor` oder `character` 
+enthalten, wäre es nicht möglich, Funktionen wie `rowSums()` und 
+`colMeans()` anzuwenden. In dem Fall könnte man mit der `[·,·]`-Notation 
+oder der Funktion `subset()` nur die gewünschten Spalten auswählen.
 
 ## Item-Interkorrelationen
 
-Als Nächstes geben wir die Korrelationen zwischen allen Items als
-Korrelationsmatrix aus. Dies funktioniert mit der Funktion `cor`. Wenn
-`cor` als Argument einen `data.frame` erhält, wird eine Tabelle
-ausgegeben, die die Korrelation zwischen allen Spalten -- d.h. Items --
-des `data.frames` enthält.
+Als Nächstes geben wir mit der Funktion `cor()` die Korrelationen 
+zwischen allen Items als Korrelationsmatrix aus. Wenn `cor()` als 
+Argument einen `data.frame` erhält, wird eine Tabelle ausgegeben, die 
+die Korrelation zwischen allen Spalten -- d.h. Items -- des 
+`data.frames` enthält.
 
 ```R
 round(cor(test_data), 2)
@@ -129,7 +123,7 @@ kable(round(item_correlations, 2))
 ```
 
 Die Korrelationen wurden aus Darstellungszwecken mit der Funktion
-`round` auf zwei Nachkommastellen gerundet.
+`round()` auf zwei Nachkommastellen gerundet.
 
 ## Item-Trennschärfen {#trennschaerfe}
 
@@ -173,11 +167,11 @@ head(responses_no_item2)
 corrected_score <- rowSums(responses_no_item2)
 ```
 
-Die Variable `corrected_score` enthält nun die Testscores, die unter
-Ausschluss des zweiten Items gebildet wurden. Das Vorgehen zur
-Berechnung der bereinigten Scores lässt sich mithilfe der
-`[·,·]`-Notation und den Funktionen `paste0` und `rowSums` auch auf
-beliebig viele Items erweitern. Da wir hier den Summenwert nur über vier
+Die Variable `corrected_score` enthält nun die Testscores, die unter 
+Ausschluss des zweiten Items gebildet wurden. Das Vorgehen zur 
+Berechnung der bereinigten Scores lässt sich mithilfe der 
+`[·,·]`-Notation und den Funktionen `paste0()` und `rowSums()` auch auf 
+beliebig viele Items erweitern. Da wir hier den Summenwert nur über vier 
 Items gebildet haben, hätte auch der folgende Code funktioniert:
 
 ```R
@@ -185,7 +179,7 @@ corrected_score <- test_data$Item_1 + test_data$Item_3 +
     test_data$Item_4 + test_data$Item_5
 ```
 
-Wie folgt können wir nun mithilfe der Funktion `cor` die korrigierte
+Wie folgt können wir nun mithilfe der Funktion `cor()` die korrigierte
 Trennschärfe für Item 2 bestimmen:
 
 ```{r}
@@ -199,12 +193,12 @@ desto mehr Gewicht hat das einzelne Item für den Testscore und umso
 stärker weichen korrigierte und unkorrigierte Trennschärfe voneinander
 ab. Bei nur fünf Items kann der Effekt substantiell sein.
 
-Es ist zu beachten, dass die Funktion `cor` an dieser Stelle anders
-verwendet wird als oben: Hier übergebe ich der Funktion `cor` mit dem
+Es ist zu beachten, dass die Funktion `cor()` an dieser Stelle anders
+verwendet wird als oben: Hier übergebe ich der Funktion `cor()` mit dem
 Befehl `cor(test_data$Item_2, corrected_score)` zwei Vektoren gleicher
 Länge. Ein Vektor enthält die Korrektheiten der Antworten auf Item 2,
 der andere Vektor enthält den um Item 2 bereinigten Testscore. Oben habe
-ich der Funktion `cor` nur ein Argument übergeben, nämlich den
+ich der Funktion `cor()` nur ein Argument übergeben, nämlich den
 `data.frame` `test_data`. In dem Fall wurde eine Tabelle ausgegeben --
 eine *Korrelationsmatrix* --, die die Korrelationen zwischen allen
 Spalten enthält.
@@ -215,28 +209,26 @@ und 3 wieder:
 
 - Die Erstellung von Vektoren mit der `1:n`-Notation
 - Die Negativ-Auswahl von Elementen aus Vektoren mit der `[·]`-Notation
-- Die Generierung eines „character“-Vektors mithilfe der Funktion
-  `paste0`
+- Die Generierung eines Vektors vom Typ `character` mit der Funktion
+  `paste0()`
 - Die Auswahl von Spalten in einem `data.frame` mit der `[·,·]`-Notation
 
-Wir merken, dass es mühsamer ist, die korrigierte Trennschärfe zu
-berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhielt
-ich oben einfach, indem ich einen ganzen `data.frame` an die Funktion
-`cor` übergeben habe. Ich musste nur einen einzigen
-Funktionsaufruf---oder eine Zeile Code---investieren. Um jedoch die
-korrigierte Trennschärfe zu bestimmen, muss ich bei *n* Items *n* Mal
-einen korrigierten Gesamtscore berechnen. Für jedes Item muss ich dann
-jeweils das Item mit diesem korrigierten Score korrelieren. Wenn wir das
-für jedes Item „händisch“ machen würden, wäre das sehr aufwendig
-(beispielsweise könnten wir den Code oben *n* Mal kopieren und jeweils
-die Itemnummern anpassen -- das wäre sehr fehleranfällig). Einer der
-Hauptgründe aus denen wir `R` lernen ist, dass wir uns solche Arbeit
-nicht machen wollen. Stattdessen wollen wir lernen, wie wir repetitive
-Arbeiten automatisieren können. Im nächsten Kapitel werden wir
-Programmierelemente von `R` kennenlernen, die uns ermöglichen, ohne
-wesentlich mehr Aufwand für beliebig viele Items korrigierte
-Trennschärfen zu bestimmen. So sparen wir gleichzeitig Aufwand und
-arbeiten weniger fehleranfällig.
+Wir merken, dass es mühsamer ist, die korrigierte Trennschärfe zu 
+berechnen als die unkorrigierte. Die unkorrigierte Trennschärfe erhielt 
+ich oben einfach, indem ich einen ganzen `data.frame` an die Funktion 
+`cor()` übergeben habe. Ich musste nur einen einzigen Funktionsaufruf -- 
+oder eine Zeile Code -- investieren. Um jedoch die korrigierte 
+Trennschärfe zu bestimmen, muss ich bei *n* Items *n* Mal einen 
+korrigierten Gesamtscore berechnen. Für jedes Item muss ich dann jeweils 
+das Item mit diesem korrigierten Score korrelieren. Wenn wir das für 
+jedes Item „händisch“ machen würden, wäre das sehr aufwendig 
+(beispielsweise könnten wir den Code oben *n* Mal kopieren und jeweils 
+die Itemnummern anpassen -- das wäre sehr fehleranfällig). Einer der 
+Hauptgründe aus denen wir `R` lernen ist, dass wir uns solche Arbeit 
+nicht machen wollen. Stattdessen wollen wir lernen, wie wir repetitive 
+Arbeiten automatisieren können. In [Kapitel 7](#schleifen) lernen wir 
+Schleifen kennen, die uns ermöglichen, ohne wesentlich mehr Aufwand für 
+beliebig viele Items korrigierte Trennschärfen zu bestimmen. 
 
 ## Cronbachs Alpha
 
@@ -253,26 +245,25 @@ stärker ist die interne Konsistenz der Punktwerte. Ein Wert von 0
 spricht dafür, dass gar keine Systematik in den Punktzahlen liegt -- ob
 ich viele oder wenig Punkte bekommen habe, ist gänzlich zufällig.
 
-`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu
-bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
-Cronbachs Alpha umsetzt.[^guteuebung] Wir machen uns aber zunutze, dass
-bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt haben,
-und diese in einem *Paket* zur Verfügung gestellt haben. Eine Umsetzung
-von Cronbachs Alpha findet sich im Paket `psychometric`
-[@R-psychometric]. Mit der Funktion `library` kann ich Pakete laden, die
-nicht zur Grundausstattung von `R` gehören. Voraussetzung ist, dass ich
-das Paket auf meinem Rechner installiert habe. Die Erweiterbarkeit durch
-Pakete ist eine der großen Stärken von `R`.
+`R` bietet in der Grundversion keine Möglichkeit, Cronbachs Alpha zu 
+bestimmen. Man könnte sich eine eigene Berechnung programmieren, die 
+Cronbachs Alpha umsetzt.[^guteuebung] Wir machen uns aber zunutze, dass 
+bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt haben, 
+und diese in einem *Paket* zur Verfügung gestellt haben. Eine Umsetzung 
+von Cronbachs Alpha findet sich im Paket `psychometric` 
+[@R-psychometric]. Mit der Funktion `library()` kann ich Pakete laden, 
+die nicht zur Grundausstattung von `R` gehören. Voraussetzung ist, dass 
+ich das Paket auf meinem Rechner installiert habe. Die Erweiterbarkeit 
+durch Pakete ist eine der großen Stärken von `R`.
 
 [^guteuebung]: Das wäre sogar eine gute Übung. Die Formel findet sich
 unter
 [https://de.wikipedia.org/wiki/Cronbachs_Alpha](https://de.wikipedia.org/wiki/Cronbachs_Alpha)
 
 ```{r}
-## Das Paket `psychometric` enthält eine Funktion, die Cronbachs Alpha
-## berechnet
+# Das Paket `psychometric` enthält eine Funktion, die Cronbachs Alpha
+# berechnet
 library("psychometric")
-
 ```
 
 Falls das Paket nicht installiert ist, kann ich es mit dem folgenden
@@ -282,7 +273,7 @@ Befehl installieren:
 install.packages("psychometric")
 ```
 
-Praktischerweise arbeitet die Funktion `alpha` aus dem `psychometric`
+Praktischerweise arbeitet die Funktion `alpha()` aus dem `psychometric`
 Paket genau mit dem Standard-Datenformat, das uns vorliegt: Zeilen
 kennzeichnen Testteilnehmer, Spalten kennzeichnen Items. **Wichtig ist
 aber nun**: Wir haben soeben den Testscore als zusätzliche Spalte an die
@@ -297,15 +288,15 @@ test_data$score <- NULL
 names(test_data)
 ```
 
-Wir haben gelernt, dass wir Variablen mit der Funktion `rm` löschen
-können. `rm` können wir aber nicht nutzen, wenn wir Spalten aus
-`data.frames` entfernen wollen. Das liegt daran, dass die Spalte selber
-keine Variable ist, sondern zu einem `data.frame` gehört. Deswegen muss
-man Spalten mit dem Befehl `data.frame$spalte <- NULL` entfernen. `NULL`
+Wir haben gelernt, dass wir Variablen mit der Funktion `rm()` löschen 
+können. Wir können sie aber nicht nutzen, wenn wir Spalten aus 
+`data.frames` entfernen wollen. Das liegt daran, dass die Spalte selber 
+keine Variable ist, sondern zu einem `data.frame` gehört. Deswegen muss 
+man Spalten mit dem Befehl `data.frame$spalte <- NULL` entfernen. `NULL` 
 ist in `R` ein Wert, der für „Nicht-Existenz“ steht.
 
 Nachdem wir das Paket `psychometric` geladen und die Spalte `score`
-entfernt haben, können wir Cronbachs Alpha mit der Funktion `alpha`
+entfernt haben, können wir Cronbachs Alpha mit der Funktion `alpha()`
 bestimmen:
 
 ```{r}
