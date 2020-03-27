@@ -72,7 +72,7 @@ for (name in c('Cronbach', 'Spearman', 'Brown')) {
 }
 ```
 
-Die Funktion `print` ist die explizite Anweisung, ein `R`-Objekt in der
+Die Funktion `print()` ist die explizite Anweisung, ein `R`-Objekt in der
 Konsole auszugeben. Wir sehen, dass uns die Schleife in ihren drei
 Durchläufen drei verschiedene Texte ausgibt, nämlich nacheinander den
 Inhalt des Vektors `c('Cronbach', 'Spearman', 'Brown')`. Da `print` auf
@@ -137,7 +137,7 @@ for (i in 1:40) {
 ```
 
 Der erste Befehl im Körper der Schleife generiert mit der Funktion
-`paste0` den Namen der Spalte, der adressiert werden soll. Im ersten
+`paste0()` den Namen der Spalte, der adressiert werden soll. Im ersten
 Durchgang der `for`-Schleife wird also die Spalte `Q1` adressiert, da
 die Schleifenvariable `i` den ersten Wert des Vektors `1:40` angenommen
 hat. Dann folgen `Q2`, `Q3` und so weiter. Als Namen von
@@ -153,7 +153,7 @@ folgende Aufruf mit der `$`-Notation würde nicht funktionieren:
 `colname` suchen, aber wir wollen hier ja stattdessen eigentlich den in
 der Variable `colname` enthaltenen Spaltennamen (etwa `Q23`) verwenden.
 
-Der dritte Befehl führt mit einem Aufruf der Funktion `ifelse` die
+Der dritte Befehl führt mit einem Aufruf der Funktion `ifelse()` die
 eigentliche Umkodierung durch. Es wird kodiert, ob Probanden beim i-ten
 Item die narzisstische Aussage ausgewählt haben. Eine 1 wird vergeben,
 wenn das der Fall war, andernfalls eine Null. Ich speichere diesen
@@ -162,7 +162,7 @@ numerischen Vektor aus Einsen und Nullen in der Variablen
 Durchlauf der Schleife überschrieben wird (dasselbe gilt für die
 Variablen `colname`, `ith_item` und `new_colname`) .
 
-Der vierte Befehl generiert mit einem Aufruf der Funktion `paste0` in
+Der vierte Befehl generiert mit einem Aufruf der Funktion `paste0()` in
 jedem Durchlauf einen neuen Spaltennamen. Die neuen Spalten haben Namen
 der Form `codedQ1`, `codedQ2` und so weiter.
 
@@ -223,13 +223,13 @@ for (column in columns) {
 ...
 ```
 
-Mithilfe der Funktion `print` gebe ich nacheinander die 40 Trennschärfen
-aus, die ich in den Durchläufen der Schleife berechne; um die Seite nicht
-mit einer ausufernden Liste an Trennschärfen zu fluten, habe ich hier
-aber nur drei davon angezeigt. Um ein Objekt während des Laufs einer
-Schleife in der Konsole auszugeben, muss man `print` explizit auf das
-auszugebende Objekt aufrufen; das Objekt ohne `print` anzusteuern würde
-in keiner Reaktion resultieren.
+Mithilfe der Funktion `print()` gebe ich nacheinander die 40 
+Trennschärfen aus, die ich in den Durchläufen der Schleife berechne; um 
+die Seite nicht mit einer ausufernden Liste an Trennschärfen zu fluten, 
+habe ich hier aber nur drei davon angezeigt. Um ein Objekt während des 
+Laufs einer Schleife in der Konsole auszugeben, muss man `print()` 
+explizit auf das auszugebende Objekt aufrufen; das Objekt ohne `print()` 
+anzusteuern würde in keiner Reaktion resultieren.
 
 Nun aber zur Logik des Codes: Vor dem Durchlauf der Schleife wähle ich
 genau die Spalten aus `npi_clean` aus, die die zuvor erstellten
@@ -263,7 +263,7 @@ Konsole aus.
 ## Datenspeicherung in einer Schleife
 
 Im vorherigen Beispiel habe ich Item-Trennschärfen berechnet und dann
-mit dem `print`-Befehl in der Konsole ausgegeben. Oftmals möchte ich die
+mit dem `print()`-Befehl in der Konsole ausgegeben. Oftmals möchte ich die
 Ergebnisse von Berechnungen, die während einer Schleife anfallen, aber
 nicht nur ausgeben, sondern auch abspeichern. Im ersten
 Anwendungsbeispiel einer `for`-Schleife -- Umkodierung von Items --
@@ -291,7 +291,7 @@ aus).
 discriminations <- vector(length = 40)
 ```
 
-Mithilfe der Funktion `vector`[^allgemeinesprinzip] erstelle ich einen
+Mithilfe der Funktion `vector()`[^allgemeinesprinzip] erstelle ich einen
 Vektor; das Argument `length` bestimmt dabei die Länge des Vektors.
 Darin möchte ich im Verlauf der 40 Durchläufe der Schleife die
 Trennschärfen der 40 Items abspeichern. Um eine Adressierung per Name zu
@@ -299,8 +299,8 @@ ermöglichen, gebe ich den Elementen des Vektors wie folgt Namen:
 
 [^allgemeinesprinzip]: Es ist allgemein so, dass Funktionen mit dem
 Namen einer Datenstruktur besagte Datenstruktur erstellen. Erinnern wir
-uns an die Funktion `data.frame`. Ebenso gibt es die Funktion `list`,
-die eine Liste erstellt, oder die Funktion `matrix`, die eine Matrix
+uns an die Funktion `data.frame()`. Ebenso gibt es die Funktion `list()`,
+die eine Liste erstellt, oder die Funktion `matrix()`, die eine Matrix
 erstellt. Diese Funktionen sind oft nützlich, um leere Datencontainer zu
 erstellen, die im Verlaufe einer `for`-Schleife gefüllt werden.
 
