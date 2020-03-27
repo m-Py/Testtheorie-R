@@ -1,17 +1,17 @@
 
 # Funktionen {#funktionen}
 
-Funktionen sind das Herz der `R`-Maschinerie. Jegliche Befehle, die wir
-in `R` durchführen, sind als Funktionen
-umgesetzt.[^everythingisafunction] Wir haben bereits ausgiebig von
-Funktionen Gebrauch gemacht. Wir haben beispielsweise mit `subset` Daten
-ausgewählt, mit `table` und `tapply` deskriptive Statistiken
-angefordert, und mit `cor`, `colMeans` und `psychometric::alpha`
-psychometrische Berechnungen durchgeführt. Dabei haben wir bereits
-einige Eigenschaften von Funktionen zur Kenntnis genommen, etwa dass sie
-Namen haben,[^anonym] Argumente annehmen und ihre Rückgabewerte in
-Variablen gespeichert werden können. In diesem Kapitel soll nun ein
-tiefgründigerer Blick auf Funktionen in `R` gelegt werden. Am Ende des
+Funktionen sind das Herz der `R`-Maschinerie. Jegliche Befehle, die wir 
+in `R` durchführen, sind als Funktionen 
+umgesetzt.[^everythingisafunction] Wir haben bereits ausgiebig von 
+Funktionen Gebrauch gemacht. Wir haben beispielsweise mit `subset()` 
+Daten ausgewählt, mit `table()` und `tapply()` deskriptive Statistiken 
+angefordert, und mit `cor()`, `colMeans()` und `psychometric::alpha()` 
+psychometrische Berechnungen durchgeführt. Dabei haben wir bereits 
+einige Eigenschaften von Funktionen zur Kenntnis genommen, etwa dass sie 
+Namen haben,[^anonym] Argumente annehmen und ihre Rückgabewerte in 
+Variablen gespeichert werden können. In diesem Kapitel soll nun ein 
+tiefgründigerer Blick auf Funktionen in `R` gelegt werden. Am Ende des 
 Kapitels lernen wir, unsere eigenen Funktionen zu schreiben.
 
 [^everythingisafunction]: Technisch gesehen sind sogar einfache
@@ -38,8 +38,8 @@ Seiteneffekten und der Rückgabe einer Funktion ist.
 
 Die innere Arbeitsweise von Funktionen wird als "Black Box" betrachtet.
 Wir wissen nicht unbedingt, wie eine Funktion intern funktioniert, was
-uns aber auch nicht interessiert. So lange uns `mean` den korrekten
-Mittelwert ausgibt, ist uns egal, wie `mean` den Mittelwert
+uns aber auch nicht interessiert. So lange uns `mean()` den korrekten
+Mittelwert ausgibt, ist uns egal, wie `mean()` den Mittelwert
 berechnet.[^nichtimmerblackbox] Bei Funktionen interessiert uns in
 erster Linie, welche Daten wir einer Funktion als Argumente übergeben
 müssen und was sie uns dafür in Austausch zurückgeben. Die folgenden
@@ -55,15 +55,14 @@ Gedanken zu machen. Das kann eine enorme Arbeitserleichterung sein.
 ##  Argumente
 
 Argumente determinieren das Verhalten von Funktionen. Im einfachsten
-Fall bedeutet das, dass die Elemente eines Vektors, den wir `mean`
+Fall bedeutet das, dass die Elemente eines Vektors, den wir `mean()`
 übergeben, den ausgegebenen Mittelwert determinieren. Wenn wir gar
 keinen Vektor übergeben, erhalten wir kein Ergebnis, sondern eine
 Fehlermeldung:
 
 ```R
 mean()
-Fehler in mean.default() : Argument "x" fehlt (ohne
-Standardwert)
+Fehler in mean.default() : Argument "x" fehlt (ohne Standardwert)
 ```
 
 Um zu verstehen, wie man mit Argumenten das Verhalten von Funktionen
@@ -95,19 +94,20 @@ Vereinfachung. Aber für uns reicht dieses Konzept: Hat ein Argument
 einen Standardwert, ist es optional; hat ein Argument keinen
 Standardwert, ist es verpflichtend.
 
-Wir werden diese Punkte nun exemplarisch anhand der Funktion `mean`
-nachvollziehen. Wir wissen bereits, dass `mean` mindestens zwei
+Wir werden diese Punkte nun exemplarisch anhand der Funktion `mean()`
+nachvollziehen. Wir wissen bereits, dass `mean()` mindestens zwei
 Argumente annimmt. Beide Argumente haben Namen:
 
 - `x`: der numerische oder logische Vektor, für den der Mittelwert
-   bestimmt werden soll
+   bestimmt werden soll. Oftmals wird in `R` das „Datenargument“ (das 
+zumeist das erste Argument ist) generisch mit `x` benannt.
 - `na.rm`: ein ein-elementiger logischer Vektor, der angibt, ob
 `NA`-Werte von der Berechnung ausgeschlossen werden sollen
 
-Da der Aufruf `mean` ohne Angabe eines numerischen oder logischen
+Da der Aufruf `mean()` ohne Angabe eines numerischen oder logischen
 Vektors einen Fehler ergibt, ist uns klar, dass `x` kein optionales
 Argument ist. Wir **müssen** einen Vektor übergeben, für den wir einen
-Mittelwert bestimmen können. Wieso `mean` auch sonst aufrufen?
+Mittelwert bestimmen können. Wieso `mean()` auch sonst aufrufen?
 
 Auf der anderen Seite wissen wir auch, dass wir das Argument `na.rm`
 nicht unbedingt angeben müssen -- das würden wir normalerweise nur dann
@@ -116,9 +116,7 @@ enthalten. Folgender Aufruf funktioniert nämlich, ohne dass wir dem
 Argument `na.rm` einen Wert übergeben:
 
 ```{r}
-
 mean(1:10)
-
 ```
 
 Doch was passiert mit `na.rm`, wenn wir es nicht explizit angeben?
@@ -131,14 +129,12 @@ wird uns `NA` zurückgegeben, wenn `x` mindestens einen fehlenden Wert
 enthält. Folgende Aufrufe sind demnach äquivalent:
 
 ```R
-
 mean(1:10)
 mean(1:10, na.rm = FALSE)
-
 ```
 
 Da wir nicht immer alle optionalen Argumente von Funktionen angeben
-wollen -- stattdessen "vertrauen" wir auf die Standardwerte --,
+wollen -- stattdessen „vertrauen“ wir auf die Standardwerte --,
 ist es sehr hilfreich, dass wir Funktionsargumente per Namen ansprechen
 können. So können wir nur genau die optionalen Argumente auswählen,
 die wir anpassen wollen; für die anderen belassen wir den Standardwert.
@@ -184,7 +180,7 @@ mean(na.rm = FALSE, x = 1:10)
 
 Nicht äquivalent zu den obigen Aufrufen sind jedoch folgende Befehle,
 die zu Fehlermeldungen führen, da `na.rm` nicht das zweite Argument von
-`mean` ist:
+`mean()` ist:
 
 
 ```R
@@ -214,7 +210,7 @@ nur das folgende Wissen:
 Wir beschäftigen uns im Folgenden mit dem zweiten Punkt.[^einschub]
 Wir lernen, wie wir uns mit der `R`-Hilfe einen Überblick über die
 Arbeitsweise von Funktionen verschaffen können. Probieren wir es
-exemplarisch für die Funktion `mean` aus:
+exemplarisch für die Funktion `mean()` aus:
 
 [^einschub]: Auch wenn es häufig erst einmal der Knackpunkt ist zu
 wissen, ob es schon eine Funktion gibt, die das eigene Problem löst, wie
@@ -236,7 +232,7 @@ Usage:
 ```
 
 Wir ignorieren an dieser Stelle, dass uns zwei Varianten angeboten
-werden, die Funktion `mean` zu nutzen.[^ueberladung] Wenn in der Hilfe
+werden, die Funktion `mean()` zu nutzen.[^ueberladung] Wenn in der Hilfe
 eine „Default S3 method“ angeboten wird, interessiert uns oftmals diese;
 so ist es auch hier der Fall. An dieser Stelle finden wir die
 Informationen, die wir benötigen, um die Funktion zu nutzen. Wir sehen
@@ -267,12 +263,11 @@ anzusteuern? (Z.B. einen Vektor, einen `data.frame`, eine `matrix`,
 eine `list` oder sogar eine Funktion -- siehe [Kapitel 3: Funktion
 tapply](#tapply))
 
-
 Die Beschreibung der Argumente achtet sehr auf Prägnanz und technische
 Korrektheit, wie wir am Beispiel der Beschreibung der Argumente der
 Funktion `mean` erkennen können:
 
-```
+```R
 Arguments:
 
     x: An R object.  Currently there are methods for
@@ -292,19 +287,25 @@ Arguments:
 Die `R`-Hilfe ist also hilfreich, aber nicht immer ganz leicht zu
 nutzen. Oftmals ist eine weitere Google-Recherche oder das Nachfragen
 bei einer Freundin oder einem Freund sinnvoll, wenn man die Nutzung
-einer Funktion meistern will. Mehr Hilfe zur Nutzung einer Funktion
-finden wir im Abschnitt "Examples" der `R`-Hilfe. Hier können wir am
-konkreten Beispiel betrachten, wie die Funktion angewendet werden kann.
-Wenn wir Glück haben, ist genau das dabei, was wir brauchen. Der Code
-ist dabei so gewählt, dass man ihn per Copy & Paste auch selbst in der
-Konsole ausführen kann. Bei `mean` finden wir etwa den folgenden
-Beispiel-Code:
+einer Funktion meistern will. 
+
+Mehr Hilfe zur Nutzung einer Funktion finden wir im Abschnitt "Examples" 
+der `R`-Hilfe. Hier können wir am konkreten Beispiel betrachten, wie die 
+Funktion angewendet werden kann. Wenn wir Glück haben, ist genau das 
+dabei, was wir brauchen. Der Code ist dabei so gewählt, dass man ihn per 
+Copy & Paste einfach selbst in der Konsole ausführen kann. Bei `mean()` 
+finden wir etwa den folgenden Beispiel-Code:
 
 ```R
 Examples:
      x <- c(0:10, 50)
      xm <- mean(x)
      c(xm, mean(x, trim = 0.10))
+```
+
+```{block, type = "block"}
+**Hinweis:** Wenn die `R`-Hilfe nicht so hilfreich ist, schaut euch 
+die Beispiele an.
 ```
 
 ### Namenlose Argumente
@@ -318,17 +319,17 @@ gearbeitet, die namenlose Argumente annehmen können. Das ist
 beispielsweise immer dann notwendig, wenn Funktionen eine beliebige
 Anzahl von Argumenten annehmen. Die Funktion `c` nimmt beliebig viele
 Vektoren entgegen, die dann zu einem Vektor zusammengefügt werden. Auch
-andere Funktionen wie `table` -- die beliebig viele Vektoren zur
-Erstellung von Kreuztabellen annimmt -- und `dplyr::arrange` -- die
+andere Funktionen wie `table()` -- die beliebig viele Vektoren zur
+Erstellung von Kreuztabellen annimmt -- und `dplyr::arrange()` -- die
 beliebig viele Kriterien zur Sortierung eines `data.frames` annimmt --
 haben unbenannte Argumente. In der `R`-Hilfe ist dies oftmals an dem
 Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:
 [^komischeargumente]
 
-[^komischeargumente]: Wir nehmen interessiert zur Kenntnis, dass `c`
+[^komischeargumente]: Wir nehmen interessiert zur Kenntnis, dass `c()`
 zwei Argumente mit Standardwerten hat: `recursive` und `use.names`. Mit
 diesen Argumenten haben wir uns bislang nicht beschäftigt und das werden
-wir auch weiterhin nicht tun. Oftmals "vertraut" man den Standardwerten,
+wir auch weiterhin nicht tun. Oftmals „vertraut“ man den Standardwerten,
 wobei man damit früher oder später auch mal auf die Nase fallen wird.
 
 ```R
@@ -350,19 +351,19 @@ Arguments:
 ## Rückgabewerte
 
 Der Rückgabewert einer Funktion ist das `R`-Objekt, das die Funktion
-ausgibt. Jede Funktion hat einen Rückgabewert.  Die Funktion `mean`
+ausgibt. Jede Funktion hat einen Rückgabewert.  Die Funktion `mean()`
 gibt beispielsweise einen ein-elementigen Vektor aus, der das
 arithmetische Mittel des Eingabevektors repräsentiert. Die Funktion
-`subset` gibt immer einen `data.frame` aus -- wie der aussieht,
+`subset()` gibt immer einen `data.frame` aus -- wie der aussieht,
 bestimmen die Argumente, die wir der Funktion übergeben.
 
-Das Verständnis von Rückgabewerten führt uns etwas tiefer in die
-Innereien der `R`-Programmiersprache. Betrachten wir im folgenden
-Beispiel die Funktion `t.test`, die einen *t*-Test durchführt und dabei
-die Mittelwerte zweier Vektoren vergleicht. Ich verwende den
-NPI-Datensatz aus Kapitel 5 und vergleiche den mittleren
-Narzissmus-Gesamtwert (Spalte `score`) zwischen weiblichen und
-männlichen Testnehmenden (Spalte `gender`; Kodierung: männlich = 1,
+Das Verständnis von Rückgabewerten führt uns etwas tiefer in die 
+Innereien der `R`-Programmiersprache. Betrachten wir im folgenden 
+Beispiel die Funktion `t.test()`, die einen *t*-Test durchführt und 
+dabei die Mittelwerte zweier Vektoren vergleicht. Ich verwende den 
+NPI-Datensatz aus Kapitel 5 und vergleiche den mittleren 
+Narzissmus-Gesamtwert (Spalte `score`) zwischen weiblichen und 
+männlichen Testnehmenden (Spalte `gender`; Kodierung: männlich = 1, 
 weiblich = 2).[^vektorgrundlagen]
 
 [^vektorgrundlagen]: An dieser Stelle ist es sinnvoll, noch einmal zu
@@ -370,8 +371,10 @@ rekapitulieren, wie hier die Narzissmuswerte der Männer und Frauen
 ausgewählt werden.
 
 ```R
-t.test(npi$score[npi$gender == 1],
-       npi$score[npi$gender == 2])
+t.test(
+  npi$score[npi$gender == 1],
+  npi$score[npi$gender == 2]
+)
 ```
 
 Wir erhalten folgende Ausgabe in der Konsole:
@@ -395,22 +398,24 @@ für ein `R`-Objekt wurde uns denn ausgegeben?
 
 [^welch]: Setzt man das Argument `var.equal` auf `TRUE`, wird ein
 klassischer t-Test gerechnet (Standardwert: `FALSE`). Es ist etwas
-ironisch, dass die Funktion `t.test` keinen klassischen t-Test rechnet.
+ironisch, dass die Funktion `t.test()` keinen klassischen t-Test rechnet.
 Wenn man das erwartet, könnte man an dieser Stelle auf die Nase fallen,
 wenn man einfach auf die Standardwerte der Funktion vertraut. Mehr
 Informationen zum Welch-t-Test finden sich hier:
 [https://en.wikipedia.org/wiki/Welch%27s_t-test](https://en.wikipedia.org/wiki/Welch%27s_t-test).
 
 Was in der Konsole angezeigt wird, stellt nicht direkt das `R`-Objekt
-dar, das die Funktion `t.test` ausgibt. Es handelt sich hierbei um eine
+dar, das die Funktion `t.test()` ausgibt. Es handelt sich hierbei um eine
 etwas lesefreundlichere Zusammenfassung des Tests. Um das tatsächlich
-ausgegebene Objekt zu inspizieren, kann ich die Funktion `str`
+ausgegebene Objekt zu inspizieren, kann ich die Funktion `str()`
 verwenden. Dazu speichere ich die Ausgabe des t-Tests zunächst in einer
 Variablen ab:
 
 ```R
-test <- t.test(npi$score[npi$gender == 1],
-               npi$score[npi$gender == 2])
+test <- t.test(
+  npi$score[npi$gender == 1],
+  npi$score[npi$gender == 2]
+)
 str(test)
 ```
 
@@ -419,14 +424,14 @@ test <- t.test(npi$score[npi$gender == 1], npi$score[npi$gender == 2])
 str(test)
 ```
 
-Das von `t.test` ausgegebene Objekt ist eine "List of 9", also eine
+Das von `t.test()` ausgegebene Objekt ist eine "List of 9", also eine
 Liste mit 9 Einträgen. Listen sind sehr allgemeine Datencontainer, die
 Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.
 [^Rekursiv] Listen stellen eine wichtige Datenstruktur in `R` dar --
 vielleicht ist es sogar die wichtigste Datenstruktur, da `data.frames`
 spezielle Listen sind, in denen jeder Eintrag (d.h., jede Spalte) ein
 Vektor gleicher Länge ist. Die Elemente der Liste können benannt sein,
-wie es bei der Rückgabe von `t.test` der Fall ist. In diesem Fall kann
+wie es bei der Rückgabe von `t.test()` der Fall ist. In diesem Fall kann
 ich, wie wir es von der Spaltenauswahl in `data.frames` kennen, mit der
 `$`-Notation auf einzelne Elemente zugreifen:
 
@@ -451,14 +456,14 @@ Jede Funktion hat genau einen Rückgabewert, also genau ein `R`-Objekt,
 das von der Funktion zurückgegeben wird. Jegliche Auswirkungen, die eine
 Funktion darüber hinaus hat -- außerhalb der inneren Arbeitsweise --,
 werden Seiteneffekte genannt. Beispielsweise war die Konsolen-Ausgabe
-der Funktion `t.test` im oberen Fall ein Seiteneffekt. Wenn ich die
-Funktion `t.test` aufrufe, wird mir eine Zusammenfassung des Tests in
+der Funktion `t.test()` im oberen Fall ein Seiteneffekt. Wenn ich die
+Funktion `t.test()` aufrufe, wird mir eine Zusammenfassung des Tests in
 der Konsole ausgeben, die als Mensch etwas einfacher zu verarbeiten ist
 als die Liste, die die "tatsächliche" Rückgabe darstellt. Das Zeichnen
 von Abbildungen ist auch als Seiteneffekt zu verstehen. Wenn wir
 beispielsweise `hist(npi$score)` aufrufen, wird uns ein Histogramm der
 Narzissmuswerte des NPI angezeigt. Dieses Histogramm ist ein
-Seiteneffekt und nicht die Ausgabe der Funktion `hist`; Interessierte
+Seiteneffekt und nicht die Ausgabe der Funktion `hist()`. Interessierte
 sind aufgefordert herausfinden, was deren tatsächliche Rückgabe ist.
 
 Ich werde die Diskussion von Seiteneffekten bei dieser kurzen und
@@ -468,8 +473,8 @@ Funktion weiter verwenden möchten, ist es wichtig zu wissen, welche
 Datenstruktur die Funktion ausgibt und wie wir auf die ausgegebenen
 Werte zugreifen können. Um Power-Analysen für t-Tests zu simulieren, ist
 es beispielsweise nötig, die exakten p-Werte aus der Ausgabe der
-Funktion `t.test` auszulesen. In dem Fall werden wir die Funktion
-`t.test` gegebenenfalls 10,000 Mal aufrufen und können es uns nicht
+Funktion `t.test()` auszulesen. In dem Fall werden wir die Funktion
+`t.test()` gegebenenfalls 10,000 Mal aufrufen und können es uns nicht
 leisten, den p-Wert jedes Mal aus der Konsolen-Ausgabe abzulesen.
 Stattdessen wollen wir den Prozess der p-Wert-Extraktion automatisieren;
 und genau für solche Automatisierungen lernen wir das Programmieren.
@@ -527,23 +532,23 @@ definiert habe:
 
 ```R
 1   spearman_brown <- function(reliability, factor) {
-2       numerator  <- reliability * factor
-3       denominator <- 1 + (factor-1) * reliability
-4       corrected_reliability <- numerator / denominator
-5       return(corrected_reliability)
+2     numerator  <- reliability * factor
+3     denominator <- 1 + (factor-1) * reliability
+4     corrected_reliability <- numerator / denominator
+5     return(corrected_reliability)
 6   }
 ```
 
-Um die Funktion zu definieren, führe ich diese sechs Zeilen Code
-einfach in der `R`-Konsole aus. In RStudio reicht es sogar, STRG-Enter
-zu drücken, wenn sich mein Cursor in Zeile 1 befindet. In dieser Zeile
-beginnt die Definition der Funktion: Ich erstelle eine Variable, der
-ich mit "`<-`" eine Funktion zuweise. Die Funktion `spearman_brown`
-wird also mit der Funktion `function` erstellt (kein Witz). Die
-Funktion `function` nimmt die Argumente entgegen, die auch meine neu
-definierte Funktion `spearman_brown` annehmen soll. Die Parameter, die
-bei der Spearman-Brown-Korrektur eine Rolle spielen, sind der
-Reliabilitätsschätzer und der Korrekturfaktor. Aus diesem Grund werden
+Um die Funktion zu definieren, führe ich diese sechs Zeilen Code einfach 
+in der `R`-Konsole aus. In RStudio reicht es sogar, STRG-Enter zu 
+drücken, wenn sich mein Cursor in Zeile 1 befindet. In dieser Zeile 
+beginnt die Definition der Funktion: Ich erstelle eine Variable, der ich 
+mit "`<-`" eine Funktion zuweise. Die Funktion `spearman_brown()` wird 
+also mit der Funktion `function()` erstellt (kein Witz). Die Funktion 
+`function()` nimmt die Argumente entgegen, die auch meine neu definierte 
+Funktion `spearman_brown()` annehmen soll. Die Parameter, die bei der 
+Spearman-Brown-Korrektur eine Rolle spielen, sind der 
+Reliabilitätsschätzer und der Korrekturfaktor. Aus diesem Grund werden 
 die zwei Argumente `reliability` und `factor` definiert.
 
 Auf die Definition der Argumente folgt der "Körper" (engl.: *body*) der
@@ -555,20 +560,16 @@ geschwungenen Klammern `{·}` eingeschlossen. Solche Klammern bilden
 einen abgeschlossenen Block von `R`-Code; sie werden uns auch im
 nächsten Kapitel bei der Verwendung von Schleifen wieder begegnen.
 
-In Zeile 5 wird mit der Funktion `return`[^imaketherules] angegeben,
-dass die Variable `corrected_reliability` von der Funktion
-zurückgegeben werden soll. Das heißt: das `R`-Objekt, das innerhalb der
-Funktion in die Variable `corrected_reliability` geschrieben wird, ist
-der Rückgabewert der Funktion.
-
-[^imaketherules]: Es ist nicht unbedingt nötig, `return` zur Definition
-von Rückgabewerten zu verwenden. Aber ich und verrate die Alternative
-erst mal nicht.
+In Zeile 5 wird mit der Funktion `return()` angegeben, dass die Variable 
+`corrected_reliability` von der Funktion zurückgegeben werden soll. Das 
+heißt: das `R`-Objekt, das innerhalb der Funktion in die Variable 
+`corrected_reliability` geschrieben wird, ist der Rückgabewert der 
+Funktion.
 
 ### Lokale Variablen
 
 Werfen wir noch einmal einen Blick auf den Körper der Funktion
-`spearman_brown`. Wir sehen hier bereits gewohnten `R`-Code -- nichts
+`spearman_brown()`. Wir sehen hier bereits gewohnten `R`-Code -- nichts
 Besonderes: Variablen werden geschrieben und Berechnungen werden
 durchgeführt. Ein wichtiger Punkt an diesen Berechnungen ist jedoch,
 dass sie nur innerhalb der Funktion stattfinden und keine Wirkungen
@@ -579,19 +580,19 @@ Variablen. Global waren alle Variablen, die wir bislang per `<-`
 definiert haben. Solche globalen Variablen werden uns in RStudio im
 Panel oben rechts unter "Global Environment" angezeigt.
 
-Lokale Variablen sind außerhalb der Funktion nicht sichtbar und
-verschwinden nach Aufruf der Funktion wieder.[^garstig] Es ist also
-nicht so, dass die Variablen `numerator`, `denominator` und
-`corrected_reliability` in die globale `R`-Umgebung geschrieben werden,
-wenn ich die Funktion `spearman_brown` aufrufe. Das ist extrem nützlich:
-Ich habe die Variablen `numerator` und `denominator` nur definiert,
-damit mein Code gut lesbar ist und die einzelnen Code-Zeilen nicht zu
-lang werden.[^codestil] Am Ende interessiert mich aber nur der
-Spearman-Brown-Schätzer als Ergebnis der Berechnung; Variablen, die ich
-als Zwischenergebnisse abspeichere, interessieren mich hingegen nicht.
-Wenn ich eine Funktion schreibe, bleiben solche Hilfsvariablen
-verborgen und nur der Rückgabewert dringt nach außen. Ich kann den
-Rückgabewert abfangen, indem ich ihn in einer Variablen abspeichere:
+Lokale Variablen sind außerhalb der Funktion nicht sichtbar und 
+verschwinden nach Aufruf der Funktion wieder.[^garstig] Es ist also 
+nicht so, dass die Variablen `numerator`, `denominator` und 
+`corrected_reliability` in die globale `R`-Umgebung geschrieben werden, 
+wenn ich die Funktion `spearman_brown()` aufrufe. Das ist extrem 
+nützlich: Ich habe die Variablen `numerator` und `denominator` nur 
+definiert, damit mein Code gut lesbar ist und die einzelnen Code-Zeilen 
+nicht zu lang werden.[^codestil] Am Ende interessiert mich aber nur der 
+Spearman-Brown-Schätzer als Ergebnis der Berechnung; Variablen, die ich 
+als Zwischenergebnisse abspeichere, interessieren mich hingegen nicht. 
+Wenn ich eine Funktion schreibe, bleiben solche Hilfsvariablen verborgen 
+und nur der Rückgabewert dringt nach außen. Ich kann den Rückgabewert 
+abfangen, indem ich ihn in einer Variablen abspeichere:
 
 [^garstig]: Umgekehrt gilt hingegen: Innerhalb einer Funktion kann
 man auf Variablen der globalen `R`-Umgebung zugreifen. Ignoriert das
@@ -618,7 +619,7 @@ Argumente sind ebenfalls lokale Variablen in der Funktion.  Wenn wir
 einer Funktion also ein Argument übergeben, definieren wir damit eine
 lokale Variable mit dem Namen des Arguments innerhalb der
 Funktion. Daraus können wir beispielsweise schließen, dass im Code der
-Funktion `mean` irgendwo eine Variable mit dem Namen `na.rm`
+Funktion `mean()` irgendwo eine Variable mit dem Namen `na.rm`
 verwendet wird.
 
 ### Optionale Argumente
@@ -637,7 +638,7 @@ spearman_brown <- function(reliability, factor = 2) {
 
 Diese Schreibweise kennen wir schon vom Aufruf von Funktionen, wenn wir
 die Argumente mit Namen ansprechen. In diesem Fall können wir die
-Funktion `spearman_brown` auch wie folgt äquivalent verwenden:
+Funktion `spearman_brown()` auch wie folgt äquivalent verwenden:
 
 ```R
 split_half_correct <- spearman_brown(0.63)
@@ -672,8 +673,8 @@ Werte ableite -- machen eigene Funktionen oftmals mehr Sinn.
 
 ## Fragen zum vertiefenden Verständnis
 
-1. Was ist der Rückgabewert der Funktion `str`?
-2. Was ist der Rückgabewert der Funktion `hist`?
-3. Kann ich mit der Funktion `spearman_brown` gleichzeitig mehrere
+1. Was ist der Rückgabewert der Funktion `str()`?
+2. Was ist der Rückgabewert der Funktion `hist()`?
+3. Kann ich mit der Funktion `spearman_brown()` gleichzeitig mehrere
    Reliabilitätsschätzer korrigieren? (Code inspizieren $\to$ überlegen
    $\to$ ausprobieren)
