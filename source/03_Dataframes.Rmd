@@ -5,7 +5,7 @@ Wir haben gelernt, dass `R` Daten in Vektoren abspeichert. Im Normalfall
 haben wir in der psychometrischen Datenauswertung aber eine große
 Datenmenge vorliegen, die wir nicht sinnvoll als einzelnen Vektor
 darstellen können. Etwa: 150 Studierende bearbeiten in einer
-Diagnostikklausur 42 Multifple-Choice-Klausuritems. Wir stellen solche
+Diagnostikklausur 42 Multiple-Choice-Klausuritems. Wir stellen solche
 Daten in Tabellen dar, wie man sie auch aus Excel oder SPSS kennt. In
 diesen Tabellen repräsentieren Spalten Messvariablen, etwa die
 Punktzahlen in einer Klausuraufgabe. Zeilen stellen Fälle dar, etwa
