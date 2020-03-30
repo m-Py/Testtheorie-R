@@ -23,7 +23,7 @@ Antworten mit 0 -- ein typisches Datenformat in der psychologischen
 Diagnostik.
 
 Um das fortführende Beispiel selbst nachzuvollziehen, müsst ihr den
-folgenden `data.frame` in `R` einlesen:
+folgenden `data.frame` erstellen:
 
 
 ```{r}
