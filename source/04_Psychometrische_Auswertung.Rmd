@@ -83,7 +83,7 @@ Die Schwierigkeit eines Items ist die mittlere Punktzahl aller Personen
 in diesem Item.[^schwieriglikert] Das ist somit also einfach der 
 Mittelwert der Einträge in jeder Spalte (engl: *column*) in unserem 
 Standardformat. Den Mittelwert pro Spalte kann ich mit der Funktion 
-`colMeans` bestimmen (analog gibt es auch die Funktionen `colSums()` und 
+`colMeans()` bestimmen (analog gibt es auch die Funktionen `colSums()` und 
 `rowMeans()`):
 
 [^schwieriglikert]: Auch bei Items, die nicht Korrektheit kodieren, kann
