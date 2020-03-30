@@ -289,7 +289,7 @@ nutzen. Oftmals ist eine weitere Google-Recherche oder das Nachfragen
 bei einer Freundin oder einem Freund sinnvoll, wenn man die Nutzung
 einer Funktion meistern will. 
 
-Mehr Hilfe zur Nutzung einer Funktion finden wir im Abschnitt "Examples" 
+Mehr Hilfe zur Nutzung einer Funktion finden wir im Abschnitt „Examples“ 
 der `R`-Hilfe. Hier können wir am konkreten Beispiel betrachten, wie die 
 Funktion angewendet werden kann. Wenn wir Glück haben, ist genau das 
 dabei, was wir brauchen. Der Code ist dabei so gewählt, dass man ihn per 
@@ -551,7 +551,7 @@ Spearman-Brown-Korrektur eine Rolle spielen, sind der
 Reliabilitätsschätzer und der Korrekturfaktor. Aus diesem Grund werden 
 die zwei Argumente `reliability` und `factor` definiert.
 
-Auf die Definition der Argumente folgt der "Körper" (engl.: *body*) der
+Auf die Definition der Argumente folgt der „Körper“ (engl.: *body*) der
 Funktion. Der Körper führt die gewünschte Berechnung durch und
 verwendet dabei die Funktionsargumente als Variablen.
 Funktionsargumente sind also nichts anderes als Variablen, die im
@@ -578,7 +578,7 @@ Variablen, die innerhalb der Funktion definiert werden, sogenannte
 *lokale* Variablen. Im Gegensatz zu den lokalen Variablen stehen globale
 Variablen. Global waren alle Variablen, die wir bislang per `<-`
 definiert haben. Solche globalen Variablen werden uns in RStudio im
-Panel oben rechts unter "Global Environment" angezeigt.
+Panel oben rechts unter „Global Environment“ angezeigt.
 
 Lokale Variablen sind außerhalb der Funktion nicht sichtbar und 
 verschwinden nach Aufruf der Funktion wieder.[^garstig] Es ist also 
