@@ -75,7 +75,7 @@ for (name in c('Cronbach', 'Spearman', 'Brown')) {
 Die Funktion `print()` ist die explizite Anweisung, ein `R`-Objekt in der
 Konsole auszugeben. Wir sehen, dass uns die Schleife in ihren drei
 Durchläufen drei verschiedene Texte ausgibt, nämlich nacheinander den
-Inhalt des Vektors `c('Cronbach', 'Spearman', 'Brown')`. Da `print` auf
+Inhalt des Vektors `c('Cronbach', 'Spearman', 'Brown')`. Da `print()` auf
 die Variable `name` angewendet wurde, sehen wir, dass `name` ihren
 Inhalt in jedem Durchlauf der Schleife geändert hat.
 
