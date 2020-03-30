@@ -32,11 +32,11 @@ Diese Grafik zeigt schematisch die Arbeitsweise von `R`-Funktionen:
 Funktionen nehmen Argumente an, die ihr Verhalten steuern. Sie geben
 genau ein `R`-Objekt zurück, das Rückgabewert genannt wird. Wenn der
 Aufruf einer Funktion außer dieser Rückgabe weitere Auswirkung auf die
-"Umgebung" hat, nennt man das einen Seiteneffekt. Als `R`-Neuling ist
+„Umgebung“ hat, nennt man das einen Seiteneffekt. Als `R`-Neuling ist
 es manchmal wichtig zu verstehen, was der Unterschied zwischen den
 Seiteneffekten und der Rückgabe einer Funktion ist.
 
-Die innere Arbeitsweise von Funktionen wird als "Black Box" betrachtet.
+Die innere Arbeitsweise von Funktionen wird als „Black Box“ betrachtet.
 Wir wissen nicht unbedingt, wie eine Funktion intern funktioniert, was
 uns aber auch nicht interessiert. So lange uns `mean()` den korrekten
 Mittelwert ausgibt, ist uns egal, wie `mean()` den Mittelwert
@@ -153,7 +153,7 @@ Fehler in mean.default(c(1, 2, 3, NA), TRUE) :
 
 Das hat aber nicht funktioniert. Diese Fehlermeldung informiert uns
 darüber, dass `mean` an der zweiten Position ein Argument mit dem Namen
-"`trim`" erwartet. Offensichtlich hat `mean` mit `trim` noch ein
+„`trim`“ erwartet. Offensichtlich hat `mean` mit `trim` noch ein
 weiteres optionales Argument, das wir bislang gar nicht kannten.  Das
 heißt für uns: Solange wir für `trim` -- was auch immer das ist --
 keinen Wert angeben, müssen wir `na.rm` per Namen ansprechen.
@@ -220,7 +220,7 @@ diese heißt und in welchem Paket ich sie finde.
 ?mean
 ```
 
-Interessant ist für uns erst einmal der obere Abschnitt "Usage":
+Interessant ist für uns erst einmal der obere Abschnitt „Usage“:
 
 ```R
 Usage:
@@ -254,7 +254,7 @@ Standardwert `FALSE`. Bei nicht-optionalen Argumenten ist kein
 Standardwert, sondern nur der Name des Arguments angegeben.
 
 Wenn wir mehr über die Argumente erfahren wollen, müssen wir den
-Abschnitt "Arguments" der `R`-Hilfe konsultieren. Folgende Punkte
+Abschnitt „Arguments“ der `R`-Hilfe konsultieren. Folgende Punkte
 interessieren uns bei der Beschreibung:
 
 1. Was ist die inhaltliche Bedeutung eines Arguments?
@@ -289,7 +289,7 @@ nutzen. Oftmals ist eine weitere Google-Recherche oder das Nachfragen
 bei einer Freundin oder einem Freund sinnvoll, wenn man die Nutzung
 einer Funktion meistern will. 
 
-Mehr Hilfe zur Nutzung einer Funktion finden wir im Abschnitt "Examples" 
+Mehr Hilfe zur Nutzung einer Funktion finden wir im Abschnitt „Examples“
 der `R`-Hilfe. Hier können wir am konkreten Beispiel betrachten, wie die 
 Funktion angewendet werden kann. Wenn wir Glück haben, ist genau das 
 dabei, was wir brauchen. Der Code ist dabei so gewählt, dass man ihn per 
@@ -323,7 +323,7 @@ andere Funktionen wie `table()` -- die beliebig viele Vektoren zur
 Erstellung von Kreuztabellen annimmt -- und `dplyr::arrange()` -- die
 beliebig viele Kriterien zur Sortierung eines `data.frames` annimmt --
 haben unbenannte Argumente. In der `R`-Hilfe ist dies oftmals an dem
-Platzhalterargument "..."  (lies: *ellipsis*) zu erkennen, siehe:
+Platzhalterargument „`...`“ (lies: *ellipsis*) zu erkennen, siehe:
 [^komischeargumente]
 
 [^komischeargumente]: Wir nehmen interessiert zur Kenntnis, dass `c()`
@@ -385,9 +385,9 @@ t.test(npi$score[npi$gender == 1], npi$score[npi$gender == 2])
 
 Hier werden uns alle relevanten Aspekte der *t*-Test-Berechnung
 ausgegeben. Ein erster interessanter Hinweis ist, dass kein klassischer
-*t*-Test, sondern ein "Welch Two Sample t-test" gerechnet wurde.
+*t*-Test, sondern ein „Welch Two Sample t-test“ gerechnet wurde.
 [^welch] Weiterhin werden uns t-Wert, Freiheitsgrade, p-Wert
-("`p-value < 2.2e-16`" bedeutet, dass der p-Wert so klein ist, dass vor
+(„`p-value < 2.2e-16`“ bedeutet, dass der p-Wert so klein ist, dass vor
 dem ersten Wert hinter dem Komma, der **nicht** Null ist, mindestens 16
 Nullen stehen), das 95%-Konfidenzintervall der Differenz der mittleren
 Werte, sowie die Mittelwerte selbst ausgegeben. Insgesamt kann man
@@ -424,7 +424,7 @@ test <- t.test(npi$score[npi$gender == 1], npi$score[npi$gender == 2])
 str(test)
 ```
 
-Das von `t.test()` ausgegebene Objekt ist eine "List of 9", also eine
+Das von `t.test()` ausgegebene Objekt ist eine „List of 9“, also eine
 Liste mit 9 Einträgen. Listen sind sehr allgemeine Datencontainer, die
 Elemente von beliebigem Typ und beliebiger Anzahl beinhalten können.
 [^Rekursiv] Listen stellen eine wichtige Datenstruktur in `R` dar --
@@ -459,7 +459,7 @@ werden Seiteneffekte genannt. Beispielsweise war die Konsolen-Ausgabe
 der Funktion `t.test()` im oberen Fall ein Seiteneffekt. Wenn ich die
 Funktion `t.test()` aufrufe, wird mir eine Zusammenfassung des Tests in
 der Konsole ausgeben, die als Mensch etwas einfacher zu verarbeiten ist
-als die Liste, die die "tatsächliche" Rückgabe darstellt. Das Zeichnen
+<!-- als die Liste, die die „tatsächliche“ Rückgabe darstellt. Das Zeichnen -->
 von Abbildungen ist auch als Seiteneffekt zu verstehen. Wenn wir
 beispielsweise `hist(npi$score)` aufrufen, wird uns ein Histogramm der
 Narzissmuswerte des NPI angezeigt. Dieses Histogramm ist ein
@@ -543,7 +543,7 @@ Um die Funktion zu definieren, führe ich diese sechs Zeilen Code einfach
 in der `R`-Konsole aus. In RStudio reicht es sogar, STRG-Enter zu 
 drücken, wenn sich mein Cursor in Zeile 1 befindet. In dieser Zeile 
 beginnt die Definition der Funktion: Ich erstelle eine Variable, der ich 
-mit "`<-`" eine Funktion zuweise. Die Funktion `spearman_brown()` wird 
+mit „`<-`“ eine Funktion zuweise. Die Funktion `spearman_brown()` wird 
 also mit der Funktion `function()` erstellt (kein Witz). Die Funktion 
 `function()` nimmt die Argumente entgegen, die auch meine neu definierte 
 Funktion `spearman_brown()` annehmen soll. Die Parameter, die bei der 
@@ -551,7 +551,7 @@ Spearman-Brown-Korrektur eine Rolle spielen, sind der
 Reliabilitätsschätzer und der Korrekturfaktor. Aus diesem Grund werden 
 die zwei Argumente `reliability` und `factor` definiert.
 
-Auf die Definition der Argumente folgt der "Körper" (engl.: *body*) der
+Auf die Definition der Argumente folgt der „Körper“ (engl.: *body*) der
 Funktion. Der Körper führt die gewünschte Berechnung durch und
 verwendet dabei die Funktionsargumente als Variablen.
 Funktionsargumente sind also nichts anderes als Variablen, die im
@@ -573,12 +573,12 @@ Werfen wir noch einmal einen Blick auf den Körper der Funktion
 Besonderes: Variablen werden geschrieben und Berechnungen werden
 durchgeführt. Ein wichtiger Punkt an diesen Berechnungen ist jedoch,
 dass sie nur innerhalb der Funktion stattfinden und keine Wirkungen
-"nach außen" haben. Was heißt das konkret? Beispielsweise sind alle
+„nach außen“ haben. Was heißt das konkret? Beispielsweise sind alle
 Variablen, die innerhalb der Funktion definiert werden, sogenannte
 *lokale* Variablen. Im Gegensatz zu den lokalen Variablen stehen globale
 Variablen. Global waren alle Variablen, die wir bislang per `<-`
 definiert haben. Solche globalen Variablen werden uns in RStudio im
-Panel oben rechts unter "Global Environment" angezeigt.
+Panel oben rechts unter „Global Environment“ angezeigt.
 
 Lokale Variablen sind außerhalb der Funktion nicht sichtbar und 
 verschwinden nach Aufruf der Funktion wieder.[^garstig] Es ist also 
@@ -661,7 +661,7 @@ geändert haben, und diese in Argumente umwandeln.
 Um zu erkennen, wann Funktionen nützlich sind und welche Variablen man
 als Argumente umsetzen will, bedarf es sicherlich einiger Erfahrung mit
 `R`. Mein Tipp für Anfänger ist deswegen vor allem: Erst mal einfach
-"coden" -- später Funktionen schreiben. Mit mehr Erfahrung kann sich
+„coden“ -- später Funktionen schreiben. Mit mehr Erfahrung kann sich
 diese Vorgehensweise ändern. Ich überlege oftmals schon in der
 Planungsphase eines Projekts, welche Funktionen sich sinnvollerweise
 anbieten und wie diese zusammen arbeiten sollten. Aber das Vorgehen
