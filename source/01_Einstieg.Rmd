@@ -50,8 +50,8 @@ Skript bietet den theoretischen Unterbau zu den Übungen. Die Übungen des
 Seminars und die zur Bearbeitung nötigen Daten -- wie auch der jeweils 
 aktuelle Stand dieses Skripts -- können unter 
 [https://osf.io/y4a6k/](https://osf.io/y4a6k/) abgerufen werden. Unter 
-[https://m-py.github.io/TesttheorieR/](https://m-py.github.io/ 
-TesttheorieR/) findet sich eine online lesbare Version des Skripts. Das 
+[https://m-py.github.io/TesttheorieR/](https://m-py.github.io/TesttheorieR/) 
+findet sich eine online lesbare Version des Skripts. Das 
 Skript wird stetig aktualisiert; diese Version wurde am `r 
 format(Sys.Date(), "%d. %B %Y")` erstellt.
 
