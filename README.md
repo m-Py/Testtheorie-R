@@ -74,69 +74,63 @@ Eine online lesbare Version des Skripts findet sich
 Die folgende Wochenübersicht wird im Verlauf des Semester stetig 
 aktualisiert. Sie enthält unter allem Links zu den Lehrvideos.
 
-### Woche 1: 20.04. - 26.04.2020
+### Woche 1: 27.04. - 03.05.2020
 
 - `R`-Themen: Einfache Berechnungen, Variablen, Logische Vergleiche
 - Videos:
 
-### Woche 2: 27.04. - 03.05.2020
+### Woche 2: 04.05. - 10.05.2020
 
 - `R`-Themen: Vektorisierung, Logisches UND / ODER, Auswahl von Vektorelementen
 - Videos: 
 
-### Woche 3: 04.05. - 10.05.2020
+### Woche 3: 11.05. - 17.05.2020
 
 - `R`-Themen: Fragebogendaten als Tabelle in `R` einlesen, Spalten aus 
 Datentabellen auslesen, (relative) Häufigkeiten, Histogramme
-- Videos: 
+- Videos:
 
-### Woche 4: 11.05. - 17.05.2020
+### Woche 4: 18.05. - 24.05.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 5: 18.05. - 24.05.2020
+### Woche 5: 25.05. - 31.05.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 6: 25.05. - 31.05.2020
+### Woche 6: 01.06. - 07.06.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 7: 01.06. - 07.06.2020
+### Woche 7: 08.06. - 14.06.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 8: 08.06. - 14.06.2020
+### Woche 8: 15.06. - 21.06.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 9: 15.06. - 21.06.2020
+### Woche 9: 22.06. - 28.06.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 10: 22.06. - 28.06.2020
+### Woche 10: 29.06. - 05.07.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 11: 29.06. - 05.07.2020
+### Woche 11: 06.07. - 12.07.2020
 
 - `R`-Themen: 
 - Videos:
 
-### Woche 12: 06.07. - 12.07.2020
+### Woche 12: 13.07. - 19.07.2020
 
 - `R`-Themen: 
 - Videos:
-
-### Woche 13: 13.07. - 19.07.2020
-
-- `R`-Themen: 
-- Videos:
-
