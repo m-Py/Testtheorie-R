@@ -4,7 +4,7 @@
 
 Dozent: [Dr. Martin Papenberg](https://m-py.github.io/about/)
 
-Diese Seite spiegelt die Informationen zum **Mastermodul B, Psychologie, 
+Diese Seite enthält Informationen zum **Mastermodul B, Psychologie, 
 Heinrich-Heine Universität Düsseldorf: Diagnostik: Testtheorie und 
 Testkonstruktion, Vertiefung**.
 
