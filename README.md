@@ -78,7 +78,7 @@ aktualisiert. Sie enthält unter allem Links zu den Lehrvideos.
 
 - `R`-Themen: Einfache Berechnungen, Variablen, Logische Vergleiche
 - Videos: 
-- Relevante Inhalte im Skript: Kapitel 1, Kapitel 2.1 - 2.4 (nicht mehr ab 2.4.1)
+- Relevante Inhalte im Skript: Kapitel 1, Kapitel 2.1 - 2.4
 
 ### Woche 2: 04.05. - 10.05.2020
 
