@@ -61,8 +61,8 @@ Installation immer bei allen Studierenden problemlos funktioniert).
 
 Unter [Übungen](https://github.com/m-Py/Testtheorie-R/tree/master/Uebungen) 
 finden sich die R-Quelldateien zur Bearbeitung der Wochenübungen; relevant sind 
-hier die Übungen im Unterorder „2020“. Der Unterordner 
-[Daten](https://github.com/m-Py/Testtheorie-R/tree/master/Uebungen/Daten) 
+hier die Übungen im Unterorder [2020](https://github.com/m-Py/Testtheorie-R/tree/master/Uebungen/2020). 
+Der Unterordner [Daten](https://github.com/m-Py/Testtheorie-R/tree/master/Uebungen/Daten) 
 enthält die zur Bearbeitung der Übungen nötigen Daten. 
 
 Das Seminarskript kann [hier](https://osf.io/nghyv/) heruntergeladen werden.
