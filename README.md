@@ -76,8 +76,9 @@ aktualisiert. Sie enthält unter allem Links zu den Lehrvideos.
 
 ### Woche 1: 27.04. - 03.05.2020
 
-- `R`-Themen: Einfache Berechnungen, Vektoren, Variablen, Logische Vergleiche
-- Videos: 
+- `R`-Themen: Einfache Berechnungen, Vektoren, Variablen, einfache statistische 
+Funktionen, Logische Vergleiche
+- Video: https://www.youtube.com/watch?v=tVonpUScEaA
 - Relevante Inhalte im Skript: Kapitel 1, Kapitel 2.1 - 2.4
 
 ### Woche 2: 04.05. - 10.05.2020
