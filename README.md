@@ -83,8 +83,10 @@ Funktionen, Logische Vergleiche
 
 ### Woche 2: 04.05. - 10.05.2020
 
-- `R`-Themen: Vektorisierung, Logisches UND / ODER, Auswahl von Vektorelementen
+- `R`-Themen: Komponentenweises Verhalten von Vektoren, Logisches UND / ODER, 
+Auswahl von Vektorelementen
 - Videos: 
+- Relevante Inhalte im Skript: Kapitel 2.1, 2.3.2, 2.4.1, 2.5
 
 ### Woche 3: 11.05. - 17.05.2020
 
