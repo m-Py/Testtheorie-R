@@ -90,8 +90,8 @@ martin.papenberg@hhu.de gesendet werden.
 ### Danksagung
 
 Ich danke Juli Tkotz für ihre wertvollen Beiträge und ihr nützliches
-Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio und
-Ingo Weigel danke ich für Fehlermeldungen.
+Feedback zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio, Ingo Weigel 
+und Katharina Sophie Apenbrink danke ich für Fehlermeldungen.
 
 Zur Erstellung des Skripts wurden `R` [@R-base] und die `R`-Pakete
 *bookdown* [@R-bookdown], *knitr* [@R-knitr], *rmarkdown* [@R-rmarkdown]
