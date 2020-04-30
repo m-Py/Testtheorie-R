@@ -35,7 +35,7 @@ https://github.com/m-Py/Testtheorie-R.
 
 Wir lernen die Nutzung von `R` anhand von Beispielen der psychologischen
 Diagnostik beziehungsweise der Testtheorie kennen. Dabei werden auch
-echte Datensätze verwendet, beispielsweise einen Datensatz zum
+echte Datensätze verwendet, beispielsweise ein Datensatz zum
 *Narcissistic Personality Inventory*, der online frei über das „Open
 Source Psychometrics Project”
 ([https://openpsychometrics.org/](https://openpsychometrics.org/))
@@ -100,7 +100,7 @@ genutzt.
 ## Erste Schritte mit `R`
 
 Im Seminar nutzen wir die „integrierte Entwicklungsumgebung“ (engl:
-integrated developement environment; *IDE*) RStudio, um mit `R` zu
+integrated development environment; *IDE*) RStudio, um mit `R` zu
 arbeiten. Zum Nachvollziehen des Skripts und der Übungen solltet ihr
 deswegen RStudio auf eurem eigenen Rechner/Laptop
 installieren.[^umgebung] Das geht über diesen Link:
@@ -237,7 +237,7 @@ Element der Ausgabe eines Vektors gekennzeichnet (siehe Kapitel 2).
 ## Ausblick
 
 In den ersten zwei Kapiteln beschäftigen wir uns damit, wie `R` Daten
-darstellt. Dabei betrachten wir zunächst die grundlegenste
+darstellt. Dabei betrachten wir zunächst die grundlegendste
 Datenstruktur, den Vektor ([Kapitel 2](#vektoren)). Danach lernen wir
 `data.frames` kennen ([Kapitel 3](#dataframes)) -- also Datentabellen,
 wie wir sie auch aus Excel oder SPSS kennen. In [Kapitel

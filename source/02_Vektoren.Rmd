@@ -94,7 +94,7 @@ geben uns das Ergebnis zurück
 
 Einfach gesagt nehmen also Funktionen Daten entgegen und geben wiederum
 Daten zurück. Der Großteil unserer Arbeit mit `R` ist die Anwendung von
-Funktionen. Es ist möglich Funktionsaufrufe zu verschachteln, wie dieses
+Funktionen. Es ist möglich, Funktionsaufrufe zu verschachteln, wie dieses
 Beispiel zeigte:
 
 ```R
@@ -320,7 +320,7 @@ bar <- sort(bar)
 ```
 
 In diesem Fall geht der Ursprungsvektor verloren und wir behalten nur
-den sortieren Vektor. Generell gilt: wenn wir Daten in der Konsole
+den sortierten Vektor. Generell gilt: wenn wir Daten in der Konsole
 ausgeben lassen, verschwinden diese sozusagen im „Nirvana“. Wenn wir mit
 Daten weiterarbeiten wollen, müssen wir die Ausgabe einer Funktion in
 einer Variablen speichern. Beide Verwendungszwecke sind denkbar:
