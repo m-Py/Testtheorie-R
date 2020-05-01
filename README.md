@@ -80,6 +80,7 @@ aktualisiert. Sie enthält unter allem Links zu den Lehrvideos.
 Funktionen, Logische Vergleiche
 - Video: https://www.youtube.com/watch?v=tVonpUScEaA
 - Video mit den Lösungen zur Übung: https://youtu.be/-PtpxbYGVxw
+- Video mit Antworten auf Fragen: https://youtu.be/cSnmr4XZsTU
 - Relevante Inhalte im Skript: Kapitel 1, Kapitel 2.1 - 2.4
 
 ### Woche 2: 04.05. - 10.05.2020
