@@ -91,14 +91,13 @@ Funktionen, Logische Vergleiche
 
 - `R`-Themen: Komponentenweises Verhalten von Vektoren, Logisches UND / ODER, 
 Auswahl von Vektorelementen
-- Videos: 
+- Lehrvideo: https://youtu.be/HiSR0FNLZI8
 - Relevante Inhalte im Skript: Kapitel 2.1, 2.3.2, 2.4.1, 2.5
 
 ### Woche 3: 11.05. - 17.05.2020
 
 - `R`-Themen: Fragebogendaten als Tabelle in `R` einlesen, Spalten aus 
 Datentabellen auslesen, (relative) Häufigkeiten, Histogramme
-- Lehrvideo: https://youtu.be/HiSR0FNLZI8
 
 ### Woche 4: 18.05. - 24.05.2020
 
