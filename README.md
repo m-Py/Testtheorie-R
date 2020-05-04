@@ -82,7 +82,7 @@ aktualisiert. Sie enthält unter allem Links zu den Lehrvideos.
 
 - `R`-Themen: Einfache Berechnungen, Vektoren, Variablen, einfache statistische 
 Funktionen, Logische Vergleiche
-- Video: https://www.youtube.com/watch?v=tVonpUScEaA
+- Lehrvideo: https://www.youtube.com/watch?v=tVonpUScEaA
 - Video mit den Lösungen zur Übung: https://youtu.be/-PtpxbYGVxw
 - Video mit Antworten auf Fragen: https://youtu.be/cSnmr4XZsTU
 - Relevante Inhalte im Skript: Kapitel 1, Kapitel 2.1 - 2.4
@@ -98,7 +98,7 @@ Auswahl von Vektorelementen
 
 - `R`-Themen: Fragebogendaten als Tabelle in `R` einlesen, Spalten aus 
 Datentabellen auslesen, (relative) Häufigkeiten, Histogramme
-- Videos:
+- Lehrvideo: https://youtu.be/HiSR0FNLZI8
 
 ### Woche 4: 18.05. - 24.05.2020
 
