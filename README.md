@@ -78,6 +78,10 @@ Eine online lesbare Version des Skripts findet sich
 Die folgende Wochenübersicht wird im Verlauf des Semester stetig 
 aktualisiert. Sie enthält unter allem Links zu den Lehrvideos.
 
+Link zur Playlist mit allen Lehrvideos: 
+
+https://www.youtube.com/watch?v=tVonpUScEaA&list=PLPJmqr3FiKzBdYK724v2bi7NtdRMqe1he
+
 ### Woche 1: 27.04. - 03.05.2020
 
 - `R`-Themen: Einfache Berechnungen, Vektoren, Variablen, einfache statistische 
