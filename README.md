@@ -48,6 +48,10 @@ Wir nutzen `R` durch Starten der Software RStudio, wenn sowohl `R` als
 auch RStudio installiert sind. Mehr Infos zur Installation finden sich 
 [hier](https://m-py.github.io/TesttheorieR/einstieg.html#erste-schritte-mit-r). 
 
+- Ausführlichere Informationen zu den Bedienemelemten in RStudio:
+  + https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.html
+  + https://r-intro.tadaa-data.de/book/orientierung.html
+
 Anstatt RStudio gibt es auch andere Umgebungen, in denen mit R gearbeitet werden 
 kann. Alternativen sind beispielsweise [rkward](https://rkward.kde.org/) oder 
 [emacs ESS](https://ess.r-project.org/); es steht allen Teilnehmenden frei, sich 
