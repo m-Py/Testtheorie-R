@@ -86,16 +86,23 @@ https://www.youtube.com/watch?v=tVonpUScEaA&list=PLPJmqr3FiKzBdYK724v2bi7NtdRMqe
 
 - `R`-Themen: Einfache Berechnungen, Vektoren, Variablen, einfache statistische 
 Funktionen, Logische Vergleiche
-- Lehrvideo: https://www.youtube.com/watch?v=tVonpUScEaA
-- Video mit den Lösungen zur Übung: https://youtu.be/-PtpxbYGVxw
-- Video mit Antworten auf Fragen: https://youtu.be/cSnmr4XZsTU
+- Lehrvideos
+  + Einführung: https://www.youtube.com/watch?v=tVonpUScEaA
+  + Lösungen zu den Übungsaufgaben: https://youtu.be/-PtpxbYGVxw
+  + Fragen und Antworten: https://youtu.be/cSnmr4XZsTU
+- Übungsaufgaben: 
+  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/01_Uebung.R)
+  + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/01_Uebung_Loesungen.R)
 - Relevante Inhalte im Skript: Kapitel 1, Kapitel 2.1 - 2.4
 
 ### Woche 2: 04.05. - 10.05.2020
 
 - `R`-Themen: Komponentenweises Verhalten von Vektoren, Logisches UND / ODER, 
 Auswahl von Vektorelementen
-- Lehrvideo: https://youtu.be/HiSR0FNLZI8
+- Lehrvideos
+  + Einführung: https://youtu.be/HiSR0FNLZI8
+- Übungsaufgaben: 
+  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung.R)
 - Relevante Inhalte im Skript: Kapitel 2.1, 2.3.2, 2.4.1, 2.5
 
 ### Woche 3: 11.05. - 17.05.2020
