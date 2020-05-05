@@ -76,7 +76,7 @@ Eine online lesbare Version des Skripts findet sich
 ## Wochenübersicht
 
 Die folgende Wochenübersicht wird im Verlauf des Semester stetig 
-aktualisiert. Sie enthält unter allem Links zu den Lehrvideos.
+aktualisiert. Sie enthält unter anderem Links zu den Lehrvideos.
 
 Link zur Playlist mit allen Lehrvideos: 
 
