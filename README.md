@@ -101,6 +101,7 @@ Funktionen, Logische Vergleiche
 Auswahl von Vektorelementen
 - Lehrvideos
   + Einführung: https://youtu.be/HiSR0FNLZI8
+  + Lösungen zu den Aufgaben: https://youtu.be/0A1bKKrdR4c 
 - Übungsaufgaben: 
   + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung.R)
   + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung_Loesungen.R)
