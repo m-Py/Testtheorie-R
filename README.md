@@ -103,6 +103,7 @@ Auswahl von Vektorelementen
   + Einführung: https://youtu.be/HiSR0FNLZI8
 - Übungsaufgaben: 
   + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung.R)
+  + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung_Loesungen.R)
 - Relevante Inhalte im Skript: Kapitel 2.1, 2.3.2, 2.4.1, 2.5
 
 ### Woche 3: 11.05. - 17.05.2020
