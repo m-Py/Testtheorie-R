@@ -943,9 +943,8 @@ an 0.159 liegt.
 ### Logische Operationen mit `NA`
 
 Oftmals will man herausfinden, ob in Vektoren fehlende Werte vorliegen (also ob 
-einige Elemente darin `NA` sind). Wir können auch mit der Funktion `is.na()` 
-eine logische Abfrage durchführen, die für jedes Element in einem überprüft, ob 
-es `NA` ist. 
+einige Elemente darin `NA` sind). Die Funktion `is.na()` führt eine logische 
+Abfrage durch, die für jedes Element in einem Vektor überprüft, ob es `NA` ist. 
 
 ```{r}
 mein_vektor <- c(1, 2, 1, NA, 4, NA, 3)
