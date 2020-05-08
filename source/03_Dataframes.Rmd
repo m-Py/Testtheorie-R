@@ -717,7 +717,21 @@ nach Zeilen -- oder beidem -- geschehen.
 
 ## Nützliche Funktionen zum Arbeiten mit `data.frames` {#convenient}
 
-### `tapply()` {#tapply}
+### Eine Zusammenfassung aller Spalten: `summary()`: 
+
+Eine allgemein nützliche Funktion zum Betrachten von `data.frames` ist
+die Funktion `summary()`. Sie gibt uns wie folgt einen schnellen Überblick
+über alle Spalten eines `data.frames`: 
+
+```{r}
+summary(mdf)
+```
+
+Neben einigen deskriptiven Statistiken (Mittelwert, Minimum, Maximum; Häufigkeit 
+bei Faktoren) kann `summary()` auch für jede Spalte angeben, wie viele Werte 
+darin fehlen. In diesem Fall fehlt kein Wert, deswegen fehlt auch diese Angabe. 
+
+### Gruppierte Statistiken: `tapply()` {#tapply}
 
 Die Funktion `tapply()` kann ich verwenden, um mir deskriptive
 Statistiken anhand von Gruppierungsvariablen ausgeben zu lassen, hier
@@ -769,7 +783,7 @@ dann, wenn wir mehrere Gruppierungsvariablen angeben.
 Mittelwerts eingehen, können wir in diesem Fall prüfen mit
 `table(mdf$Geschlecht, mdf$Augenfarbe)`.
 
-### `nrow()` und `ncol()`
+### Datenstruktur: `nrow()` und `ncol()`
 
 Wie viele Zeilen ein `data.frame` hat -- d.h. oftmals die Zahl der
 *Fälle* -- lässt sich mit der Funktion `nrow()` bestimmen:
@@ -784,7 +798,7 @@ Analog gibt `ncol()` die Zahl der Spalten aus:
 ncol(mdf)
 ```
 
-### `head()` und `tail()`
+### Wie sieht die Tabelle aus: `head()` und `tail()`
 
 Um sich einen Überblick über einen `data.frame` zu verschaffen, sind die 
 Funktionen `head()` und `tail()` sehr nützlich. Die Funktion `head()` 
