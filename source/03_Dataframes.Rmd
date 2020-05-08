@@ -518,6 +518,50 @@ wollen:
 subset(mdf, select = -c(Geschlecht, Alter))
 ```
 
+### Umgang mit `NA`: `subset()` bevorzugt zur Zeilenauswahl
+
+Außer, dass uns `subset()` syntaktische Vereinfachungen zur Auswahl von Zeilen 
+und Spalten bietet, ist auch das Verhalten von `subset()` manchmal gegenüber dem 
+`[·,·]`-Zugriff zu bevorzugen -- zumindest was die Auswahl von Zeilen angeht. 
+Betrachten wir im Folgenden, wie `subset()` und der `[·,·]`-Zugriff jeweils auf 
+die Anwesenheit von fehlenden Werten (`NA`) reagieren:
+
+```{r}
+minidf <- data.frame(
+  nummer = 1:5,
+  wert = c(1, 2, 4, NA, 1)
+)
+```
+
+```{r}
+minidf[minidf$wert < 4, ]
+```
+
+Die Ausgabe des `[·,·]`-Zugriffs sieht etwas unschön aus; für die Zeile, in der 
+`minidf$wert` den Wert `NA` hat, wird hier eine Zeile ausgegeben, die nur aus 
+fehlenden Werten besteht (selbst die Zeilennummer wird auf `NA` gesetzt!). Es 
+ist schwierig vorstellbar, dass diese Ausgabe wünschenswert sein mag; zumindest 
+erinnert sie an das Vorhandensein fehlender Werte. Die Funktion `subset()` 
+hingegen schließt die Zeile aus, in der `minidf$wert` fehlt: 
+
+```{r}
+subset(minidf, wert < 4)
+```
+
+Diese Ausgabe entspricht vermutlich häufiger dem gewünschten Verhalten. Um diese 
+Ausgabe auch mit der `[·,·]`-Notation zu erhalten, ist folgender, umständlicher
+Befehl nötig:
+
+```{r}
+minidf[minidf$wert < 4 & !is.na(minidf$wert), ]
+```
+
+In interaktiven Datenauswertungen würde ich oftmals die Nutzung der Funktion 
+`subset()` empfehlen, wobei gerade bei der Spaltenauswahl die `[·,·]`-Notation 
+ihre Stärken hat, etwa was die automatisierte Generierung von Spaltennamen als 
+`character`-Vektor angeht. Glücklicherweise können wir beide Notationen gemischt 
+anwenden, um die jeweiligen Stärken auszunutzen.
+
 ## Weitere Zugriffe auf `data.frames` {#doppelteckig}
 
 Dieser Abschnitt behandelt zwei weitere Möglichkeiten, mit eckigen
