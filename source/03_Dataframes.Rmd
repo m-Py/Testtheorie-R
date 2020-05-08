@@ -717,20 +717,6 @@ nach Zeilen -- oder beidem -- geschehen.
 
 ## Nützliche Funktionen zum Arbeiten mit `data.frames` {#convenient}
 
-### Zusammenfassung aller Spalten: `summary()`
-
-Eine allgemein nützliche Funktion zum Betrachten von `data.frames` ist
-die Funktion `summary()`. Sie gibt uns wie folgt einen schnellen Überblick
-über alle Spalten eines `data.frames`: 
-
-```{r}
-summary(mdf)
-```
-
-Neben einigen deskriptiven Statistiken (Mittelwert, Minimum, Maximum; Häufigkeit 
-bei Faktoren) kann `summary()` auch für jede Spalte angeben, wie viele Werte 
-darin fehlen. In diesem Fall fehlt kein Wert, deswegen fehlt auch diese Angabe. 
-
 ### Gruppierte Statistiken: `tapply()` {#tapply}
 
 Die Funktion `tapply()` kann ich verwenden, um mir deskriptive
@@ -814,7 +800,7 @@ head(mdf, n = 2)
 tail(mdf, n = 3)
 ```
 
-### Sortieren: `dplyr::arrange`
+### Sortieren: Die Funktion `arrange`() aus dem Paket `dplyr`
 
 Oftmals wollen wir Datentabellen nach einer oder mehreren Variablen
 sortieren. Dies funktioniert am bequemsten, wenn wir das *Paket* `dplyr`
@@ -865,6 +851,70 @@ Geschlechts nach Punktzahl:
 ```{r}
 arrange(mdf, Geschlecht, -Testscore)
 ```
+
+
+### Zusammenfassung aller Spalten
+
+Es gibt zahlreiche Funktionen, aus verschiedenen `R`-Zusatzpaketen und auch aus 
+„Base-`R`“ selbst, die alle dafür gedacht sind, möglichst kompakt einen 
+Überblick über einen ganzen `data.frame` zu bieten. Solche Funktionen geben 
+normalerweise pro Spalte deskriptive Statistiken aus -- etwa Mittelwert, 
+Standardabweichung, Perzentile, Minimum, Maximum, oder eine 
+Häufigkeitsverteilung bei kategorialen Faktoren -- und wie viele Werte darin 
+fehlen, also `NA` sind. Es ist äußerst nützlich sich bei der Arbeit mit einem 
+neuen Datensatz erst einmal auf diese Weite einen groben Überblick zu 
+verschaffen.
+
+Zu nennen sind etwa folgende Funktionen: 
+
+- Die Funktion `skim()` aus dem Paket `skimr`
+- Die Funktion `describe()` aus dem Paket `psych`
+- Die Funktion `describe()` aus dem Paket `Hmisc`
+- Die Funktion `summary()`, schon ohne Zusatzpaket in `R` enthalten
+
+Es ist nützlich all die genannten Funktionen auszuprobieren und zu entscheiden, 
+welche einem davon am besten gefällt. Diese dann kann dann regelmäßig genutzt 
+werden, um sich in neuen Datensätzen einen Überblick zu verschaffen. 
+
+Um alle Funktionen auszuprobieren, können die nötigen Pakete können mit der 
+Funktion `install.packages()` installiert und der Funktion  `library()` geladen 
+werden:
+
+```{r, eval = FALSE}
+# Man kann mit Befehl mehrere Pakete installieren:
+install.packages(c("skimr", "psych", "Hmisc"))
+```
+
+```{r, eval = FALSE}
+# Geladen werden müssen sie aber alle einzeln:
+library("skimr")
+library("psych")
+library("Hmisc")
+```
+
+Beachtet an dieser Stelle noch einmal, dass man Zusatzfunktionen aus Paketen 
+erst dann nutzen kann, wenn diese per `library()` geladen wurden; eine (fast) 
+äquivalente Alternative zu `library()` stellt die Funktion `require()` dar.
+
+Interessanterweise sehen wir an dieser Stelle ein mögliches Problem, das sich 
+bei der Arbeit mit `R`-Paketen ergeben kann: Sowohl im Paket 
+`psych`[^psychwichtig] als auch im Paket `Hmisc` gibt es eine Funktion mit dem 
+Namen `describe()`. Wenn ich per `library()` beide Pakete geladen habe -- welche 
+Funktion wird dann genutzt, wenn ich `describe()` aufrufe? Das ist a priori 
+leider nicht zu sagen und hängt von der Reihenfolge ab, in der die Pakete 
+geladen wurden. Wenn ich gezielt genau eine der beiden Funktionen ansteuern 
+will, kann ich den doppelten Doppelpunktoperator nutzen, um das zugehörige Paket 
+anzugeben:
+
+```{r, eval = FALSE}
+psych::describe(mdf)
+Hmisc::describe(mdf)
+```
+
+[^psychwichtig]: Das Paket `psych` ist in der psychometrischen Arbeit übrigens 
+äußerst wichtig; beispielsweise enthält es viel genutzten Funktionen für 
+Faktorenanalysen (etwa eine Standardimplementierung der Parallelanalyse), eine 
+Funktion, die Cronbachs Alpha berechnet, und viele mehr.
 
 ## Zusammenfassung
 
