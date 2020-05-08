@@ -735,6 +735,8 @@ ist jedoch problematisch, dass ich an dieser Stelle meine Daten mit
 einem irrelevanten Wert überschrieben habe, und das bei einem späteren
 Zugriff darauf vermutlich nicht beachten werde.
 
+### Logische Vergleiche mit Vektoren vom Typ `character`
+
 Welche logischen Vergleiche möglich sind, hängt vom Datentyp eines 
 Vektors ab. Für Vektoren vom Typ `character` etwa macht eine 
 Kleiner/Größer-Abfrage keinen Sinn, jedoch eine Abfrage auf Gleichheit:
