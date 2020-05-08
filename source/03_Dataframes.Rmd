@@ -717,7 +717,7 @@ nach Zeilen -- oder beidem -- geschehen.
 
 ## Nützliche Funktionen zum Arbeiten mit `data.frames` {#convenient}
 
-### Eine Zusammenfassung aller Spalten: `summary()`: 
+### Zusammenfassung aller Spalten: `summary()`
 
 Eine allgemein nützliche Funktion zum Betrachten von `data.frames` ist
 die Funktion `summary()`. Sie gibt uns wie folgt einen schnellen Überblick
