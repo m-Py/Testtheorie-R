@@ -115,7 +115,7 @@ Datentabellen auslesen, Exploration eines Datensatzes (deskriptive Statistiken
 etc.), Invertierung von Itemwerten, Histogramme
 - Lehrvideos:
 - Relevante Inhalte im Skript: Kapitel 2.3.1, 2.3.3, 2.4, Kapitel 3 (bis 
-einschließlich Kapitel 3.2), Kapitel 5.2 (nicht Kapitel 5.2.1)
+einschließlich Kapitel 3.2), Kapitel 5.2 (nicht Kapitel 5.2.1), 5.3.2
 
 ### Woche 4: 18.05. - 24.05.2020
 
