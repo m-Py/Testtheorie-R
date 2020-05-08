@@ -940,6 +940,64 @@ wenn ihr mehrfach `mean(rnorm(1000) > 1)` und `mean(rnorm(100000) > 1)`
 in die `R`-Konsole eingebt und beobachtet, welcher Wert häufiger näher 
 an 0.159 liegt.
 
+### Logische Operationen mit `NA`
+
+Oftmals will man herausfinden, ob in Vektoren fehlende Werte vorliegen (also ob 
+einige Elemente darin `NA` sind). Wir können auch mit der Funktion `is.na()` 
+eine logische Abfrage durchführen, die für jedes Element in einem überprüft, ob 
+es `NA` ist. 
+
+```{r}
+mein_vektor <- c(1, 2, 1, NA, 4, NA, 3)
+is.na(mein_vektor)
+```
+
+Die Funktion `is.na()` prüft in einem Vektor, welche Werte `NA` sind und gibt an 
+den entsprechenden Positionen `TRUE` zurück, ansonsten `FALSE`. Die Ausgabe von 
+`is.na()` ist also ein logischer Vektor, der genauso lang ist wie der 
+Eingabevektor. 
+
+Oftmals kombiniert man `is.na()` mit der Funktion `sum()`, um die absolute 
+Anzahl der fehlenden Werte zu erhalten:
+
+```{r}
+sum(is.na(mein_vektor))
+```
+
+Die Funktion `mean()` gibt dementsprechend die relative Häufigkeit fehlender 
+Werte aus -- die ist im Idealfall nicht allzu hoch.
+
+```{r}
+mean(is.na(mein_vektor))
+```
+
+**Wichtig**: Man **muss** `is.na()` verwenden, um zu prüfen, ob Werte in
+einem Vektor `NA` sind. Folgender „naiver“ Vergleich mit `NA` geht
+schief:
+
+```{r}
+mein_vektor == NA
+```
+
+Ein logischer Vergleich mit `NA` ergibt immer `NA`, da beim fehlenden
+Wert keine Aussage darüber gemacht werden kann, ob er einem anderen Wert
+entspricht. Man kennt den fehlenden Wert zwar nicht, aber irgendeine
+Ausprägung hat er in der Realität. 
+
+Interessant ist auch der Umgang der UND- und ODER-Operationen mit
+fehlenden Werten. Der Befehl `TRUE & NA` gibt `NA` aus. Denn je nachdem,
+ob der fehlende Wert `TRUE` oder `FALSE` wäre, wäre das Ergebnis auch
+entweder `TRUE` oder `FALSE`. Wir können in diesem Fall nicht
+voraussagen, was das Ergebnis der UND-Operation wäre, da der fehlende
+Wert unbekannt, aber kritisch für das Ergebnis ist. Anders sieht es bei
+dem Befehl `TRUE | NA` aus. Dieser ergibt `TRUE`, da auf jeden Fall eine
+Bedingung erfüllt ist und nur eine Bedingung erfüllt sein muss, damit
+die ODER-Bedingung `TRUE` ergibt. Mit diesen Erklärungen im Hinterkopf
+können wir auch nachvollziehen, was passiert, wenn wir `FALSE` mit `NA`
+per UND und ODER verknüpfen: `FALSE | NA` ergibt `NA`, `FALSE & NA`
+ergibt `FALSE`.
+
+
 ### Der `%in%`-Operator
 
 Um zu testen, ob ein oder mehrere Elemente in einem Vektor enthalten
