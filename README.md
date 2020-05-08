@@ -76,7 +76,8 @@ Eine online lesbare Version des Skripts findet sich
 ## Wochenübersicht
 
 Die folgende Wochenübersicht wird im Verlauf des Semester stetig 
-aktualisiert. Sie enthält unter anderem Links zu den Lehrvideos.
+aktualisiert. Sie enthält unter anderem Links zu den Lehrvideos. Die angegebenen 
+Kapitelnummern beziehen sich auf die Skriptversion vom 08.05.2020 oder später.
 
 Link zur Playlist mit allen Lehrvideos: 
 
@@ -106,7 +107,7 @@ Auswahl von Vektorelementen
 - Übungsaufgaben: 
   + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung.R)
   + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung_Loesungen.R)
-- Relevante Inhalte im Skript: Kapitel 2.1, 2.3.2, 2.4.1, 2.5
+- Relevante Inhalte im Skript: Kapitel 2.1, 2.3.2, 2.4.2, 2.5
 
 ### Woche 3: 11.05. - 17.05.2020
 
@@ -114,8 +115,8 @@ Auswahl von Vektorelementen
 Datentabellen auslesen, Exploration eines Datensatzes (deskriptive Statistiken 
 etc.), fehlende Werte, Invertierung von Itemwerten, Histogramme
 - Lehrvideos:
-- Relevante Inhalte im Skript: Kapitel 2.3.1, 2.3.3, 2.4, Kapitel 3 (bis 
-einschließlich Kapitel 3.2), Kapitel 5.2 (nicht Kapitel 5.2.1), 5.3.2
+- Relevante Inhalte im Skript: Kapitel 2.3, 2.4.1, 2.4.4, Kapitel 3 (bis 
+einschließlich Kapitel 3.2), Kapitel 5.2 (nicht mehr Kapitel 5.2.1)
 
 ### Woche 4: 18.05. - 24.05.2020
 
