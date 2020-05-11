@@ -802,66 +802,13 @@ head(mdf, n = 2)
 tail(mdf, n = 3)
 ```
 
-### Sortieren: Die Funktion `arrange`() aus dem Paket `dplyr`
+### Zusammenfassung aller Spalten: Hilfe aus Zusatzpaketen
 
-Oftmals wollen wir Datentabellen nach einer oder mehreren Variablen
-sortieren. Dies funktioniert am bequemsten, wenn wir das *Paket* `dplyr`
-laden [@R-dplyr]:
-
-```{r}
-library("dplyr")
-```
-
-Voraussetzung dafür, dass ich das Paket `dplyr` nutzen kann ist, dass
-ich das Paket auf meinem Rechner installiert habe. Falls das Paket noch
-nicht installiert ist -- in dem Fall ergibt der Befehl
-`library('dyplr')` einen Fehler -- können wir es es mit dem folgenden
-Befehl installieren:
-
-```R
-install.packages("dplyr")
-```
-
-Pakete stellen zusätzliche Funktionen zur Verfügung, die in der 
-Basisversion von `R` nicht enthalten sind. Um ein Paket zu nutzen, 
-müssen wir es mit der Funktion `library()` in unsere `R`-Umgebung laden. 
-Andernfalls könnten wir die Funktionen nicht nutzen, die etwa `dplyr` 
-enthält. Die Funktion `arrange()` aus `dplyr` ermöglicht es uns, einen 
-`data.frame` zu sortieren:
-
-```{r}
-arrange(mdf, Testscore) # dplyr muss geladen sein
-```
-
-In der Funktion `arrange()` geben wir als erstes Argument den zu
-sortierenden `data.frame` an. Darauf folgen -- mit Komma separiert --
-alle Spalten nach denen wir sortieren wollen (hier erst mal nur der
-Testscore). Standardmäßig sortiert `arrange()` *aufsteigend*; wenn wir
-eine absteigende Sortierung wünschen, müssen wir ein Minus vor die
-Sortierspalte setzen:
-
-```{r}
-arrange(mdf, -Testscore)
-```
-
-Es ist auch möglich, nach mehreren Spalten zu sortieren. In dem Fall
-wird bei gleichen Werten im ersten Sortierkriterium anhand des nächsten
-Kriteriums die Reihenfolge entschieden. Wir könnten etwa unsere Daten
-nach Geschlecht sortieren, und innerhalb der Personen gleichen
-Geschlechts nach Punktzahl:
-
-```{r}
-arrange(mdf, Geschlecht, -Testscore)
-```
-
-
-### Zusammenfassung aller Spalten: Hilfe aus externen Paketen
-
-Es gibt zahlreiche Funktionen, aus verschiedenen `R`-Zusatzpaketen und auch aus 
-„Base-`R`“ selbst, die alle dafür gedacht sind, möglichst kompakt einen 
-Überblick über einen ganzen `data.frame` zu bieten. Solche Funktionen geben 
-normalerweise pro Spalte deskriptive Statistiken aus -- etwa Mittelwert, 
-Standardabweichung, Perzentile, Minimum, Maximum, oder eine 
+Es gibt zahlreiche Funktionen, aus verschiedenen `R`-Zusatzpaketen und auch der 
+Basisversion von `R` („Base-`R`“) selbst, die alle dafür gedacht sind, möglichst 
+kompakt einen Überblick über einen ganzen `data.frame` zu bieten. Solche 
+Funktionen geben normalerweise pro Spalte deskriptive Statistiken aus -- etwa 
+Mittelwert, Standardabweichung, Perzentile, Minimum, Maximum, oder eine 
 Häufigkeitsverteilung bei kategorialen Faktoren -- und wie viele Werte darin 
 fehlen, also `NA` sind. Bei der Arbeit mit einem neuen Datensatz ist es nützlich 
 auf diese Weise erst einmal einen groben Überblick zu erhalten.
@@ -871,13 +818,12 @@ Zu nennen sind etwa folgende Funktionen:
 - Die Funktion `skim()` aus dem Paket `skimr` [Waring et al., -@R-skimr]
 - Die Funktion `describe()` aus dem Paket `psych` [@R-psych]
 - Die Funktion `describe()` aus dem Paket `Hmisc` [@R-Hmisc]
-- Die Funktion `summary()`, schon ohne Zusatzpaket in `R` enthalten
+- Die Funktion `summary()`, schon ohne Zusatzpaket in Base-`R` enthalten
 
-Probiert ruhig alle genannten Funktionen aus und entscheidet dann, welche euch 
-davon am besten gefällt. Diese kann dann regelmäßig zur Exploration neuer 
-Datensätze genutzt werden. Um die Funktionen auszuprobieren, können die nötigen 
-Zusatzpakete mit der Funktion `install.packages()` installiert und der Funktion 
-`library()` geladen werden:
+Zusatzpakete stellen zusätzliche Funktionen zur Verfügung, die in der 
+Basisversion von `R` nicht enthalten sind. Um die Funktionen auszuprobieren, 
+können die nötigen Zusatzpakete mit der Funktion `install.packages()` 
+installiert und der Funktion `library()` geladen werden:
 
 ```{r, eval = FALSE}
 # Man kann mit einem Befehl mehrere Pakete installieren:
@@ -891,12 +837,12 @@ library("psych")
 library("Hmisc")
 ```
 
-Beachtet an dieser Stelle noch einmal, dass Zusatzfunktionen aus Paketen erst 
-dann genutzt werden können, wenn diese per `library()` geladen wurden; es reicht 
-nicht aus, wenn ein Paket nur per `install.packages()` installiert wurde. 
-Insbesondere heißt das, dass benötigte `R`-Zusatzpakete in jeder neuen 
-`R`-Sitzung mit `library()` neu geladen werden müssen. Eine (fast) äquivalente 
-Alternative zu `library()` stellt die Funktion `require()` dar.
+Beachtet an dieser Stelle, dass Zusatzfunktionen aus Paketen erst dann genutzt 
+werden können, wenn diese per `library()` geladen wurden; es reicht nicht aus, 
+wenn ein Paket nur per `install.packages()` installiert wurde. Insbesondere 
+heißt das, dass benötigte `R`-Zusatzpakete in jeder neuen `R`-Sitzung mit 
+`library()` neu geladen werden müssen. Eine (fast) äquivalente Alternative zu 
+`library()` stellt die Funktion `require()` dar.
 
 Interessanterweise bemerken wir an dieser Stelle ein mögliches Problem, das sich 
 bei der Arbeit mit `R`-Paketen ergeben kann: Sowohl im Paket 
@@ -929,6 +875,80 @@ jedoch gibt `psych::alpha()` noch weitere Ergebnisse aus, wohingegen
 äußerst wichtig; beispielsweise enthält es viel genutzten Funktionen für 
 Faktorenanalysen (etwa eine Standardimplementierung der Parallelanalyse), eine 
 Funktion, die Cronbachs Alpha berechnet, und viele mehr.
+
+### Sortieren: Die Funktion `arrange`() aus dem Paket `dplyr`
+
+Oftmals wollen wir Datentabellen nach einer oder mehreren Variablen
+sortieren. Dies funktioniert am bequemsten, wenn wir das *Paket* `dplyr`
+laden [@R-dplyr]:
+
+```{r}
+library("dplyr")
+```
+
+Voraussetzung dafür, dass ich das Paket `dplyr` nutzen kann ist, dass
+ich das Paket auf meinem Rechner installiert habe. Falls das Paket noch
+nicht installiert ist -- in dem Fall ergibt der Befehl
+`library('dyplr')` einen Fehler -- können wir es es mit dem folgenden
+Befehl installieren:
+
+```R
+install.packages("dplyr")
+```
+
+Die Funktion `arrange()` aus dem Paket `dplyr` ermöglicht es uns, einen 
+`data.frame` zu sortieren:
+
+```{r}
+arrange(mdf, Testscore) # dplyr muss geladen sein
+```
+
+In der Funktion `arrange()` geben wir als erstes Argument den zu
+sortierenden `data.frame` an. Darauf folgen -- mit Komma separiert --
+alle Spalten nach denen wir sortieren wollen (hier erst mal nur der
+Testscore). Standardmäßig sortiert `arrange()` *aufsteigend*; wenn wir
+eine absteigende Sortierung wünschen, müssen wir ein Minus vor die
+Sortierspalte setzen:
+
+```{r}
+arrange(mdf, -Testscore)
+```
+
+Es ist auch möglich, nach mehreren Spalten zu sortieren. In dem Fall
+wird bei gleichen Werten im ersten Sortierkriterium anhand des nächsten
+Kriteriums die Reihenfolge entschieden. Wir könnten etwa unsere Daten
+nach Geschlecht sortieren, und innerhalb der Personen gleichen
+Geschlechts nach Punktzahl:
+
+```{r}
+arrange(mdf, Geschlecht, -Testscore)
+```
+
+Beachtet, dass die Funktion `arrange()` eine Ähnlichkeit zur Funktion `subset()` 
+aufweist: Auch hier kann ich die Spaltennamen ohne Anführungszeichen übergeben; 
+ebenso ist keine Adressierung per `$`-Notation nötig. Dass das funktioniert ist 
+gewiss nicht selbstverständlich. Normalerweise würden wir ja erwarten, dass 
+ein Name ohne Anführungszeichen eine Variable sein muss, nicht bloß eine Spalte 
+in einem `data.frame`. Dass es bei `arrange()` und `subset()` trotzdem 
+funktioniert, ist einer mächtigen Eigenart von `R` zu verdanken, die unter dem 
+Namen „Non-Standard Evaluation“ bekannt ist. Non-Standard Evaluation ist ein 
+tiefes und sogar kontroverses Thema, das an dieser Stelle nur angesprochen, 
+jedoch nicht ausgeführt wird. Für Interessierte sei das [entsprechende 
+Kapitel](http://adv-r.had.co.nz/Computing-on-the-language.html) in Hadley 
+Wickhams Buch „Advanced R“ [-@wickham2014] als Standardreferenz genannt; eine 
+schnelle Internetrecherche wird ebenfalls einen Überblick zu dem Thema 
+liefern.[^blogpost]
+
+[^blogpost]: Etwa dieser Blog-Post diskutiert Non-Standard 
+Evaluation anhand der Funktion `subset()`: 
+https://www.brodieg.com/2020/05/05/on-nse/
+
+Non-Standard Evaluation bietet die Basis einer prominenten Weiterentwicklung 
+von `R`: dem [`Tidyverse`](https://www.tidyverse.org/) [Wickham et al., 
+-@wickham2019]. Das Tidverse ist eine umfangreiche Sammlung von R-Zusatzpaketen 
+-- von denen `dplyr` selbst wohl das bekannteste Mitglied darstellt --, die 
+einem zugrundeliegenden Entwurfsprinzip folgen und viele Aufgaben der 
+statistischen Datenanalyse vereinfachen sollen. 
 
 ## Zusammenfassung
 
