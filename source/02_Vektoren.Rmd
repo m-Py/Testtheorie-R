@@ -192,15 +192,19 @@ Vektor -- und so weiter.
 Werden ein ein-elementiger Vektor und ein mehr-elementiger Vektor mit
 einer Berechnung (etwa einer Addition) verknüpft, wird normalerweise das
 einzelne Element mit allen Elementen des anderen Vektors
-„gepaart“.[^ganzodereins]
+„gepaart“. 
 
-[^ganzodereins]: Wir werden nur diese Fälle betrachten: Entweder wird
-ein ein-elementiger Vektor mit einem längeren Vektor verknüpft oder zwei
-gleich lange Vektoren werden miteinander verknüpft. Es ist auch möglich,
-andere Kombinationen von Vektorlängen zu paaren, was wir jedoch erst
-einmal vernachlässigen; interessierte Leser können die Befehle `c(1,2) *
-1:4` und `c(1,2) * 1:3` in die `R`-Konsole eingeben und beobachten, was
-passiert.
+Wir werden nur diese Fälle betrachten: Entweder wird ein ein-elementiger Vektor 
+mit einem längeren Vektor verknüpft oder zwei gleich lange Vektoren werden 
+miteinander verknüpft. Es ist auch möglich, andere Kombinationen von 
+Vektorlängen zu paaren, was wir jedoch erst einmal vernachlässigen; 
+interessierte Leser können die folgenden Befehle in die `R`-Konsole eingeben und 
+beobachten, was passiert.
+
+```{r, eval = FALSE}
+c(1,2) * 1:4
+c(1,2) * 1:3
+```
 
 ## Variablen
 
