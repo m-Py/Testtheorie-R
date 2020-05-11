@@ -45,6 +45,21 @@ Tabelle als `data.frame` in der Variablen `tp` speichern.
 tp <- read.csv("technophobie.csv")
 ```
 
+Falls das nicht funktioniert, führt folgenden Befehl aus:
+
+```{r, eval = FALSE}
+getwd()
+```
+
+Dieser Befehl gibt euch euer „Working Directory“ aus; das ist der 
+Ausgangspunkt, von dem aus `R` nach Dateien sucht. Die Ausgabe des Befehls sollte 
+der Ordner sein, in dem ihr die Daten abgelegt habt, mit denen ihr arbeiten 
+wollt.[^dateiname] 
+
+[^dateiname]: Zumindest gilt das, wenn ihr im Befehl, der die Daten einliest 
+(oben etwa `read.csv()`) nur den Dateinamen annimmt und keine weiteren Angaben 
+zum Ordner, in dem die Daten liegen.
+
 Wenn wir schon einmal ein Projekt im Ordner mit unseren Daten angelegt
 haben, können wir das Projekt beim nächsten Mal wieder aufrufen. Dafür
 gehen wir über
