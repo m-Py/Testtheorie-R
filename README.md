@@ -114,7 +114,10 @@ Auswahl von Vektorelementen
 - `R`-Themen: Fragebogendaten als `data.frame` in `R` einlesen, Spalten aus 
 Datentabellen auslesen, Exploration eines Datensatzes (deskriptive Statistiken 
 etc.), fehlende Werte, Invertierung von Itemwerten, Histogramme
-- Lehrvideos:
+- Lehrvideos
+  + Einführung: https://youtu.be/ah2xLar3xxg
+- Übungsaufgaben: 
+  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung.R)
 - Relevante Inhalte im Skript: Kapitel 2.3, 2.4.1, 2.4.4, Kapitel 3 (bis 
 einschließlich Kapitel 3.2), Kapitel 5.2 (nicht mehr Kapitel 5.2.1)
 
