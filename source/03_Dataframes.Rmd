@@ -853,7 +853,7 @@ arrange(mdf, Geschlecht, -Testscore)
 ```
 
 
-### Zusammenfassung aller Spalten
+### Zusammenfassung aller Spalten: Hilfe aus externen Paketen
 
 Es gibt zahlreiche Funktionen, aus verschiedenen `R`-Zusatzpaketen und auch aus 
 „Base-`R`“ selbst, die alle dafür gedacht sind, möglichst kompakt einen 
@@ -861,27 +861,24 @@ Es gibt zahlreiche Funktionen, aus verschiedenen `R`-Zusatzpaketen und auch aus
 normalerweise pro Spalte deskriptive Statistiken aus -- etwa Mittelwert, 
 Standardabweichung, Perzentile, Minimum, Maximum, oder eine 
 Häufigkeitsverteilung bei kategorialen Faktoren -- und wie viele Werte darin 
-fehlen, also `NA` sind. Es ist äußerst nützlich sich bei der Arbeit mit einem 
-neuen Datensatz erst einmal auf diese Weite einen groben Überblick zu 
-verschaffen.
+fehlen, also `NA` sind. Bei der Arbeit mit einem neuen Datensatz ist es nützlich 
+auf diese Weise erst einmal einen groben Überblick zu erhalten.
 
 Zu nennen sind etwa folgende Funktionen: 
 
-- Die Funktion `skim()` aus dem Paket `skimr`
-- Die Funktion `describe()` aus dem Paket `psych`
-- Die Funktion `describe()` aus dem Paket `Hmisc`
+- Die Funktion `skim()` aus dem Paket `skimr` [Waring et al., -@R-skimr]
+- Die Funktion `describe()` aus dem Paket `psych` [@R-psych]
+- Die Funktion `describe()` aus dem Paket `Hmisc` [@R-Hmisc]
 - Die Funktion `summary()`, schon ohne Zusatzpaket in `R` enthalten
 
-Es ist nützlich all die genannten Funktionen auszuprobieren und zu entscheiden, 
-welche einem davon am besten gefällt. Diese dann kann dann regelmäßig genutzt 
-werden, um sich in neuen Datensätzen einen Überblick zu verschaffen. 
-
-Um alle Funktionen auszuprobieren, können die nötigen Pakete können mit der 
-Funktion `install.packages()` installiert und der Funktion  `library()` geladen 
-werden:
+Probiert ruhig alle genannten Funktionen aus und entscheidet dann, welche euch 
+davon am besten gefällt. Diese kann dann regelmäßig zur Explorationen neuer 
+Datensätze genutzt werden. Um die Funktionen auszuprobieren, können die nötigen 
+Zusatzpakete mit der Funktion `install.packages()` installiert und der Funktion 
+`library()` geladen werden:
 
 ```{r, eval = FALSE}
-# Man kann mit Befehl mehrere Pakete installieren:
+# Man kann mit einem Befehl mehrere Pakete installieren:
 install.packages(c("skimr", "psych", "Hmisc"))
 ```
 
@@ -892,24 +889,39 @@ library("psych")
 library("Hmisc")
 ```
 
-Beachtet an dieser Stelle noch einmal, dass man Zusatzfunktionen aus Paketen 
-erst dann nutzen kann, wenn diese per `library()` geladen wurden; eine (fast) 
-äquivalente Alternative zu `library()` stellt die Funktion `require()` dar.
+Beachtet an dieser Stelle noch einmal, dass Zusatzfunktionen aus Paketen erst 
+dann genutzt werden können, wenn diese per `library()` geladen wurden; es reicht 
+nicht aus, wenn ein Paket nur per `install.packages()` installiert wurde. 
+Insbesondere heißt das, dass benötigte `R`-Zusatzpakete in jeder neuen 
+`R`-Sitzung mit `library()` neu geladen werden müssen. Eine (fast) äquivalente 
+Alternative zu `library()` stellt die Funktion `require()` dar.
 
-Interessanterweise sehen wir an dieser Stelle ein mögliches Problem, das sich 
+Interessanterweise bemerken wir an dieser Stelle ein mögliches Problem, das sich 
 bei der Arbeit mit `R`-Paketen ergeben kann: Sowohl im Paket 
 `psych`[^psychwichtig] als auch im Paket `Hmisc` gibt es eine Funktion mit dem 
 Namen `describe()`. Wenn ich per `library()` beide Pakete geladen habe -- welche 
-Funktion wird dann genutzt, wenn ich `describe()` aufrufe? Das ist a priori 
-leider nicht zu sagen und hängt von der Reihenfolge ab, in der die Pakete 
-geladen wurden. Wenn ich gezielt genau eine der beiden Funktionen ansteuern 
-will, kann ich den doppelten Doppelpunktoperator nutzen, um das zugehörige Paket 
-anzugeben:
+Funktion wird dann genutzt, wenn ich `describe()` aufrufe? Das ist von 
+vornherein leider nicht zu sagen und hängt von der Reihenfolge ab, in der die 
+Pakete geladen wurden. Wenn ich gezielt genau eine der beiden Funktionen 
+ansteuern will, kann ich den doppelten Doppelpunktoperator nutzen, um das 
+zugehörige Paket anzugeben:
 
 ```{r, eval = FALSE}
 psych::describe(mdf)
 Hmisc::describe(mdf)
 ```
+
+Die Variante mit doppeltem Doppelpunkt ist in jedem Fall sicher und sollte 
+verwendet werden, wenn aus verschiedenen Paketen Funktionen mit demselben Namen 
+in Konflikt stehen. Wer ganz sicher gehen will, kann bei der Verwendung von 
+Funktionen aus Zusatzpaketen immer den doppelten Doppelpunktoperator nutzen, 
+auch wenn das vermutlich ein bisschen übertrieben ist. In der psychometrischen 
+Auswertung kann sich beispielsweise der Konflikt ergeben, dass in den zwei 
+wichtigen Paketen `psych` [@R-psych] und `psychometric` [@R-psychometric] 
+jeweils eine Funktion `alpha()` zur Berechnung von Cronbachs Alpha zur Verfügung 
+gestellt wird. Beide berechnen zwar -- wie zu erwarten -- Cronbachs Alpha, 
+jedoch gibt `psych::alpha()` noch weitere Ergebnisse aus, wohingegen 
+`psychometric::alpha()` wirklich nur Cronbachs Alpha liefert.
 
 [^psychwichtig]: Das Paket `psych` ist in der psychometrischen Arbeit übrigens 
 äußerst wichtig; beispielsweise enthält es viel genutzten Funktionen für 
