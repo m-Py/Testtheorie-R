@@ -874,7 +874,7 @@ Zu nennen sind etwa folgende Funktionen:
 - Die Funktion `summary()`, schon ohne Zusatzpaket in `R` enthalten
 
 Probiert ruhig alle genannten Funktionen aus und entscheidet dann, welche euch 
-davon am besten gefällt. Diese kann dann regelmäßig zur Explorationen neuer 
+davon am besten gefällt. Diese kann dann regelmäßig zur Exploration neuer 
 Datensätze genutzt werden. Um die Funktionen auszuprobieren, können die nötigen 
 Zusatzpakete mit der Funktion `install.packages()` installiert und der Funktion 
 `library()` geladen werden:

@@ -951,10 +951,9 @@ mein_vektor <- c(1, 2, 1, NA, 4, NA, 3)
 is.na(mein_vektor)
 ```
 
-Die Funktion `is.na()` prüft in einem Vektor, welche Werte `NA` sind und gibt an 
-den entsprechenden Positionen `TRUE` zurück, ansonsten `FALSE`. Die Ausgabe von 
-`is.na()` ist also ein logischer Vektor, der genauso lang ist wie der 
-Eingabevektor. 
+Die Funktion `is.na()` gibt an den Positionen `TRUE` zurück, an denen in 
+`mein_vektor` ein fehlender Wert vorliegt, ansonsten `FALSE`. Die Ausgabe ist 
+also ein logischer Vektor, der genauso lang ist wie der Eingabevektor. 
 
 Oftmals kombiniert man `is.na()` mit der Funktion `sum()`, um die absolute 
 Anzahl der fehlenden Werte zu erhalten:
@@ -978,10 +977,18 @@ schief:
 mein_vektor == NA
 ```
 
-Ein logischer Vergleich mit `NA` ergibt immer `NA`, da beim fehlenden
-Wert keine Aussage darüber gemacht werden kann, ob er einem anderen Wert
-entspricht. Man kennt den fehlenden Wert zwar nicht, aber irgendeine
-Ausprägung hat er in der Realität. 
+Auch bei Größer- oder Kleiner-Abfragen enthält sich `R` der Aussage, wie 
+fehlende Werte zu klassifizieren sind. Dementsprechend wird im folgenden Befehl 
+an den Positionen `NA` ausgegeben, an denen in `mein_vektor` ein Wert fehlt:
+
+```{r}
+mein_vektor < 4
+```
+
+Ein logischer Vergleich mit `NA` ergibt immer `NA`, da beim fehlenden Wert keine 
+Aussage darüber gemacht werden kann, ob er einem anderen Wert entspricht. Man 
+kennt den fehlenden Wert zwar nicht, aber irgendeine Ausprägung hat er in der 
+Realität. 
 
 Interessant ist auch der Umgang der UND- und ODER-Operationen mit
 fehlenden Werten. Der Befehl `TRUE & NA` gibt `NA` aus. Denn je nachdem,
