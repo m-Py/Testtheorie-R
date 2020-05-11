@@ -498,7 +498,7 @@ zusammenfügen kann -- im Allgemeinen sogar beliebig viele.
 ### `logical`
 
 Es hat sich als nützlich erwiesen, einen Datentyp einzuführen, der
-"Wahrheit" kodiert. Dieser Datentyp wird in `R` "logical" genannt; er
+„Wahrheit“ kodiert. Dieser Datentyp wird in `R` "logical" genannt; er
 kennt nur die Ausprägungen `TRUE` und `FALSE`. Eine sonst gängige
 Bezeichnung für diesen Datentyp ist auch "boolean".
 
@@ -507,43 +507,52 @@ wahr   <- TRUE
 falsch <- FALSE
 ```
 
-Wir werden häufig vom Typ `logical` Gebrauch machen, wenn wir in
-Datentabellen Fälle auswählen (etwa alle weiblichen oder männlichen
-Teilnehmer in einer Umfrage).
+Im Allgemeinen interpretieren wir `TRUE`/`FALSE` als logische Bedingungen, die 
+entweder erfüllt sind oder nicht. Ist die Ampel grün? Hat die Versuchsperson 
+eine Reaktionszeit von 2000ms oder mehr? Ist der Kuchen schon 60 Minuten im 
+Ofen? Wir werden häufig vom Typ `logical` Gebrauch machen, wenn wir in 
+Datentabellen Fälle auswählen; dann wird jeweils überprüft, welche 
+Fälle die gewünschten Bedingungen erfüllen und anhand dessen findet 
+eine Auswahl statt (etwa: wähle alle weiblichen oder männlichen Teilnehmer/innen 
+in einer Umfrage aus).
 
 Mit logischen Werten kann man die logischen Operationen UND (in `R`: `&`
-), ODER (in `R`: `|` ) und NICHT (in `R`: `!` )
-durchführen:
+), ODER (in `R`: `|` ) und NICHT (in `R`: `!` ) umsetzen. UND und ODER 
+verknüpfen jeweils zwei logische Bedingungen (sprich: zwei logische Werte, also 
+`TRUE`/`FALSE`) miteinander und geben selbst einen logischen Wert zurück. UND 
+gibt dann `TRUE` aus, wenn beide Bedingungen erfüllt sind, also nur dann, wenn 
+die erste **und** die zweite Bedingung erfüllt ist: 
 
 ```{r}
-
 ## Logisches UND
 TRUE & TRUE
-
 TRUE & FALSE
-
 FALSE & FALSE
-
-## Logisches ODER
-TRUE | TRUE
-
-TRUE | FALSE
-
-FALSE | FALSE
-
-## Logisches NICHT
-!TRUE
-
-!FALSE
-
 ```
 
-Die logischen Operationen UND und ODER verknüpfen zwei logische Elemente
-miteinander (logische Elemente = `TRUE`/`FALSE`). Die ODER-Operation
-ergibt `TRUE`, sobald mindestens eines der Elemente `TRUE` ist. Das
-logische UND ergibt nur dann `TRUE`, wenn beide Elemente `TRUE` sind.
-Das logische NICHT invertiert die Eingabe: Aus `TRUE` wird `FALSE` und
+ODER ist etwas weniger streng und gibt auch dann schon `TRUE` aus, wenn 
+mindestens eine Bedingung erfüllt ist, also wenn die erste **oder** die zweite 
+Bedingung erfüllt ist:
+
+```{r}
+## Logisches ODER
+TRUE | TRUE
+TRUE | FALSE
+FALSE | FALSE
+```
+
+Beachtet, dass ODER immer `TRUE` ausgibt, wenn mindestens eine Bedingung erfüllt 
+ist; also auch dann, wenn beide Bedingungen erfüllt sind -- es ist kein 
+umgangssprachliches entweder/oder.
+
+Das logische NICHT invertiert die Eingabe: Aus `TRUE` wird `FALSE` und 
 umgekehrt. 
+
+```{r}
+## Logisches NICHT
+!TRUE
+!FALSE
+```
 
 Die logischen Operationen UND und ODER arbeiten komponentenweise auf
 Vektoren, die mehr als ein Element enthalten:
