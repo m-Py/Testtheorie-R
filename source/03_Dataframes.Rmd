@@ -520,11 +520,12 @@ subset(mdf, select = -c(Geschlecht, Alter))
 
 ### Umgang mit `NA`: `subset()` bevorzugt zur Zeilenauswahl
 
-Außer, dass uns `subset()` syntaktische Vereinfachungen zur Auswahl von Zeilen 
-und Spalten bietet, ist auch das Verhalten von `subset()` manchmal gegenüber dem 
-`[·,·]`-Zugriff zu bevorzugen -- zumindest was die Auswahl von Zeilen angeht. 
-Betrachten wir im Folgenden, wie `subset()` und der `[·,·]`-Zugriff jeweils auf 
-die Anwesenheit von fehlenden Werten (`NA`) reagieren:
+Die Funktion `subset()` bietet uns nicht nur syntaktische Vereinfachungen zur 
+Auswahl von Zeilen und Spalten. Darüber hinaus ist auch das Verhalten von 
+`subset()` manchmal gegenüber dem `[·,·]`-Zugriff zu bevorzugen, zumindest was 
+die Auswahl von Zeilen angeht. Betrachten wir im Folgenden, wie `subset()` und 
+der `[·,·]`-Zugriff jeweils auf die Anwesenheit von fehlenden Werten (`NA`) 
+reagieren:
 
 ```{r}
 minidf <- data.frame(
@@ -539,28 +540,29 @@ minidf[minidf$wert < 4, ]
 
 Die Ausgabe des `[·,·]`-Zugriffs sieht etwas unschön aus; für die Zeile, in der 
 `minidf$wert` den Wert `NA` hat, wird hier eine Zeile ausgegeben, die nur aus 
-fehlenden Werten besteht (selbst die Zeilennummer wird auf `NA` gesetzt!). Es 
-ist schwierig vorstellbar, dass diese Ausgabe wünschenswert sein mag; zumindest 
-erinnert sie an das Vorhandensein fehlender Werte. Die Funktion `subset()` 
-hingegen schließt die Zeile aus, in der `minidf$wert` fehlt: 
+fehlenden Werten besteht. (Selbst die Zeilennummer wurde auf `NA` gesetzt!) Es 
+ist schwer vorstellbar, dass es sich hierbei um die gewünschte Ausgabe 
+handelt. Höchstens erinnert sie an die Anwesenheit fehlender Werte -- was
+vielleicht manchmal nützlich sein mag.
+
+Die Funktion `subset()` hingegen schließt die Zeile aus, in der `minidf$wert` 
+fehlt: 
 
 ```{r}
 subset(minidf, wert < 4)
 ```
 
 Diese Ausgabe entspricht vermutlich häufiger dem gewünschten Verhalten. Um diese 
-Ausgabe auch mit der `[·,·]`-Notation zu erhalten, ist folgender, umständlicher
-Befehl nötig:
+Ausgabe auch mit der `[·,·]`-Notation zu erhalten, ist ein etwas 
+komplizierterer, expliziter Ausschluss der `NA`-Werte nötig:
 
 ```{r}
 minidf[minidf$wert < 4 & !is.na(minidf$wert), ]
 ```
 
-In interaktiven Datenauswertungen würde ich oftmals die Nutzung der Funktion 
-`subset()` empfehlen, wobei gerade bei der Spaltenauswahl die `[·,·]`-Notation 
-ihre Stärken hat, etwa was die automatisierte Generierung von Spaltennamen als 
-`character`-Vektor angeht. Glücklicherweise können wir beide Notationen gemischt 
-anwenden, um die jeweiligen Stärken auszunutzen.
+Es lohnt sich ein wenig über die logische Operation nachzudenken, die diesem 
+Befehl zugrunde liegt. Die gewünschte Ausgabe wird erreicht, da die logische 
+Operation `NA & FALSE` immer `FALSE` ergibt.
 
 ## Weitere Zugriffe auf `data.frames` {#doppelteckig}
 
