@@ -2,7 +2,7 @@
 output:
   bookdown::pdf_book:
     toc: true
-    toc_depth: 2
+    toc_depth: 3
     number_sections: true
     includes:
       before_body: "00_Lizenz.tex"
