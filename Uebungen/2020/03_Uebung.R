@@ -51,6 +51,9 @@ getwd() # ist das der Ordner, in dem die Daten liegen?
 # sind negativ gepolt, d.h. hier zeigt staerkere Zustimmung *weniger*
 # Technophobie an.
 
+# Technophobie-Zitation (in unserer Studie aber leicht abgewandelt):
+# Sinkovics, R. (2014). Technophobie-Skala. Zusammenstellung 
+# sozialwissenschaftlicher Items und Skalen (ZIS). https://doi.org/10.6102/zis62
 
 # Wir verschaffen uns zunaechst einen Ueberblick ueber die Daten.
 
