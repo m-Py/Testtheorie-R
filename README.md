@@ -117,7 +117,9 @@ etc.), fehlende Werte, Invertierung von Itemwerten, Histogramme
 - Lehrvideos
   + Einführung: https://youtu.be/ah2xLar3xxg
 - Übungsaufgaben: 
-  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung.R)
+  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/03_Uebung.R)
+- Benötigter Datensatz: 
+  + [technophobie.csv](https://raw.githubusercontent.com/m-Py/Testtheorie-R/master/Uebungen/Daten/technophobie.csv)
 - Relevante Inhalte im Skript: Kapitel 2.3, 2.4.1, 2.4.4, Kapitel 3 (bis 
 einschließlich Kapitel 3.2), Kapitel 5.2 (nicht mehr Kapitel 5.2.1)
 
