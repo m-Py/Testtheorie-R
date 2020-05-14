@@ -116,8 +116,10 @@ Datentabellen auslesen, Exploration eines Datensatzes (deskriptive Statistiken
 etc.), fehlende Werte, Invertierung von Itemwerten, Histogramme
 - Lehrvideos
   + Einführung: https://youtu.be/ah2xLar3xxg
+  + Bearbeitung der Übungen + Antworten auf Fragen: https://youtu.be/m6nw97_LW8M (Mitschnitt eines Livestreams)
 - Übungsaufgaben: 
   + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/03_Uebung.R)
+  + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/03_Uebung_Loesungen.R)
 - Benötigter Datensatz: 
   + [technophobie.csv](https://raw.githubusercontent.com/m-Py/Testtheorie-R/master/Uebungen/Daten/technophobie.csv)
 - Relevante Inhalte im Skript: Kapitel 2.3, 2.4.1, 2.4.4, Kapitel 3 (bis 
