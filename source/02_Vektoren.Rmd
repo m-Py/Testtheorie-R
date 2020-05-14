@@ -953,7 +953,7 @@ wenn ihr mehrfach `mean(rnorm(1000) > 1)` und `mean(rnorm(100000) > 1)`
 in die `R`-Konsole eingebt und beobachtet, welcher Wert häufiger näher 
 an 0.159 liegt.
 
-### Logische Operationen mit `NA`
+### Logische Operationen mit `NA` {#nalogik}
 
 Oftmals will man herausfinden, ob in Vektoren fehlende Werte vorliegen (also ob 
 einige Elemente darin `NA` sind). Die Funktion `is.na()` führt eine logische 

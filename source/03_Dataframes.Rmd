@@ -553,16 +553,59 @@ subset(minidf, wert < 4)
 ```
 
 Diese Ausgabe entspricht vermutlich häufiger dem gewünschten Verhalten. Um diese 
-Ausgabe auch mit der `[·,·]`-Notation zu erhalten, ist ein etwas 
-komplizierterer, expliziter Ausschluss der `NA`-Werte nötig:
+Ausgabe auch mit der `[·,·]`-Notation zu erhalten, kann ein etwas 
+komplizierterer, expliziter Ausschluss der `NA`-Werte genutzt werden:
 
 ```{r}
 minidf[minidf$wert < 4 & !is.na(minidf$wert), ]
 ```
 
 Es lohnt sich ein wenig über die logische Operation nachzudenken, die diesem 
-Befehl zugrunde liegt. Die gewünschte Ausgabe wird erreicht, da die logische 
-Operation `NA & FALSE` immer `FALSE` ergibt.
+Befehl zugrunde liegt. Man kann sie mithilfe der folgenden Wahrheitstabelle
+verdeutlichen:
+
+```{r}
+data.frame(
+  wert = minidf$wert,
+  kleiner4 = minidf$wert < 4,
+  nichtNA = !is.na(minidf$wert),
+  kleiner4_und_nichtNA = minidf$wert < 4 & !is.na(minidf$wert)
+)
+```
+
+Die gewünschte Ausgabe wird erreicht, da die logische Operation `NA & FALSE` 
+immer `FALSE` ergibt. Hier erinnere ich auch noch einmal an den Abschnitt zu 
+[logischen Operationen mit `NA`](#nalogik) aus dem letzten Kapitel.
+
+Es gibt jedoch eine weitere, einfachere und zu bevorzugende Variante, um 
+mithilfe des `[·,·]`-Zugriffs fehlende Werte bei einer logischen Auswahl nicht 
+zu berücksichtigen: durch Verwendung der Funktion `which()`. Die Funktion 
+`which()` gibt für einen logischen Vektor alle Positionen aus, an denen dieser 
+auf `TRUE` steht. Etwa:
+
+```{r}
+minidf$wert < 4
+which(minidf$wert < 4)
+```
+
+Die Länge der Ausgabe von `which(x)` entspricht `sum(x, na.rm = TRUE)` für einen 
+beliebigen logischen Vektor `x`.
+
+Wir können `which()` also zur Datenauswahl nutzen; die Auswahl findet dann im 
+Endeffekt nicht mit einem logischen, sondern einem numerischen Vektor statt. Die 
+zugrundeliegende logische Abfrage wird durch `which()` in einen numerischen 
+Vektor konvertiert.
+
+```{r}
+minidf[which(minidf$wert < 4), ]
+```
+
+Durch Verwendung der Funktion `which()` werden also die Zeilen ausgelassen, in 
+denen `minidf$wert` den Wert `NA` hat. Stattdessen beinhaltet die Ausgabe nur 
+die Positionen, an denen die logische Abfrage `minidf$wert < 4` den Wert `TRUE` 
+ergibt. Die Funktion `which()` ist also bevorzugt zu nutzen, wenn fehlende Werte 
+vorliegen.
+
 
 ## Weitere Zugriffe auf `data.frames` {#doppelteckig}
 
