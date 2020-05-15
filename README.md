@@ -139,17 +139,18 @@ einschließlich 4.3)
 
 ### Woche 5: 25.05. - 31.05.2020
 
-- `R`-Themen: 
+- `R`-Themen: Auswahl von Zeilen und Spalten fortgesetzt: Die Funktion `subset()`
 - Videos:
 
 ### Woche 6: 01.06. - 07.06.2020
 
-- `R`-Themen: 
+- `R`-Themen: psychometrische Auswertungen, externe Pakete
 - Videos:
 
 ### Woche 7: 08.06. - 14.06.2020
 
-- `R`-Themen: 
+- `R`-Themen: Einen Rohdatensatz bereinigen und für die Analyse vorbereiten 
+(z.B.: fehlende Fälle ausschließen)
 - Videos:
 
 ### Woche 8: 15.06. - 21.06.2020
