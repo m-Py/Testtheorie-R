@@ -405,3 +405,54 @@ die die Testitems in gerade und ungerade Items einteilt, also hier zwei
 Testscores einerseits für die Items 1, 3 und 5, und andererseits für die
 Items 2 und 4 berechnet. Diese lässt sich mit nur wenig Änderungen am
 Code oben umsetzen -- ich schlage vor, dies als Übung zu machen.
+
+## In der Praxis: Nutzung von Zusatzpaketen
+
+In der praktischen psychometrischen Auswertung werden wir oftmals auf externe 
+Pakete zurückgreifen, um Berechnungen durchzuführen. Insbesondere die selbst 
+programmierte Berechnung der korrigierten Trennschärfe war, wie oben 
+vorgestellt, recht mühsam und fehleranfällig. Außerdem ergab sie uns erst einmal 
+nur eine einzige Trennschärfe. Idealerweise hätten wir aber durch nur einen 
+Funktionsaufruf direkt die Trennschärfen aller Items eines Tests bestimmt. Zu 
+diesem Zweck ist die Funktion `item.exam()` nützlich, die durch das Paket 
+`psychometric` zur Verfügung gestellt wird, das wir auch zur Bestimmung von 
+Cronbachs Alpha genutzt haben. 
+
+Die Funktion `item.exam()` nimmt einen `data.frame` im psychometrischen 
+Standardformat an: Zeilen sind Testteilnehmer, Spalten sind Items. Für dieses 
+Datenformat gibt `item.exam()` nicht nur die korrigierte Trennschärfen aller 
+Items, sondern auch andere Kennwerte wie die Item-Schwierigkeiten aus. Wir 
+nutzen die Funktion wie folgt:
+
+```{r}
+library("psychometric")
+kennwerte <- item.exam(test_data)
+```
+
+Die Variable `kennwerte` enthält nun einen `data.frame`, der für jedes Item 
+verschiedene psychometrische Kennwerte abbildet; jede Zeile ist ein Item 
+und jede Spalte ist ein Kennwert. 
+
+```{r}
+kennwerte
+```
+
+Die Item-Schwierigkeit befindet sich in der Spalte `Difficulty`; 
+die unkorrigierte Trennschärfe befindet sich in der Spalte `Item.total`;
+die korrigierte Trennschärfe befindet sich in der Spalte `Item.Tot.woi`; für die 
+Bedeutung der anderen Kennwerte sei auf die Dokumentation der Funktion 
+verwiesen, auf die wir mit der `R`-Hilfe in der `R`-Konsole zugreifen können: 
+
+```{r, eval = FALSE}
+?item.exam
+```
+
+Für Item 2 kriegen dieselbe korrigierte Trennschärfe ausgegeben, die wir oben 
+[im Abschnitt zu Item-Trennschärfen](#trennschaerfe) per Hand berechnet haben.
+
+Neben `psychometric` ist auch das Paket `psych` ein wichtiges `R`-Zusatzpaket 
+für psychometrische Auswertungen. Der Autor des `psych`-Pakets (William Revelle) 
+stellt außerdem auf seiner Website (https://personality-project.org/r/psych/) 
+hilfreiche Materialien für die psychometrische Auswertung in `R` zur Verfügung. 
+Dazu gehört auch ein ganzes Buch zur psychometrischen Datenauswertung 
+(http://www.personality-project.org/r/book/).
