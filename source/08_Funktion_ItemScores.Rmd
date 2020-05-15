@@ -1,0 +1,142 @@
+ 
+# Eigene Funktion: Bepunktung von Items
+
+In diesem Kapitel stelle ich eine Anwendung unserer bisher erworbenen 
+Programmierkenntnisse vor: Wir schreiben eine eigene Funktion, die für beliebige 
+Datensätze eine Bepunktung von Testitems umsetzt. Dabei kombinieren wir unsere 
+erworbenen Kenntnisse aus den letzten beiden Kapiteln zu Funktionen und zu 
+for-Schleifen. Außerdem führt das Kapitel noch in weitere, bislang nicht 
+betrachtete Grundlagen von `R` ein, insbesondere wird die Datenstruktur der 
+Matrix betrachtet. 
+
+Funktionen zu schreiben bedeutet immer, das gegebene Problem zu abstrahieren; 
+man geht weg von der konkreten Problematik (etwa, dem einzelnen Datensatz) und 
+versucht die Essenz des Problems zu begreifen. Wir werden deswegen auch sehen,
+dass wir zwar auf dem Code aus dem letzten Kapitel zur Bepunktung von Items 
+ausgehen, der am Ende aber insgesamt doch ein wenig anders aussieht, da wir eine 
+andere Denkweise an den Tag legen werden.
+
+```{r}
+
+# Parameter `items`: Datenmatrix im psychometrischen Standardformat
+# Parameter `keys`: Vektor, der pro Item den Schlüssel enthält
+# Hinweis: Bei der Nutzung der Funktion muss gelten: 
+#  `ncol(items) == length(keys)`
+# Gibt eine Matrix zurück, die dieselben Ausmaße hat wie `items` und pro Person
+# die Scores pro Item enthält.
+score_items <- function(items, keys) {
+  for (i in 1:ncol(items)) {
+    items[, i] <- items[, i] == keys[i]
+  }
+  items * 1 # macht einen numerischen Score aus dem logischen
+}
+```
+
+## Vektorisierung und Matritzen
+
+Ich denke, wir können mit unserer eigenen Funktion zur Berechnung von 
+Item-Scores ziemlich zufrieden sein. Was jedoch, wenn ich euch mitteile, dass 
+folgende Funktion auch schon dasselbe macht---ganz ohne `for`-Schleife:
+
+```{r}
+score_items <- function(items, keys) {
+  scores <- t(t(items) == keys) 
+  scores * 1
+}
+```
+
+Hier führe ich die komplette Bepunktung mit nur einer einzigen logischen Abfrage 
+durch. Warum geht das? Der Grund liegt darin, dass die Vektorisierung in `R` so 
+mächtig ist, dass sie nicht bei dem eindimensionalen eigentlichen Vektor stoppt, 
+sondern auch auf komplexeren Datenstrukturen wirkt, wie zweidimensionalen 
+`data.frames`. Um das vektorisierte Verhalten auszunutzen, war hier jedoch die 
+Funktion `t()` nötig, die wir im Folgenden betrachten, um zu verstehen, wie die 
+Funktion oben funktioniert. Ich werde etwas ausholen und dabei noch einige 
+Grundlagen von `R` erklären. Habt also etwas Geduld.
+
+- `t()` vertauscht Spalten und Zeilen in einer Datenmatrix (Matrixtransponierung)
+- `t()` ergibt Matrix; "reduzierter" `data.frame`, in dem alle Elemente 
+denselben Datentyp haben (wie im Vektor; prinzipiell ist eine Matrix auch ein 
+Vektor)
+- In Matrix: Auswahl per `[·,·]`-Notation; `$` geht nicht; `[[·]]` und `[·]`
+können verwendet werden, wählen aber nicht Spalten aus, wie man das aus einem 
+data.frame gewöhnt wäre (**was passiert hier stattdessen?**[^matrixistvektor])
+- `data.frame` ist sowohl Matrix (von der Struktur her -> daher wird die 
+`[·,·]`-Notation geerbt) als auch Liste; daher werden die `[[·]]`- und 
+`[·]`-Notationen geerbt
+- In Matrix können wir einen logischen Vergleich durchführen zwischen Vektor und 
+Matrix durchführen. Dieser Vergleich verknüpft jede Spalte Matrix vektorisiert 
+mit dem Vektor durch die angegebene logische Operation.
+
+[^matrixistvektor]: `[[·]]` und `[·]` betrachten die Matrix als eindimensionalen 
+Vektor; bei `mat[2]` oder `mat[[2]]` wird also das zweite Element der Matrix 
+ausgegeben. Was heißt bei einer Matrix das *zweite* Element? Möglich wäre: Der 
+Wert in der ersten Zeile, zweite Spalte, oder der Wert in der zweiten Zeile, 
+erste Spalte. In `R` ist letzteres der Fall, also der Wert in der zweiten 
+Zeile. Man sagt, Matritzen werden in "column major order" abgespeichert, weil 
+zunächst die Elemente der ersten Spalte gespeichert werden, dann der zweiten, 
+etc.
+
+```{r}
+mat <- matrix(1:9, ncol = 3)
+mat
+
+mat == 1:3
+```
+
+### Weitere vektorisierte Operationen auf Matritzen
+
+- Maximum einer Korrelationsmatrix
+- `which(arr.ind = TRUE)` -> wo ist das Maximum der Korrelationsmatrix
+
+### Was ist schneller: `for`-Schleife oder vektorisierte Variante
+
+```{r}
+score_items_for <- function(items, keys) {
+  for (i in 1:ncol(items)) {
+    items[, i] <- items[, i] == keys[i]
+  }
+  mode(items) <- "numeric"
+  items
+}
+
+score_items_vectorized <- function(items, keys) {
+  scores <- t(t(items) == keys) 
+  mode(scores) <- "numeric"
+  scores
+}
+
+# Variante mit vielen Personen, wenig Items (wie in der Psychologie üblich)
+N <- 10000
+M <- 40
+
+# Simuliere Itemantworten mit Werten = 1 und 2 und Schlüssel 
+# mit Werten 1 und 2
+items <- matrix(sample(1:2, size = N * M, replace = TRUE), ncol = M)
+keys  <- sample(1:2, size = M, replace = TRUE)
+
+library(microbenchmark)
+microbenchmark(
+  score_items_vectorized(items, keys),
+  score_items_for(items, keys)
+)
+
+```
+
+Es macht hier quasi keinen Unterschied. Wie sieht es bei vielen Items und wenig
+Personen aus?
+
+```{r}
+items <- matrix(sample(1:2, size = N * M, replace = TRUE), ncol = N)
+keys  <- sample(1:2, size = N, replace = TRUE)
+
+library(microbenchmark)
+microbenchmark(
+  score_items_vectorized(items, keys),
+  score_items_for(items, keys)
+)
+
+```
+
+Hier ist der Unterschied größer, aber praktisch auch komplett zu 
+vernachlässigen.

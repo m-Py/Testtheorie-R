@@ -75,6 +75,11 @@ set.seed(42)
 
 \clearpage
 
+```{r child = '08_Funktion_ItemScores.Rmd'}
+```
+
+\clearpage
+
 ```{r child = '101_Anhang.Rmd'}
 ```
 
