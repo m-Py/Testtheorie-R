@@ -127,8 +127,15 @@ einschließlich Kapitel 3.2), Kapitel 5.2 (nicht mehr Kapitel 5.2.1)
 
 ### Woche 4: 18.05. - 24.05.2020
 
-- `R`-Themen: 
-- Videos:
+- `R`-Themen: Auswahl von Zeilen und Spalten mit der `[·,·]`-Notation;
+der Doppelpunktoperator; die Funktion `paste0()`; die Funktionen `cor()`, 
+`rowSums()` und `colMeans()` für basale psychmetrische Auswertungen
+- Lehrvideos
+- Übungsaufgaben
+- Benötigter Datensatz: 
+  + [technophobie.csv](https://raw.githubusercontent.com/m-Py/Testtheorie-R/master/Uebungen/Daten/technophobie.csv)
+- Relevante Inhalte im Skript: Kapitel 2.3.1, 2.4, 3.3, Kapitel 4 (bis 
+einschließlich 4.3)
 
 ### Woche 5: 25.05. - 31.05.2020
 
