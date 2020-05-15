@@ -20,6 +20,14 @@ beliebig sein kann und nicht auf den einen Datensatz beschränkt ist,
 den man gerade bearbeitet (Kosten/Nutzen-Abrechnung: Wie viel 
 Generalisierbarkeit lohnt sich?)
 
+## Neues Kapitel: Anwendung: Item-Bepunktung als Funktion
+
+Inhalte:
+
+- Vektorisierung auf Matrix -> logischer Vergleich findet für jede Spalte statt
+- Die Funktion t()
+- for-Schleifen zu vermeiden, wenn möglich
+
 ## Neues Kapitel: Anwendung: Invertierung von `data.frames`
 
 ## Neues Kapitel: Bivariate Zusammenhänge
