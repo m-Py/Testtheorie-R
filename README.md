@@ -139,8 +139,11 @@ einschließlich 4.3)
 
 ### Woche 5: 25.05. - 31.05.2020
 
-- `R`-Themen: Auswahl von Zeilen und Spalten fortgesetzt: Die Funktion `subset()`
+- `R`-Themen: Auswahl von Zeilen und Spalten fortgesetzt: Die Funktion 
+`subset()`, Funktionsargumente, die `R`-Hilfe
 - Videos:
+- Relevante Inhalte im Skript: Kapitel 3.4, Kapitel 6 (bis einschließlich 
+Kapitel 6.2)
 
 ### Woche 6: 01.06. - 07.06.2020
 
