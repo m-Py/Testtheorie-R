@@ -119,7 +119,7 @@ vorliegt, der alle Fälle ohne fehlende Antworten enthält.
 
 ```{r}
 ## Die Variable `npi_clean` enthält die Antworten für das NPI, siehe
-## Kapitel 5
+## Kapitel 6
 
 # for-Schleife für die Kodierung:
 for (i in 1:40) {
@@ -340,7 +340,7 @@ head(discriminations)
 
 ```
 
-### Vektorspeicherung -- Adressierung per Index
+### Vektorspeicherung -- Adressierung per Index {#indexadressierung}
 
 Oftmals wird die Schleifenvariable als *Indexvariable* verwendet, d.h.,
 sie durchläuft einen ganzzahligen numerischen Vektor, zumeist der Form
@@ -380,7 +380,3 @@ Hier wird die Index-Variable `i` gleich mehrfach verwendet: (1) zur
 Auswahl der Spalten, die den jeweiligen Testwert berechnen; (2) zur
 Auswahl der Spalte des Items, für das die Trennschärfe bestimmt wird;
 (3) zum Abspeichern der Trennschärfe im Vektor `discriminations`.
-
-## for-loops are evil -- oder nicht?
-
-Inhalt folgt.

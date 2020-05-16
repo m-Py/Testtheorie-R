@@ -3,33 +3,138 @@
 
 In diesem Kapitel stelle ich eine Anwendung unserer bisher erworbenen 
 Programmierkenntnisse vor: Wir schreiben eine eigene Funktion, die für beliebige 
-Datensätze eine Bepunktung von Testitems umsetzt. Dabei kombinieren wir unsere 
-erworbenen Kenntnisse aus den letzten beiden Kapiteln zu Funktionen und zu 
-for-Schleifen. Außerdem führt das Kapitel noch in weitere, bislang nicht 
-betrachtete Grundlagen von `R` ein, insbesondere wird die Datenstruktur der 
-Matrix betrachtet. 
+Datensätze eine Bepunktung von Testitems umsetzt. Funktionen zu schreiben 
+bedeutet immer, das gegebene Problem zu abstrahieren; man geht weg von der 
+konkreten Problematik (etwa, dem einzelnen Datensatz) und versucht die Essenz 
+des Problems zu begreifen und zu lösen. Die Bepunktung von Items bietet sich 
+sehr gut als Beispiel für die "Extraktion" einer Funktion an, da das Problem bei 
+beliebigen Testinventaren auftreten kann; wir könnten eine generalisierte 
+Funktion in ganz vielen unterschiedlichen Datenauswertungen gebrauchen.
 
-Funktionen zu schreiben bedeutet immer, das gegebene Problem zu abstrahieren; 
-man geht weg von der konkreten Problematik (etwa, dem einzelnen Datensatz) und 
-versucht die Essenz des Problems zu begreifen. Wir werden deswegen auch sehen,
-dass wir zwar auf dem Code aus dem letzten Kapitel zur Bepunktung von Items 
-ausgehen, der am Ende aber insgesamt doch ein wenig anders aussieht, da wir eine 
-andere Denkweise an den Tag legen werden.
+In diesem Kapitel kombinieren wir unsere erworbenen Kenntnisse aus den letzten 
+beiden Kapiteln zu Funktionen und zu `for`-Schleifen. Außerdem führt das Kapitel 
+noch in weitere, bislang nicht betrachtete Grundlagen von `R` ein, insbesondere 
+wird die Datenstruktur der Matrix betrachtet. 
+
+## Problemspezifischer Code vs. abstrahierter Code
+
+Betrachten wir noch einmal die Schleifen zur Bepunktung der NPI-Items 
+aus dem letzten Kapitel und überlegen, welche Bestandteile des Codes 
+problemspezifisch sind; diese müssen in einer Funktion entfernt werden, aber
+die Funktionalität des Codes muss natürlich erhalten bleiben.
 
 ```{r}
+for (i in 1:40) {
+    # 1. Wähle Spaltenname des i-ten Items aus:
+    colname <- paste0("Q", i)
+    # 2. Wähle aus Spalte die Antworten aus:
+    ith_item <- npi_clean[[colname]]
+    # 3. Führe Umkodierung durch:
+    narcissistic_response <- ifelse(ith_item == keys[i], 1, 0)
+    # 4. Erstelle Namen für neue Spalte:
+    new_colname  <- paste0("coded", colname)
+    # 5. Hänge kodierte Werte an data.frame an:
+    npi_clean[[new_colname]] <- narcissistic_response
+}
+```
 
+Welche Bestandteile dieses Codes sind problemspezifisch?
+
+1. Die Zahl der Schleifendurchläufe ist "hart kodiert" und nicht dynamisch; hier 
+wird angenommen, dass die Schleife 40 Mal laufen muss, was daran liegt, dass das 
+NPI aus 40 Items besteht und wir deswegen 40 Spalten bearbeiten. In einer 
+Funktion sollten wir `ncol()` nutzen, um die Zahl der zu bearbeitenden Spalten 
+dynamisch auszulesen.
+2. Schritt 1 der Schleife greift auf die Spaltennamen des konkreten `data.frame` 
+zu, der hier bearbeitet wurde. Eine allgemein nutzbare Funktion sollte natürlich 
+nicht davon ausgehen, dass die Namen in einem eingegebenen `data.frame` einem 
+bestimmten Schema folgen. Die Spaltennamen sollten entweder per `colnames()` 
+(bei `data.frames` ist dieser Befehl äquivalent zu `names()`) ausgelesen werden, 
+oder wir adressieren die Spalten gleich mit einem [numerischen 
+Index](#indexadressierung).
+
+Diese Erkenntnisse sind wichtig, um den problemspezifischen Code in eine 
+Funktion umzuwandeln. Die allerwichtigste Frage jedoch ist noch eine weitere: 
+Was für Argumente soll unsere Funktion annehmen?
+
+## Funktionsargumente
+
+Ich entscheide mich in diesem Fall für die folgenden Argumente: 
+
+1. `data.frame` aus den Testitems -- nicht die gesamte Datentabelle, die vorliegt
+2. Vektor mit Schlüssel (Länge dieses Vektors = Zahl der Spalten im `data.frame`
+3. Optional: Spaltennamen (sind oft problemspezifisch, wir sollten eine 
+Möglichkeit anbieten, die Spaltennamen festzulegen; wollen wir dafür einen 
+Standardwert vergeben
+
+Diese Variante halte ich für gute Praxis; darin steckt natürlich meine 
+subjektive Einschätzung.
+
+```{r}
 # Parameter `items`: Datenmatrix im psychometrischen Standardformat
 # Parameter `keys`: Vektor, der pro Item den Schlüssel enthält
 # Hinweis: Bei der Nutzung der Funktion muss gelten: 
 #  `ncol(items) == length(keys)`
-# Gibt eine Matrix zurück, die dieselben Ausmaße hat wie `items` und pro Person
+# Gibt eine Tabelle zurück, die dieselben Ausmaße hat wie `items` und pro Person
 # die Scores pro Item enthält.
-score_items <- function(items, keys) {
+score_items2 <- function(items, keys) {
   for (i in 1:ncol(items)) {
-    items[, i] <- items[, i] == keys[i]
+    items[, i] <- ifelse(items[, i] == keys[i], 1, 0)
   }
-  items * 1 # macht einen numerischen Score aus dem logischen
+  items # hier return() gar nicht nötig
 }
+```
+
+
+### Schlechte Praxis bei Funktionsargumenten
+
+- Vorannahme über die Spaltennamen
+- Gesamte Datentabelle übergeben (dann: Rückgabe ist diese Tabelle + die Spalten 
+mit den bepunkteten Items)
+- Gesamte Datentabelle übergeben, kein Rückgabewert, Spalten werden direkt 
+
+All diese Praktiken machen die Funktion weniger abstrakt und mehr 
+problemspezifisch. Die Funktion, die wir oben geschrieben haben, mit den 
+Argumenten und der Rückgabe ist allgemein nutzbar und auch 
+
+## Funktionsausgabe: `data.frame` oder `matrix`?
+
+Des Weiteren werden wir uns fragen müssen, was für ein `R`-Objekt die Funktion 
+zurückgeben soll. Wie wir sehen werden, wird sich diese Frage aber quasi von 
+selbst beantworten; generell ist die Frage nach den Funktionsargumenten oft 
+kritischer -- in diesem Fall aber tatsächlich auch nicht schwierig zu klären.
+
+- Matrix: "reduzierter" `data.frame`, in dem alle Elemente 
+denselben Datentyp haben (wie im Vektor; prinzipiell ist eine Matrix auch ein 
+Vektor)
+- In Matrix: Auswahl per `[·,·]`-Notation; `$` geht nicht; `[[·]]` und `[·]`
+können verwendet werden, wählen aber nicht Spalten aus, wie man das aus einem 
+data.frame gewöhnt wäre (**was passiert hier stattdessen?**[^matrixistvektor])
+- `data.frame` ist sowohl Matrix (von der Struktur her -> daher wird die 
+`[·,·]`-Notation geerbt) als auch Liste; daher werden die `[[·]]`- und 
+`[·]`-Notationen geerbt
+- Konstruktion Matrix: `matrix()`; Argumente `nrow()` und `ncol()` wichtig
+
+[^matrixistvektor]: `[[·]]` und `[·]` betrachten die Matrix als eindimensionalen 
+Vektor; bei `mat[2]` oder `mat[[2]]` wird also das zweite Element der Matrix 
+ausgegeben. Was heißt bei einer Matrix das *zweite* Element? Möglich wäre: Der 
+Wert in der ersten Zeile, zweite Spalte, oder der Wert in der zweiten Zeile, 
+erste Spalte. In `R` ist letzteres der Fall, also der Wert in der zweiten 
+Zeile. Man sagt, Matritzen werden in "column major order" abgespeichert, weil 
+zunächst die Elemente der ersten Spalte gespeichert werden, dann der zweiten, 
+etc.
+
+
+Die Ausgabe der Funktion ist also ein neuer `data.frame`; in der 
+problemspezifischen Schleife, die ohne eigene Funktion auskam, hatten wir den 
+Luxus, dass die bepunkteten Items direkt an unseren Haupt-`data.frame` angehängt 
+wurden. Um die bepunkteten Spalten auch noch an den `data.frame` anzuhängen, 
+müssten wir die von `score_items()` Tabelle und unseren ursprünglichen 
+`data.frame` zusammenfügen; glücklicherweise ist das sehr leicht möglich mit der
+Funktion `data.frame()`
+
+```{r, eval = FALSE}
+npi <- data.frame(npi, scores)
 ```
 
 ## Vektorisierung und Matritzen
@@ -55,34 +160,21 @@ Funktion oben funktioniert. Ich werde etwas ausholen und dabei noch einige
 Grundlagen von `R` erklären. Habt also etwas Geduld.
 
 - `t()` vertauscht Spalten und Zeilen in einer Datenmatrix (Matrixtransponierung)
-- `t()` ergibt Matrix; "reduzierter" `data.frame`, in dem alle Elemente 
-denselben Datentyp haben (wie im Vektor; prinzipiell ist eine Matrix auch ein 
-Vektor)
-- In Matrix: Auswahl per `[·,·]`-Notation; `$` geht nicht; `[[·]]` und `[·]`
-können verwendet werden, wählen aber nicht Spalten aus, wie man das aus einem 
-data.frame gewöhnt wäre (**was passiert hier stattdessen?**[^matrixistvektor])
-- `data.frame` ist sowohl Matrix (von der Struktur her -> daher wird die 
-`[·,·]`-Notation geerbt) als auch Liste; daher werden die `[[·]]`- und 
-`[·]`-Notationen geerbt
+- `t()` ergibt Matrix; 
 - In Matrix können wir einen logischen Vergleich durchführen zwischen Vektor und 
 Matrix durchführen. Dieser Vergleich verknüpft jede Spalte Matrix vektorisiert 
 mit dem Vektor durch die angegebene logische Operation.
-
-[^matrixistvektor]: `[[·]]` und `[·]` betrachten die Matrix als eindimensionalen 
-Vektor; bei `mat[2]` oder `mat[[2]]` wird also das zweite Element der Matrix 
-ausgegeben. Was heißt bei einer Matrix das *zweite* Element? Möglich wäre: Der 
-Wert in der ersten Zeile, zweite Spalte, oder der Wert in der zweiten Zeile, 
-erste Spalte. In `R` ist letzteres der Fall, also der Wert in der zweiten 
-Zeile. Man sagt, Matritzen werden in "column major order" abgespeichert, weil 
-zunächst die Elemente der ersten Spalte gespeichert werden, dann der zweiten, 
-etc.
 
 ```{r}
 mat <- matrix(1:9, ncol = 3)
 mat
 
 mat == 1:3
+mat == 3:1
+mat == c(1, 5, 9)
 ```
+
+Hierbei wird jede Spalte in der Matrix als Vektor interpretiert und 
 
 ### Weitere vektorisierte Operationen auf Matritzen
 
@@ -90,6 +182,14 @@ mat == 1:3
 - `which(arr.ind = TRUE)` -> wo ist das Maximum der Korrelationsmatrix
 
 ### Was ist schneller: `for`-Schleife oder vektorisierte Variante
+
+Hier sind Geschwindigkeits-optimierte Varianten der Funktion mit Vektorisierung 
+und `for`-Schleife. Insbesondere habe ich darin die Aufrufe der Funktion 
+`ifelse()` entfernt, die hier ja nur `TRUE`/`FALSE` in 1/0 umgewandelt hat. 
+Wegen des direkten Zusammenhangs dieser Datentypen kann man das aber auch 
+schneller machen als per `ifelse()`; hier ändere ich einfach mit der Funktion 
+`mode()` vor der Rückgabe den Datentyp, was keine zusätzlichen Berechnungen 
+erfordert und deswegen die Laufzeit verbessert.
 
 ```{r}
 score_items_for <- function(items, keys) {
