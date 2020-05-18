@@ -411,7 +411,7 @@ Code oben umsetzen -- ich schlage vor, dies als Übung zu machen.
 In der praktischen psychometrischen Auswertung werden wir oftmals auf externe 
 Pakete zurückgreifen, um Berechnungen durchzuführen. Insbesondere die selbst 
 programmierte Berechnung der korrigierten Trennschärfe war, wie oben 
-vorgestellt, recht mühsam und fehleranfällig. Außerdem ergab sie uns erst einmal 
+vorgestellt, recht mühsam und fehleranfällig. Außerdem ergab sie erst einmal 
 nur eine einzige Trennschärfe. Idealerweise hätten wir aber durch nur einen 
 Funktionsaufruf direkt die Trennschärfen aller Items eines Tests bestimmt. Zu 
 diesem Zweck ist die Funktion `item.exam()` nützlich, die durch das Paket 
@@ -447,7 +447,7 @@ verwiesen, auf die wir mit der `R`-Hilfe in der `R`-Konsole zugreifen können:
 ?item.exam
 ```
 
-Für Item 2 kriegen dieselbe korrigierte Trennschärfe ausgegeben, die wir oben 
+Für Item 2 wird dieselbe korrigierte Trennschärfe ausgegeben, die wir oben 
 [im Abschnitt zu Item-Trennschärfen](#trennschaerfe) per Hand berechnet haben.
 
 Neben `psychometric` ist auch das Paket `psych` ein wichtiges `R`-Zusatzpaket 
