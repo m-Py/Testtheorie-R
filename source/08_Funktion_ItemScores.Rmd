@@ -14,7 +14,7 @@ Funktion in ganz vielen unterschiedlichen Datenauswertungen gebrauchen.
 In diesem Kapitel kombinieren wir unsere erworbenen Kenntnisse aus den letzten 
 beiden Kapiteln zu Funktionen und zu `for`-Schleifen. Außerdem führt das Kapitel 
 noch in weitere, bislang nicht betrachtete Grundlagen von `R` ein, insbesondere 
-wird die Datenstruktur der Matrix betrachtet. 
+die Datenstruktur der Matrix. 
 
 ## Problemspezifischer Code vs. abstrahierter Code
 
@@ -45,7 +45,7 @@ wird angenommen, dass die Schleife 40 Mal laufen muss, was daran liegt, dass das
 NPI aus 40 Items besteht und wir deswegen 40 Spalten bearbeiten. In einer 
 Funktion sollten wir `ncol()` nutzen, um die Zahl der zu bearbeitenden Spalten 
 dynamisch auszulesen.
-2. Schritt 1 der Schleife greift auf die Spaltennamen des konkreten `data.frame` 
+2. Schritt 1 der Schleife greift auf die Spaltennamen des konkreten `data.frame`s 
 zu, der hier bearbeitet wurde. Eine allgemein nutzbare Funktion sollte natürlich 
 nicht davon ausgehen, dass die Namen in einem eingegebenen `data.frame` einem 
 bestimmten Schema folgen. Die Spaltennamen sollten entweder per `colnames()` 
@@ -62,10 +62,10 @@ Was für Argumente soll unsere Funktion annehmen?
 Ich entscheide mich in diesem Fall für die folgenden Argumente: 
 
 1. `data.frame` aus den Testitems -- nicht die gesamte Datentabelle, die vorliegt
-2. Vektor mit Schlüssel (Länge dieses Vektors = Zahl der Spalten im `data.frame`
-3. Optional: Spaltennamen (sind oft problemspezifisch, wir sollten eine 
-Möglichkeit anbieten, die Spaltennamen festzulegen; wollen wir dafür einen 
-Standardwert vergeben
+2. Vektor mit Schlüssel (Länge dieses Vektors = Zahl der Spalten im `data.frame`)
+3. Optional: Spaltennamen (Diese sind oft problemspezifisch; wir sollten eine 
+Möglichkeit anbieten, die Spaltennamen festzulegen. Wir können überlegen, ob wir
+dafür einen  Standardwert vergeben.)
 
 Diese Variante halte ich für gute Praxis; darin steckt natürlich meine 
 subjektive Einschätzung.
@@ -93,9 +93,9 @@ score_items2 <- function(items, keys) {
 mit den bepunkteten Items)
 - Gesamte Datentabelle übergeben, kein Rückgabewert, Spalten werden direkt 
 
-All diese Praktiken machen die Funktion weniger abstrakt und mehr 
-problemspezifisch. Die Funktion, die wir oben geschrieben haben, mit den 
-Argumenten und der Rückgabe ist allgemein nutzbar und auch 
+All diese Praktiken sorgen dafür, dass die Funktion weniger abstrakt und 
+stattdessen problemspezifischer wird. Die Funktion, die wir oben geschrieben
+haben, mit den Argumenten und der Rückgabe ist allgemein nutzbar und auch 
 
 ## Funktionsausgabe: `data.frame` oder `matrix`?
 
