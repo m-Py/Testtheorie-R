@@ -131,7 +131,9 @@ einschließlich Kapitel 3.2), Kapitel 5.2 (nicht mehr Kapitel 5.2.1)
 der Doppelpunktoperator; die Funktion `paste0()`; die Funktionen `cor()`, 
 `rowSums()` und `colMeans()` für basale psychmetrische Auswertungen
 - Lehrvideos
+  + Einführung: https://youtu.be/u04el97pGWg 
 - Übungsaufgaben
+  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/04_Uebung.R)
 - Benötigter Datensatz: 
   + [technophobie.csv](https://raw.githubusercontent.com/m-Py/Testtheorie-R/master/Uebungen/Daten/technophobie.csv)
 - Relevante Inhalte im Skript: Kapitel 2.3.1, 2.4, 3.3, Kapitel 4 (bis 
