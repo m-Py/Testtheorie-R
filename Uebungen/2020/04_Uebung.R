@@ -243,13 +243,13 @@ cor(tp$TP5, tp$TP10i)
 # (wie oben in der Einfuehrung); (b) zur Bestimmung aller paarweisen
 # Korrelationen in einem data.frame. Bei 12 Items im
 # Technophobie-Inventar ist es zu bevorzugen, nur einmal `cor()`
-# aufzurufen, um direkt alle Item-Interkorrelationen zu erhalten,
+# aufzurufen, um direkt alle Inter-Itemkorrelation zu erhalten,
 # statt sie fuer alle Paare an Items neu aufzurufen.  (Wer wissen will
 # wie viele moegliche Itempaare es gibt: Fuehrt `choose(12, 2)` in der
 # Konsole aus)
 
 # (a) Wendet die Funktion `cor()` auf den data.frame an, den ihr in
-# Aufgabe 1 erstellt habt (und der nur die Item-Antworten
+# Aufgabe 2 erstellt habt (und der nur die Item-Antworten
 # enthaelt). Betrachtet die Ausgabe
 
 
@@ -275,7 +275,7 @@ cor(tp$TP5, tp$TP10i)
 
 # (a) Die Funktion `rowSums()` berechnet zeilenweise die Summe in
 # einem data.frame. Wendet sie auf den data.frame an, den ihr in
-# Aufgabe 1 erstellt habt.
+# Aufgabe 2 erstellt habt.
 
 
 # Was habt ihr gerade berechnet?
@@ -283,7 +283,7 @@ cor(tp$TP5, tp$TP10i)
 
 # (b) Die Funktion `colMeans()` berechnet spaltenweise den Mittelwert
 # in einem data.frame. Wendet sie auf den data.frame an, den ihr in
-# Aufgabe 1 (b) erstellt habt.
+# Aufgabe 2 erstellt habt.
 
 
 # Was habt ihr so gerade berechnet?
