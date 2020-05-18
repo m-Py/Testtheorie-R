@@ -63,11 +63,8 @@ Installation immer bei allen Studierenden problemlos funktioniert).
 
 ## Unterlagen
 
-Unter [Übungen](https://github.com/m-Py/Testtheorie-R/tree/master/Uebungen) 
-finden sich die R-Quelldateien zur Bearbeitung der Wochenübungen; relevant sind 
-hier die Übungen im Unterorder [2020](https://github.com/m-Py/Testtheorie-R/tree/master/Uebungen/2020). 
-Der Unterordner [Daten](https://github.com/m-Py/Testtheorie-R/tree/master/Uebungen/Daten) 
-enthält die zur Bearbeitung der Übungen nötigen Daten. 
+Die Seminarunterlagen werden im Open Science Repository zur Verfügung gestellt.
+Die Links zu den Übungsdateien sind unten in der Wochenübersicht enthalten.
 
 Das Seminarskript kann [hier](https://osf.io/nghyv/) heruntergeladen werden.
 Eine online lesbare Version des Skripts findet sich 
@@ -92,8 +89,8 @@ Funktionen, Logische Vergleiche
   + Lösungen zu den Übungsaufgaben: https://youtu.be/-PtpxbYGVxw
   + Fragen und Antworten: https://youtu.be/cSnmr4XZsTU
 - Übungsaufgaben: 
-  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/01_Uebung.R)
-  + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/01_Uebung_Loesungen.R)
+  + [Ohne Lösungen](https://osf.io/hpszn/)
+  + [Mit Lösungen](https://osf.io/qudhe/)
 - Relevante Inhalte im Skript: Kapitel 1, Kapitel 2.1 - 2.4
 
 ### Woche 2: 04.05. - 10.05.2020
@@ -105,8 +102,8 @@ Auswahl von Vektorelementen
   + Lösungen zu den Aufgaben: https://youtu.be/0A1bKKrdR4c 
   + Fragen und Antworten: https://youtu.be/sDSOrRz2WB4 
 - Übungsaufgaben: 
-  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung.R)
-  + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/02_Uebung_Loesungen.R)
+  + [Ohne Lösungen](https://osf.io/yknf8/)
+  + [Mit Lösungen](https://osf.io/z9yhe/)
 - Relevante Inhalte im Skript: Kapitel 2.1, 2.3.2, 2.4.2, 2.5
 
 ### Woche 3: 11.05. - 17.05.2020
@@ -118,10 +115,10 @@ etc.), fehlende Werte, Invertierung von Itemwerten, Histogramme
   + Einführung: https://youtu.be/ah2xLar3xxg
   + Bearbeitung der Übungen + Antworten auf Fragen: https://youtu.be/m6nw97_LW8M (Mitschnitt eines Livestreams)
 - Übungsaufgaben: 
-  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/03_Uebung.R)
-  + [Mit Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/03_Uebung_Loesungen.R)
+  + [Ohne Lösungen](https://osf.io/svhc8/)
+  + [Mit Lösungen](https://osf.io/w7abv/)
 - Benötigter Datensatz: 
-  + [technophobie.csv](https://raw.githubusercontent.com/m-Py/Testtheorie-R/master/Uebungen/Daten/technophobie.csv)
+  + [technophobie.csv](https://osf.io/95pev/)
 - Relevante Inhalte im Skript: Kapitel 2.3, 2.4.1, 2.4.4, Kapitel 3 (bis 
 einschließlich Kapitel 3.2), Kapitel 5.2 (nicht mehr Kapitel 5.2.1)
 
@@ -133,9 +130,9 @@ der Doppelpunktoperator; die Funktion `paste0()`; die Funktionen `cor()`,
 - Lehrvideos
   + Einführung: https://youtu.be/u04el97pGWg 
 - Übungsaufgaben
-  + [Ohne Lösungen](https://github.com/m-Py/Testtheorie-R/blob/master/Uebungen/2020/04_Uebung.R)
+  + [Ohne Lösungen](https://osf.io/a4qyv/)
 - Benötigter Datensatz: 
-  + [technophobie.csv](https://raw.githubusercontent.com/m-Py/Testtheorie-R/master/Uebungen/Daten/technophobie.csv)
+  + [technophobie.csv](https://osf.io/95pev/)
 - Relevante Inhalte im Skript: Kapitel 2.3.1, 2.4, 3.3, Kapitel 4 (bis 
 einschließlich 4.3)
 
