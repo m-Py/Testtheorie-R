@@ -63,8 +63,9 @@ Installation immer bei allen Studierenden problemlos funktioniert).
 
 ## Unterlagen
 
-Die Seminarunterlagen werden im Open Science Repository zur Verfügung gestellt.
-Die Links zu den Übungsdateien sind unten in der Wochenübersicht enthalten.
+Die Seminarunterlagen werden im [Open Science Repository](https://osf.io/y4a6k/) 
+zur Verfügung gestellt. Die Links zu den Übungsdateien sind unten in der 
+Wochenübersicht enthalten.
 
 Das Seminarskript kann [hier](https://osf.io/nghyv/) heruntergeladen werden.
 Eine online lesbare Version des Skripts findet sich 
@@ -129,8 +130,10 @@ der Doppelpunktoperator; die Funktion `paste0()`; die Funktionen `cor()`,
 `rowSums()` und `colMeans()` für basale psychmetrische Auswertungen
 - Lehrvideos
   + Einführung: https://youtu.be/u04el97pGWg 
+  + Lösungen zu den Aufgaben: https://youtu.be/CAoriVMQD-U 
 - Übungsaufgaben
   + [Ohne Lösungen](https://osf.io/a4qyv/)
+  - [Mit Lösungen](https://osf.io/8bn6q/)
 - Benötigter Datensatz: 
   + [technophobie.csv](https://osf.io/95pev/)
 - Relevante Inhalte im Skript: Kapitel 2.3.1, 2.4, 3.3, Kapitel 4 (bis 
@@ -146,18 +149,21 @@ Kapitel 6.2)
 
 ### Woche 6: 01.06. - 07.06.2020
 
-- `R`-Themen: psychometrische Auswertungen, externe Pakete
+- `R`-Themen: psychometrische Auswertungen; externe Pakete (`psych` und 
+`psychometric`); die Funktionen `alpha()` und `item.exam()`; der doppelte 
+Doppelpunktoperator
 - Videos:
 
 ### Woche 7: 08.06. - 14.06.2020
 
 - `R`-Themen: Einen Rohdatensatz bereinigen und für die Analyse vorbereiten 
-(z.B.: fehlende Fälle ausschließen)
+(z.B.: fehlende Fälle ausschließen, Items bepunkten); die Funktion `ifelse()`;
+Nutzung einer eigenen Funktion
 - Videos:
 
 ### Woche 8: 15.06. - 21.06.2020
 
-- `R`-Themen: 
+- `R`-Themen: R Markdown
 - Videos:
 
 ### Woche 9: 22.06. - 28.06.2020
