@@ -142,8 +142,14 @@ einschließlich 4.3)
 ### Woche 5: 25.05. - 31.05.2020
 
 - `R`-Themen: Auswahl von Zeilen und Spalten fortgesetzt: Die Funktion 
-`subset()`, Funktionsargumente, die `R`-Hilfe
+`subset()`; Funktionsargumente; die `R`-Hilfe
 - Videos:
+  + Einführung: https://youtu.be/YKAP2WvJhvI 
+- Benötigter Datensatz: 
+  + [niedertraechtige_neun.csv](https://osf.io/ca7we/)
+- Übungsaufgaben
+  + Ohne Lösungen
+- [Codebuch](https://osf.io/umcg6/)
 - Relevante Inhalte im Skript: Kapitel 3.4, Kapitel 6 (bis einschließlich 
 Kapitel 6.2)
 
@@ -156,9 +162,9 @@ Doppelpunktoperator
 
 ### Woche 7: 08.06. - 14.06.2020
 
-- `R`-Themen: Einen Rohdatensatz bereinigen und für die Analyse vorbereiten 
-(z.B.: fehlende Fälle ausschließen, Items bepunkten); die Funktion `ifelse()`;
-Nutzung einer eigenen Funktion
+- `R`-Themen: Einen Rohdatensatz bereinigen und für die Analyse vorbereiten:
+Fälle mit fehlenden Werten ausschließen; kategoriale Variablen definieren mit 
+der Funktion `factor()`; Items bepunkten mit der Funktion `ifelse()`
 - Videos:
 
 ### Woche 8: 15.06. - 21.06.2020
