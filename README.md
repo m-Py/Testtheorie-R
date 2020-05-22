@@ -147,9 +147,9 @@ einschließlich 4.3)
   + Einführung: https://youtu.be/YKAP2WvJhvI 
 - Benötigter Datensatz: 
   + [niedertraechtige_neun.csv](https://osf.io/ca7we/)
+  + [Codebuch](https://osf.io/umcg6/)
 - Übungsaufgaben
-  + Ohne Lösungen
-- [Codebuch](https://osf.io/umcg6/)
+  + [Ohne Lösungen](https://osf.io/zh6p3/)
 - Relevante Inhalte im Skript: Kapitel 3.4, Kapitel 6 (bis einschließlich 
 Kapitel 6.2)
 
