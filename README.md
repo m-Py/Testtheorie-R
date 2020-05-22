@@ -159,6 +159,7 @@ Kapitel 6.2)
 `psychometric`); die Funktionen `alpha()` und `item.exam()`; der doppelte 
 Doppelpunktoperator
 - Videos:
+- Relevante Inhalte im Skript: Kapitel 2.6, 3.4, 3.6.4, 4
 
 ### Woche 7: 08.06. - 14.06.2020
 
@@ -166,6 +167,7 @@ Doppelpunktoperator
 Fälle mit fehlenden Werten ausschließen; kategoriale Variablen definieren mit 
 der Funktion `factor()`; Items bepunkten mit der Funktion `ifelse()`
 - Videos:
+- Relevante Inhalte im Skript: Kapitel 2.3, Kapitel 5
 
 ### Woche 8: 15.06. - 21.06.2020
 
