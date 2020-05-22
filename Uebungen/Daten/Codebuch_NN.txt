@@ -1,5 +1,5 @@
 
-In Uebung 5 arbeiten wir mit dem Testinventar "Die
+In einigen Uebungen arbeiten wir mit dem Testinventar "Die
 Niedertraechtigen Neun". Darin werden neun Items
 vorgegeben, von denen jeweils drei Items Psychopathie
 (P), Machiavellismus (M), und Narzissmus (N) messen:
@@ -27,10 +27,11 @@ wie die der Technophobie-Skala aus den letzten beiden
 Stunden. Die Datentabelle enthaelt auch wieder die
 folgenden Spalten:
 
-## casenum - Eine einzigartige Fallnummer
-## geschlecht - Das Geschlecht der Teilnehmer/innen
-## alter - Das Alter der Teilnehmer/innen
-## Vertraglichkeit - Die Vertraeglichkeit der Teilnehmer/innen
+# casenum - Eine einzigartige Fallnummer
+# geschlecht - Das Geschlecht der Teilnehmer/innen
+# alter - Das Alter der Teilnehmer/innen
+# Vertraeglichkeit - Die Vertraeglichkeit der Teilnehmer/innen, aus einer 
+#    Kurzversion des der BIG-5
 
 Kuefner, A. C., Dufner, M., & Back, M. D. (2014). Das Dreckige Dutzend und
 die Niedertraechtigen Neun. Diagnostica, 61, 76-91.
