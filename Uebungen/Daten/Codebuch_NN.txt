@@ -31,7 +31,7 @@ folgenden Spalten:
 # geschlecht - Das Geschlecht der Teilnehmer/innen
 # alter - Das Alter der Teilnehmer/innen
 # Vertraeglichkeit - Die Vertraeglichkeit der Teilnehmer/innen, aus einer 
-#    Kurzversion des der BIG-5
+#    Kurzversion der BIG-5
 
 Kuefner, A. C., Dufner, M., & Back, M. D. (2014). Das Dreckige Dutzend und
 die Niedertraechtigen Neun. Diagnostica, 61, 76-91.
