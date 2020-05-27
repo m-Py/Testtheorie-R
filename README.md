@@ -180,15 +180,15 @@ der Funktion `factor()`; Items bepunkten mit der Funktion `ifelse()`
 
 ### Woche 10: 29.06. - 05.07.2020
 
-- `R`-Themen: 
-- Videos
+- Einübung praktischer Datenauswertungen 
+- Fragen und Antworten 
 
 ### Woche 11: 06.07. - 12.07.2020
 
-- `R`-Themen: 
-- Videos
+- Einübung praktischer Datenauswertungen 
+- Fragen und Antworten 
 
 ### Woche 12: 13.07. - 19.07.2020
 
-- `R`-Themen: 
-- Videos
+- Einübung praktischer Datenauswertungen 
+- Fragen und Antworten 
