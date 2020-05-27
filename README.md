@@ -115,10 +115,10 @@ etc.), fehlende Werte, Invertierung von Itemwerten, Histogramme
 - Lehrvideos
   + Einführung: https://youtu.be/ah2xLar3xxg
   + Bearbeitung der Übungen + Antworten auf Fragen: https://youtu.be/m6nw97_LW8M (Mitschnitt eines Livestreams)
-- Übungsaufgaben: 
+- Übungsaufgaben
   + [Ohne Lösungen](https://osf.io/svhc8/)
   + [Mit Lösungen](https://osf.io/w7abv/)
-- Benötigter Datensatz: 
+- Datensatz
   + [technophobie.csv](https://osf.io/95pev/)
 - Relevante Inhalte im Skript: Kapitel 2.3, 2.4.1, 2.4.4, Kapitel 3 (bis 
 einschließlich Kapitel 3.2), Kapitel 5.2 (nicht mehr Kapitel 5.2.1)
@@ -134,7 +134,7 @@ der Doppelpunktoperator; die Funktion `paste0()`; die Funktionen `cor()`,
 - Übungsaufgaben
   + [Ohne Lösungen](https://osf.io/a4qyv/)
   - [Mit Lösungen](https://osf.io/8bn6q/)
-- Benötigter Datensatz: 
+- Datensatz
   + [technophobie.csv](https://osf.io/95pev/)
 - Relevante Inhalte im Skript: Kapitel 2.3.1, 2.4, 3.3, Kapitel 4 (bis 
 einschließlich 4.3)
@@ -143,9 +143,9 @@ einschließlich 4.3)
 
 - `R`-Themen: Auswahl von Zeilen und Spalten fortgesetzt: Die Funktion 
 `subset()`; Funktionsargumente; die `R`-Hilfe
-- Videos:
+- Lehrvideos
   + Einführung: https://youtu.be/YKAP2WvJhvI 
-- Benötigter Datensatz: 
+- Datensatz
   + [niedertraechtige_neun.csv](https://osf.io/ca7we/)
   + [Codebuch](https://osf.io/umcg6/)
 - Übungsaufgaben
@@ -158,7 +158,7 @@ Kapitel 6.2)
 - `R`-Themen: psychometrische Auswertungen; externe Pakete (`psych` und 
 `psychometric`); die Funktionen `alpha()` und `item.exam()`; der doppelte 
 Doppelpunktoperator
-- Videos:
+- Lehrvideos
 - Relevante Inhalte im Skript: Kapitel 2.6, 3.4, 3.6.4, 4
 
 ### Woche 7: 08.06. - 14.06.2020
@@ -166,7 +166,7 @@ Doppelpunktoperator
 - `R`-Themen: Einen Rohdatensatz bereinigen und für die Analyse vorbereiten:
 Fälle mit fehlenden Werten ausschließen; kategoriale Variablen definieren mit 
 der Funktion `factor()`; Items bepunkten mit der Funktion `ifelse()`
-- Videos:
+- Lehrvideos
 - Relevante Inhalte im Skript: Kapitel 2.3, Kapitel 5
 
 ### Woche 8: 15.06. - 21.06.2020
@@ -176,20 +176,19 @@ der Funktion `factor()`; Items bepunkten mit der Funktion `ifelse()`
 
 ### Woche 9: 22.06. - 28.06.2020
 
-- `R`-Themen: 
-- Videos:
+**Wiederholung** der bisherigen Inhalte
 
 ### Woche 10: 29.06. - 05.07.2020
 
 - `R`-Themen: 
-- Videos:
+- Videos
 
 ### Woche 11: 06.07. - 12.07.2020
 
 - `R`-Themen: 
-- Videos:
+- Videos
 
 ### Woche 12: 13.07. - 19.07.2020
 
 - `R`-Themen: 
-- Videos:
+- Videos
