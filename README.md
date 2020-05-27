@@ -145,11 +145,13 @@ einschließlich 4.3)
 `subset()`; Funktionsargumente; die `R`-Hilfe
 - Lehrvideos
   + Einführung: https://youtu.be/YKAP2WvJhvI 
+  + Lösungen zu den Aufgaben: https://youtu.be/cAxCdGk1Upk 
 - Datensatz
   + [niedertraechtige_neun.csv](https://osf.io/ca7we/)
   + [Codebuch](https://osf.io/umcg6/)
 - Übungsaufgaben
   + [Ohne Lösungen](https://osf.io/zh6p3/)
+  + [Mit Lösungen](https://osf.io/mx3b7/)
 - Relevante Inhalte im Skript: Kapitel 3.4, Kapitel 6 (bis einschließlich 
 Kapitel 6.2)
 
