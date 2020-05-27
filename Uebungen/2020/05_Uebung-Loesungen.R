@@ -171,13 +171,23 @@ head(items)
 #    Spalten habt ihr dabei mit der Funktion `subset()` ausgelesen
 
 ## (a) Machiavellismus
-
+nn$Machiavellismus <- nn$PF18_01 + nn$PF18_04 + nn$PF18_07
+spalten <- paste0("PF18_0", c(1, 4, 7))
+rowSums(nn[, spalten])
+rowSums(subset(nn, select = spalten))
 
 ## (b) Psychopathie
+nn$Psychopathie <- nn$PF18_02 + nn$PF18_05 + nn$PF18_08
+spalten <- paste0("PF18_0", c(2, 5, 8))
+rowSums(nn[, spalten])
+rowSums(subset(nn, select = spalten))
 
 
 ## (c) Narzissmus
-
+nn$Narzissmus <- nn$PF18_03 + nn$PF18_06 + nn$PF18_09
+spalten <- paste0("PF18_0", c(3, 6, 9))
+rowSums(nn[, spalten])
+rowSums(subset(nn, select = spalten))
 
 ###############
 ## Aufgabe 2 ##
@@ -186,6 +196,11 @@ head(items)
 # Waehlt aus dem data.frame nn die 9 Spalten mit den Items zu den
 # Niedertraechtigen Neun aus; speichert die Auswahl in einer neuen
 # Variablen.
+
+spalten <- paste0("PF18_0", 1:9)
+items <- nn[, spalten]
+items <- subset(nn, select = spalten)
+items <- subset(nn, select = PF18_01:PF18_09)
 
 # Hinweis: Macht es einmal mit der [.,.]-Notation, einmal mit der
 # Funktion `subset()`
@@ -196,7 +211,7 @@ head(items)
 # ueber alle 9 Items). Nutzt fuer die Berechnung des Scores den data.frame 
 # aus Aufgabenteil (a). Speichert den Summenscore als Spalte von `nn` ab.
 
-
+nn$DunkleTriade <- rowSums(items)
 
 ###############
 ## Aufgabe 3 ##
@@ -211,36 +226,44 @@ head(items)
 # dem Median liegen. Speichert diesen data.frame in einer neuen
 # Variablen ab.
 
-
+dark <- subset(nn, DunkleTriade > median(DunkleTriade))
+dark <- nn[nn$DunkleTriade > median(nn$DunkleTriade), ]
 
 # (b) Wie viele Faelle hat der in Aufgabenteil (a) erstellte
 # data.frame? Welchem relativen Anteil im Verhaeltnis zur
 # Gesamtstichprobe antspricht das?
 
-
+nrow(dark)
+nrow(dark) / nrow(nn)
 
 # (c) Erstellt einen data.frame, der alle Personen enthaelt, die in
 # mindestens einer der 3 dunklen Eigenschaften ueber dem Median liegen
 
-
+alittle_dark <- subset(nn, Psychopathie > median(Psychopathie) | 
+         Narzissmus > median(Narzissmus) | 
+         Machiavellismus > median(Machiavellismus))
 
 # (d) Wie viele Faelle hat der in Aufgabenteil (c) erstellte
 # data.frame? Welchem relativen Anteil im Verhaeltnis zur
 # Gesamtstichprobe antspricht das?
 
-
+nrow(alittle_dark)
+nrow(alittle_dark) / nrow(nn)
 
 # (e) Erstellt einen data.frame, der alle Personen enthaelt, die in
 # allen der 3 dunklen Eigenschaften ueber dem Median liegen
 
-
+very_dark <- subset(nn, Psychopathie > median(Psychopathie) & 
+                         Narzissmus > median(Narzissmus) & 
+                         Machiavellismus > median(Machiavellismus))
 
 
 # (f) Wie viele Faelle hat der in Aufgabenteil (e) erstellte
 # data.frame? Welchem relativen Anteil im Verhaeltnis zur
 # Gesamtstichprobe antspricht das?
 
-
+nrow(very_dark)
+nrow(very_dark) / nrow(nn)
 
 ###############
 ## Aufgabe 4 ##
@@ -254,11 +277,14 @@ head(items)
 # Funktion `subset()`, je nachdem womit ihr euch am wohlsten fuehlt
 # - aber am besten beides einmal!)
 
+spalten <- c("Machiavellismus", "Psychopathie", "Narzissmus")
+round(cor(nn[, spalten]), 2)
 
 # (b) Rechercheaufgabe: Wie koennen wir einen (oder mehrere)
 # Scatterplots erstellen, der die Zusammenhaenge zwischen den dunklen
 # Eigenschaften grafisch veranschaulicht?
 
+plot(nn$Machiavellismus, nn$Psychopathie)
 
 ###############
 ## Aufgabe 5 ##
@@ -266,7 +292,7 @@ head(items)
 
 # Rechercheaufgabe: Was ist das Argument `var.equal` der Funktion 
 # `t.test()`? Welches Verhalten steuert es?
-
+?t.test
 
 ##################
 ## Bonusaufgabe ##
@@ -275,3 +301,7 @@ head(items)
 # Gibt es wieder eine Person, die in allen Items die volle Zustimmung
 # angegeben hat? Ist es dieselbe Person, die auch im
 # Technophobie-Datensatz allen Items voll zugestimmt hat?
+
+nn[nn$DunkleTriade == 9 * 5, ]
+tp <- read.csv("technophobie.csv")
+subset(tp, casenum == 437)
