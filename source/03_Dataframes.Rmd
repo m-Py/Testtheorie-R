@@ -336,7 +336,7 @@ verarbeitet werden.
 
 [^innehalten]: Es macht an dieser Stelle Sinn, einen Moment inne zu
 halten und zu überlegen, warum es eigentlich außergewöhnlich ist, dass
-der Befehl `Augenfarbe == "blau"` innerhalb der Funktion `subset`
+der Befehl `Augenfarbe == "blau"` innerhalb der Funktion `subset()`
 funktioniert.
 
 Der äquivalente Befehl mit der `[·,·]`-Notation sähe folgendermaßen aus:
@@ -497,7 +497,7 @@ ist nützlich, diesen Punkt zu verstehen.
 
 Die Auswahl von Spalten ohne Anführungszeichen ist noch keine allzu
 große Arbeitserleichterung im Vergleich zur `[·,·]`-Notation. Die
-Funktion `subset` lässt aber noch einen weiteren Sonderfall bei der
+Funktion `subset()` lässt aber noch einen weiteren Sonderfall bei der
 Spaltenauswahl zu, der einiges an Schreibarbeit ersparen kann: Wir
 können den Doppelpunktoperator verwenden, um mehrere Spalten
 auszuwählen.
@@ -510,7 +510,7 @@ Von „links nach rechts“ wählt der Doppelpunktperator alle Spalten
 zwischen einschließlich `Item1` und `Geschlecht` aus. Auch hier
 verzichten wir auf die Angabe von Anführungszeichen.
 
-Es gibt noch eine weitere Vereinfachung, die uns die Funktion `subset`
+Es gibt noch eine weitere Vereinfachung, die uns die Funktion `subset()`
 bietet. Wir können angeben, welche Spalten wir **nicht** ausgeben
 wollen:
 
