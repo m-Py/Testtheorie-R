@@ -233,7 +233,7 @@ anzusteuern würde in keiner Reaktion resultieren.
 
 Nun aber zur Logik des Codes: Vor dem Durchlauf der Schleife wähle ich
 genau die Spalten aus `npi_clean` aus, die die zuvor erstellten
-Item-Scores enthalten und speichere sie in der Variable `items` ab.
+Item-Scores enthalten, und speichere sie in der Variable `items` ab.
 Danach startet die Schleife. In diesem Beispiel habe ich die
 Schleifenvariable `column` genannt. Das war recht willkürlich -- ich
 kann der Schleifenvariable jeden Namen geben, den ich möchte. Hier habe
