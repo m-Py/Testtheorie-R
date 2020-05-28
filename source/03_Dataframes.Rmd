@@ -545,7 +545,7 @@ Funktion ein Argument annimmt, das für sich gesehen kein legales `R`-Objekt ist
 muss sie intern so damit umgehen, dass daraus korrekter `R`-Code wird. Dieses 
 Verhalten nennt man "non-standard"; die Funktion wendet NSE an. 
 
-Dass `subset()` NSE anwendet, können wir uns klar machen, da die oben 
+Dass `subset()` NSE anwendet, können wir daran sehen, dass die oben 
 übergebenen Argumente für sich gesehen keine `R`-Objekte, sondern bloß 
 Fehlermeldungen ausgeben:
 
@@ -1024,7 +1024,7 @@ können adressiert werden, ohne dass sie explizit aus dem zugehörigen
 Sammlung von Paketen, dem [`Tidyverse`](https://www.tidyverse.org/) [Wickham et 
 al., -@wickham2019], das stark von Non-Standard-Evaluation Gebrauch macht. 
 Die Pakete aus dem Tidyverse folgen einem zugrundeliegenden Entwurfsprinzip 
-folgen und sollen viele Aufgaben der statistischen Datenanalyse vereinfachen. 
+und sollen viele Aufgaben der statistischen Datenanalyse vereinfachen. 
 
 ## Zusammenfassung
 
