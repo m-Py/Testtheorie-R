@@ -62,8 +62,6 @@ cor(nn$PF18_07, nn$PF18_01 + nn$PF18_04)
 # Score -> unpraktisch. Bequemer: Die Funktion `item.exam()` aus dem
 # Paket `psychometric`.
 
-item.exam()
-
 # Fuehre Item-Analyse der Gesamtskala "Dunkle Triade" durch (alle 9 Items)
 all_items <- nn[, paste0("PF18_0", 1:9)]
 
