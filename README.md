@@ -161,7 +161,13 @@ Kapitel 6.2)
 `psychometric`); die Funktionen `alpha()` und `item.exam()`; der doppelte 
 Doppelpunktoperator
 - Lehrvideos
-- Relevante Inhalte im Skript: Kapitel 2.6, 3.4, 3.6.4, 4
+- Relevante Inhalte im Skript: Kapitel [2.6](https://m-py.github.io/TesttheorieR/vektoren.html#praezedenz), 
+[3.6.4](https://m-py.github.io/TesttheorieR/dataframes.html#zusammenfassung-aller-spalten-hilfe-aus-zusatzpaketen), 
+[4.4](https://m-py.github.io/TesttheorieR/psychometrie.html#trennschaerfe),
+[4.5](https://m-py.github.io/TesttheorieR/psychometrie.html#cronbachs-alpha),
+[4.7](https://m-py.github.io/TesttheorieR/psychometrie.html#in-der-praxis-nutzung-von-zusatzpaketen)
+
+
 
 ### Woche 7: 08.06. - 14.06.2020
 
