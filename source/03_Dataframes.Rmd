@@ -539,7 +539,7 @@ Doppelpunktoperator kann außerhalb von `subset()` nicht zur Generierung von
 Spaltennamen, sondern nur zur Erstellung ganzer Zahlen genutzt werden. Dass 
 solche Sonderregeln bei `subset()` trotzdem funktionieren, ist einer mächtigen 
 Eigenart von `R` zu verdanken, die unter dem Namen „Non-Standard-Evaluation“ 
-(NSE) bekannt ist. NSE ist ein tiefes und sogar kontroverses Thema. Ohne in die 
+(NSE) bekannt ist. NSE ist ein komplexes und sogar kontroverses Thema. Ohne in die 
 Tiefe zu gehen, können wir uns NSE wie folgt klar machen: Wann immer eine 
 Funktion ein Argument annimmt, das für sich gesehen kein legales `R`-Objekt ist, 
 muss sie intern so damit umgehen, dass daraus korrekter `R`-Code wird. Dieses 
