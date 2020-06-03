@@ -133,7 +133,7 @@ der Doppelpunktoperator; die Funktion `paste0()`; die Funktionen `cor()`,
   + Lösungen zu den Aufgaben: https://youtu.be/CAoriVMQD-U 
 - Übungsaufgaben
   + [Ohne Lösungen](https://osf.io/a4qyv/)
-  - [Mit Lösungen](https://osf.io/8bn6q/)
+  + [Mit Lösungen](https://osf.io/8bn6q/)
 - Datensatz
   + [technophobie.csv](https://osf.io/95pev/)
 - Relevante Inhalte im Skript: Kapitel 2.3.1, 2.4, 3.3, Kapitel 4 (bis 
@@ -167,6 +167,7 @@ Doppelpunktoperator
   + [Codebuch](https://osf.io/umcg6/)
 - Übungsaufgaben
   + [Ohne Lösungen](https://osf.io/ymj59/)
+  + [Mit Lösungen](https://osf.io/k6abe/)
 - Relevante Inhalte im Skript: Kapitel [2.6](https://m-py.github.io/TesttheorieR/vektoren.html#praezedenz), 
 [3.6.4](https://m-py.github.io/TesttheorieR/dataframes.html#zusammenfassung-aller-spalten-hilfe-aus-zusatzpaketen), 
 [4.4](https://m-py.github.io/TesttheorieR/psychometrie.html#trennschaerfe),
