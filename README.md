@@ -162,6 +162,7 @@ Kapitel 6.2)
 Doppelpunktoperator
 - Lehrvideos
   + Einführung: https://youtu.be/NXv-mfBEuMg 
+  + Lösungen zu den Aufgaben: https://youtu.be/h5jMkDb0-SE
 - Datensatz
   + [niedertraechtige_neun.csv](https://osf.io/ca7we/)
   + [Codebuch](https://osf.io/umcg6/)
