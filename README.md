@@ -179,11 +179,12 @@ Doppelpunktoperator
 
 ### Woche 7: 08.06. - 14.06.2020
 
-- `R`-Themen: Einen Rohdatensatz bereinigen und für die Analyse vorbereiten:
-Fälle mit fehlenden Werten ausschließen; kategoriale Variablen definieren mit 
-der Funktion `factor()`; Items bepunkten mit der Funktion `ifelse()`
+- `R`-Themen: Einen Rohdatensatz bereinigen und für die Analyse vorbereiten: 
+Fehlende Fälle als `NA` definieren; Funktionen zum Umgang mit `NA`; Fälle mit 
+fehlenden Werten ausschließen; kategoriale Variablen definieren mit der Funktion 
+`factor()`; Ueberpruefung der Plausibilitaet von Antworten
 - Lehrvideos
-- Relevante Inhalte im Skript: Kapitel 2.3, Kapitel 5
+- Relevante Inhalte im Skript: Kapitel 2.3, 3.6.4, Kapitel 5.2, 5.3
 
 ### Woche 8: 15.06. - 21.06.2020
 
