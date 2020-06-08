@@ -80,7 +80,6 @@ b5$E8i <- invert_item(b5$E8)
 b5$E10i <- invert_item(b5$E10)
 
 library(psychometric)
-source("discrimination.R")
 spalten_e <- c(paste0("E", 1:5 * 2 - 1), paste0("E", 1:5 * 2, "i"))
 alpha(b5[, spalten_e])
 item.exam(b5[, spalten_e])
