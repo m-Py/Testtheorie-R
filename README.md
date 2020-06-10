@@ -184,13 +184,14 @@ Fehlende Fälle als `NA` definieren; Funktionen zum Umgang mit `NA`; Fälle mit
 fehlenden Werten ausschließen; kategoriale Variablen definieren mit der Funktion 
 `factor()`; Ueberpruefung der Plausibilitaet von Antworten
 - Lehrvideos:
-  + Einführung: https://youtu.be/vP5wklxzrAs 
+  + Einführung: https://youtu.be/vP5wklxzrAs
+  + Lösungen: https://youtu.be/U2KtZH97H0M 
 - Übungsaufgaben
   + [Ohne Lösungen](https://osf.io/k8tyf/)
+  + [Mit Lösungen](https://osf.io/naujb/)
 - Datensatz und Codebuch: Antworten auf die BIG-5, abzurufen unter 
   https://openpsychometrics.org/_rawdata/
 - Relevante Inhalte im Skript: Kapitel 2.3, 3.6.4, Kapitel 5.2, 5.3
-
 
 ### Woche 8: 15.06. - 21.06.2020
 
