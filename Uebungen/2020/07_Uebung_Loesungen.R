@@ -2,7 +2,7 @@
 ## Termin 7
 
 # Wir nutzen einen Datensatz zu den Big 5 (Inventar aus 50 Items)
-# - Daten abzurufen hier: https://openpsychometrics.org/_rawdata/
+# - Daten abzurufen hier: https://openpsychometrics.org/_rawdata/ 
 # - Selbsttest: https://openpsychometrics.org/tests/IPIP-BFFM/
 # - Infos zum Inventar: https://ipip.ori.org/new_ipip-50-item-scale.htm
 
@@ -68,35 +68,38 @@ b5 <- subset(b5, age <= 100)
 # anhand der Items selbst, wie sie gepolt sind). Tipp: Markiert im
 # Codebuch bei jedem Item die Polung.
 
+b5$E2i <- b5$E2 * (-1) + 6
+b5$E4i <- b5$E4 * (-1) + 6
+b5$E6i <- b5$E6 * (-1) + 6
+b5$E8i <- b5$E8 * (-1) + 6
+b5$E10i <- b5$E10 * (-1) + 6
 
-invert_item <- function(x, maximum = 5) {
-  x * (-1) + maximum + 1
-}
+even <- 1:5 * 2
+odd  <- even - 1
 
-b5$E2i <- invert_item(b5$E2)
-b5$E4i <- invert_item(b5$E4)
-b5$E6i <- invert_item(b5$E6)
-b5$E8i <- invert_item(b5$E8)
-b5$E10i <- invert_item(b5$E10)
+even_spalten <- paste0("E", even, "i")
+odd_spalten  <- paste0("E", odd)
+
+items <- b5[, c(even_spalten, odd_spalten)]
 
 library(psychometric)
-spalten_e <- c(paste0("E", 1:5 * 2 - 1), paste0("E", 1:5 * 2, "i"))
-alpha(b5[, spalten_e])
-item.exam(b5[, spalten_e])
 
+alpha(items)
+item.exam(items)[, c("Item.Tot.woi", "Difficulty")]
 
 ## Aufgabe 2 
 
-# (a) Berechnet einen Summenscores fuer die Skala Extraversion.
-
-b5$Extraversion <- rowSums(b5[, spalten_e])
+# (a) Berechnet einen Summenscore fuer die Skala Extraversion.
+b5$Extraversion <- rowSums(items)
 
 # (b) Vergleicht fuer die Skala "Extraversion" mit einem t-Test die
 # Summenwerte zwischen maennlichen und weiblichen Teilnehmenden.
 
+b5$Extraversion_Mean <- rowMeans(items)
+
 t.test(
-  b5$Extraversion[b5$gender == "weiblich"], 
-  b5$Extraversion[b5$gender == "maennlich"]
+  b5$Extraversion_Mean[b5$gender == "maennlich"],
+  b5$Extraversion_Mean[b5$gender == "weiblich"]
 )
 
 # (c) Vergleicht fuer die Skala "Extraversion" mit einem t-Test die
@@ -105,10 +108,7 @@ t.test(
 # Personen waren englische Muttersprachler und welchem relativen
 # Anteil entspricht das?
 
-t.test(Extraversion ~ engnat, data = b5)
-table(b5$engnat)
-table(b5$engnat) / nrow(b5)
-
+t.test(Extraversion_Mean ~ engnat, data = b5)
 
 ## Aufgabe 3
 
@@ -122,12 +122,21 @@ hist(b5$Extraversion)
 # signifikant?  (Rechercheaufgabe: Welche Funktion gibt die
 # Signifikanz einer Korrelation aus?)
 
+plot(
+  b5$age, 
+  b5$Extraversion_Mean + rnorm(nrow(b5), 0, 0.3), 
+  xlab = "Extraversion",
+  ylab = "Alter"
+)
+abline(lm(Extraversion_Mean ~ age, data = b5), col = "red", lty = 2, lwd = 3)
+cor(b5$age, b5$Extraversion_Mean)
+cor.test(b5$age, b5$Extraversion_Mean)
+
+
+
 # Erinnerung: Wurde die Plausibilitaet der Alterswerte ueberprueft und
 # wurde damit umgegangen?
 
-plot(b5$Extraversion, b5$age)
-cor(b5$Extraversion, b5$age)
-cor.test(b5$Extraversion, b5$age)
 
 ###########
 ## Bonus ##
@@ -148,3 +157,11 @@ cor.test(b5$Extraversion, b5$age)
 #   wenigsten trennscharf
 # - Exploriert die Ernsthaftigkeit der Teilnahmen. Koennt ihr testen,
 #   ob Personen immer dieselbe Antwort gegeben haben?
+
+
+### Alternativer Code zur Invertierung aller Items:
+
+spalten_even <- paste0("E", even)
+zu_invertierende_items <- b5[, spalten_even]
+zu_invertierende_items <- zu_invertierende_items * (-1) + 6
+colnames(zu_invertierende_items) <- paste0(colnames(zu_invertierende_items), "i")
