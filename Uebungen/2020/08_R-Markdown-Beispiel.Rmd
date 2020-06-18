@@ -1,0 +1,107 @@
+---
+title: "R-Markdown-Beispiel"
+author: "Martin Papenberg"
+date: "18 6 2020"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+# Setzt "global" die Chuck-Option `echo` auf TRUE, d.h. Code
+# aus Chunks wird immer im Output-Dokument angezeigt:
+
+knitr::opts_chunk$set(echo = TRUE)
+# Setze zwei Nachkommastellen als Standard im Output fuer Zahlen:
+options(digits = 2)
+```
+
+Hier beginnt das eigentliche Dokument.
+
+# Überschrifteebene 1
+
+## Überschrifteebene 2
+
+### Überschrifteebene 3 (usw.)
+
+Hier ist Text. **Hier ist fetter Text.** *Hier ist kursiver Text*.
+
+[Das ist ein Link.](https://github.com/m-Py/Testtheorie-R)
+
+- Hier ist eine Liste
+- Hier ist ein zweiter Punkt
+  + Hier kann ich etwas einrücken
+  
+## Nützliche Seiten zu R Markdown
+
+- https://bookdown.org/yihui/rmarkdown/
+- https://crsh.github.io/papaja_man/
+- https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
+- https://rmarkdown.rstudio.com/
+
+## Start der Analyse
+
+
+```{r loaddata, message = FALSE}
+
+library(psychometric)
+#library(psych)
+
+# Daten einlesen, "Tab" war das Trennzeichen in der CSV-Datei:
+b5 <- read.csv("data.csv", sep = "\t")
+
+# Definiere fehlenden Werte, mit Null kodiert, als NA:
+b5[b5 == 0] <- NA
+
+# Finde heraus, welche Werte in den Antworten zu den 50 Items fehlen:
+items <- subset(b5, select = E1:O10)
+misses <- !complete.cases(items)
+
+# Personen (ist nur eine) mit fehlenden Werten in den Items ausschliessen:
+b5 <- b5[complete.cases(items), ]
+
+####
+
+# Geschlecht als kategoriale Variable (`factor` definieren)
+b5$gender <- factor(b5$gender, labels = c("maennlich", "weiblich", "divers"))
+
+# Unplausible Antworten in Alter ausschliessen (bzw. Personen mit 
+# unplausiblen Werten):
+
+b5 <- subset(b5, age <= 100)
+
+mean_e1 <- mean(b5$E1)
+
+```
+
+In diesem Dokument beschreibe ich, wie ich einen Datensatz mit den 
+BIG-5 auswerte. Der Datensatz besteht aus `r nrow(b5)` Fällen (nach 
+Datenbereinigung). 
+
+Die Item-Schwierigkeit für Item 1 in Extraversion war `r mean_e1`.
+
+## Cronbachs Alpha Extraversion
+
+```{r cronbachsalpha}
+
+invert_item <- function(x, maximum = 5) {
+  x * (-1) + maximum + 1
+}
+
+b5$E2i <- invert_item(b5$E2)
+b5$E4i <- invert_item(b5$E4)
+b5$E6i <- invert_item(b5$E6)
+b5$E8i <- invert_item(b5$E8)
+b5$E10i <- invert_item(b5$E10)
+
+spalten_e <- c(paste0("E", 1:5 * 2 - 1), paste0("E", 1:5 * 2, "i"))
+
+```
+
+Cronbachs Alpha für Extraversion über die 10 Items war
+`r alpha(b5[, spalten_e])`.
+
+## Item-Analyse Extraversion
+
+```{r}
+item.exam(b5[, spalten_e])[, c("Item.Tot.woi", "Difficulty")]
+```
+
