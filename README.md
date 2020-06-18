@@ -196,7 +196,10 @@ fehlenden Werten ausschließen; kategoriale Variablen definieren mit der Funktio
 ### Woche 8: 15.06. - 21.06.2020
 
 - `R`-Themen: R Markdown
-- Videos:
+- Video: https://youtu.be/n5PQgbbrwiI
+- [R-Markdown-Beispieldatei](https://osf.io/pwyeh/)
+- Datensatz und Codebuch: Antworten auf die BIG-5, abzurufen unter 
+  https://openpsychometrics.org/_rawdata/
 
 ### Woche 9: 22.06. - 28.06.2020
 
