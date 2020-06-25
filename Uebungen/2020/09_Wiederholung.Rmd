@@ -1,0 +1,150 @@
+---
+title: "Testtheorie mit R - Woche 9"
+author: "Martin Papenberg"
+date: "25. Juni 2020"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+# Setzt "global" die Chuck-Option `echo` auf TRUE, d.h. Code
+# aus Chunks wird immer im Output-Dokument angezeigt:
+
+knitr::opts_chunk$set(echo = TRUE)
+# Setze zwei Nachkommastellen als Standard im Output fuer Zahlen:
+options(digits = 2)
+```
+
+# Schrittweiser Ausschluss von Personen
+
+```{r loadAndCleanData, message = FALSE}
+# Daten einlesen, "Tab" war das Trennzeichen in der CSV-Datei:
+b5 <- read.csv("data.csv", sep = "\t")
+n_raw <- nrow(b5)
+
+```
+
+
+Am Anfang waren `r nrow(b5)` Personen dabei.
+
+```{r}
+# Definiere fehlenden Werte, mit Null kodiert, als NA:
+b5[b5 == 0] <- NA
+
+# Finde heraus, welche Werte in den Antworten zu den 50 Items fehlen:
+items <- subset(b5, select = E1:O10)
+misses <- !complete.cases(items)
+# Personen (ist nur eine) mit fehlenden Werten in den Items ausschliessen:
+b5 <- b5[complete.cases(items), ]
+n_without_na <- nrow(b5)
+```
+
+Dann habe ich `r sum(misses)` Person ausgeschlossen und hatte dann noch
+`r nrow(b5)` Personen.
+
+Und dann habe ich noch `r sum(b5$age > 100)` wegen komischer Antworten 
+ausgeschlossen (Alter > 100).
+
+```{r}
+
+# Personen mit unplausible Antworten in Alter ausschliessen
+unplausible_age <- sum(b5$age > 100)
+
+b5 <- subset(b5, age <= 100)
+final_n <- nrow(b5)
+
+```
+
+Zahl der Personen die teilgenommen haben:
+
+- Am Anfang: `r n_raw`
+- Personen, die einen fehlenden Wert in min. einem Item haben: `r sum(misses)`
+- Stichprobengroesse nach Ausschluss der Personen mit fehlenden Werten: 
+  `r n_without_na`
+- Personen, die einen unplausiblen Wert beim Alter haben: `r unplausible_age`
+- Stichprobengroesse nach Ausschluss dieser Personen: `r final_n`
+
+
+**Frage**: Wie koennen wir die Zahl der ausgeschlossenen Faelle
+abspeichern / ausgeben?
+
+Drei Moeglichkeiten: 
+
+- Abspeichern der Fallnummer in Variablen, Ueberschreibung des Datensatzes
+- Abspeichern jedes Datensatzes in einer Variablen, Originaldatensatz 
+nicht ueberschreiben
+- Mit R Markdown: Code in mehrere Chunks aufteilen, zwischendurch per 
+Inline-Code und `nrow()` ausgeben
+
+
+
+# Score fuer Extraversion
+
+```{r scoreExtraversion}
+
+b5$E2i <- b5$E2 * (-1) + 6
+b5$E4i <- b5$E4 * (-1) + 6
+b5$E6i <- b5$E6 * (-1) + 6
+b5$E8i <- b5$E8 * (-1) + 6
+b5$E10i <- b5$E10 * (-1) + 6
+
+even <- 1:5 * 2
+odd  <- even - 1
+
+even_spalten <- paste0("E", even, "i")
+odd_spalten  <- paste0("E", odd)
+
+items <- b5[, c(even_spalten, odd_spalten)]
+b5$Extraversion <- rowSums(items)
+
+```
+
+# Histogramme
+
+```{r}
+
+hist(
+  b5$Extraversion, 
+  main = "", 
+  xlab = "Extraversion", 
+  ylab = "Haeufigkeit",
+  breaks = 30,
+  col = "#ABCDEF",
+  border = "white",
+  las = 1
+)
+
+# ?hist
+
+# Ein paar moegliche Anpassungen: breaks, xlab, ylab, main, col, border, las
+
+hist(b5$Extraversion, breaks = 30)
+
+# `las` -> ?par
+
+```
+
+
+
+
+# ggplot2
+
+```{r, message = FALSE}
+
+library(ggplot2)
+
+ggplot(data = b5, aes(Extraversion)) + 
+  geom_histogram(bins = 40, col = "white") 
+# `bins` wie Argument `breaks` in hist()
+# `col` wie Argument `border` in hist()
+
+```
+
+
+- ggplot2 ist Standardpaket im Bereich der Grafikerstellung mit R 
+- viele bevorzugen ggplot gegenueber "Base-R"
+
+**Informationen zu ggplot:**
+
+- [Webisite des Pakets `ggplot2`](https://ggplot2.tidyverse.org/)
+- [Cheat Sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
+- [R for Data Science](https://r4ds.had.co.nz/)
