@@ -203,19 +203,21 @@ fehlenden Werten ausschließen; kategoriale Variablen definieren mit der Funktio
 
 ### Woche 9: 22.06. - 28.06.2020
 
-**Wiederholung** der bisherigen Inhalte
+- Themen: Schrittweiser Fallausschluss in R Markdown, Histogramme, 
+Funktionsargumente, Funktionshilfe
+- Video: https://youtu.be/hC9ic54gRcU 
+-  [R-Markdown-Beispieldatei](https://osf.io/xu7f2/)
+- Datensatz und Codebuch: Antworten auf die BIG-5, abzurufen unter 
+  https://openpsychometrics.org/_rawdata/
 
 ### Woche 10: 29.06. - 05.07.2020
 
-- Einübung praktischer Datenauswertungen 
-- Fragen und Antworten 
+- Fragen und Antworten, Wiederholung
 
 ### Woche 11: 06.07. - 12.07.2020
 
-- Einübung praktischer Datenauswertungen 
-- Fragen und Antworten 
+- Fragen und Antworten, Wiederholung
 
 ### Woche 12: 13.07. - 19.07.2020
 
-- Einübung praktischer Datenauswertungen 
-- Fragen und Antworten 
+- Fragen und Antworten, Wiederholung
