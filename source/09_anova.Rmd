@@ -1,0 +1,35 @@
+# Varianzanalyse
+
+In der psychologischen Forschung ist die Varianzanalyse (engl.: anlysis 
+of variance; *ANOVA*) ein weit verbreitetes Verfahren in der 
+Datenauswertung. In der psychometrischen Auswertung ist die ANOVA 
+weniger üblich, da sie normalerweise zur Auswertung von experimentellen 
+Studien angewendet wird. Bei der Analyse von Tests hingegen betrachten 
+wir im Normalfall "natürlich" auftretende Unterschiede zwischen 
+Testteilnehmern. In Experimenten hingegen wird der Effekt "künstlich" 
+induzierter Manipulationen untersucht. Auswertungen, die Korrelationen 
+untersuchen oder auf linearer Regression beruhen, sind hier gängiger.
+
+Doch auch in der psychometrischen Auswertung haben Experimente ihren 
+Platz haben, bspw. um zu untersuchen, ob Testergebnisse wirklich kausal 
+durch die angenommenen Faktoren abhängen. Tests sind nur dann valide, 
+wenn ihre Ergebnisse kausal durch die Faktoren bestimmt werden, die sie 
+abbilden sollen (Borsboom et al., 2004). Das Abschneiden in einer 
+mündlichen Universitätsprüfung sollte beispielsweise vom Wissen der 
+Teilnehmenden abhängen und nicht von anderen irrelevanten Faktoren, wie 
+der Sympathie der Prüflinge (siehe etwa Malouff et al., 2013). 
+
+In einer meiner eigenen Studien überprüften wir, ob sich die Validität 
+von Multiple-Choice Wissenstests verändert, wenn man die Antwortoptionen
+nacheinander, statt gleichzeitig vorgibt (Papenberg, Diedenhofen, & 
+Musch, 2019). Solche *Discrete-Option Multiple-Choice*-Tests sind 
+schwieriger als traditionelle Multiple-Choice-Tests, da die 
+verschiedenen Antwortoptionen nicht direkt anhand ihrer Plausibilität 
+miteinander verglichen werden können. Neue Antwortoptionen werden erst 
+dann offenbart, wenn eine vorgegebe Antwortoption bezüglich ihrer 
+Korrektheit bewertet wurde. In der Studie wurden zwei Faktoren 
+*between-subjects* variiert: 
+
+1. Das Testformat (Multiple-Choice vs. Discrete-Option Multiple-Choice)
+2. Das Informationslevel der Teilnehmenden (wenig, mittel, viel, perfekt)
+
