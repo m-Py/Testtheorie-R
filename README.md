@@ -212,7 +212,11 @@ Funktionsargumente, Funktionshilfe
 
 ### Woche 10: 29.06. - 05.07.2020
 
-- Fragen und Antworten, Wiederholung
+- Themen: ANOVA, Interaktionsplots, post-hocs Tests
+- Video: https://youtu.be/KRD4qnJWIlc 
+- [Datensatz](https://osf.io/va56f/) und [Codebuch](https://osf.io/ckr8z/)
+- Übungsdatei: https://osf.io/rbvpf/
+- [Paper](https://doi.org/10.1080/00220973.2019.1671299) ([Preprint](https://osf.io/x8753/))
 
 ### Woche 11: 06.07. - 12.07.2020
 
