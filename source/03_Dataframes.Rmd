@@ -844,11 +844,10 @@ tapply(mdf$Alter, mdf$Geschlecht, sd)
 
 Wie `table()` kann auch `tapply()` deskriptive Statistiken anhand 
 mehrerer Gruppierungsvariablen anfordern. Um mehrere 
-Gruppierungsvariablen anzufordern, klammern wir `list(...)` um die 
-Gruppierungsvektoren im zweiten Argument:
+Gruppierungsvariablen zu nutzen, lesen wir diese als `data.frame` aus:
 
 ```{r}
-tapply(mdf$Alter, list(mdf$Geschlecht, mdf$Augenfarbe), mean)
+tapply(mdf$Alter, mdf[, c("Geschlecht", "Augenfarbe")], mean)
 ```
 
 Mit nur fünf Datenpunkten macht diese Anfrage hier nur wenig Sinn, da 
