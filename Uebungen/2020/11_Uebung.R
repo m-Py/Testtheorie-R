@@ -18,7 +18,9 @@ df <- read.csv("domc-vs-mc.csv", sep = ";")
 # Exploration - mean scores, frequecies, paired t-test
 
 mean(df$domc_score)
-mean(df$mc_score) / 18
+mean(df$mc_score)
+
+cor(df$domc_score, df$mc_score)
 
 t.test(df$domc_score, df$mc_score, paired = TRUE)
 table(df$balancing)
@@ -39,6 +41,15 @@ ldf <- pivot_longer(
   names_to = "test_format",
   values_to = "sum_score"
 )
+
+# long to wide "by hand":
+
+# ldf <- data.frame(
+#   lfdn = rep(df$lfdn, 2),
+#   balancing = rep(df$balancing, 2),
+#   sum_score = c(df$mc_score, df$domc_score),
+#   test_format = c(rep("mc", nrow(df)), rep("domc", nrow(df)))
+# )
 
 # ANOVA
 
