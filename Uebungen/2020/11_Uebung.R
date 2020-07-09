@@ -10,7 +10,7 @@ df <- read.csv("domc-vs-mc.csv", sep = ";")
 # df = data frame with four columns
 #   lfdn: unique test taker ID
 #   domc_score: sum correct in 18 DOMC items
-#   domc_score: sum correct in 18 MC items
+#   mc_score: sum correct in 18 MC items
 #   balancing: which test was presented in which test format
 #              1 = Test A in MC format, Test B in DOMC format
 #              2 = Test A in DOMC format, Test B in MC format
