@@ -14,16 +14,24 @@ folgenden Konzepte behandelt:
     + Split-Half/Odd-Even-Reliabilität
 - Spearman-Brown-Formel
 
-Angenommen, eine Datentabelle enthält die Punktzahlen von zehn
-Schulkindern in einer Klassenarbeit mit fünf Aufgaben. Diese kann man gut
-in einer $10 \times 5$ (Reihe $\times$ Spalten) Datentabelle darstellen.
-Ein Eintrag kodiert, ob das Kind (*Reihe*) die Aufgabe (*Spalte*)
-korrekt gelöst hat. Korrekte Antworten werden mit 1 kodiert, falsche
-Antworten mit 0 -- ein typisches Datenformat in der psychologischen
-Diagnostik.
+Angenommen, eine Datentabelle enthält die Punktzahlen von zehn 
+Schulkindern in einer Klassenarbeit mit fünf Aufgaben. Diese kann man 
+gut in einer $10 \times 5$ (Reihe $\times$ Spalten) Datentabelle 
+darstellen. Ein Eintrag kodiert, ob das Kind (*Reihe*) die Aufgabe 
+(*Spalte*) korrekt gelöst hat. Korrekte Antworten werden mit 1 kodiert, 
+falsche Antworten mit 0 -- ein typisches Datenformat in der 
+psychologischen Diagnostik. Wenn uns Daten in diesem Format vorliegen, 
+können wir auf viele Funktionen in `R` zurückgreifen, um grundlegende 
+psychometrische Auswertungen durchzuführen. Dies sind etwa die 
+Bestimmung der Schwierigkeit und der Trennschärfe von Items, sowie die 
+Bestimmung einer Split-Half Reliabilität. Für fortgeschrittenere 
+Auswertungen -- wie etwa die Berechnung von Cronbachs Alpha oder einer 
+Faktorenanalyse -- werden wir auf Pakete zurückgreifen, die uns über die 
+Basics in `R` hinaus weitere Funktionalitäten bieten. Aber auch für 
+diese Analysen benötigen wir genau dieses Datenformat!
 
-Um das fortführende Beispiel selbst nachzuvollziehen, müsst ihr den
-folgenden `data.frame` erstellen:
+Um das fortführende Beispiel selbst nachzuvollziehen, muss der folgende 
+`data.frame` eingelesen werden:
 
 
 ```{r}
@@ -35,16 +43,6 @@ test_data <- data.frame(
   Item_5 = c(1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
 )
 ```
-
-Wenn uns Daten in diesem Format vorliegen, können wir auf viele
-Funktionen in `R` zurückgreifen, um grundlegende psychometrische
-Auswertungen durchzuführen. Dies sind etwa die Bestimmung der
-Schwierigkeit und der Trennschärfe von Items, sowie die Bestimmung einer
-Split-Half Reliabilität. Für fortgeschrittenere Auswertungen -- wie etwa
-die Berechnung von Cronbachs Alpha oder einer Faktorenanalyse -- werden
-wir auf Pakete zurückgreifen, die uns über die Basics in `R` hinaus
-weitere Funktionalitäten bieten. Aber auch für diese Analysen benötigen
-wir genau dieses Datenformat!
 
 ```{block, type = "block"}
 **Merke**: Das ist das Standard-Datenformat für all
@@ -77,20 +75,27 @@ erklärt, ist das mit der `$`-Notation möglich:
 test_data$score <- rowSums(test_data)
 ```
 
+Da viele viele Analysen aber nur einen `data.frame` mit den Item-Spalten
+benötigt ($\to$ psychometrisches Standardformat), ist hier Vorsicht bei 
+der Weiterverwendung geboten!
+
 ## Item-Schwierigkeiten
 
 Die Schwierigkeit eines Items ist die mittlere Punktzahl aller Personen 
-in diesem Item.[^schwieriglikert] Das ist somit also einfach der 
-Mittelwert der Einträge in jeder Spalte (engl: *column*) in unserem 
-Standardformat. Den Mittelwert pro Spalte kann ich mit der Funktion 
-`colMeans()` bestimmen (analog gibt es auch die Funktionen `colSums()` und 
-`rowMeans()`):
+in diesem Item. Auch bei Items, die nicht Korrektheit kodieren, kann man 
+von Item-Schwierigkeit sprechen. Beispielsweise wäre dann die 
+Item-Schwierigkeit die mittlere Zustimmungsrate für ein Item in einem 
+Persönlichkeitsinventar, in dem Antworten auf einer 5-stufigen 
+Likert-Skala gegeben werden. Hierbei macht die Einteilung in hohe vs. 
+niedrige Schwierigkeit wenig Sinn; technisch gesehen bedeuten immer 
+niedrigere Werte eine höhere Schwierigkeit (also etwa eine niedrige 
+Zustimmungsrate).
 
-[^schwieriglikert]: Auch bei Items, die nicht Korrektheit kodieren, kann
-man von Item-Schwierigkeit sprechen. Beispielsweise wäre dann die
-Item-Schwierigkeit die mittlere Zustimmungsrate für ein Item in einem
-Persönlichkeitsinventar, in dem Antworten auf einer 5-stufigen
-Likert-Skala gegeben werden.
+Technisch gesehen ist die Schwierigkeit eines Items der Mittelwert der 
+Itemwerte in einer Spalte (engl: *column*) eines `data.frames` im 
+psychometrischen Standardformat. Den Mittelwert pro Spalte kann ich mit 
+der Funktion `colMeans()` bestimmen (analog gibt es auch die Funktionen 
+`colSums()` und `rowMeans()`):
 
 ```{r}
 colMeans(test_data)
@@ -98,12 +103,14 @@ colMeans(test_data)
 
 Da ich gerade den Gesamtscore als Spalte an `test_data` angehängt habe, 
 bekomme ich die mittlere Punktzahl der Schüler/innen in den fünf 
-Testitems direkt mitgeliefert. Beachtet, dass ich hier mit `colMeans()` 
-eine numerische Funktion auf den ganzen `data.frame` angewendet habe. 
-Würde der `data.frame` auch Spalten vom Typ `factor` oder `character` 
+Testitems direkt mitgeliefert. 
+
+Die Funktion `colMeans()` generalisiert die Funktion `mean()` von einem 
+einzelnen Vektor auf alle Spalten in einem `data.frame`. Beachtet: Würde 
+der `data.frame` auch Spalten vom Typ `factor` oder `character` 
 enthalten, wäre es nicht möglich, Funktionen wie `rowSums()` und 
-`colMeans()` anzuwenden. In dem Fall könnte man mit der `[·,·]`-Notation 
-oder der Funktion `subset()` nur die gewünschten Spalten auswählen.
+`colMeans()` darauf anzuwenden. Hier muss jede Spalte einen numerischen 
+Vektor enthalten. 
 
 ## Item-Interkorrelationen
 
@@ -113,7 +120,7 @@ Argument einen `data.frame` erhält, wird eine Tabelle ausgegeben, die
 die Korrelation zwischen allen Spalten -- d.h. Items -- des 
 `data.frames` enthält.
 
-```R
+```{r, eval = FALSE}
 round(cor(test_data), 2)
 ```
 
@@ -124,6 +131,13 @@ kable(round(item_correlations, 2))
 
 Die Korrelationen wurden aus Darstellungszwecken mit der Funktion
 `round()` auf zwei Nachkommastellen gerundet.
+
+### Exkurs: Zwischen welchen Items besteht die höchste Korrelation
+
+Große Item-Korrelationsmatritzen sind oftmals unübersichtlich, um sich 
+einen Überblick darüber zu verschaffen, welche Items stark oder weniger 
+stark korrelieren. Typischerweise wüsste man beispielsweise gerne, 
+welche zwei Items miteinander am stärksten korrelieren.
 
 ## Item-Trennschärfen {#trennschaerfe}
 
