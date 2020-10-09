@@ -1,0 +1,257 @@
+
+# Evil for loops
+
+
+## Funktionsausgabe: `data.frame` oder `matrix`?
+
+Des Weiteren werden wir uns fragen müssen, was für ein `R`-Objekt die Funktion 
+zurückgeben soll. Wie wir sehen werden, wird sich diese Frage aber quasi von 
+selbst beantworten; generell ist die Frage nach den Funktionsargumenten oft 
+kritischer -- in diesem Fall aber tatsächlich auch nicht schwierig zu klären.
+
+- Matrix: "reduzierter" `data.frame`, in dem alle Elemente 
+denselben Datentyp haben (wie im Vektor; prinzipiell ist eine Matrix auch ein 
+Vektor)
+- In Matrix: Auswahl per `[·,·]`-Notation; `$` geht nicht; `[[·]]` und `[·]`
+können verwendet werden, wählen aber nicht Spalten aus, wie man das aus einem 
+data.frame gewöhnt wäre (**was passiert hier stattdessen?**[^matrixistvektor])
+- `data.frame` ist sowohl Matrix (von der Struktur her -> daher wird die 
+`[·,·]`-Notation geerbt) als auch Liste; daher werden die `[[·]]`- und 
+`[·]`-Notationen geerbt
+- Konstruktion Matrix: `matrix()`; Argumente `nrow()` und `ncol()` wichtig
+
+[^matrixistvektor]: `[[·]]` und `[·]` betrachten die Matrix als eindimensionalen 
+Vektor; bei `mat[2]` oder `mat[[2]]` wird also das zweite Element der Matrix 
+ausgegeben. Was heißt bei einer Matrix das *zweite* Element? Möglich wäre: Der 
+Wert in der ersten Zeile, zweite Spalte, oder der Wert in der zweiten Zeile, 
+erste Spalte. In `R` ist letzteres der Fall, also der Wert in der zweiten 
+Zeile. Man sagt, Matritzen werden in "column major order" abgespeichert, weil 
+zunächst die Elemente der ersten Spalte gespeichert werden, dann der zweiten, 
+etc.
+
+
+Die Ausgabe der Funktion ist also ein neuer `data.frame`; in der 
+problemspezifischen Schleife, die ohne eigene Funktion auskam, hatten wir den 
+Luxus, dass die bepunkteten Items direkt an unseren Haupt-`data.frame` angehängt 
+wurden. Um die bepunkteten Spalten auch noch an den `data.frame` anzuhängen, 
+müssten wir die von `score_items()` Tabelle und unseren ursprünglichen 
+`data.frame` zusammenfügen; glücklicherweise ist das sehr leicht möglich mit der
+Funktion `data.frame()`
+
+```{r, eval = FALSE}
+npi <- data.frame(npi, scores)
+```
+
+## Vektorisierung und Matritzen
+
+Ich denke, wir können mit unserer eigenen Funktion zur Berechnung von 
+Item-Scores ziemlich zufrieden sein. Was jedoch, wenn ich euch mitteile, dass 
+folgende Funktion auch schon dasselbe macht---ganz ohne `for`-Schleife:
+
+```{r}
+score_items <- function(items, keys) {
+  scores <- t(t(items) == keys) 
+  scores * 1
+}
+```
+
+Hier führe ich die komplette Bepunktung mit nur einer einzigen logischen Abfrage 
+durch. Warum geht das? Der Grund liegt darin, dass die Vektorisierung in `R` so 
+mächtig ist, dass sie nicht bei dem eindimensionalen eigentlichen Vektor stoppt, 
+sondern auch auf komplexeren Datenstrukturen wirkt, wie zweidimensionalen 
+`data.frames`. Um das vektorisierte Verhalten auszunutzen, war hier jedoch die 
+Funktion `t()` nötig, die wir im Folgenden betrachten, um zu verstehen, wie die 
+Funktion oben funktioniert. Ich werde etwas ausholen und dabei noch einige 
+Grundlagen von `R` erklären. Habt also etwas Geduld.
+
+- `t()` vertauscht Spalten und Zeilen in einer Datenmatrix (Matrixtransponierung)
+- `t()` ergibt Matrix; 
+- In Matrix können wir einen logischen Vergleich durchführen zwischen Vektor und 
+Matrix durchführen. Dieser Vergleich verknüpft jede Spalte Matrix vektorisiert 
+mit dem Vektor durch die angegebene logische Operation.
+
+```{r}
+mat <- matrix(1:9, ncol = 3)
+mat
+
+mat == 1:3
+mat == 3:1
+mat == c(1, 5, 9)
+```
+
+Hierbei wird jede Spalte in der Matrix als Vektor interpretiert und 
+
+### Weitere vektorisierte Operationen auf Matritzen
+
+- Maximum einer Korrelationsmatrix
+- `which(arr.ind = TRUE)` -> wo ist das Maximum der Korrelationsmatrix
+
+### Was ist schneller: `for`-Schleife oder vektorisierte Variante
+
+Hier sind Geschwindigkeits-optimierte Varianten der Funktion mit Vektorisierung 
+und `for`-Schleife. Insbesondere habe ich darin die Aufrufe der Funktion 
+`ifelse()` entfernt, die hier ja nur `TRUE`/`FALSE` in 1/0 umgewandelt hat. 
+Wegen des direkten Zusammenhangs dieser Datentypen kann man das aber auch 
+schneller machen als per `ifelse()`; hier ändere ich einfach mit der Funktion 
+`mode()` vor der Rückgabe den Datentyp, was keine zusätzlichen Berechnungen 
+erfordert und deswegen die Laufzeit verbessert.
+
+```{r}
+score_items_for <- function(items, keys) {
+  for (i in 1:ncol(items)) {
+    items[, i] <- items[, i] == keys[i]
+  }
+  mode(items) <- "numeric"
+  items
+}
+
+score_items_vectorized <- function(items, keys) {
+  scores <- t(t(items) == keys) 
+  mode(scores) <- "numeric"
+  scores
+}
+
+# Variante mit vielen Personen, wenig Items (wie in der Psychologie üblich)
+N <- 10000
+M <- 40
+
+# Simuliere Itemantworten mit Werten = 1 und 2 und Schlüssel 
+# mit Werten 1 und 2
+items <- matrix(sample(1:2, size = N * M, replace = TRUE), ncol = M)
+keys  <- sample(1:2, size = M, replace = TRUE)
+
+library(microbenchmark)
+microbenchmark(
+  score_items_vectorized(items, keys),
+  score_items_for(items, keys)
+)
+
+```
+
+Es macht hier quasi keinen Unterschied. Wie sieht es bei vielen Items und wenig
+Personen aus?
+
+```{r}
+items <- matrix(sample(1:2, size = N * M, replace = TRUE), ncol = N)
+keys  <- sample(1:2, size = N, replace = TRUE)
+
+library(microbenchmark)
+microbenchmark(
+  score_items_vectorized(items, keys),
+  score_items_for(items, keys)
+)
+
+```
+
+Hier ist der Unterschied größer, aber praktisch auch komplett zu 
+vernachlässigen.
+
+---
+
+## for-loops are evil -- oder nicht?
+
+Häufiges credo in der `R`-Gemeinschaft: `for`-loops = evil. Warum? Der
+einzige Grund - meiner Lesart zufolge - ist, dass for-Schleifen oft
+langsamer als mögliche Alternativen sind. Was könnten mögliche
+Alternativen sein?  Betrachten wir den folgenden Code zur Berechnung der
+Summe der Elemente eines Vektors:
+
+```{r}
+zahlen <- 1:10
+summe  <- 0
+for (i in 1:length(zahlen)) {
+  summe <- summe + zahlen[i]
+}
+```
+
+Betrachten wir folgende Alternative:
+
+```{r}
+sum(1:10)
+```
+
+Letztere Variante ist nicht nur besser lesbar, sondern sogar
+effizienter, was bei nur 10 Elementen aber noch nicht ins Gewicht
+fällt. Hierbei ist die Alternative zur for-Schleife sehr naheliegend, da
+viele Funktionen und Operationen in `R` direkt *vektorbasiert*
+arbeiten. Aber nicht immer ist eine bessere Alternative zu einer
+Schleife naheliegend oder überhaupt existent.  Insgesamt können wir auf
+der Suche nach besseren Alternativen zu for-Schleifen mindestens auf die
+folgenden drei Probleme stoßen:
+
+1. Was ist die Alternative?
+2. Lohnt sich der Aufwand, die for-Schleife zu ersetzen? Ist sie
+wirklich zu langsam? Was heißt langsam? `for`-Schleifen werden in den
+meisten Fällen unser Problem auch schnell. Wenn ich wie im Beispiel oben
+40 Spalten mit einer for-Schleife abarbeite, ist es vollkommen egal, ob
+ich eine for-Schleife oder eine total tolle Alternative verwende. Lass
+uns bei 4,000 Spalten noch mal über Alternativen reden.
+3. Alternativen sind oft problemspezifisch (siehe `sum`),
+`for`-Schleifen können ganz allgemein genutzt werden, um verschiedene
+Problem zu lösen
+
+Aber: oftmals gibt es Alternativen.  Wenn man sie kennt, lohnt es sich
+oft, auf die Alternative auszuweichen. Problem: man kennt nicht immer
+die Alternative; außerdem ist eine for Schleife oftmals nützlich, um
+eine Problemlösung überhaupt einmal zu überprüfen. Denn: Code, der ein
+Problem löst, ist immer besser als kein Code.
+
+Beispiele: rowSums
+
+Betrachten wir die folgende Schleife, die für jeden Teilnehmenden des
+NPI einen Summenwert berechnet:
+
+```{r}
+## Meine eigene for-Schleife: pro Zeile ein Durchlauf der Schleife
+slowRowSums <- function(df) {
+  sums <- vector(length = nrow(df))
+  for (j in 1:nrow(df)) {
+    sums[i] <- sum(df[i, ]) # Summe der i'te Zeile
+  }
+}
+#system.time(slowRowSums(npi_recoded))
+#system.time(rowSums(npi_recoded))
+```
+
+Kann meine eigene Funktion `slowRowSums` mit `rowSums` mithalten (der
+Name würde suggerieren: nein)?  Funktional macht sie offensichtlich
+dasselbe. Die Funktion `system.time` berechnet für mich die Laufzeit
+beider Funktionen:
+
+```R
+## Teste die Laufzeiten von rowSums und slowRowSums
+system.time(slowRowSums(items))
+     User      System verstrichen
+    3.608       0.000       3.610
+system.time(rowSums(items))
+     User      System verstrichen
+    0.008       0.000       0.005
+```
+
+Lassen wir die drei verschiedenen Zeiten einmal außer Acht. Der
+Unterschied ist in diesem Fall dramatisch: Etwa 3.5 Sekunden vs. < .01
+Sekunde. Obwohl `rowSums`, genauso wie meine for-Schleife, für alle
+Zeilen den Summenwert berechnet, ist sie um einen Faktor zwischen
+`r round(3.528 / 0.004)` und `r round(3.529 / 0.005)` schneller. Das ist
+schwer zu glauben -- wie kann das sein? Ich werde auf die Antwort nicht
+allzu detailliert eingehen. Beachtet, dass `rowSums` eine sogenannte
+"vektorisierte" Funktion ist. Sie läuft intern mit schnellen Operationen
+der `C`-Programmiersprache. `R` selbst ist etwas langsamer, weswegen
+Durchläufe der `R`-eigenen for-Schleife etwas länger dauern.
+
+Vektorisiert sind beispielsweise auch arithmetische Operationen (plus,
+minus, geteilt...), logische Operationen (UND, ODER), und viele der
+grundlegenden Vektorfunktionen (mean, sum, usw).
+
+Ich werde das Thema Effizienz von Schleifen und vektorisierten
+Funktionen nicht weiter ausführen, aber es ist gut, zumindest grob über
+das Thema Bescheid zu wissen. Im Zweifelsfall hilft in der konkreten
+Anwendung eine Google-Suche nach dem Schema "Gibt es für mein Problem
+eine schnelle vektorisierte Variante in `R`?". Aus meiner Sicht lohnt
+sich das aber nur, wenn der Code wirklich merklich langsam ist. Nicht
+immer lohnt sich der Zusatzaufwand.
+
+Lasst euch auf jeden Fall erst einmal nicht davon abhalten, eine
+for-Schleife zu schreiben. Eine for-Schleife, die ein Problem löst, ist
+immer besser, als gar keine Lösung zu haben bzw. Copy & Paste zu
+betreiben. Optimieren kann man später bei Bedarf immer noch.
