@@ -7,7 +7,6 @@ output:
     includes:
       before_body: "00_Lizenz.tex"
 
-lang: de-DE
 header-includes:
   - \usepackage{dsfont}
   - \usepackage{upgreek}
@@ -15,6 +14,7 @@ header-includes:
   - \usepackage{csquotes}
   - \usepackage{hyperref}
   - \hypersetup{colorlinks = true}
+  - \usepackage[german]{babel}
 
 geometry: "left=2.55cm,right=2.55cm,top=2.55cm,bottom=2.55cm"
 
@@ -75,7 +75,7 @@ set.seed(42)
 
 \clearpage
 
-```{r child = '09_anova.Rmd'}
+```{r child = '08_Funktion_ItemScores.Rmd'}
 ```
 
 \clearpage
