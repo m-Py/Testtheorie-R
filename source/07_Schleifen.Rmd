@@ -380,3 +380,13 @@ Hier wird die Index-Variable `i` gleich mehrfach verwendet: (1) zur
 Auswahl der Spalten, die den jeweiligen Testwert berechnen; (2) zur
 Auswahl der Spalte des Items, für das die Trennschärfe bestimmt wird;
 (3) zum Abspeichern der Trennschärfe im Vektor `discriminations`.
+
+## Fragen zum vertiefenden Verständnis
+
+1. Schreibt eine Funktion, die die Summe aller Elemente eines numerischen 
+Vektors ausrechnet (also einfach die Funktionalität der Funktion `sum()` 
+implementiert). Nutzt dabei eine `for`-Schleife, die über die einzelnen Elemente 
+des Vektors "iteriert". 
+2. Recherchiert im Internet, wie ihr mit dem Paket `microbenchmark` die 
+Schnelligkeit eurer eigenen Funktion mit der eingebauten `R`-Funktion `sum()` 
+vergleichen könnt. Was bemerkt ihr? 
