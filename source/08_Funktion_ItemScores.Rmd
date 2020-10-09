@@ -3,25 +3,26 @@
 
 In diesem Kapitel stelle ich eine Anwendung unserer bisher erworbenen 
 Programmierkenntnisse vor: Wir schreiben eine eigene Funktion, die für beliebige 
-Datensätze eine Bepunktung von Testitems umsetzt. Funktionen zu schreiben 
-bedeutet immer, das gegebene Problem zu abstrahieren; man geht weg von der 
-konkreten Problematik (etwa, dem einzelnen Datensatz) und versucht die Essenz 
-des Problems zu begreifen und zu lösen. Die Bepunktung von Items bietet sich 
-sehr gut als Beispiel für die "Extraktion" einer Funktion an, da das Problem bei 
-beliebigen Testinventaren auftreten kann; wir könnten eine generalisierte 
-Funktion in ganz vielen unterschiedlichen Datenauswertungen gebrauchen.
+Datensätze die Bepunktung von Testitems umsetzt. Dabei kombinieren wir unsere 
+erworbenen Kenntnisse aus den letzten beiden Kapiteln zu Funktionen und zu 
+Schleifen. Wir gehen vor allem auf die Entscheidungen ein, die beim Schreiben 
+einer Funktion getroffen werden müssen, es geht hier weniger um die eher 
+technische Programmierseite der Definition von Funktionen. 
 
-In diesem Kapitel kombinieren wir unsere erworbenen Kenntnisse aus den letzten 
-beiden Kapiteln zu Funktionen und zu `for`-Schleifen. Außerdem führt das Kapitel 
-noch in weitere, bislang nicht betrachtete Grundlagen von `R` ein, insbesondere 
-die Datenstruktur der Matrix. 
+Eine Funktion zu schreiben bedeutet, ein gegebene Problem zu abstrahieren, sich 
+von der konkreten Problematik (zumeist: dem einzelnen Datensatz), zu entfernen, 
+die Essenz des Problems zu begreifen, und eine allgemeines Schema zur Lösung des 
+Problems herzustellen. Die Bepunktung von Items bietet sich sehr gut als 
+Beispiel für die "Extraktion" einer Funktion an, da das Problem bei beliebigen 
+Testinventaren auftreten kann; wir könnten eine generalisierte Funktion in ganz 
+vielen unterschiedlichen Datenauswertungen gebrauchen.
 
 ## Problemspezifischer Code vs. abstrahierter Code
 
-Betrachten wir noch einmal die Schleifen zur Bepunktung der NPI-Items 
-aus dem letzten Kapitel und überlegen, welche Bestandteile des Codes 
-problemspezifisch sind; diese müssen in einer Funktion entfernt werden, aber
-die Funktionalität des Codes muss natürlich erhalten bleiben.
+Betrachten wir noch einmal die Schleifen zur Bepunktung der NPI-Items aus dem 
+letzten Kapitel und überlegen, welche Bestandteile des Codes problemspezifisch 
+sind; diese müssen in einer Funktion entfernt werden, aber die Funktionalität 
+des Codes muss natürlich erhalten bleiben.
 
 ```{r}
 for (i in 1:40) {
@@ -54,189 +55,225 @@ oder wir adressieren die Spalten gleich mit einem [numerischen
 Index](#indexadressierung).
 
 Diese Erkenntnisse sind wichtig, um den problemspezifischen Code in eine 
-Funktion umzuwandeln. Die allerwichtigste Frage jedoch ist noch eine weitere: 
-Was für Argumente soll unsere Funktion annehmen?
-
-## Funktionsargumente
-
-Ich entscheide mich in diesem Fall für die folgenden Argumente: 
-
-1. `data.frame` aus den Testitems -- nicht die gesamte Datentabelle, die vorliegt
-2. Vektor mit Schlüssel (Länge dieses Vektors = Zahl der Spalten im `data.frame`)
-3. Optional: Spaltennamen (Diese sind oft problemspezifisch; wir sollten eine 
-Möglichkeit anbieten, die Spaltennamen festzulegen. Wir können überlegen, ob wir
-dafür einen  Standardwert vergeben.)
-
-Diese Variante halte ich für gute Praxis; darin steckt natürlich meine 
-subjektive Einschätzung.
-
-```{r}
-# Parameter `items`: Datenmatrix im psychometrischen Standardformat
-# Parameter `keys`: Vektor, der pro Item den Schlüssel enthält
-# Hinweis: Bei der Nutzung der Funktion muss gelten: 
-#  `ncol(items) == length(keys)`
-# Gibt eine Tabelle zurück, die dieselben Ausmaße hat wie `items` und pro Person
-# die Scores pro Item enthält.
-score_items2 <- function(items, keys) {
-  for (i in 1:ncol(items)) {
-    items[, i] <- ifelse(items[, i] == keys[i], 1, 0)
-  }
-  items # hier return() gar nicht nötig
-}
-```
-
-
-### Schlechte Praxis bei Funktionsargumenten
-
-- Vorannahme über die Spaltennamen
-- Gesamte Datentabelle übergeben (dann: Rückgabe ist diese Tabelle + die Spalten 
-mit den bepunkteten Items)
-- Gesamte Datentabelle übergeben, kein Rückgabewert, Spalten werden direkt 
-
-All diese Praktiken sorgen dafür, dass die Funktion weniger abstrakt und 
-stattdessen problemspezifischer wird. Die Funktion, die wir oben geschrieben
-haben, mit den Argumenten und der Rückgabe ist allgemein nutzbar und auch 
-
-## Funktionsausgabe: `data.frame` oder `matrix`?
-
-Des Weiteren werden wir uns fragen müssen, was für ein `R`-Objekt die Funktion 
-zurückgeben soll. Wie wir sehen werden, wird sich diese Frage aber quasi von 
-selbst beantworten; generell ist die Frage nach den Funktionsargumenten oft 
-kritischer -- in diesem Fall aber tatsächlich auch nicht schwierig zu klären.
-
-- Matrix: "reduzierter" `data.frame`, in dem alle Elemente 
-denselben Datentyp haben (wie im Vektor; prinzipiell ist eine Matrix auch ein 
-Vektor)
-- In Matrix: Auswahl per `[·,·]`-Notation; `$` geht nicht; `[[·]]` und `[·]`
-können verwendet werden, wählen aber nicht Spalten aus, wie man das aus einem 
-data.frame gewöhnt wäre (**was passiert hier stattdessen?**[^matrixistvektor])
-- `data.frame` ist sowohl Matrix (von der Struktur her -> daher wird die 
-`[·,·]`-Notation geerbt) als auch Liste; daher werden die `[[·]]`- und 
-`[·]`-Notationen geerbt
-- Konstruktion Matrix: `matrix()`; Argumente `nrow()` und `ncol()` wichtig
-
-[^matrixistvektor]: `[[·]]` und `[·]` betrachten die Matrix als eindimensionalen 
-Vektor; bei `mat[2]` oder `mat[[2]]` wird also das zweite Element der Matrix 
-ausgegeben. Was heißt bei einer Matrix das *zweite* Element? Möglich wäre: Der 
-Wert in der ersten Zeile, zweite Spalte, oder der Wert in der zweiten Zeile, 
-erste Spalte. In `R` ist letzteres der Fall, also der Wert in der zweiten 
-Zeile. Man sagt, Matritzen werden in "column major order" abgespeichert, weil 
-zunächst die Elemente der ersten Spalte gespeichert werden, dann der zweiten, 
-etc.
-
-
-Die Ausgabe der Funktion ist also ein neuer `data.frame`; in der 
-problemspezifischen Schleife, die ohne eigene Funktion auskam, hatten wir den 
-Luxus, dass die bepunkteten Items direkt an unseren Haupt-`data.frame` angehängt 
-wurden. Um die bepunkteten Spalten auch noch an den `data.frame` anzuhängen, 
-müssten wir die von `score_items()` Tabelle und unseren ursprünglichen 
-`data.frame` zusammenfügen; glücklicherweise ist das sehr leicht möglich mit der
-Funktion `data.frame()`
+Funktion umzuwandeln. In einer Funktion wollen wir mit einem beliebigen 
+`data.frame` arbeiten können. Dies impliziert, dass wir einer Funktion einen 
+`data.frame` übergeben müssen, der nur aus den Spalten der Items besteht, die 
+tatsächlich umkodiert werden müssen. Alle anderen Spalten sind für das Problem 
+als solches nicht relevant. Im Folgenden Beispiel habe ich den Code 
+umgeschrieben und alle problemspezifischen Aspekte entfernt; danach muss der 
+Code aber noch in eine Funktion gepackt werden. 
 
 ```{r, eval = FALSE}
-npi <- data.frame(npi, scores)
+
+# Annahmen:
+#   * `df` ist ein data frame, der die Items enthält
+#   * `keys` ist ein Vektor, der die Schlüssel enthält
+
+n_items <- ncol(df) 
+
+# Folgendes muss TRUE ergeben: `n_items == length(keys)`! Warum?
+
+# Lies die Spaltennamen aus:
+item_names <- colnames(df)
+
+for (i in 1:n_items) {
+    # Direkte Umkodierung des i'ten Items:
+    coded_responses <- ifelse(df[[i]] == keys[i], 1, 0)
+    # Hänge umkodierte Werte an den urspünglichen data frame an:
+    new_colname <- paste0("coded_", item_names[i])
+    df[[new_colname]] <- coded_responses
+}
+
 ```
 
-## Vektorisierung und Matritzen
 
-Ich denke, wir können mit unserer eigenen Funktion zur Berechnung von 
-Item-Scores ziemlich zufrieden sein. Was jedoch, wenn ich euch mitteile, dass 
-folgende Funktion auch schon dasselbe macht---ganz ohne `for`-Schleife:
+Dieser Code ist schon recht nah an der Funktionalität einer Funktion dran; indem 
+wir die Variablen `df` und `keys` mit für uns angepassten Werten versehen, 
+könnten wir den Code wiederholt aufrufen und damit in verschiedenen 
+Datenauswertungen das Problem der Item-Umkodierung lösen. Aber: der nächste 
+Schritt, tatsächlich eine Funktion daraus zu bauen, macht den Code noch 
+nützlicher. 
+
+In einer Funktion wandeln wir die zwei Variablen aus dem obigen Code in 
+Parameter um; sie sind die einzigen Werte, die sich an ein konkretes Problem 
+anpassen müssen. Die Funktion, die wir erhalten sieht somit wie folgt aus: 
 
 ```{r}
-score_items <- function(items, keys) {
-  scores <- t(t(items) == keys) 
-  scores * 1
+score_items <- function(df, keys) {
+    n_items <- ncol(df) 
+    item_names <- colnames(df)
+    for (i in 1:n_items) {
+        coded_responses <- ifelse(df[[i]] == keys[i], 1, 0)
+        new_colname <- paste0("coded_", item_names[i])
+        df[[new_colname]] <- coded_responses
+    }
+    # Gib den data frame mit den zusätzlichen Spalten zurück:
+    return(df)
 }
 ```
 
-Hier führe ich die komplette Bepunktung mit nur einer einzigen logischen Abfrage 
-durch. Warum geht das? Der Grund liegt darin, dass die Vektorisierung in `R` so 
-mächtig ist, dass sie nicht bei dem eindimensionalen eigentlichen Vektor stoppt, 
-sondern auch auf komplexeren Datenstrukturen wirkt, wie zweidimensionalen 
-`data.frames`. Um das vektorisierte Verhalten auszunutzen, war hier jedoch die 
-Funktion `t()` nötig, die wir im Folgenden betrachten, um zu verstehen, wie die 
-Funktion oben funktioniert. Ich werde etwas ausholen und dabei noch einige 
-Grundlagen von `R` erklären. Habt also etwas Geduld.
-
-- `t()` vertauscht Spalten und Zeilen in einer Datenmatrix (Matrixtransponierung)
-- `t()` ergibt Matrix; 
-- In Matrix können wir einen logischen Vergleich durchführen zwischen Vektor und 
-Matrix durchführen. Dieser Vergleich verknüpft jede Spalte Matrix vektorisiert 
-mit dem Vektor durch die angegebene logische Operation.
+Freunde von kürzerem Code können hier einige Zeilen sparen; etwa die folgende 
+Definition der Funktion ist äquivalent: 
 
 ```{r}
-mat <- matrix(1:9, ncol = 3)
-mat
-
-mat == 1:3
-mat == 3:1
-mat == c(1, 5, 9)
+score_items <- function(df, keys) {
+    for (i in 1:ncol(df)) {
+        col <- colnames(df)[i]
+        df[[paste0("coded_", col)]] <- ifelse(df[[i]] == keys[i], 1, 0)
+    }
+    df # `return()` hier sogar gar nicht nötig
+}
 ```
 
-Hierbei wird jede Spalte in der Matrix als Vektor interpretiert und 
-
-### Weitere vektorisierte Operationen auf Matritzen
-
-- Maximum einer Korrelationsmatrix
-- `which(arr.ind = TRUE)` -> wo ist das Maximum der Korrelationsmatrix
-
-### Was ist schneller: `for`-Schleife oder vektorisierte Variante
-
-Hier sind Geschwindigkeits-optimierte Varianten der Funktion mit Vektorisierung 
-und `for`-Schleife. Insbesondere habe ich darin die Aufrufe der Funktion 
-`ifelse()` entfernt, die hier ja nur `TRUE`/`FALSE` in 1/0 umgewandelt hat. 
-Wegen des direkten Zusammenhangs dieser Datentypen kann man das aber auch 
-schneller machen als per `ifelse()`; hier ändere ich einfach mit der Funktion 
-`mode()` vor der Rückgabe den Datentyp, was keine zusätzlichen Berechnungen 
-erfordert und deswegen die Laufzeit verbessert.
+Probieren wir unseren Code mit dem NPI-Datensatz aus. Wir nutzen der Übersicht 
+halber nur einen sehr kleinen Teil des Datensatzes (4 Personen + 4 Items):
 
 ```{r}
-score_items_for <- function(items, keys) {
-  for (i in 1:ncol(items)) {
-    items[, i] <- items[, i] == keys[i]
+items <- npi_clean[1:4, paste0("Q", 1:4)]
+items
+
+items_scored <- score_items(items, keys[1:4])
+items_scored
+```
+
+## Entscheidungen und Varianten
+
+Funktionen zu schreiben bedeutet nicht nur die technische Seite zu beherrschen 
+und ein Problem zu abstrahieren -- vielmehr stecken darin weiterhin einige 
+subjektive Entscheidungen, die die Nutzung der Funktion betreffen. Es ist kein 
+Zufall, wie ich oben die Funktion `score_items()` geschrieben habe, jedoch hätte 
+sie auch anders aussehen können. Damit meine ich nicht nur den Code im Körper 
+der Funktion, sondern auch deren Verhalten, etwa: welche Parameter nimmt die 
+Funktion an, und welchen Wert gibt sie zurück. Exemplarisch zeige ich im 
+Folgenden einige Varianten dieser Funktion, die sich im Verhalten unterscheiden, 
+obwohl in jedem Fall prinzipiell dasselbe geschieht: eine Funktion kodiert eine 
+Sammlung von Testitems um. 
+
+### Version 2: Keine Rückgabe der Ursprungsdaten
+
+```{r}
+score_items2 <- function(df, keys) {
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
   }
-  mode(items) <- "numeric"
-  items
+  df
 }
-
-score_items_vectorized <- function(items, keys) {
-  scores <- t(t(items) == keys) 
-  mode(scores) <- "numeric"
-  scores
-}
-
-# Variante mit vielen Personen, wenig Items (wie in der Psychologie üblich)
-N <- 10000
-M <- 40
-
-# Simuliere Itemantworten mit Werten = 1 und 2 und Schlüssel 
-# mit Werten 1 und 2
-items <- matrix(sample(1:2, size = N * M, replace = TRUE), ncol = M)
-keys  <- sample(1:2, size = M, replace = TRUE)
-
-library(microbenchmark)
-microbenchmark(
-  score_items_vectorized(items, keys),
-  score_items_for(items, keys)
-)
-
 ```
 
-Es macht hier quasi keinen Unterschied. Wie sieht es bei vielen Items und wenig
-Personen aus?
+Diese Variante der Funktion unterscheidet sich von der ersten Variante nur im 
+Rückgabewert. Was ist hier anders? Ich empfehle den Code zu studieren und 
+zunächst selbst zu überlegen. 
+
+Die Funktion `score_items2()` unterscheidet sich von der ersten Version dadurch, 
+dass hier nicht an den ursprünglichen `data.frame` zusätzliche Spalten angehängt 
+werden. Stattdessen werden die Spalten überschrieben! Das heißt: der ausgegebene 
+`data.frame` hat dieselbe Zahl an Spalten wie die Eingabe, aber die Spalten 
+enthalten nun die umkodierten Items (und zwar in der Reihenfolge, wie die Items 
+auch eingegeben wurden). Betrachten wir die Funktion in Aktion: 
 
 ```{r}
-items <- matrix(sample(1:2, size = N * M, replace = TRUE), ncol = N)
-keys  <- sample(1:2, size = N, replace = TRUE)
-
-library(microbenchmark)
-microbenchmark(
-  score_items_vectorized(items, keys),
-  score_items_for(items, keys)
-)
-
+items <- npi_clean[1:4, paste0("Q", 1:4)]
+items
+score_items2(items, keys[1:4])
 ```
 
-Hier ist der Unterschied größer, aber praktisch auch komplett zu 
-vernachlässigen.
+Meiner Einschätzung nach wäre diese Variante der ersten Variante zu bevorzugen, 
+aber beides ist in Ordnung. Im Endeffekt muss ja die Funktion nicht noch einmal 
+die Ursprungsdaten zurückgeben -- diese haben wir ja schon.
+
+### Version 3: Angabe der Spaltennamen
+
+Wir die Ausgabe von `score_items2()` betrachten, merken wir, dass der 
+ausgegebene `data.frame` natürlich dieselben Spaltennamen hat wie der 
+eingegebene. Das kann unschön werden, wenn wir die umkodierten Spalten 
+irgendwann wieder mit unseren anderen Daten in einem einzelnen `data.frame` 
+zusammenführen wollen. Eine Möglichkeit dieses Problem zu umgehen, ist es
+nachträglich mit der Funktion `colnames()`[^colnames] die Spaltennamen umzubenennen:
+
+[^colnames]: Tatsächlich kann `colnames()` sowohl zum Auslesen als auch zum 
+Schreiben von Spaltennamen verwendet werden; analoges gilt für die Funktionen 
+`names()` und `rownames()`. 
+
+```{r}
+items_scored <- score_items2(items, keys[1:4])
+items_scored
+colnames(items_scored) <- paste0("Q", 1:4, "_scored")
+items_scored
+```
+
+Wie folgt können wir dann übrigens die ursprünglichen und die umkodierten Items 
+in einem data.frame wieder zusammenfügen:
+
+```{r}
+new_df <- data.frame(
+  items,
+  items_scored
+)
+new_df 
+```
+
+Aber zurück zur Funktion: wir können die Änderung der Spaltennamen auch zur 
+Aufgabe der Funktion machen. Dann muss man es nicht jedes Mal nach dem Aufruf 
+der Funktion erneut selbst machen. Hierfür können wir einen dritten Parameter 
+hinzufügen, der zur Angabe der Spaltennamen dient. Ich definiere die Funktion 
+nun wie folgt: 
+
+```{r}
+score_items3 <- function(df, keys, column_names = colnames(df)) {
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
+  }
+  colnames(df) <- column_names
+  df
+}
+```
+
+Was ich hier gemacht habe, mag erst einmal etwas seltsam aussehen. Dem Argument 
+`column_names`, das innerhalb der Funktion die Spaltennamen anpasst, habe ich 
+einen Standardwert zugewiesen habe. Und zwar handelt es sich bei dem 
+Standardwert um die Spaltennamen des Parameters `df`. **Das ist eine legale 
+Definition der Funktion.** Ich greife bei der Definition des Standardwerts auf 
+einen anderen Parameter zu. Das heißt im Klartext: Im Normalfall verhält sich 
+`score_items3()` genauso wie die Vorgängerversion `score_items2()`; die 
+Spaltennamen werden genauso ausgegeben wie sie reingekommen sind. Aber: Mit 
+`score_items3()` habe ich nun die Möglichkeit, die Spaltennamen anzupassen. Dann 
+sollte dem Argument `column_names` ein Vektor vom Typ `character` übergeben 
+werden, der die Spaltennamen enthält. Etwa so:
+
+```{r}
+score_items3(
+  df = npi_clean[1:4, paste0("Q", 1:4)], 
+  keys = keys[1:4], 
+  column_names = paste0("coded", 1:4)
+)
+```
+
+Sollte ich bevorzugen, dass die ausgegeben Spaltennamen sich im Standardfall 
+schon von den eingegangenen unterscheiden, kann ich auch etwa wie folgt den 
+Standardwert von `column_names` anpassen:
+
+```{r}
+score_items4 <- function(df, keys, 
+                         column_names = paste0(colnames(df), "_recoded")) {
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
+  }
+  colnames(df) <- column_names
+  df
+}
+```
+
+Hier habe ich schon einigen Code verwendet, nur in der Definition des 
+Standardwerts. Wenn wir nun `score_items4()` ohne Angabe von `column_names` 
+aufrufen, erhalten wir folgende Ausgabe:
+
+```{r}
+score_items4(
+  df = npi_clean[1:4, paste0("Q", 1:4)], 
+  keys = keys[1:4]
+)
+```
+
+Diese Variante der Funktion ist nützlich, wenn man sicherstellen will, dass man 
+nicht die ursprünglichen Items mit den rekodierten Items verwechselt -- was 
+schlimme Folgen haben kann, wenn es unbemerkt bleibt.
