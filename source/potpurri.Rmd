@@ -20,16 +20,6 @@ data.frame gewöhnt wäre (**was passiert hier stattdessen?**[^matrixistvektor])
 `[·]`-Notationen geerbt
 - Konstruktion Matrix: `matrix()`; Argumente `nrow()` und `ncol()` wichtig
 
-[^matrixistvektor]: `[[·]]` und `[·]` betrachten die Matrix als eindimensionalen 
-Vektor; bei `mat[2]` oder `mat[[2]]` wird also das zweite Element der Matrix 
-ausgegeben. Was heißt bei einer Matrix das *zweite* Element? Möglich wäre: Der 
-Wert in der ersten Zeile, zweite Spalte, oder der Wert in der zweiten Zeile, 
-erste Spalte. In `R` ist letzteres der Fall, also der Wert in der zweiten 
-Zeile. Man sagt, Matritzen werden in "column major order" abgespeichert, weil 
-zunächst die Elemente der ersten Spalte gespeichert werden, dann der zweiten, 
-etc.
-
-
 Die Ausgabe der Funktion ist also ein neuer `data.frame`; in der 
 problemspezifischen Schleife, die ohne eigene Funktion auskam, hatten wir den 
 Luxus, dass die bepunkteten Items direkt an unseren Haupt-`data.frame` angehängt 

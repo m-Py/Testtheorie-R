@@ -1,28 +1,37 @@
  
 # Eigene Funktion: Bepunktung von Items
 
-In diesem Kapitel stelle ich eine Anwendung unserer bisher erworbenen 
-Programmierkenntnisse vor: Wir schreiben eine eigene Funktion, die für beliebige 
-Datensätze die Bepunktung von Testitems umsetzt. Dabei kombinieren wir unsere 
-erworbenen Kenntnisse aus den letzten beiden Kapiteln zu Funktionen und zu 
-Schleifen. Wir gehen vor allem auf die Entscheidungen ein, die beim Schreiben 
-einer Funktion getroffen werden müssen, es geht hier weniger um die eher 
-technische Programmierseite der Definition von Funktionen. 
+In diesem Kapitel stelle ich eine Anwendung unserer bisher erworbenen Kenntnisse 
+vor: Wir schreiben eine Funktion, die für beliebige Datensätze die Bepunktung 
+von Testitems umsetzt. Dabei kombinieren wir die Inhalte aus den letzten 
+Kapiteln zu Funktionen und zu Schleifen. Dabei gehe ich vor allem auf die 
+Entscheidungen ein, die beim Schreiben einer Funktion getroffen werden müssen; 
+es geht hier weniger um die technischen Aspekte der Definition von Funktionen, 
+die wir bereits behandelt haben. 
 
-Eine Funktion zu schreiben bedeutet, ein gegebene Problem zu abstrahieren, sich 
-von der konkreten Problematik (zumeist: dem einzelnen Datensatz), zu entfernen, 
-die Essenz des Problems zu begreifen, und eine allgemeines Schema zur Lösung des 
-Problems herzustellen. Die Bepunktung von Items bietet sich sehr gut als 
-Beispiel für die "Extraktion" einer Funktion an, da das Problem bei beliebigen 
-Testinventaren auftreten kann; wir könnten eine generalisierte Funktion in ganz 
-vielen unterschiedlichen Datenauswertungen gebrauchen.
+Eine Funktion zu schreiben bedeutet, ein gegebenes Problem zu 
+abstrahieren.[^kopfanstrengen] Beim Schreiben einer Funktion entfernen wir uns 
+von der konkreten Problematik einer bestimmten Aufgabe -- zumeist: dem 
+Datensatz, den wir jetzt gerade bearbeiten--; wir versuchen die Essenz des 
+Problems zu begreifen und ein allgemeines Schema zur Lösung des Problems 
+herzustellen. 
+
+[^kopfanstrengen]: Das Schreiben einer Funktion erfordert zumeist etwas mehr 
+Mühe als einfach nur "dahin-zu-coden" in einem R-Skript. Aber auf lange Sicht 
+lohnt sich der Aufwand. Denkt an euer zukünftiges Ich, das von der Mühe im Jetzt 
+profitiert. 
+
+Die Bepunktung von Items bietet sich sehr gut als Beispiel für die "Extraktion" 
+einer Funktion an, da das Problem bei beliebigen Testinventaren auftreten kann 
+und nicht nur für eine einzelne Datenauswertung relevant ist.
 
 ## Problemspezifischer Code vs. abstrahierter Code
 
-Betrachten wir noch einmal die Schleifen zur Bepunktung der NPI-Items aus dem 
-letzten Kapitel und überlegen, welche Bestandteile des Codes problemspezifisch 
-sind; diese müssen in einer Funktion entfernt werden, aber die Funktionalität 
-des Codes muss natürlich erhalten bleiben.
+Betrachten wir noch einmal den Code Schleifen zur Bepunktung der NPI-Items aus 
+dem letzten Kapitel und überlegen, welche Bestandteile des Codes 
+problemspezifisch sind. Alle problemspezifischen Aspekte müssen in einer 
+Funktion entfernt werden, wobei die generelle Funktionalität des Codes natürlich 
+erhalten bleiben muss.
 
 ```{r}
 for (i in 1:40) {
@@ -39,34 +48,38 @@ for (i in 1:40) {
 }
 ```
 
-Welche Bestandteile dieses Codes sind problemspezifisch?
+Welche Bestandteile dieses Codes sind problemspezifisch? Überlegt am besten 
+zunächst selbst.
 
-1. Die Zahl der Schleifendurchläufe ist "hart kodiert" und nicht dynamisch; hier 
-wird angenommen, dass die Schleife 40 Mal laufen muss, was daran liegt, dass das 
-NPI aus 40 Items besteht und wir deswegen 40 Spalten bearbeiten. In einer 
-Funktion sollten wir `ncol()` nutzen, um die Zahl der zu bearbeitenden Spalten 
-dynamisch auszulesen.
-2. Schritt 1 der Schleife greift auf die Spaltennamen des konkreten `data.frame`s 
+- Die Zahl der Schleifendurchläufe ist "hart kodiert" und nicht "dynamisch"; 
+dieser Code nimmt per sé an, dass die Schleife 40 Mal laufen muss. Das liegt 
+darandass das NPI aus 40 Items besteht und wir deswegen im letzten Kapitel 40 
+Spalten bearbeitet haben. Eine Funktion, die mit beliebigen Testinventaren 
+umgehen können muss, sollte jedoch `ncol()` nutzen, um die Zahl der zu 
+bearbeitenden Spalten dynamisch auszulesen.
+- Schritt 1 der Schleife greift auf die Spaltennamen des konkreten `data.frame`s 
 zu, der hier bearbeitet wurde. Eine allgemein nutzbare Funktion sollte natürlich 
 nicht davon ausgehen, dass die Namen in einem eingegebenen `data.frame` einem 
 bestimmten Schema folgen. Die Spaltennamen sollten entweder per `colnames()` 
-(bei `data.frames` ist dieser Befehl äquivalent zu `names()`) ausgelesen werden, 
-oder wir adressieren die Spalten gleich mit einem [numerischen 
+ausgelesen werden, oder wir adressieren die Spalten mit einem [numerischen 
 Index](#indexadressierung).
 
 Diese Erkenntnisse sind wichtig, um den problemspezifischen Code in eine 
-Funktion umzuwandeln. In einer Funktion wollen wir mit einem beliebigen 
-`data.frame` arbeiten können. Dies impliziert, dass wir einer Funktion einen 
-`data.frame` übergeben müssen, der nur aus den Spalten der Items besteht, die 
-tatsächlich umkodiert werden müssen. Alle anderen Spalten sind für das Problem 
-als solches nicht relevant. Im Folgenden Beispiel habe ich den Code 
+allgemein nutzbare Funktion umzuwandeln. In einer Funktion wollen wir mit einem 
+beliebigen `data.frame` arbeiten können. Dies impliziert unter anderem, dass wir 
+dieser Funktion eine Tabelle übergeben müssen, die nur aus die Spalten der Items 
+enthält, die tatsächlich umkodiert werden müssen. Alle anderen Spalten sind für 
+das Problem nicht relevant. Im Folgenden Beispiel habe ich den Code 
 umgeschrieben und alle problemspezifischen Aspekte entfernt; danach muss der 
-Code aber noch in eine Funktion gepackt werden. 
+Code aber noch in eine Funktion gepackt werden. Dabei gehe ich davon aus, dass 
+der `data.frame`, der die umzukodierenden Items enthält, in einer Variablen `df` 
+abgespeichert ist; die Schlüssel pro Item sollten in einem Vektor `keys` 
+abgespeichert sein. 
 
 ```{r, eval = FALSE}
 
 # Annahmen:
-#   * `df` ist ein data frame, der die Items enthält
+#   * `df` ist ein data frame, der die umzukodierenden Items enthält
 #   * `keys` ist ein Vektor, der die Schlüssel enthält
 
 n_items <- ncol(df) 
@@ -87,16 +100,24 @@ for (i in 1:n_items) {
 ```
 
 
-Dieser Code ist schon recht nah an der Funktionalität einer Funktion dran; indem 
+Dieser Code ist schon recht nah an der Funktionalität einer Funktion. Indem 
 wir die Variablen `df` und `keys` mit für uns angepassten Werten versehen, 
 könnten wir den Code wiederholt aufrufen und damit in verschiedenen 
-Datenauswertungen das Problem der Item-Umkodierung lösen. Aber: der nächste 
-Schritt, tatsächlich eine Funktion daraus zu bauen, macht den Code noch 
-nützlicher. 
+Datenauswertungen das Problem der Item-Umkodierung lösen. Etwa: 
+
+```{r}
+df <- npi_clean[, paste0("Q", 1:40)]
+keys <- c(1, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2,
+          1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2)
+```
+
+Probiert es aus!
+
+Aber: der nächste Schritt, tatsächlich eine Funktion daraus zu bauen, macht den 
+Code noch deutlich nützlicher. 
 
 In einer Funktion wandeln wir die zwei Variablen aus dem obigen Code in 
-Parameter um; sie sind die einzigen Werte, die sich an ein konkretes Problem 
-anpassen müssen. Die Funktion, die wir erhalten sieht somit wie folgt aus: 
+Argumente um. Die Funktion, die wir erhalten sieht somit wie folgt aus: 
 
 ```{r}
 score_items <- function(df, keys) {
@@ -143,8 +164,8 @@ und ein Problem zu abstrahieren -- vielmehr stecken darin weiterhin einige
 subjektive Entscheidungen, die die Nutzung der Funktion betreffen. Es ist kein 
 Zufall, wie ich oben die Funktion `score_items()` geschrieben habe, jedoch hätte 
 sie auch anders aussehen können. Damit meine ich nicht nur den Code im Körper 
-der Funktion, sondern auch deren Verhalten, etwa: welche Parameter nimmt die 
-Funktion an, und welchen Wert gibt sie zurück. Exemplarisch zeige ich im 
+der Funktion, sondern auch deren Verhalten, etwa: welche Argumente nimmt die 
+Funktion an und wie sieht der Rückgabewert aus. Exemplarisch zeige ich im 
 Folgenden einige Varianten dieser Funktion, die sich im Verhalten unterscheiden, 
 obwohl in jedem Fall prinzipiell dasselbe geschieht: eine Funktion kodiert eine 
 Sammlung von Testitems um. 
@@ -178,17 +199,18 @@ score_items2(items, keys[1:4])
 ```
 
 Meiner Einschätzung nach wäre diese Variante der ersten Variante zu bevorzugen, 
-aber beides ist in Ordnung. Im Endeffekt muss ja die Funktion nicht noch einmal 
-die Ursprungsdaten zurückgeben -- diese haben wir ja schon.
+aber beides ist in Ordnung. Man könnte argumentieren, dass die Funktion nicht 
+noch einmal die Ursprungsdaten zurückgeben muss -- diese haben wir ja schon, 
+wenn wir sie aufrufen.
 
 ### Version 3: Angabe der Spaltennamen
 
-Wir die Ausgabe von `score_items2()` betrachten, merken wir, dass der 
-ausgegebene `data.frame` natürlich dieselben Spaltennamen hat wie der 
-eingegebene. Das kann unschön werden, wenn wir die umkodierten Spalten 
-irgendwann wieder mit unseren anderen Daten in einem einzelnen `data.frame` 
-zusammenführen wollen. Eine Möglichkeit dieses Problem zu umgehen, ist es
-nachträglich mit der Funktion `colnames()`[^colnames] die Spaltennamen umzubenennen:
+Wir die Ausgabe von `score_items2()` betrachten, merken wir, dass ausgegebene 
+`data.frame` dieselben Spaltennamen hat wie der eingegebene. Das kann unschön 
+werden, wenn wir die umkodierten Spalten irgendwann wieder mit unseren anderen 
+Daten in einem einzelnen `data.frame` zusammenführen wollen. Eine Möglichkeit 
+dieses Problem zu umgehen, ist es nachträglich mit der Funktion 
+`colnames()`[^colnames] die Spaltennamen umzubenennen:
 
 [^colnames]: Tatsächlich kann `colnames()` sowohl zum Auslesen als auch zum 
 Schreiben von Spaltennamen verwendet werden; analoges gilt für die Funktionen 
@@ -202,7 +224,7 @@ items_scored
 ```
 
 Wie folgt können wir dann übrigens die ursprünglichen und die umkodierten Items 
-in einem data.frame wieder zusammenfügen:
+in einem einzelnen `data.frame` wieder zusammenfügen:
 
 ```{r}
 new_df <- data.frame(
@@ -212,11 +234,10 @@ new_df <- data.frame(
 new_df 
 ```
 
-Aber zurück zur Funktion: wir können die Änderung der Spaltennamen auch zur 
-Aufgabe der Funktion machen. Dann muss man es nicht jedes Mal nach dem Aufruf 
-der Funktion erneut selbst machen. Hierfür können wir einen dritten Parameter 
-hinzufügen, der zur Angabe der Spaltennamen dient. Ich definiere die Funktion 
-nun wie folgt: 
+Wir können die Änderung der Spaltennamen auch zur Aufgabe der Funktion machen. 
+In dem Fall müssen wir nicht jedes Mal nach dem Aufruf der Funktion erneut die 
+Spaltennamen anpassen. Hierfür können wir ein drittes Argument hinzufügen, der 
+zur Angabe der Spaltennamen dient. Ich definiere die Funktion nun wie folgt: 
 
 ```{r}
 score_items3 <- function(df, keys, column_names = colnames(df)) {
@@ -228,12 +249,12 @@ score_items3 <- function(df, keys, column_names = colnames(df)) {
 }
 ```
 
-Was ich hier gemacht habe, mag erst einmal etwas seltsam aussehen. Dem Argument 
-`column_names`, das innerhalb der Funktion die Spaltennamen anpasst, habe ich 
-einen Standardwert zugewiesen habe. Und zwar handelt es sich bei dem 
-Standardwert um die Spaltennamen des Parameters `df`. **Das ist eine legale 
+Was ich hier gemacht habe, sieht möglicherweise erst einmal etwas magisch aus. 
+Dem Argument `column_names`, das innerhalb der Funktion die Spaltennamen 
+anpasst, habe ich einen Standardwert zugewiesen -- und zwar handelt es sich bei 
+dem Standardwert um die Spaltennamen des Arguments `df`. **Das ist eine legale 
 Definition der Funktion.** Ich greife bei der Definition des Standardwerts auf 
-einen anderen Parameter zu. Das heißt im Klartext: Im Normalfall verhält sich 
+ein anderes Argument zu. Das heißt im Klartext: Im Normalfall verhält sich 
 `score_items3()` genauso wie die Vorgängerversion `score_items2()`; die 
 Spaltennamen werden genauso ausgegeben wie sie reingekommen sind. Aber: Mit 
 `score_items3()` habe ich nun die Möglichkeit, die Spaltennamen anzupassen. Dann 
@@ -277,3 +298,122 @@ score_items4(
 Diese Variante der Funktion ist nützlich, wenn man sicherstellen will, dass man 
 nicht die ursprünglichen Items mit den rekodierten Items verwechselt -- was 
 schlimme Folgen haben kann, wenn es unbemerkt bleibt.
+
+## Dokumentation von Funktionen 
+
+Die Dokumentation von Code ist ein wichtiges Thema, das ich in diesem Kapitel 
+kaum zur Genüge behandeln kann. Gerade bei Funktionen ist eine Dokumentation 
+essentiell, al­ler­min­des­tens im Rahmen von Kommentaren im Code. Auch wenn ihr 
+selbst die einzigen "Nutzer" eurer Funktion seid, müsst ihr deren Funktionsweise 
+dokumentieren; euer zukünftiges Ich wird euch andernfalls verfluchen, wenn ihr 
+die Funktion ein paar Wochen nicht verwendet habt.
+
+Bei der Dokumentation einer Funktion sollten alle Aspekte des 
+[Black-Box-Modells](#funktionen) abdeckt werden. Insbesondere muss dokumentiert 
+sein, welche Daten als Parameter übergeben werden müssen und welche der 
+Parameter optional sind. Eine Dokumentation der Rückgabe ist auch wünschenswert, 
+aber etwas weniger wichtig (die Ausgabe kann man im Zweifel noch inspizieren). 
+Seiteneffekte sollten vermieden werden und müssen deshalb nicht dokumentiert 
+werden.[^docsseiteneffekte] Alle hier diskutierten Funktionen haben keine 
+Seiteneffekte; das einzige, was sie nach außen abgeben ist der explizit 
+vorgesehene Rückgabewert. Entsprechend des Black-Box-Modell ist es weniger 
+wichtig die interne Funktionsweise einer Funktion zu dokumentieren; hier kann es 
+natürlich Ausnahmen geben.
+
+[^docsseiteneffekte]: Sollte die Funktion Seiteneffekte haben, müssen sie 
+natürlich dokumentiert werden. 
+
+Im Folgenden ein Beispiel zur Dokumentation der Funktion `score_items4()`
+
+```{r}
+
+# score_items4: Eine Funktion zur Bepunktung von Testitems
+#
+# Argument 1: `df` - ein data frame, der in dem die Spalten die Items
+#              des Tests sind. Enthält die rohen Antworten, die umkodiert 
+#              werden sollen.
+# Argument 2: `keys` - Ein Vektor, der pro Item den Schlüssel enthält. 
+#              Dabei kodiert der i'te Eintrag in `keys` den Schlüssel 
+#              zum i'ten Item (also der i'ten Spalte) in `df`. Es gilt 
+#              `ncol(df) == length(keys)`!
+# Argument 3: `column_names` - Optionales Argument. Ein Vektor vom Typ character, 
+#             der die Spalten des ausgegebenen data frames benennt. Im Normalfall 
+#             (also, wenn das Argument nicht spezifiziert wird): Verwendet die 
+#             Spaltennamen von `df` und hängt "_recoded".
+#            
+#
+# Ausgabe: Ein data frame, der dieselben Dimensionen hat wie die Eingabe `df`
+#          Antworten wurden entsprechend des Schlüssels umkodiert, d.h. eine 
+#          1 zeigt an, dass die Antwort dem Schlüssel entsprach, andernfalls 
+#          wird eine 0 ausgegeben. 
+
+score_items4 <- function(df, keys, 
+                         column_names = paste0(colnames(df), "_recoded")) {
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
+  }
+  colnames(df) <- column_names
+  df
+}
+```
+
+Wichtig ist eine inhaltliche Beschreibung der Funktionsargumente und auch eine 
+technische Beschreibung. 
+
+Eine etwas formalisiertere Variante der Dokumentation von Funktionen bietet das 
+Paket [`roxygen2`](https://roxygen2.r-lib.org/). Dieses ist jedoch vor allem 
+dann relevant, wenn man eigene R-Pakete schreibt. Für die ersten eigenen 
+Funktionen reicht es, wie hier im Beispiel, Code-Kommentare zu nutzen, um eine 
+Funktion zu dokumentieren. 
+
+## Abschließender Hinweis: Matritzen
+
+Solltet ihr die oben definierte Funktion zur Bepunktung von Items tatsächlich 
+selbst nutzen wollen, verwendet besser folgende Abwandlung: 
+
+```{r}
+score_items <- function(df, keys, 
+                        column_names = paste0(colnames(df), "_recoded")) {
+  for (i in 1:ncol(df)) {
+    df[, i] <- ifelse(df[, i] == keys[i], 1, 0)
+  }
+  colnames(df) <- column_names
+  df
+}
+```
+
+Hier verwende ich die `[·,·]`-Notation statt der `[[·]]`-Notation zur Auswahl 
+der Spalten. Der Grund hierfür ist, dass erstere allgemeiner nutzbar ist. Sie 
+funktioniert auch dann, wenn die Eingabe eine Matrix ist (siehe `?matrix`) und 
+kein `data.frame`. Eine Matrix ist strukturell äquivalent zu einem `data.frame`, 
+also eine zweidimensionale Tabelle bestehend aus Zeilen und Spalten. Jedoch muss 
+in einer Matrix jede Spalte -- und damit sogar jede einzelne Zelle -- denselben 
+Datentyp haben, wie wir es aus einem Vektor kennen. Wenn Antworten auf Testitems 
+numerisch kodiert sind, können diese also sowohl als `data.frame` als auch als 
+Matrix vorliegen.
+
+In Matritzen lassen sich Spalten nicht mit der `$`-Notation oder der 
+`[[·]]`-Notation auswählen, stattdessen *muss* die `[·,·]`-Notation genutzt 
+werden. Die `$`-Notation funktioniert gar nicht, die `[[·]]`-Notation kann ein 
+unerwartetes Ergebnis ergeben, da sie nur ein Element auswählen würde und nicht 
+eine ganze Spalte.[^matrixistvektor]
+
+[^matrixistvektor]: Technisch gesehen ist eine Matrix ein Vektor; die `[[·]]`- 
+und `[·]`-Notationen betrachten die Matrix als eindimensionalen Vektor. Bei 
+`mat[2]` oder `mat[[2]]` wird also das zweite Element -- und nicht die zweite 
+Spalte -- der Matrix ausgegeben. Eine interessante, aber auch schon recht 
+fortgeschrittene Frage ist nun: Was ist in einer Matrix das *zweite* Element? 
+Möglich wäre: Der Wert in der ersten Zeile, zweite Spalte, oder der Wert in der 
+zweiten Zeile, erste Spalte. In `R` ist letzteres der Fall, also der Wert in der 
+zweiten Zeile. Man sagt, Matritzen werden in "column major order" abgespeichert, 
+weil zunächst die Elemente der ersten Spalte gespeichert werden, dann der 
+zweiten, usw.
+
+Matritzen sind in `R` allgegenwärtig und stellen eine wichtige Datenstruktur 
+dar. Die Funktion `cor()` beispielsweise gibt eine Matrix und keinen 
+`data.frame` zurück, wenn man die Inter-Itemkorrelationen zwischen mehreren 
+Items anfordert. Hier muss man auf der Hut sein; ein typischer Fehler ist es, 
+dass mit der `$`-Notation Spalten aus Matritzen ausgelesen werden sollen, was 
+aber fehlschlägt. Wir haben bislang mit `data.frames` gearbeitet, da 
+Forschungsdaten im Normalfall immer als `data.frame` vorliegen -- man benötigt 
+eben im Normalfall mehrere Datentypen in einer Datentabelle. 
