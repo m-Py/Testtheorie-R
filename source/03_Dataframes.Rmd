@@ -63,6 +63,8 @@ abrufen:
 names(mdf)
 ```
 
+Alternativ funktioniert auch der Aufruf `colnames(mdf)`.
+
 ## Zugriff auf eine einzelne Spalte: die `$`-Notation
 
 Der `$`-Zugriff ist die grundlegendste Operation auf `data.frames`. Wir
