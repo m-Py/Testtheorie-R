@@ -150,9 +150,10 @@ Funktionen zu schreiben bedeutet nicht nur die technische Seite zu beherrschen
 und ein Problem zu abstrahieren. Vielmehr stecken darin einige subjektive 
 Entscheidungen, die die Nutzung der Funktion betreffen. Es ist zwar kein Zufall, 
 wie ich oben die Funktion `score_items()` geschrieben habe, jedoch hätte sie 
-auch ganz anders aussehen können. Damit meine ich nicht nur den Code im Körper 
-der Funktion, sondern auch etwa, welche Argumente die Funktion annimmt und wie 
-der Rückgabewert aussieht. 
+auch ganz anders aussehen können. Damit meine ich nicht nur meine spezifische 
+Implementierung der Funktionalität -- also den Code im Körper der Funktion --, 
+sondern auch deren Bedienung, das heißt welche Argumente die Funktion annimmt 
+und wie deren Rückgabewert aussieht. 
 
 Exemplarisch zeige ich im Folgenden einige Varianten dieser Funktion, die sich 
 im Verhalten unterscheiden, obwohl in jedem Fall prinzipiell dasselbe geschieht: 
