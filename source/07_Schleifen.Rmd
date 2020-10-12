@@ -18,7 +18,7 @@ Programmiersprache zu nutzen.
 
 Im Allgemeinen und in `R` im Speziellen gibt es mehrere schleifenartige
 Gebilde; in diesem Kapitel lernen wir die wichtige `for`-Schleife
-kennen.[^while] Das logische Prinzip einer `for`-Schleifen ist
+kennen.[^while] Das logische Prinzip einer `for`\index{for}-Schleifen ist
 recht simpel: Sie führt einen Code-Block mehrfach durch. In der Regel
 wird in den verschiedenen Durchläufen der Schleife variiert, auf welche
 Daten -- also etwa auf welche Items eines Tests -- zugegriffen wird,
