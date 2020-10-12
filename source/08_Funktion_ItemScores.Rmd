@@ -593,7 +593,7 @@ bislang mit `data.frames` gearbeitet, da Forschungsdaten im Normalfall immer als
 einer Datentabelle. Da einige Funktionen aber Matritzen zurückgeben, ist es 
 nützlich diesen Datentyp zu kennen. 
 
-## Fragen und Übungen
+## Fragen und Übungen zum vertiefenden Verständnis
 
 - Dokumentiert die Funktion `score_items5()`, indem ihr das Dokumentationsschema 
 der Funktion `score_items4()` anpasst.

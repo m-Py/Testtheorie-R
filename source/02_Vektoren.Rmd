@@ -1361,7 +1361,7 @@ einmal zu wenig.
     + diese Operation lässt sich gut mit der `[·]`-Auswahl verbinden
 
 
-## Fragen zum vertiefenden Verständnis
+## Fragen und Übungen zum vertiefenden Verständnis
 
 1. Wie berechnet man den Standardfehler von `1:10`?
 2. Was für Objekte nimmt die Funktion `c()` entgegen, und was gibt sie

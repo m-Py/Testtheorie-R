@@ -381,7 +381,7 @@ Auswahl der Spalten, die den jeweiligen Testwert berechnen; (2) zur
 Auswahl der Spalte des Items, für das die Trennschärfe bestimmt wird;
 (3) zum Abspeichern der Trennschärfe im Vektor `discriminations`.
 
-## Fragen zum vertiefenden Verständnis
+## Fragen und Übungen zum vertiefenden Verständnis
 
 1. Schreibt eine Funktion, die die Summe aller Elemente eines numerischen 
 Vektors ausrechnet (also einfach die Funktionalität der Funktion `sum()` 

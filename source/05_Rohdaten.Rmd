@@ -515,7 +515,7 @@ Da wir nicht denselben Code -- mit leichten Abwandlungen -- 40 Mal
 wiederholen wollen, werden wir in Kapitel 7 lernen, diese Umkodierungen
 effizient  durchzuführen, also auf einmal für alle 40 Spalten. 
 
-## Fragen zum vertiefenden Verständnis
+## Fragen und Übungen zum vertiefenden Verständnis
 
 1. Gegeben ist der Antwortvektor `c(1, 2, 2, 1, 4, 5, 2, 2, 2, 3)` und
    der Schlüssel `2`. Wie kann ich die Item-Schwierigkeit ohne Anwendung

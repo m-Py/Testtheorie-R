@@ -1044,7 +1044,7 @@ und sollen viele Aufgaben der statistischen Datenanalyse vereinfachen.
     + `head()/tail()`
     + `dplyr::arrange()`
 
-## Fragen zum vertiefenden Verständnis
+## Fragen und Übungen zum vertiefenden Verständnis
 
 1. Worin unterscheiden sich die folgenden Aufrufe? Welche Aufrufe sind
    zueinander äquivalent?

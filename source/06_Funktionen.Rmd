@@ -671,7 +671,7 @@ Funktion schreiben. Wenn ich hingegen viel mit Daten an sich arbeite --
 also oft Daten auswähle, transformiere und aus bestehenden Werten neue
 Werte ableite -- machen eigene Funktionen oftmals mehr Sinn.
 
-## Fragen zum vertiefenden Verständnis
+## Fragen und Übungen zum vertiefenden Verständnis
 
 1. Was ist der Rückgabewert der Funktion `str()`?
 2. Was ist der Rückgabewert der Funktion `hist()`?
