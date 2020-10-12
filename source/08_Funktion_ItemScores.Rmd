@@ -102,21 +102,9 @@ for (i in 1:n_items) {
 
 ```
 
-Indem wir die Variablen `df` und `keys` mit für uns angepassten Werten 
-versehen, könnten wir den Code wiederholt aufrufen und damit in verschiedenen 
-Datenauswertungen das Problem der Item-Umkodierung lösen. Etwa indem wir die 
-folgenden Variablen definieren und danach den obigen Code ausführen -- probiert 
-es aus!
-
-```{r}
-df <- npi_clean[, paste0("Q", 1:40)]
-keys <- c(1, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2,
-          1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2)
-```
-
-Aber: der nächste Schritt, tatsächlich eine Funktion daraus zu bauen, macht den 
-Code noch deutlich nützlicher. In einer Funktion wandeln wir die zwei Variablen 
-aus dem obigen Code in Argumente um. Unsere Funktion sieht dann wie folgt aus: 
+Der nächste Schritt, den Code tatsächlich in eine Funktion umzuwandeln, macht 
+ihn noch deutlich nützlicher. In einer Funktion wandeln wir die zwei Variablen 
+aus dem obigen Code in Argumente um. Sie sieht dann wie folgt aus: 
 
 ```{r}
 score_items <- function(df, keys) {
@@ -340,8 +328,8 @@ eigentlich gar keine Spaltenauswahl betreiben will, wenn man ohnehin nur die
 relevanten Spalten übergibt. Das Argument `selection` ist nämlich nicht optional 
 und die Funktion gibt einen Fehler aus, wenn es nicht spezifiziert wird.
 
-Eine Möglichkeit das Argument optional zu machen für den Fall, dass die Funktion 
-keine Spaltenauswahl durchführen soll ist folgende:
+Für den Fall, dass die Funktion keine Spaltenauswahl durchführen soll, können 
+wir das Argument wie folgt optional machen: 
 
 ```{r, eval = FALSE}
 score_items6 <- function(df, keys, selection = TRUE) {
@@ -425,14 +413,14 @@ optional sind, und was das Standardverhalten der optionalen Argumente ist. Eine
 Dokumentation der Rückgabe ist auch wünschenswert, aber etwas weniger wichtig 
 (die Ausgabe kann im Zweifel noch nach Aufruf inspiziert werden). Seiteneffekte 
 sollten vermieden werden und müssen deshalb nicht dokumentiert 
-werden.[^docsseiteneffekte] Alle hier diskutierten Funktionen haben keine 
-Seiteneffekte; das einzige, was sie nach außen abgegeben wird, ist der explizit 
-vorgesehene Rückgabewert. Entsprechend des Black-Box-Modell ist es weniger 
-wichtig die interne Funktionsweise einer Funktion zu dokumentieren. Kommentare 
-im Code von Funktionen sind aber wie immer willkommen. 
+werden.[^docsseiteneffekte] Entsprechend des Black-Box-Modell ist es weniger 
+wichtig die interne Funktionsweise einer Funktion zu dokumentieren. Erklärende 
+Kommentare im Code von Funktionen sind aber -- wie immer -- nützlich. 
 
 [^docsseiteneffekte]: Sollte die Funktion Seiteneffekte haben, müssen sie 
-natürlich dokumentiert werden. 
+natürlich dokumentiert werden. Alle hier diskutierten Funktionen haben keine 
+Seiteneffekte. Das heißt: das einzige, was sie nach außen abgegeben, ist der 
+explizit vorgesehene Rückgabewert.
 
 Im Folgenden ein Beispiel zur Dokumentation der Funktion `score_items4()`
 
@@ -454,8 +442,8 @@ Im Folgenden ein Beispiel zur Dokumentation der Funktion `score_items4()`
 #             und hängt "_recoded" an.
 #            
 # Ausgabe: Ein data frame, der dieselben Dimensionen hat wie die Eingabe 
-#          `df` Antworten wurden entsprechend des Schlüssels umkodiert, 
-#          d.h. eine 1 zeigt an, dass die Antwort dem Schlüssel entsprach, 
+#          `df`. Antworten wurden entsprechend des Schlüssels umkodiert:
+#          Eine 1 zeigt an, dass die Antwort dem Schlüssel entsprach, 
 #          andernfalls wird eine 0 ausgegeben. 
 
 score_items4 <- function(
@@ -470,24 +458,25 @@ score_items4 <- function(
 ```
 
 Wichtig ist eine inhaltliche Beschreibung der Funktionsargumente und auch eine 
-technische Beschreibung. 
+technische Beschreibung: Welche Datenstruktur (`data.frame`, Vektor, ...) muss 
+jeweils welchem Argument übergeben werden?
 
 Eine etwas formalisiertere Variante der Dokumentation von Funktionen bietet das 
 Paket [`roxygen2`](https://roxygen2.r-lib.org/). Dieses ist jedoch vor allem 
 dann relevant, wenn man eigene R-Pakete schreibt. Für die ersten eigenen 
-Funktionen reicht es, wie hier im Beispiel, Code-Kommentare zu nutzen, um eine 
-Funktion zu dokumentieren. 
+Funktionen reicht es -- wie hier im Beispiel -- eigene Funktionen informell mit 
+Code-Kommentare zu dokumentieren. 
 
 ## Validierung der Eingabe {#inputvalidation}
 
 Es ist gute Praxis, beim Schreiben von Funktionen ein paar Überprüfungen 
-einzuführen, die sicherstellen, dass die Argumente korrekt angegeben wurden. 
+einzuführen, die sicherstellen, dass alle Argumente korrekt übergeben wurden. 
 Solche Überprüfungen verhindern potenzielle Fehler. Mögliche Überprüfungen 
 könnten im vorliegenden Fall sein: 
 
-- Hat der Vektor `keys` dieselbe Länge wie der das Argument `df` Spalten hat? 
-Bei den Varianten 5 und 6 müsste dies **nach** der Spaltenauswahl geprüft 
-werden, da ja potentiell Spalten ausgeschlossen werden.
+- Hat der Vektor `keys` so viele Einträge wie das Argument `df` Spalten hat? Bei 
+den Varianten 5 und 6 müsste dies **nach** der Spaltenauswahl geprüft werden, da 
+ja potentiell Spalten ausgeschlossen werden.
 - Haben die Daten die korrekte Struktur und den korrekten Datentyp? Ist `keys` 
 ein Vektor, `df` ein `data.frame`, sind darin sinnvolle Werte enthalten (etwa: 
 nur numerische Werte im legalen Bereich?)
@@ -557,23 +546,25 @@ score_items <- function(
 }
 ```
 
-In dieser "finalen" Version habe ich noch ein paar zusätzliche Überprüfungen 
-eingebaut; außerdem enthält die Funktion nun sowohl das Argument `column_names` 
-als auch das Argument `selection`. Betrachtet genau, wie diese Argumente nun 
-in der Funktion verarbeitet werden. 
+In dieser "finalen" Version habe ich noch eine zusätzliche Überprüfung der 
+Eingabe eingebaut (passt die Angabe der Spaltennamen zum Argument `df`). 
+Außerdem enthält die Funktion nun sowohl das Argument `column_names` als auch 
+das Argument `selection`. Betrachtet genau, wie diese Argumente nun in der 
+Funktion verarbeitet werden. 
 
-Der Unterschied, auf den ich vor allem aufmerksam machen möchte, ist aber noch 
-ein anderer. Betrachtet die Art, in der nun die Spalten adressiert werden: Hier 
-verwende ich die `[·,·]`-Notation und nicht mehr die `[[·]]`-Notation zur 
-Auswahl von Spalten aus `df`. Der Grund hierfür ist, dass die `[·,·]`-Notation 
-allgemeiner ist. Sie funktioniert auch dann, wenn die Eingabe `df` eine Matrix 
-ist und kein `data.frame`. Eine Matrix ist eine weitere Datenstruktur in `R`, 
-die strukturell äquivalent zu einem `data.frame` ist: Sowohl Matritzen als auch 
-`data.frames` sind zweidimensionale Tabellen bestehend aus Zeilen und Spalten. 
-Jedoch muss in einer Matrix jede Spalte -- und damit sogar jede einzelne Zelle 
--- denselben Datentyp haben, wie wir es aus einem Vektor kennen (siehe auch die 
-Hilfe in `?matrix`). Wenn Antworten auf Testitems numerisch kodiert sind, können 
-diese also sowohl als `data.frame` als auch als Matrix vorliegen.
+Der Unterschied zu den vorherigen Versionen der Funktion, auf den ich vor allem 
+aufmerksam machen möchte, ist aber noch ein anderer. Betrachtet die Art, in der 
+nun die Spalten adressiert werden: Hier verwende ich die `[·,·]`-Notation und 
+nicht mehr die `[[·]]`-Notation zur Auswahl von Spalten aus `df`. Der Grund 
+hierfür ist, dass die `[·,·]`-Notation allgemeiner ist. Sie funktioniert auch 
+dann, wenn die Eingabe `df` eine Matrix ist und kein `data.frame`. Eine Matrix 
+ist eine weitere Datenstruktur in `R`, die strukturell äquivalent zu einem 
+`data.frame` ist: Sowohl Matritzen als auch `data.frames` sind zweidimensionale 
+Tabellen bestehend aus Zeilen und Spalten. Jedoch muss in einer Matrix jede 
+Spalte -- und damit sogar jede einzelne Zelle -- denselben Datentyp haben, wie 
+wir es aus einem Vektor kennen (siehe auch die Hilfe in `?matrix`). Wenn 
+Antworten auf Testitems numerisch kodiert sind, können diese also sowohl als 
+`data.frame` als auch als Matrix vorliegen.
 
 In Matritzen lassen sich Spalten nicht mit der `$`-Notation oder der 
 `[[·]]`-Notation auswählen, stattdessen *muss* die `[·,·]`-Notation genutzt 
@@ -590,8 +581,8 @@ der eigentlich Matrix. Eine interessante Frage ist nun: Was ist in einer Matrix
 das *zweite* Element? Möglich wäre: Der Wert in der ersten Zeile, zweite Spalte, 
 oder der Wert in der zweiten Zeile, erste Spalte. In `R` ist letzteres der Fall, 
 also der Wert in der zweiten Zeile. Der zugrundeliegende Vektor speichert zu 
-Beginn erste Spalte ab, danach die zweite Spalte, usw. Man sagt, Matritzen 
-werden in "column major order" in Vektorenform abgespeichert. 
+Beginn die erste Spalte ab, danach die zweite Spalte, usw. Man sagt so, 
+Matritzen werden in "column major order" abgespeichert. 
 
 Matritzen stellen in `R` eine wichtige Datenstruktur dar. Viele mathematische 
 Funktionen arbeiten eher mit Matritzen als mit `data.frames`.[^switchbetween] 
@@ -602,7 +593,8 @@ Versuch, mit der `$`-Notation Spalten aus Matritzen auszulesen, was fehlschlägt
 Wir haben bislang mit `data.frames` gearbeitet, da Forschungsdaten im Normalfall 
 immer als `data.frame` vorliegen -- man benötigt eben im Normalfall mehrere 
 Datentypen in einer Datentabelle. Da einige Funktionen aber Matritzen 
-zurückgeben, ist es nützlich diesen Datentyp zu kennen. 
+zurückgeben, ist es nützlich diesen Datentyp zu kennen (wobei dies nicht der 
+einzige Grund ist, mit Matritzen zu arbeiten).
 
 [^switchbetween]: Mit den Funktionen `as.matrix()` und `as.data.frame()` ist es 
 recht einfach, die beiden Datenstrukturen ineinander überzuführen.
@@ -629,6 +621,8 @@ der Funktion nun aufmerksam gemacht werden?
 Wenn ihr Fehler in der Eingabe feststellt, nutzt die Funktion `stop()`, um einen 
 Fehler und eine sinnvolle Fehlermeldung auszugeben. Zu den [oben 
 diskutierten](#inputvalidation) Fehlerprüfungen macht noch folgendes Sinn: 
-Passen die Namen des Vektors `keys` zu den Spaltennamen in `df`? Hier ist 
-gegebenenfalls etwas Recherche nötig, um herauszufinden, wie die Namen zwischen 
-den beiden Objekten abgeglichen werden können. 
+Stellt erst einmal sicher, dass `keys` überhaupt ein benannter Vektor ist. 
+Weiterhin prüft, ob die Namen des Vektors `keys` zu den Spaltennamen in `df` 
+passen. Hier ist gegebenenfalls etwas zusätzliche Recherche nötig, um 
+herauszufinden, wie die Namen zwischen den beiden Objekten abgeglichen werden 
+können. 
