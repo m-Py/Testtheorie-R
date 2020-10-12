@@ -24,11 +24,11 @@ größte Stärke von `R` für statistische Berechnungen.
 also Vektoren, die gar kein Element beinhalten. Das soll uns aber erst
 einmal nicht beschäftigen.
 
-Elemente zu Vektoren zusammenfügen (sprich: **mehrere** Vektoren zu
-**einem** Vektor zusammenfügen) funktioniert mit der *Funktion* `c()` --
-die vermutlich basalste Funktion in `R`. Sie ist so simpel und
-grundlegend, dass man sie gegebenenfalls vergisst, wenn man sie braucht
--- versucht, sie zu erinnern!
+Elemente zu Vektoren zusammenfügen (sprich: **mehrere** Vektoren zu **einem** 
+Vektor zusammenfügen) funktioniert mit der *Funktion* 
+`c()`\index{\texttt{c()}}-- die vermutlich basalste Funktion in `R`. Sie ist so 
+simpel und grundlegend, dass man sie gegebenenfalls vergisst, wenn man sie 
+braucht -- versucht, sie zu erinnern!
 
 ```{r}
 
