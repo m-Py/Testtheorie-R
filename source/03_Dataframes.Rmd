@@ -705,6 +705,14 @@ noch einmal interessant werden, wenn wir in [Kapitel 6](#schleifen) mit
 zugreifen. In einer Schleife können wir dann Spaltennamen automatisiert 
 nacheinander austauschen (etwa: `Item_1`, `Item_2`, ...).
 
+Anders als bei der `$`-Notation können wir den `[[·]]`-Zugriff auch mit 
+numerischem Index verwenden: 
+
+```{r}
+mdf[[3]] # wähle dritte Spalte aus
+```
+
+
 ### Der `[·]`-Zugriff
 
 **Nicht** äquivalent zu den Zugriffen mit `$` und `[[·]]` ist
