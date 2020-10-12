@@ -595,22 +595,22 @@ nützlich diesen Datentyp zu kennen.
 
 ## Fragen und Übungen zum vertiefenden Verständnis
 
-- Dokumentiert die Funktion `score_items5()`, indem ihr das Dokumentationsschema 
-der Funktion `score_items4()` anpasst.
-- Ändert die Funktion `score_items6()` in eine neue Variante `score_items7()` 
-um. Dabei soll `keys` [ein benannter Vektor](#nameindex) sein, der dieselben 
-Namen hat, wie die Spalten der Items im Argument `df`. Im Körper der Funktion 
-findet dann die Auswahl sowohl der Spalten als auch der Einträge in `keys` [nach 
-Name](#nachname) statt. Solche Adressierung nach Namen ist im allgemeinen 
-weniger fehleranfällig als die Adressierung nach Index -- insbesondere dann, 
-wenn die relevanten Spalten erst in der Funktion selbst (mit dem Argument 
-`selection`) ausgewählt werden.
-- Dokumentiert eure eigene Funktion `score_items7()`, indem ihr eure 
+1. Dokumentiert die Funktion `score_items5()`, indem ihr das 
+Dokumentationsschema der Funktion `score_items4()` anpasst.
+2. Ändert die Funktion `score_items6()` in eine neue Variante `score_items7()` 
+um. Nun soll `keys` [ein benannter Vektor](#nameindex) sein, der dieselben Namen 
+hat, wie die relevanten Spalten der Items im Argument `df`. Im Körper der 
+Funktion findet dann die Auswahl sowohl der Spalten in `df` als auch der 
+Einträge in `keys` [nach Name](#nachname) statt. Solche Adressierung nach Namen 
+ist im allgemeinen weniger fehleranfällig als die Adressierung nach Index -- 
+insbesondere dann, wenn die relevanten Spalten erst in der Funktion selbst (mit 
+dem Argument `selection`) ausgewählt werden.
+3. Dokumentiert eure eigene Funktion `score_items7()`, indem ihr eure 
 Dokumentation der Funktion `score_items5()` anpasst. 
-- Fügt in die Funktion `score_items7()` einige Überprüfungen der Eingabe ein. 
+4. Fügt in die Funktion `score_items7()` einige Überprüfungen der Eingabe ein. 
 Wenn ihr Fehler in der Eingabe feststellt, nutzt die Funktion `stop()` 
-(`?stop`), um einen Fehler mit sinnvoller Fehlermeldung auszugeben. Zu den oben 
-diskutierten Fehlerprüfungen macht noch die folgende Sinn: Passen die Namen des 
-Vektors `keys` zu den Spaltennamen in `df`? Hier ist gegebenenfalls etwas 
-Recherche nötig, um herauszufinden, wie die Namen zwischen den beiden 
-Variablen abzugleichen sind. 
+(`?stop`), um einen Fehler und eine sinnvolle Fehlermeldung auszugeben. Zu den 
+oben diskutierten Fehlerprüfungen macht noch die folgende Sinn: Passen die Namen 
+des Vektors `keys` zu den Spaltennamen in `df`? Hier ist gegebenenfalls etwas 
+Recherche nötig, um herauszufinden, wie die Namen zwischen den beiden Objekten 
+abgeglichen werden können. 
