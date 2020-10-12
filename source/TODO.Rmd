@@ -1,7 +1,10 @@
 
+## NPI-Daten laden
+
+- irgendwo Code einfügen, der direkt die NPI-Daten aus dem Internet lädt
+
 ## Bei "for-loops are evil" apply einführen
 
-- apply performed als Ersatz für rowSums viel besser als for-loop
 - Vergleich mit Schlüssel durch spaltenweisen logischen Vergleich, ganz 
 ohne apply, mapply oder for Schleife
 - Macht hier bereits ein Verweis auf lapply/replicate Sinn? ("The R way")

@@ -2,7 +2,7 @@
 # Eigene Funktion: Bepunktung von Items
 
 In diesem Kapitel geht es um eine konkrete Anwendung unserer bisher erworbenen 
-Kenntnisse vor: Wir schreiben eine Funktion, die für beliebige Datensätze die 
+Kenntnisse: Wir schreiben eine Funktion, die für beliebige Datensätze die 
 Bepunktung von Testitems umsetzt. Dabei kombinieren wir die Inhalte aus den 
 letzten beiden Kapitel zu Funktionen und zu Schleifen. Dabei gehe ich vor allem 
 auf die Entscheidungen ein, die beim Schreiben einer Funktion getroffen werden 
@@ -13,23 +13,20 @@ Funktionen, die wir bereits behandelt haben.
 
 Eine Funktion zu schreiben bedeutet, ein gegebenes Problem zu 
 abstrahieren.[^kopfanstrengen] Beim Schreiben einer Funktion entfernen wir uns 
-von der konkreten Problematik einer bestimmten Aufgabe -- zumeist: dem 
-Datensatz, den wir jetzt gerade bearbeiten--; wir versuchen die Essenz des 
+von der konkreten Problematik einer einzelnen Aufgabe -- zumeist: dem Datensatz, 
+den wir jetzt gerade bearbeiten. Stattdessen versuchen wir die Essenz des 
 Problems zu begreifen und ein allgemeines Schema zur Lösung des Problems 
 herzustellen. 
 
 [^kopfanstrengen]: Das Schreiben einer Funktion erfordert zumeist etwas mehr 
-Mühe als einfach nur "dahin-zu-coden" in einem R-Skript. Aber auf lange Sicht 
-lohnt sich der Aufwand. Denkt an euer zukünftiges Ich, das von der Mühe im Jetzt 
-profitiert. 
+(kognitiven) Aufwand als einfaches "dahin coden". Aber auf lange Sicht lohnt 
+sich der Aufwand.
 
 Die Bepunktung von Testitems bietet sich sehr gut als Beispiel für die 
 "Extraktion" einer Funktion an, da die Problemstellung bei beliebigen 
-Testinventaren auftreten kann und nicht nur für eine einzelne Datenauswertung 
-relevant ist.
-
-Betrachten wir noch einmal den Code Schleifen zur Bepunktung der NPI-Items aus 
-dem letzten Kapitel und überlegen, welche Bestandteile des Codes 
+Testinventaren auftritt und nicht nur während einer einzelnen Datenauswertung 
+relevant ist. Betrachten wir noch einmal den Code zur Bepunktung der NPI-Items 
+aus dem letzten Kapitel und überlegen, welche Bestandteile des Codes 
 problemspezifisch sind. Alle problemspezifischen Aspekte müssen in einer 
 Funktion entfernt werden, wobei die generelle Funktionalität des Codes erhalten 
 bleiben muss.
@@ -71,11 +68,11 @@ beliebigen `data.frame` arbeiten können. Dies impliziert unter anderem, dass wi
 dieser Funktion eine Tabelle übergeben müssen, die nur aus die Spalten der Items 
 enthält, die tatsächlich umkodiert werden müssen. Oben enthält die Variable 
 `npi_clean` auch noch weitere Spalten als die Items, beispielsweise Spalten zu 
-demographischen Angaben. Einer Funktion würden wir einen reduzierten data.frame 
-übergeben, in dem nur die Spalten der Items ausgelesen wurden -- alle anderen 
-Spalten sind für das Problem nicht relevant. 
+demographischen Angaben. Einer Funktion würden wir einen reduzierten 
+`data.frame` übergeben, in dem nur die Spalten der Items ausgelesen wurden -- 
+alle anderen Spalten sind für das Problem nicht relevant. 
 
-Im Folgenden Beispiel habe ich den problemspezifischen Code schon einmal etwas 
+Im folgenden Beispiel habe ich den problemspezifischen Code schon etwas 
 umgeschrieben und dabei alle problemspezifischen Aspekte entfernt. Es ist ein 
 erster Schritt beim Umwandeln in eine Funktion. Der Code geht davon aus, dass 
 der `data.frame`, der die umzukodierenden Items enthält, in einer Variablen `df` 
@@ -313,14 +310,11 @@ können die Auswahl der Spalten jedoch auch der Funktion überlassen. Dies läss
 sich sogar durch eine relativ einfache Anpassung umsetzen: 
 
 ```{r}
-score_items5 <- function(
-  df, keys, column_names = paste0(colnames(df), "_recoded"), selection
-) {
+score_items5 <- function(df, keys, selection) {
   df <- df[, selection]
   for (i in 1:ncol(df)) {
     df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
   }
-  colnames(df) <- column_names
   df
 }
 ```
@@ -350,12 +344,12 @@ Eine Möglichkeit das Argument optional zu machen für den Fall, dass die Funkti
 keine Spaltenauswahl durchführen soll ist folgende:
 
 ```{r, eval = FALSE}
-score_items6 <- function(
-  df, keys, column_names = paste0(colnames(df), "_recoded"), 
-  selection = TRUE
-) {
+score_items6 <- function(df, keys, selection = TRUE) {
   df <- df[, selection]
-  # selber Code wie oben
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
+  }
+  df
 }
 ```
 
@@ -363,22 +357,22 @@ Wird das Argument `selection` nicht angegeben, werden im Standardfall durch den
 Befehl `df[, TRUE]` alle Spalten aus `df` ausgegeben (und wiederum in die 
 Variable `df` geschrieben).
 
-Eine Konvention in der `R`-Community ist es jedoch diese Art von optionalen 
+Eine Konvention in der `R`-Community ist es manchmal diese Art von optionalen 
 Argumenten mit dem Wert `NULL` auszustatten. Innerhalb der Funktion kann dann 
 mit der Programmierstruktur `if{}/else{}` überprüft werden, ob das Argument 
 existiert. 
 
 ```{r, eval = FALSE}
-score_items6 <- function(
-  df, keys, column_names = paste0(colnames(df), "_recoded"), 
-  selection = NULL
-) {
+score_items6 <- function(df, keys, selection = NULL) {
   if (is.null(selection)) { # `selection` wurde nicht spezifiziert
     df <- df
   } else { # `selection` wurde spezifiziert
     df <- df[, selection]
   }
-  ...
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
+  }
+  df
 }
 ```
 
@@ -399,23 +393,23 @@ Stelle vor, zu den wichtigen Programmierelementen `if{}/else{}` und `else if{}`
 eine Internetrecherche durchzuführen, um weitere Informationen zu sammeln. 
 
 ```{r, eval = FALSE}
-score_items6 <- function(
-  df, keys, column_names = paste0(colnames(df), "_recoded"), 
-  selection = NULL
-) {
+score_items6 <- function(df, keys, selection = NULL) {
   if (!is.null(selection)) { # `selection` wurde spezifiziert
     df <- df[, selection]
   }
-  # ...
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
+  }
+  df
 }
 ```
 
 Dass optionale Argument mit dem Wert `NULL` definiert werden ist reine 
 Konvention; erfahrenere `R`-Nutzer erkennen an dem Ausdruck `selection = NULL`, 
 dass dem Argument `selection` innerhalb der Funktion ein Standardwert zugewiesen 
-wird.
+wird. 
 
-## Dokumentation von Funktionen 
+## Dokumentation von Funktionen {#docs}
 
 Die Dokumentation von Code ist ein wichtiges Thema, das ich in diesem Kapitel 
 kaum zur Genüge behandeln kann. Gerade bei Funktionen ist eine Dokumentation 
@@ -426,15 +420,16 @@ eure eigene Funktion ein paar Wochen nicht verwendet habt.
 
 Bei der Dokumentation einer Funktion sollten alle Aspekte des 
 [Black-Box-Modells](#funktionen) abdeckt werden. Insbesondere muss dokumentiert 
-sein, welche Daten als Parameter übergeben werden müssen und welche der 
-Parameter optional sind. Eine Dokumentation der Rückgabe ist auch wünschenswert, 
-aber etwas weniger wichtig (die Ausgabe kann man im Zweifel noch inspizieren). 
-Seiteneffekte sollten vermieden werden und müssen deshalb nicht dokumentiert 
+sein, welche Daten als Argumente übergeben werden müssen, welche der Argumente 
+optional sind, und was das Standardverhalten der optionalen Argumente ist. Eine 
+Dokumentation der Rückgabe ist auch wünschenswert, aber etwas weniger wichtig 
+(die Ausgabe kann im Zweifel noch nach Aufruf inspiziert werden). Seiteneffekte 
+sollten vermieden werden und müssen deshalb nicht dokumentiert 
 werden.[^docsseiteneffekte] Alle hier diskutierten Funktionen haben keine 
 Seiteneffekte; das einzige, was sie nach außen abgegeben wird, ist der explizit 
 vorgesehene Rückgabewert. Entsprechend des Black-Box-Modell ist es weniger 
-wichtig die interne Funktionsweise einer Funktion zu dokumentieren; hier kann es 
-natürlich Ausnahmen geben.
+wichtig die interne Funktionsweise einer Funktion zu dokumentieren. Kommentare 
+im Code von Funktionen sind aber wie immer willkommen. 
 
 [^docsseiteneffekte]: Sollte die Funktion Seiteneffekte haben, müssen sie 
 natürlich dokumentiert werden. 
@@ -445,23 +440,23 @@ Im Folgenden ein Beispiel zur Dokumentation der Funktion `score_items4()`
 
 # score_items4: Eine Funktion zur Bepunktung von Testitems
 #
-# Argument 1: `df` - ein data frame, der in dem die Spalten die Items
+# Argument 1: `df` - ein data frame, dessen Spalten die Items
 #              des Tests sind. Enthält die rohen Antworten, die umkodiert 
 #              werden sollen.
 # Argument 2: `keys` - Ein Vektor, der pro Item den Schlüssel enthält. 
 #              Dabei kodiert der i'te Eintrag in `keys` den Schlüssel 
 #              zum i'ten Item (also der i'ten Spalte) in `df`. Es gilt 
 #              `ncol(df) == length(keys)`!
-# Argument 3: `column_names` - Optionales Argument. Ein Vektor vom Typ character, 
-#             der die Spalten des ausgegebenen data frames benennt. Im Normalfall 
-#             (also, wenn das Argument nicht spezifiziert wird): Verwendet die 
-#             Spaltennamen von `df` und hängt "_recoded".
+# Argument 3: `column_names` - Optionales Argument. Ein Vektor vom Typ 
+#             character, der die Spalten des ausgegebenen data frames 
+#             benennt. Im Normalfall (also, wenn das Argument nicht 
+#             spezifiziert wird): Verwendet die Spaltennamen von `df` 
+#             und hängt "_recoded" an.
 #            
-#
-# Ausgabe: Ein data frame, der dieselben Dimensionen hat wie die Eingabe `df`
-#          Antworten wurden entsprechend des Schlüssels umkodiert, d.h. eine 
-#          1 zeigt an, dass die Antwort dem Schlüssel entsprach, andernfalls 
-#          wird eine 0 ausgegeben. 
+# Ausgabe: Ein data frame, der dieselben Dimensionen hat wie die Eingabe 
+#          `df` Antworten wurden entsprechend des Schlüssels umkodiert, 
+#          d.h. eine 1 zeigt an, dass die Antwort dem Schlüssel entsprach, 
+#          andernfalls wird eine 0 ausgegeben. 
 
 score_items4 <- function(
   df, keys, column_names = paste0(colnames(df), "_recoded")
@@ -483,8 +478,7 @@ dann relevant, wenn man eigene R-Pakete schreibt. Für die ersten eigenen
 Funktionen reicht es, wie hier im Beispiel, Code-Kommentare zu nutzen, um eine 
 Funktion zu dokumentieren. 
 
-
-## Validierung der Eingabe
+## Validierung der Eingabe {#inputvalidation}
 
 Es ist gute Praxis, beim Schreiben von Funktionen ein paar Überprüfungen 
 einzuführen, die sicherstellen, dass die Argumente korrekt angegeben wurden. 
@@ -492,55 +486,63 @@ Solche Überprüfungen verhindern potenzielle Fehler. Mögliche Überprüfungen
 könnten im vorliegenden Fall sein: 
 
 - Hat der Vektor `keys` dieselbe Länge wie der das Argument `df` Spalten hat? 
-Bei den Varianten 5 und 6 müsste dies **nach** der Spaltenauswahl geprüft werden.
+Bei den Varianten 5 und 6 müsste dies **nach** der Spaltenauswahl geprüft 
+werden, da ja potentiell Spalten ausgeschlossen werden.
 - Haben die Daten die korrekte Struktur und den korrekten Datentyp? Ist `keys` 
 ein Vektor, `df` ein `data.frame`, sind darin sinnvolle Werte enthalten (etwa: 
 nur numerische Werte im legalen Bereich?)
 
-Bei solchen Überprüfungen kommen die `if{}/else{}`-Schlagwörter zum Einsatz. 
-Wenn ein Fehler festgestellt wird, kann die Funktion `stop()` genutzt werden, um 
-einen Fehler auszugeben. Es bietet sich etwa folgende Überprüfung an: 
+Bei solchen Überprüfungen kommen die `if{}/else{}`-Befehle zum Einsatz. Wenn 
+eine problematische Eingabe festgestellt wird, kann die Funktion `stop()` 
+genutzt werden, um einen Fehler auszugeben. Es bietet sich etwa folgende 
+Überprüfung an: 
 
 ```{r, eval = FALSE}
-score_items6 <- function(
-  df, keys, column_names = paste0(colnames(df), "_recoded"), 
-  selection = NULL
-) {
+score_items6 <- function(df, keys, selection = NULL) {
   if (!is.null(selection)) { # `selection` wurde spezifiziert
     df <- df[, selection]
   }
   if (ncol(df) != length(keys)) {
     stop("Die Spaltenzahl in `df` passt nicht zur Laenge von `keys`.")
   }
-  # ...
+  for (i in 1:ncol(df)) {
+    df[[i]] <- ifelse(df[[i]] == keys[i], 1, 0)
+  }
+  df
 }
 ```
 
-In diesem Fall wird der Aufruf der Funktion abgebrochen, wenn die Argumente `df` 
-und `keys` nicht zusammenpassen. Dies stellt die Funktion `stop()` sicher, die 
-in diesem Fall auch eine diagnostische Fehlermeldung ausgibt. 
+In diesem Fall wird der Aufruf der Funktion `score_items6()` abgebrochen, wenn 
+die Argumente `df` und `keys` nicht zusammenpassen. Dies stellt ein Aufruf der 
+Funktion `stop()` sicher, die in diesem Fall auch eine diagnostische 
+Fehlermeldung ausgibt. 
 
 Ich werde an dieser Stelle nicht tiefer auf die Überprüfung von Argumenten 
-eingehen. Denkt aber daran, dass solche Überprüfungen wichtig sind und euch 
-gravierende Fehler ersparen können. Welche Prüfungen Sinn machen, hängt immer 
-von dem konkreten Anwendungsfall ab.
+eingehen. Denkt aber daran immer, dass solche Überprüfungen wichtig sind und 
+euch gravierende Fehler ersparen können. Welche Prüfungen Sinn machen, hängt 
+immer von dem konkreten Anwendungsfall ab.
 
-## Abschließender Hinweis: Matritzen
+## Abschließender Hinweis: Matritzen {#matritzen}
 
-Wer die oben definierte Funktion zur Bepunktung von Items selbst nutzen will, 
-verwendet besser folgende Abwandlung: 
+Wer die oben definierte Funktion zur Bepunktung von Items selbst nutzen 
+will, verwendet besser folgende Abwandlung: 
 
 ```{r}
 score_items <- function(
   df, keys, 
-  column_names = paste0(colnames(df), "_recoded"), 
-  selection = NULL
+  column_names = NULL, 
+  selection = TRUE
 ) {
-  # Optional: Auswahl der relevanten Spalten:
-  if (!is.null(selection)) { # `selection` wurde spezifiziert
-    df <- df[, selection]
+  # Ggf.: Spaltenauswahl
+  df <- df[, selection]
+  # Ändere ggf. die Spaltennamen:
+  if (is.null(column_names)) {
+    column_names <- paste0(colnames(df), "_recoded")
   }
   # Ein wenig Input-Validierung:
+  if (length(column_names) != ncol(df)) {
+    stop("Die Spaltennamen wurden nicht korrekt spezifiziert.")
+  }
   if (ncol(df) != length(keys)) {
     stop("Die Spaltenzahl in `df` passt nicht zur Laenge von `keys`.")
   }
@@ -555,15 +557,23 @@ score_items <- function(
 }
 ```
 
-Der einzige Unterschied: Hier verwende ich die `[·,·]`-Notation statt der 
-`[[·]]`-Notation zur Auswahl der Spalten. Der Grund hierfür ist, dass erstere 
-allgemeiner nutzbar ist. Sie funktioniert auch dann, wenn die Eingabe eine 
-Matrix ist (siehe `?matrix`) und kein `data.frame`. Eine Matrix ist strukturell 
-äquivalent zu einem `data.frame`, also eine zweidimensionale Tabelle bestehend 
-aus Zeilen und Spalten. Jedoch muss in einer Matrix jede Spalte -- und damit 
-sogar jede einzelne Zelle -- denselben Datentyp haben, wie wir es aus einem 
-Vektor kennen. Wenn Antworten auf Testitems numerisch kodiert sind, können diese 
-also sowohl als `data.frame` als auch als Matrix vorliegen.
+In dieser "finalen" Version habe ich noch ein paar zusätzliche Überprüfungen 
+eingebaut; außerdem enthält die Funktion nun sowohl das Argument `column_names` 
+als auch das Argument `selection`. Betrachtet genau, wie diese Argumente nun 
+in der Funktion verarbeitet werden. 
+
+Der Unterschied, auf den ich vor allem aufmerksam machen möchte, ist aber noch 
+ein anderer. Betrachtet die Art, in der nun die Spalten adressiert werden: Hier 
+verwende ich die `[·,·]`-Notation und nicht mehr die `[[·]]`-Notation zur 
+Auswahl von Spalten aus `df`. Der Grund hierfür ist, dass die `[·,·]`-Notation 
+allgemeiner ist. Sie funktioniert auch dann, wenn die Eingabe `df` eine Matrix 
+ist und kein `data.frame`. Eine Matrix ist eine weitere Datenstruktur in `R`, 
+die strukturell äquivalent zu einem `data.frame` ist: Sowohl Matritzen als auch 
+`data.frames` sind zweidimensionale Tabellen bestehend aus Zeilen und Spalten. 
+Jedoch muss in einer Matrix jede Spalte -- und damit sogar jede einzelne Zelle 
+-- denselben Datentyp haben, wie wir es aus einem Vektor kennen (siehe auch die 
+Hilfe in `?matrix`). Wenn Antworten auf Testitems numerisch kodiert sind, können 
+diese also sowohl als `data.frame` als auch als Matrix vorliegen.
 
 In Matritzen lassen sich Spalten nicht mit der `$`-Notation oder der 
 `[[·]]`-Notation auswählen, stattdessen *muss* die `[·,·]`-Notation genutzt 
@@ -571,46 +581,54 @@ werden. Die `$`-Notation funktioniert gar nicht, die `[[·]]`-Notation kann ein
 unerwartetes Ergebnis ergeben, da sie nur ein Element auswählen würde und nicht 
 eine ganze Spalte.[^matrixistvektor]
 
-[^matrixistvektor]: Technisch gesehen ist eine Matrix sogar ein Vektor, dem 
-intern nur die Dimensionen Reihe/Spalte zugeordnet werden. Die `[[·]]`- und die 
-`[·]`-Notationen betrachten die Matrix als normalen eindimensionalen Vektor. Die 
-Befehle `mat[2]` oder `mat[[2]]` geben das zweite Element -- und nicht die 
-zweite Spalte -- in diesem zugrundeliegenden Vektor aus. Eine interessante ist 
-nun: Was ist in einer Matrix das *zweite* Element? Möglich wäre: Der Wert in der 
-ersten Zeile, zweite Spalte, oder der Wert in der zweiten Zeile, erste Spalte. 
-In `R` ist letzteres der Fall, also der Wert in der zweiten Zeile. Man sagt, 
-Matritzen werden in "column major order" in Vektorenform abgespeichert. Der 
-zugrundeliegende Vektor speichert zu Beginn erste Spalte ab, danach die zweite 
-Spalte, usw.
+[^matrixistvektor]: Technisch gesehen ist eine Matrix ein simpler Vektor, dem 
+intern die Dimensionen Reihe/Spalte zugeordnet werden. Die `[[·]]`- und die 
+`[·]`-Notationen betrachten die Matrix als einen eindimensionalen Vektor. 
+Demnach geben beispielsweise die Befehle `mat[2]` oder `mat[[2]]` das zweite 
+Element aus diesem zugrundeliegenden Vektor aus -- und nicht die zweite Spalte 
+der eigentlich Matrix. Eine interessante Frage ist nun: Was ist in einer Matrix 
+das *zweite* Element? Möglich wäre: Der Wert in der ersten Zeile, zweite Spalte, 
+oder der Wert in der zweiten Zeile, erste Spalte. In `R` ist letzteres der Fall, 
+also der Wert in der zweiten Zeile. Der zugrundeliegende Vektor speichert zu 
+Beginn erste Spalte ab, danach die zweite Spalte, usw. Man sagt, Matritzen 
+werden in "column major order" in Vektorenform abgespeichert. 
 
-Matritzen sind stellen in `R` eine wichtige Datenstruktur dar. Beispielsweise 
-gibt die Funktion `cor()`, wenn man die Inter-Itemkorrelationen zwischen 
-mehreren Items anfordert, eine Matrix und keinen `data.frame` zurück. In solchen 
-Fällen müssen wir auf der Hut sein; ein typischer Fehler ist der Versuch, mit 
-der `$`-Notation Spalten aus Matritzen auszulesen, was fehlschlägt. Wir haben 
-bislang mit `data.frames` gearbeitet, da Forschungsdaten im Normalfall immer als 
-`data.frame` vorliegen -- man benötigt eben im Normalfall mehrere Datentypen in 
-einer Datentabelle. Da einige Funktionen aber Matritzen zurückgeben, ist es 
-nützlich diesen Datentyp zu kennen. 
+Matritzen stellen in `R` eine wichtige Datenstruktur dar. Viele mathematische 
+Funktionen arbeiten eher mit Matritzen als mit `data.frames`.[^switchbetween] 
+Beispielsweise gibt die Funktion `cor()`, wenn man die Inter-Itemkorrelationen 
+zwischen mehreren Items anfordert, eine Matrix und keinen `data.frame` zurück. 
+In solchen Fällen müssen wir auf der Hut sein; ein typischer Fehler ist der 
+Versuch, mit der `$`-Notation Spalten aus Matritzen auszulesen, was fehlschlägt. 
+Wir haben bislang mit `data.frames` gearbeitet, da Forschungsdaten im Normalfall 
+immer als `data.frame` vorliegen -- man benötigt eben im Normalfall mehrere 
+Datentypen in einer Datentabelle. Da einige Funktionen aber Matritzen 
+zurückgeben, ist es nützlich diesen Datentyp zu kennen. 
+
+[^switchbetween]: Mit den Funktionen `as.matrix()` und `as.data.frame()` ist es 
+recht einfach, die beiden Datenstrukturen ineinander überzuführen.
 
 ## Fragen und Übungen zum vertiefenden Verständnis
 
-1. Dokumentiert die Funktion `score_items5()`, indem ihr das 
-Dokumentationsschema der Funktion `score_items4()` anpasst.
-2. Ändert die Funktion `score_items6()` in eine neue Variante `score_items7()` 
-um. Nun soll `keys` [ein benannter Vektor](#nameindex) sein, der dieselben Namen 
-hat, wie die relevanten Spalten der Items im Argument `df`. Im Körper der 
-Funktion findet dann die Auswahl sowohl der Spalten in `df` als auch der 
-Einträge in `keys` [nach Name](#nachname) statt. Solche Adressierung nach Namen 
-ist im allgemeinen weniger fehleranfällig als die Adressierung nach Index -- 
-insbesondere dann, wenn die relevanten Spalten erst in der Funktion selbst (mit 
-dem Argument `selection`) ausgewählt werden.
-3. Dokumentiert eure eigene Funktion `score_items7()`, indem ihr eure 
-Dokumentation der Funktion `score_items5()` anpasst. 
-4. Fügt in die Funktion `score_items7()` einige Überprüfungen der Eingabe ein. 
-Wenn ihr Fehler in der Eingabe feststellt, nutzt die Funktion `stop()` 
-(`?stop`), um einen Fehler und eine sinnvolle Fehlermeldung auszugeben. Zu den 
-oben diskutierten Fehlerprüfungen macht noch die folgende Sinn: Passen die Namen 
-des Vektors `keys` zu den Spaltennamen in `df`? Hier ist gegebenenfalls etwas 
-Recherche nötig, um herauszufinden, wie die Namen zwischen den beiden Objekten 
-abgeglichen werden können. 
+1. Dokumentiert die [finale Version](#matritzen) der Funktion `score_items()`, indem 
+ihr das [Schema für die Funktion `score_items4()`](#docs) anpasst. Geht 
+insbesondere auf der Verhalten der optionalen Argumente `column_names` und 
+`selection` ein. 
+2. Wie kann die finale Version der Funktion `score_items()` bedient werden, 
+sodass die ausgegebene Tabelle dieselben Spaltennamen hat wie die eingegebene?
+3. Ändert die finale Funktion `score_items()` in eine neue Variante um. Nun soll 
+`keys` [ein benannter Vektor](#nameindex) sein, dessen Namen den (relevanten) 
+Spaltennamen im Argument `df` entsprechen. Im Körper der Funktion soll die 
+Auswahl der Spalten aus `df` als auch der Einträge aus `keys` [nach 
+Name](#nachname) stattfinden. Solch Adressierung nach Namen ist im Allgemeinen 
+weniger fehleranfällig als die Adressierung nach Index -- insbesondere dann, 
+wenn die relevanten Spalten erst in der Funktion selbst ausgewählt werden (mit 
+dem Argument `selection`).
+4. Dokumentiert die aktualisierte Funktion aus Aufgabe 3. Worauf muss ein Nutzer 
+der Funktion nun aufmerksam gemacht werden?
+5. Fügt in eure Funktion aus Aufgabe 3 weitere Überprüfungen der Eingabe ein. 
+Wenn ihr Fehler in der Eingabe feststellt, nutzt die Funktion `stop()`, um einen 
+Fehler und eine sinnvolle Fehlermeldung auszugeben. Zu den [oben 
+diskutierten](#inputvalidation) Fehlerprüfungen macht noch folgendes Sinn: 
+Passen die Namen des Vektors `keys` zu den Spaltennamen in `df`? Hier ist 
+gegebenenfalls etwas Recherche nötig, um herauszufinden, wie die Namen zwischen 
+den beiden Objekten abgeglichen werden können. 
