@@ -836,17 +836,11 @@ tapply(mdf$Alter, mdf$Geschlecht, mean)
 
 Die Funktion `tapply()` erhält als erstes Argument den Messwertvektor, für
 den Statistiken angefordert werden. Das zweite Argument ist die 
-Gruppierungsvariable.[^warumhier] Interessanterweise ist das dritte 
+Gruppierungsvariable. Interessanterweise ist das dritte 
 Argument eine Funktion, in diesem Fall die Funktion `mean()`. So können 
 wir die *mittlere* Punktzahl nach Geschlecht anfordern. Entsprechend 
 könnten wir hier andere Funktionen übergeben, um etwa die 
 Standardabweichung des Alters zu erfragen:
-
-[^warumhier]: Beachtet, dass sowohl Messwerte als auch 
-Gruppierungsvariable als **Vektoren** übergeben werden. Ich behandle die 
-Funktion `tapply()` jedoch im Kapitel zu `data.frames`, da es zumeist so 
-sein wird, dass wir beide Vektoren aus **einem** `data.frame` mit der 
-`$`-Notation auslesen werden.
 
 ```{r}
 tapply(mdf$Alter, mdf$Geschlecht, sd)
