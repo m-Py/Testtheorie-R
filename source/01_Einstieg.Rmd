@@ -17,8 +17,8 @@ anderen Person teilen, da niemand eine Lizenz zur Nutzung benötigt. Da
 `R` mithilfe von *Paketen* beliebig erweitert werden kann, stehen neue 
 statistische Verfahren häufig schnell zur Verfügung (etwa *Bayesianische 
 Statistik*). Die Nutzung von `R` ist in den letzten Jahren [stark 
-angestiegen](https://stackoverflow.blog/2017/10/10/impressive-growth-r/) 
-. Auch in der psychologischen Forschung [wird `R` immer mehr zum 
+angestiegen](https://stackoverflow.blog/2017/10/10/impressive-growth-r/). Auch 
+in der psychologischen Forschung [wird `R` immer mehr zum 
 Standard](https://www.psychologicalscience.org/observer/why-you-should-become-a-user-a-brief-introduction-to-r). 
 Inzwischen ist es normal, dass Datensätze zusammen mit `R`-Code zur 
 Reproduzierbarkeit von Forschungsergebnissen auf offenen 
