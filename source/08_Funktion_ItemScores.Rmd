@@ -3,18 +3,18 @@
 
 In diesem Kapitel geht es um eine konkrete Anwendung unserer bisher erworbenen 
 Kenntnisse: Wir schreiben eine Funktion, die für beliebige Datensätze die 
-Bepunktung von Testitems umsetzt. Dabei kombinieren wir die Inhalte aus den 
-letzten beiden Kapitel zu Funktionen und zu Schleifen. Dabei gehe ich vor allem 
-auf die Entscheidungen ein, die beim Schreiben einer Funktion getroffen werden 
-müssen; es geht hier weniger um die technischen Aspekte der Definition von 
-Funktionen, die wir bereits behandelt haben. 
+Bepunktung von Testitems umsetzt. Dabei kombinieren wir Inhalte aus den letzten 
+beiden Kapitel zu Funktionen und zu Schleifen. Ich gehe vor allem auf die 
+Entscheidungen ein, die beim Schreiben einer Funktion getroffen werden müssen; 
+die rein technischen Aspekte des Schreibens einer Funktion [haben wir 
+behandelt](#funktionschreiben).
 
 ## Problemspezifischer Code vs. abstrahierter Code
 
 Eine Funktion zu schreiben bedeutet, ein gegebenes Problem zu 
 abstrahieren.[^kopfanstrengen] Beim Schreiben einer Funktion entfernen wir uns 
-von der konkreten Problematik einer einzelnen Aufgabe -- zumeist: dem Datensatz, 
-den wir jetzt gerade bearbeiten. Stattdessen versuchen wir die Essenz des 
+von der konkreten Problematik einer einzelnen Aufgabe, zumeist heißt das, dem 
+Datensatz, den wir gerade bearbeiten. Stattdessen versuchen wir die Essenz des 
 Problems zu begreifen und ein allgemeines Schema zur Lösung des Problems 
 herzustellen. 
 

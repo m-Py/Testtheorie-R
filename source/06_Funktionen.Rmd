@@ -479,7 +479,7 @@ leisten, den p-Wert jedes Mal aus der Konsolen-Ausgabe abzulesen.
 Stattdessen wollen wir den Prozess der p-Wert-Extraktion automatisieren;
 und genau für solche Automatisierungen lernen wir das Programmieren.
 
-## Selbst geschriebene Funktionen
+## Selbst geschriebene Funktionen {#funktionschreiben}
 
 Das Schreiben eigener Funktionen sollte früher oder später zum
 Repertoire eines `R`-Nutzers gehören. Mit selbst geschriebenen
