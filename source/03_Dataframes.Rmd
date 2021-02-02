@@ -568,7 +568,7 @@ Thema liefern.
 genommen kein legales `R`-Objekt ist, wendet sie Non-Standard-Evaluation an. 
 ```
 
-### Umgang mit `NA`: `subset()` bevorzugt zur Zeilenauswahl
+### Umgang mit `NA`: `subset()` bevorzugt zur Zeilenauswahl {#subsettoll}
 
 Die Funktion `subset()` bietet uns nicht nur syntaktische Vereinfachungen zur 
 Auswahl von Zeilen und Spalten. Darüber hinaus ist auch das Verhalten von 

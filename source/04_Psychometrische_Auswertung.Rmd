@@ -73,6 +73,7 @@ erklärt, ist das mit der `$`-Notation möglich:
 
 ```{r}
 test_data$score <- rowSums(test_data)
+test_data
 ```
 
 Da viele viele Analysen aber nur einen `data.frame` mit den Item-Spalten
@@ -120,38 +121,149 @@ Argument einen `data.frame` erhält, wird eine Tabelle ausgegeben, die
 die Korrelation zwischen allen Spalten -- d.h. Items -- des 
 `data.frames` enthält.
 
-```{r, eval = FALSE}
+```{r}
 round(cor(test_data), 2)
 ```
 
-```{r, echo = FALSE}
-item_correlations <- cor(test_data)
-kable(round(item_correlations, 2))
+Die Korrelationen wurden aus Darstellungszwecken mit der Funktion `round()` auf 
+zwei Nachkommastellen gerundet. Die Ausgabe der Funktion `cor()` ist eine 
+Tabelle, die alle Korrelationen zwischen den Items (und auch mit dem 
+Gesamtscore) abbildet. Beachtet, dass die Matrix symmetrisch ist, also die 
+Korrelation zwischen Item 1 und Item 2 natürlich der Korrelation zwischen Item 2 
+und Item 1 entspricht. Auf der Diagonalen befindet sich immer eine 1, da jedes 
+Item perfekt mit sich selbst korreliert. Die ausgegebene Tabelle erinnert an 
+einen `data.frame`, ist aber technisch gesehen eine andere Datenstruktur, 
+nämlich eine Matrix. Der Unterschied zwischen Matritzen und `data.frames` soll 
+uns jedoch zunächst nicht kümmern.
+
+### Exkurs: Programmatische Untersuchung der Korrelationsmatrix
+
+Große Item-Korrelationsmatritzen sind oftmals unübersichtlich und erschweren den 
+Überblick darüber, welche Items stärker oder weniger stark miteinander 
+korrelieren. Eine visuelle Inspektion ist demnach mühsam und fehleranfällig. 
+Stattdessen würden wir lieber programmatisch die Eigenschaften der 
+Korrelationsmatrix erforschen. Glücklicherweise ist dies mit R möglich, da die 
+Korrelationsmatrix selbst nur ein R-Objekt ist und wir beliebig damit arbeiten 
+können. 
+
+Typischerweise weiß man beispielsweise gerne, welche zwei Items am stärksten 
+miteinander korrelieren. Um dieser Frage nachzugehen, lernen wir in diesem 
+Abschnitt, dass vektorisierte R-Funktionen im Normalfall nicht nur auf einfachen 
+Vektoren agieren (siehe [Kapitel 2](#vektorisierung)), sondern sich auch auf 
+komplexere Strukturen wie eine Korrelationsmatrix übertragen lassen.
+
+Speichern wir zunächst die Item-Korrelationsmatrix in einer Variablen ab. Dabei 
+achten wir darauf, die Korrelation zum Summenscore aus der Korrelationsmatrix zu 
+entfernen; es interessieren uns nur die Korrelationen zwischen den einzelnen 
+Items (der nächste Abschnitt behandelt die Bedeutung der Korrelationen zwischen 
+Items und Summenscore):
+
+```{r}
+item_cors <- cor(test_data[, -6]) # 6. Spalte = Summenscore über die Items
 ```
 
-Die Korrelationen wurden aus Darstellungszwecken mit der Funktion
-`round()` auf zwei Nachkommastellen gerundet.
+Zunächst stellen wir fest, dass logische Operationen auf Korrelationsmatritzen 
+anwendbar sind. Wir können so etwa feststellen, welche Items stärker als zu *r* 
+= .50 miteinander korrelieren:
 
-### Exkurs: Zwischen welchen Items besteht die höchste Korrelation
+```{r}
+item_cors > .50
+```
 
-Große Item-Korrelationsmatritzen sind oftmals unübersichtlich, um sich 
-einen Überblick darüber zu verschaffen, welche Items stark oder weniger 
-stark korrelieren. Typischerweise wüsste man beispielsweise gerne, 
-welche zwei Items miteinander am stärksten korrelieren.
+Die Ausgabe ist eine logische Matrix, die für jedes Itempaar kodiert, ob die 
+Korrelation zwischen diesen Items größer ist als *r* = .50. Bei Item 5 und Item 
+2 ist dies beispielsweise der Fall. Eine solche logische Matrix kann jedoch 
+gerade bei vielen Items unübersichtlich werden. Wir können mit der Funktion 
+[`which()`](#subsettoll) herausfinden, welche Items mit mehr als *r* = .50 
+miteinander korrelieren: 
+
+```{r}
+which(item_cors > .50, arr.ind = TRUE)
+```
+
+Da wir hier eine Matrix und nicht einen Vektor untersuchen, müssen wir das 
+Argument `arr.ind = TRUE` setzen, um eine sinnvolle Ausgabe zu erhalten. 
+Besonders übersichtlich ist diese Ausgabe jedoch immer noch nicht, da sie auch 
+alle "Autokorrelationen" markiert -- also die Diagonale der Korrelationsmatrix, 
+die die Korrelation jedes Items mit sich selbst abbildet. Dies wollen wir 
+vermeiden. Eine Möglichkeit ist es, die Diagonale der Korrelationsmatrix 
+anzupassen. Auch hier verwenden wir eine Operation, die wir im Kapitel zu 
+Vektoren kennengelernt haben und die auch auf Matritzen generalisiert:
+
+```{r}
+item_cors[item_cors == 1] <- NA
+round(item_cors, 2)
+```
+
+Wir ersetzen auf diese Weise alle Einsen der Korrelationsmatrix durch einen 
+fehlenden Wert; danach können wir per `which()` einfacher erfragen, welche 
+Korrelationen größer als *r* = .50 sind: 
+
+```{r}
+which(item_cors > .50, arr.ind = TRUE)
+```
+
+Noch besser wird die Ausgabe, wenn wir die Redundanz aus der Korrelationsmatrix 
+entfernen; schließlich befinden sich im oberen und unteren Dreieck der Matrix 
+dieselben Informationen. Wir können die Korrelationen oben rechts durch 
+Verwendung der Funktion `upper.tri()`[^uppertri] durch `NA` ersetzen: 
+
+[^uppertri]: Wer mehr zur Manipulation von Matritzen lernen möchte, kann eine 
+Recherche zu den Funktionen `upper.tri()`, `lower.tri()` und `diag()` 
+durchführen.
+
+```{r}
+item_cors[upper.tri(item_cors)] <- NA
+round(item_cors, 2)
+which(item_cors > .50, arr.ind = TRUE)
+```
+
+Item 5 korreliert also stark mit den Items 2, 3 und 4, und Item 3 korreliert 
+noch stark mit Item 4. 
+
+Mit einem ähnlichen Vorgehen können wir programmatisch -- ohne visuelle 
+Inspektion -- bestimmen, zwischen welchen Items die stärkste Korrelation 
+besteht. Hier wenden wir zunächst die Funktion `max()` auf die 
+Korrelationsmatrix an:
+
+```{r}
+maximum_cor <- max(item_cors, na.rm = TRUE)
+maximum_cor
+```
+
+Beachtet, dass diese Operation nicht sinnvoll gewesen wäre, wenn die 
+Autokorrelationen auf der Diagonalen noch enthalten gewesen wären. Nun können 
+wir durch eine logische Abfrage und die Funktion `which()` bestimmen, zwischen 
+welchen Items die stärkste Korrelation besteht: 
+
+```{r}
+which(item_cors == maximum_cor, arr.ind = TRUE)
+```
+
+Am stärksten korrelieren also die Items 4 und 5 miteinander. Zugegeben, das 
+hätten wir im Falle von 5 Items auch einfach durch Betrachten der 
+Korrelationsmatrix erfassen können, aber gerade bei sehr großen Test-Inventaren 
+ist die programmatische Untersuchung einer Korrelationsmatrix einer visuellen 
+Inspektion gegenüber deutlich zu bevorzugen.
 
 ## Item-Trennschärfen {#trennschaerfe}
 
-Interessant ist die letzte Spalte (bzw. genauso die letzte Zeile) der
-Tabelle der Item-Korrelationen. Diese gibt an, wie stark die Korrelation
-zwischen jedem Item und dem Testscore ausfällt. Dieser Kennwert ist die
-(unkorrigierte) Trennschärfe der Items; wir erhalten sie, da wir oben
-den Testscore als Spalte an unseren `data.frame` angehängt haben. Die
-Item-Trennschärfe macht eine Aussage darüber, wie stark das Abschneiden
-in einem Item mit dem Gesamt-Testscore zusammenhängt. Je höher die
-Trennschärfe, desto besser vermag das Item zwischen Schüler/innen mit
-viel und wenig Wissen (also einem hohen bzw. einem niedrigen
-Gesamt-Testscore) zu trennen. Die Trennschärfe ist ein Kennwert, der zur
-Beurteilung der Güte eines Items dienen kann.
+Interessant ist die letzte Spalte (bzw. genauso die letzte Zeile) der obigen 
+Korrelationsmatrix:
+
+```{r}
+round(cor(test_data), 2)
+```
+
+Diese gibt an, wie stark die Korrelation zwischen jedem Item und dem Testscore 
+ausfällt. Dieser Kennwert ist die (unkorrigierte) Trennschärfe der Items; wir 
+erhalten sie, da wir oben den Testscore als Spalte an unseren `data.frame` 
+angehängt haben. Die Item-Trennschärfe macht eine Aussage darüber, wie stark das 
+Abschneiden in einem Item mit dem Gesamt-Testscore zusammenhängt. Je höher die 
+Trennschärfe, desto besser vermag das Item zwischen Schüler/innen mit viel und 
+wenig Wissen (also einem hohen bzw. einem niedrigen Gesamt-Testscore) zu 
+trennen. Die Trennschärfe ist ein Kennwert, der zur Beurteilung der Güte eines 
+Items dienen kann.
 
 Oftmals wird die „part-whole“ korrigierte Trennschärfe berechnet, bei
 der zur Berechnung der Trennschärfe jedes Items der Itemscore dieses
