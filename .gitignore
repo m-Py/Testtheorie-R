@@ -6,3 +6,4 @@ data.csv
 *.html
 .Rproj.user
 00_Setup.pdf
+.radian_profile
