@@ -75,11 +75,6 @@ set.seed(42)
 
 \clearpage
 
-```{r child = '09_anova.Rmd'}
-```
-
-\clearpage
-
 ```{r child = '101_Anhang.Rmd'}
 ```
 
