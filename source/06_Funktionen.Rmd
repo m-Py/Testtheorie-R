@@ -249,7 +249,7 @@ aufgerufen werden. Das heißt: Sie können mit unterschiedlichen
 Die Standardwerte der optionalen Argumente lassen sich dadurch ablesen,
 dass in der Argumentliste in der Form `Argumentname = Wert` schon ein
 Wert angegeben ist. Das Argument `trim` etwa hat den Standardwert
-`0`. Wie wir bereits wissen, hat das Argument `na.rm` hat den
+`0`. Wie wir bereits wissen, hat das Argument `na.rm` den
 Standardwert `FALSE`. Bei nicht-optionalen Argumenten ist kein
 Standardwert, sondern nur der Name des Arguments angegeben.
 
@@ -669,7 +669,7 @@ hängt auch stark  von der Art des Projekts ab. Wenn ich bloß Daten
 einlese und einen t-Test oder eine ANOVA rechne, muss ich dafür keine
 Funktion schreiben. Wenn ich hingegen viel mit Daten an sich arbeite --
 also oft Daten auswähle, transformiere und aus bestehenden Werten neue
-Werte ableite -- machen eigene Funktionen oftmals mehr Sinn.
+Werte ableite -- ergeben eigene Funktionen oftmals mehr Sinn.
 
 ## Fragen zum vertiefenden Verständnis
 
