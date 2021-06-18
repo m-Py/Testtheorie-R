@@ -295,7 +295,7 @@ mdf[, grepl("Item", names(mdf))]
 ```
 
 Ähnlich funktioniert die Funktion `grep()`, die jedoch numerische Indices statt
-einem logischen Vektor zurückgibt und demnach auch zur Spaltenauswahl genutzt
+eines logischen Vektors zurückgibt und demnach auch zur Spaltenauswahl genutzt
 werden kann.
 
 ```{r}
