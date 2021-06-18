@@ -223,40 +223,49 @@ bestimmte Eigenschaft aufweisen.").
 
 ### Spaltenauswahl von Items mit der Funktion `paste0()`
 
-Zu diesem Zweck werden wir die Funktion `paste0()` nutzen, die
-`character`-Vektoren beliebiger Länge erstellt. So lassen sich beispielsweise
-bequem 10 durchnummerierte Itemnamen generieren, wodurch man gleich 10 Spalten
-aus einer Tabelle auswählen könnte:
+Die Funktion `paste0()` kann genutzt werden, um effizient Spaltennamen zu
+erstellen, wenn die Spaltennamen einem bestimmten Schema folgen, wie es
+bei der Benennung von Fragebogen-Items oftmals der Fall ist. Sie erstellt
+`character`-Vektoren beliebiger Länge. Etwa wie folgt lassen sich bequem 10
+durchnummerierte Itemnamen generieren:
 
 ```{r}
-items <- paste0("item_", 1:10)
+paste0("item_", 1:10)
 ```
 
-Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das
-Ergebnis des Befehls ist ein 10-elementiger Vektor, was wir auch wie
-folgt überprüfen können:
+Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das Ergebnis
+des Befehls ist **ein** 10-elementiger Vektor, der zur Spaltenauswahl mithilfe
+der `[·,·]`-Notation genutzt werden könnte. Diese Operation ist nützlich, da
+Spaltennamen in echten Datentabellen oft aus einem fixen Stamm -- hier `item` --
+und einem variablen Teil bestehen -- hier den Zahlen von 1 bis 10. Die Funktion
+`paste0()` ermöglicht uns dann, den fixen Teil nicht mehrfach aufschreiben zu
+müssen. Außerdem besteht der variable Teil oftmals aus einer aufsteigenden
+Zahlenfolge, die wir unkompliziert mit dem Doppelpunktoperator erstellen
+können.[^subskalen]
+
+[^subskalen]: Bei der Auswahl von Items aus Subskalen ist dieses Vorgehen
+oftmals etwas schwieriger, da hier nur Teilmengen des gesamten Itempools
+ausgewählt werden sollen. Aber auch dann kann die Funktion `paste0()` helfen.
+
+Die Funktion `paste0()` ist nicht auf die Kombination von zwei Vektoren
+beschränkt, sondern verknüpft im Allgemeinen beliebig viele Vektoren. Sollten
+die Spaltennamen beispielsweise noch ein festes Suffix nach der Nummerierung
+enthalten, kann dieses einfach durch ein zusätzliches Argument angefügt werden:
 
 ```{r}
-length(items)
-items
+paste0("item_", 1:3, "R")
 ```
 
-Diese Operation ist nützlich, da Spaltennamen in echten Datentabellen
-oft aus einem fixen Teil -- hier `item` -- und einem variablen Teil
-bestehen -- hier die Zahlen von 1 bis 10. Die Funktion `paste0()`
-ermöglicht uns dann, den fixen Teil nicht mehrfach aufschreiben zu
-müssen. Außerdem besteht der variable Teil oftmals aus einer
-aufsteigenden Zahlenfolge, die wir mit sehr wenig Aufwand mit dem
-Doppelpunktoperator erstellen können.
-
-In unserer kleinen Datentabelle können wir mithilfe der Funktion `paste0()` die
-zwei Items auswählen:
+In unserer kleinen Datentabelle `mdf` können wir mithilfe der Funktion
+`paste0()` die zwei Items wie folgt auswählen:
 
 ```{r}
 
 mdf[, paste0("Item", 1:2)]
 
 ```
+
+Natürlich ist diese Operation nützlicher, wenn die Tabelle mehr Items enthält.
 
 Eine Verallgemeinerung von `paste0()` stellt die Funktion `paste()` dar, die das
 Trennzeichen zwischen den zusammengefügten Vektoren explizit definieren kann.
@@ -266,13 +275,16 @@ Dazu verwendet `paste()` das benannte Argument `sep`:
 paste("item", 1:10, sep = "-")
 ```
 
+Die Funktionen `paste()` und `paste0()` arbeiten vektorisiert und im Allgemeinen
+auch komponentenweise, verknüfen also gleich lange Eingabevektoren paarweise
+anhand der Position ihrer Elemente.
+
 ### Spaltenauswahl von Items mit der Funktion `grepl()`
 
-Die Funktion `grepl()` kann ebenfall genutzt werden, um gezielt Spalten
+Die Funktion `grepl()` kann ebenfalls genutzt werden, um gezielt Spalten
 auszuwählen, deren Namen einem gewissen Format entsprechen. Sie nimmt (als
-zweites Argument) einen Vektor vom Typ `character` entgegen, vergleicht darin
-alle Elemente mit einer Vorlage (die als erstes Argument übergeben wird), und
-gibt aus ob die Vorlage in den Elementen enthalten ist:
+zweites Argument) einen Vektor vom Typ `character` entgegen und vergleicht darin
+alle Elemente mit einer Vorlage (die als erstes Argument übergeben wird):
 
 ```{r}
 names(mdf)
@@ -283,8 +295,8 @@ mdf[, grepl("Item", names(mdf))]
 ```
 
 Ähnlich funktioniert die Funktion `grep()`, die jedoch numerische Indices statt
-einem logischen Vektor zurückgibt und kann demnach auch zur Spaltenauswahl
-genutzt werden kann.
+einem logischen Vektor zurückgibt und demnach auch zur Spaltenauswahl genutzt
+werden kann.
 
 ```{r}
 grep("Item", names(mdf))
@@ -322,10 +334,10 @@ Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
 mdf[mdf$Augenfarbe %in% c("blau", "braun"), ]
 ```
 
-Allgemein können beliebige logische Operationen bzw. Vektoren zur Zeilen- oder
-zur Spaltenauswahl formuliert werden. Im nächsten Abschnitt lernen wir mit der
-Funktion `subset()` eine Möglichkeit kennen, komplexere logische Anfragen zur
-Zeilenauswahl noch etwas prägnanter zu formulieren.
+Allgemein können beliebige logische Operationen bzw. Vektoren zur Zeilenauswahl
+angegeben werden. Im nächsten Abschnitt lernen wir mit der Funktion `subset()`
+eine Möglichkeit kennen, komplexere logische Anfragen zur Zeilenauswahl noch
+etwas prägnanter zu formulieren.
 
 ### Weitere Beispiele zur Verwendung der `[·,·]`-Notation
 
