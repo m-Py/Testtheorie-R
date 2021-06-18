@@ -219,9 +219,86 @@ Spalten werden am häufigsten per Namen -- also durch Angabe eines einen
 Vektors vom Typ `character` -- adressiert; Zeilen werden am häufigsten
 durch einen logischen Ausdruck -- also durch Angabe eines einen Vektors
 vom Typ `logical` -- adressiert ("Gib mir alle Fälle aus, die eine
-bestimmte Eigenschaft aufweisen."). Durch die UND- bzw. ODER-Operationen
-können wir auch komplexere logische Bedingungen zur Auswahl von Fällen
-formulieren:
+bestimmte Eigenschaft aufweisen.").
+
+### Spaltenauswahl von Items mit der Funktion `paste0()`
+
+Zu diesem Zweck werden wir die Funktion `paste0()` nutzen, die
+`character`-Vektoren beliebiger Länge erstellt. So lassen sich beispielsweise
+bequem 10 durchnummerierte Itemnamen generieren, wodurch man gleich 10 Spalten
+aus einer Tabelle auswählen könnte:
+
+```{r}
+items <- paste0("item_", 1:10)
+```
+
+Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das
+Ergebnis des Befehls ist ein 10-elementiger Vektor, was wir auch wie
+folgt überprüfen können:
+
+```{r}
+length(items)
+items
+```
+
+Diese Operation ist nützlich, da Spaltennamen in echten Datentabellen
+oft aus einem fixen Teil -- hier `item` -- und einem variablen Teil
+bestehen -- hier die Zahlen von 1 bis 10. Die Funktion `paste0()`
+ermöglicht uns dann, den fixen Teil nicht mehrfach aufschreiben zu
+müssen. Außerdem besteht der variable Teil oftmals aus einer
+aufsteigenden Zahlenfolge, die wir mit sehr wenig Aufwand mit dem
+Doppelpunktoperator erstellen können.
+
+In unserer kleinen Datentabelle können wir mithilfe der Funktion `paste0()` die
+zwei Items auswählen:
+
+```{r}
+
+mdf[, paste0("Item", 1:2)]
+
+```
+
+Eine Verallgemeinerung von `paste0()` stellt die Funktion `paste()` dar, die das
+Trennzeichen zwischen den zusammengefügten Vektoren explizit definieren kann.
+Dazu verwendet `paste()` das benannte Argument `sep`:
+
+```{r}
+paste("item", 1:10, sep = "-")
+```
+
+### Spaltenauswahl von Items mit der Funktion `grepl()`
+
+Die Funktion `grepl()` kann ebenfall genutzt werden, um gezielt Spalten
+auszuwählen, deren Namen einem gewissen Format entsprechen. Sie nimmt (als
+zweites Argument) einen Vektor vom Typ `character` entgegen, vergleicht darin
+alle Elemente mit einer Vorlage (die als erstes Argument übergeben wird), und
+gibt aus ob die Vorlage in den Elementen enthalten ist:
+
+```{r}
+names(mdf)
+# Teste pro Spaltenname, ob der Stamm "Item" enthalten ist:
+grepl("Item", names(mdf))
+# Nutze grepl zur Auswahl der Spalten:
+mdf[, grepl("Item", names(mdf))]
+```
+
+Ähnlich funktioniert die Funktion `grep()`, die jedoch numerische Indices statt
+einem logischen Vektor zurückgibt und kann demnach auch zur Spaltenauswahl
+genutzt werden kann.
+
+```{r}
+grep("Item", names(mdf))
+```
+
+Bei der Nutzung von `grepl()` oder `grep()` zur Spaltenauswahl ist Vorsicht
+geboten, dass wirklich nur die gewünschten Spalten ausgewählt werden und nicht
+andere, die zufällig denselben Stamm enthalten, aber nicht in der Ausgabemenge
+erwünscht sind.
+
+### Komplexere logische Operationen zur Zeilenauswahl
+
+Durch die UND- bzw. ODER-Operationen können wir auch komplexere logische
+Bedingungen zur Auswahl von Fällen formulieren:
 
 ```{r}
 mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun", ]
@@ -237,7 +314,7 @@ mdf[mdf$Augenfarbe == "blau" | mdf$Augenfarbe == "braun" & mdf$Item1 == 1, ]
 ```
 
 Wie wir merken, wird die `[·,·]`-Notation recht schnell
-unübersichtlich, wenn sie komplexere logische Anfragen enthält. Die
+unübersichtlich, wenn sie komplexere logische Bedingungen enthält. Die
 Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
 `%in%`-Operator verkürzen:
 
@@ -245,9 +322,14 @@ Verknüpfung mehrerer ODER-Bedingungen lässt sich durch den
 mdf[mdf$Augenfarbe %in% c("blau", "braun"), ]
 ```
 
-Im nächsten Abschnitt lernen wir mit der Funktion `subset()` eine
-Möglichkeit kennen, komplexere logische Anfragen noch etwas prägnanter
-zu formulieren. Zum Abschluss dieses Abschnitts betrachten wir noch
+Allgemein können beliebige logische Operationen bzw. Vektoren zur Zeilen- oder
+zur Spaltenauswahl formuliert werden. Im nächsten Abschnitt lernen wir mit der
+Funktion `subset()` eine Möglichkeit kennen, komplexere logische Anfragen zur
+Zeilenauswahl noch etwas prägnanter zu formulieren.
+
+### Weitere Beispiele zur Verwendung der `[·,·]`-Notation
+
+Zum Abschluss dieses Abschnitts betrachten wir noch
 einige weitere Beispiele für die verschiedenen Auswahlmöglichkeiten per
 `[·,·]`:
 
@@ -281,7 +363,7 @@ mdf[, paste0("Item", 1:2)]
 **Merke**: Mit dem `[·,·]`-Zugriff wird vor dem Komma die
 Zeile und nach dem Komma die Spalte adressiert. Man kann die
 Auswahl nach numerischem Index, mit einem logischen Vektor oder mit
-einem `character` Vektor durchführen.
+einem `character`-Vektor durchführen.
 ```
 
 ## Die Funktion `subset()` {#subset}

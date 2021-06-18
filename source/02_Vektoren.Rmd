@@ -454,46 +454,10 @@ Fehler in "bla" * 2 : nicht-numerisches Argument
 für binären Operator
 ```
 
-In diesem Skript spielt Text keine allzu große Rolle. In erster Linie
-werden wir Vektoren vom Typ `character` für Datenzugriffe verwenden; im
-Speziellen werden wir sie einsetzen, um Spalten in Datentabellen zu
-adressieren (siehe [Kapitel 3](#datenzugriffe)). Zu diesem Zweck werden
-wir die Funktion `paste0()` nutzen, die `character`-Vektoren beliebiger
-Länge erstellt. So lassen sich beispielsweise bequem 10 durchnummerierte
-Itemnamen generieren, wodurch man gleich 10 Spalten aus einer Tabelle
-auswählen könnte:
-
-```{r}
-items <- paste0("item_", 1:10)
-```
-
-Hierbei wird der Text "item_" mit den Zahlen von 1 bis 10 gepaart. Das
-Ergebnis des Befehls ist ein 10-elementiger Vektor, was wir auch wie
-folgt überprüfen können:
-
-```{r}
-length(items)
-items
-```
-
-Diese Operation ist nützlich, da Spaltennamen in echten Datentabellen
-oft aus einem fixen Teil -- hier `item` -- und einem variablen Teil
-bestehen -- hier die Zahlen von 1 bis 10. Die Funktion `paste0()`
-ermöglicht uns dann, den fixen Teil nicht mehrfach aufschreiben zu
-müssen. Außerdem besteht der variable Teil oftmals aus einer
-aufsteigenden Zahlenfolge, die wir mit sehr wenig Aufwand mit dem
-Doppelpunktoperator erstellen können.
-
-Wenn man mit der Funktion `paste0()` mehrere ein-elementige Vektoren
-miteinander verknüpft, wird ein ein-elementiger Vektor vom Typ
-`character` ausgegeben:
-
-```{r}
-paste0("item", "_", 1)
-```
-
-So sehen wir, dass die Funktion `paste0` mehr als zwei Vektoren
-zusammenfügen kann -- im Allgemeinen sogar beliebig viele.
+In erster Linie werden wir Vektoren vom Typ `character` für Datenzugriffe
+verwenden; im Speziellen werden wir sie einsetzen, um Spalten in Datentabellen
+zu adressieren, da Spalten normalerweise per Namen angesteuert werden (siehe
+[Kapitel 3](#datenzugriffe)).
 
 ### `logical`
 
