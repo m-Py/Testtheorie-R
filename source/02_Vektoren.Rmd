@@ -1042,7 +1042,7 @@ der seiner Position im Vektor entspricht. Im folgenden Vektor etwa hat
 `2` den Index `1`, `4` den Index `2` und `1` den Index `3`:
 
 [^eckig]: Ich nenne diese Operation `[·]`-Zugriff , da zur
-Datenauswahl aus Vektoren hinter den Vektor eckigen Klammern gestellt
+Datenauswahl aus Vektoren hinter den Vektor eckige Klammern gestellt
 werden. Die Klammern enthalten eine Angabe darüber, welche Elemente ich
 aus dem Vektor auswählen will. Etwa wählt `c(4, 2, 6)[1]` das erste
 Element aus dem Vektor `c(4, 2, 6)` aus, also 4. Der Punkt ist bloß ein
