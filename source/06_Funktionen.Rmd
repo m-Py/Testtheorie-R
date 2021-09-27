@@ -459,7 +459,7 @@ werden Seiteneffekte genannt. Beispielsweise war die Konsolen-Ausgabe
 der Funktion `t.test()` im oberen Fall ein Seiteneffekt. Wenn ich die
 Funktion `t.test()` aufrufe, wird mir eine Zusammenfassung des Tests in
 der Konsole ausgeben, die als Mensch etwas einfacher zu verarbeiten ist
-<!-- als die Liste, die die „tatsächliche“ Rückgabe darstellt. Das Zeichnen -->
+als die Liste, die die „tatsächliche“ Rückgabe darstellt. Das Zeichnen
 von Abbildungen ist auch als Seiteneffekt zu verstehen. Wenn wir
 beispielsweise `hist(npi$score)` aufrufen, wird uns ein Histogramm der
 Narzissmuswerte des NPI angezeigt. Dieses Histogramm ist ein
