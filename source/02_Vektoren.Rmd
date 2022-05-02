@@ -1144,7 +1144,7 @@ daten[daten > 2]
 
 An dieser Stelle sollte man sich klar machen, warum `daten` sowohl vor
 als auch innerhalb der `[·]` Klammern vorkommt. Das ist prinzipiell
-dasselbe wie im Beispiel `meinVektor[auswahl]` oben, nur das ich dort
+dasselbe wie im Beispiel `meinVektor[auswahl]` oben, nur, dass ich dort
 den `TRUE/FALSE` Vektor, der die Daten ausgewählt hat, in einer
 Variablen -- `auswahl` -- zwischengespeichert habe.
 
