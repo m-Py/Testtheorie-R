@@ -511,7 +511,7 @@ Leider ist die `R`-Hilfe oftmals kryptisch -- und das nicht nur für
 Anfänger. Sie ist die offizielle Dokumentation von Funktionen und legt
 deswegen zwar großen Wert auf technische Genauigkeit, ist aber nicht
 immer sonderlich ausführlich oder gar verständlich. Wir werden in
-[Kapitel 5](#funktionen) bei einer ausführlicheren Besprechung von
+[Kapitel 6](#funktionen) bei einer ausführlicheren Besprechung von
 Funktionen noch einmal darauf zurückkommen, wie wir mit der
 `R`-Hilfe umgehen können.
 
