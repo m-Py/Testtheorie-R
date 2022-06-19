@@ -1,11 +1,6 @@
 
 # Schleifen {#schleifen}
 
-Ein Hinweis zu Beginn: Dieses Kapitel nutzt den `[[·]]`-Zugriff auf
-Spalten in `data.frames`. Wer damit noch nicht vertraut ist, sollte
-sich vor dem Weiterlesen zunächst den [kurzen Abschnitt zum
-`[[·]]`-Zugriff](#doppelteckig) in Kapitel 3 ansehen.
-
 Schleifen spielen in allen Programmiersprachen eine wichtige Rolle. Sie
 erlauben uns, eine Aufgabe mehrfach durchzuführen, ohne dass wir den
 Code für die Aufgabe mehrfach schreiben müssen. Beispielsweise müssen
@@ -92,6 +87,11 @@ Das ist tatsächlich schon alles! Im Folgenden lernen wir zwei konkrete
 Anwendungen von `for`-Schleifen kennen.
 
 ## Sequentielle Bepunktung von Testitems
+
+Ein Hinweis zu Beginn: Dieses Kapitel nutzt den `[[·]]`-Zugriff auf
+Spalten in `data.frames`. Wer damit noch nicht vertraut ist, sollte
+sich vor dem Weiterlesen zunächst den [kurzen Abschnitt zum
+`[[·]]`-Zugriff](#doppelteckig) in Kapitel 3 ansehen.
 
 In [Kapitel 5](#umkodierung) haben wir gelernt, wie wir mithilfe eines
 Schlüssels Testfragen aus einem psychologischen Test bepunkten können.
