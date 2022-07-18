@@ -566,7 +566,7 @@ in den Typ `factor` um. Das heißt: Den numerischen Kategorien (1, 2 und
 umgesetzt durch unterschiedlich fröhliche Smileys. Es macht nur dann 
 Sinn einen Vektor vom Typ `factor` anzulegen, wenn eine numerische 
 Variable eine vordefinierte Zahl an Ausprägungen aufweist. Welche 
-Ausprägungen im Eingangsvektor in diesem Fall möglich sind habe ich mit 
+Ausprägungen im Eingangsvektor in diesem Fall möglich sind, habe ich mit 
 dem zweiten Argument -- `1:3` -- spezifiziert.
 
 Die Darstellung als `factor` ist für Menschen besser zu verarbeiten als 

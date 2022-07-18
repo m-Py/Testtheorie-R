@@ -92,8 +92,8 @@ martin.papenberg@hhu.de gesendet werden.
 Ich danke Juli Tkotz für ihre wertvollen Beiträge und ihr nützliches Feedback
 zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio, Ingo Weigel,
 Katharina Sophie Apenbrink, Jutta Peterburs, Sara Vera Brockhaus, Sophie
-Schalberger, Marlene Hüsken, Dilara Cagdas, Katharina Rubröder und Freya Heiber
-danke ich für Fehlermeldungen.
+Schalberger, Marlene Hüsken, Dilara Cagdas, Katharina Rubröder, Freya Heiber
+und Dilara Cagdas danke ich für Fehlermeldungen.
 
 Zur Erstellung des Skripts wurden `R` [@R-base] und die `R`-Pakete
 *bookdown* [@R-bookdown], *knitr* [@R-knitr], *rmarkdown* [@R-rmarkdown]
