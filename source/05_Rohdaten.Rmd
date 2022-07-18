@@ -504,11 +504,11 @@ Items den Wert, der für Narzissmus steht. Dies wäre wie folgt möglich:
 # Hier kein legaler R-Code, nur exemplarisch:
 npi_key <- c(1, 1, ..., 2) # 40 Schlüsselemente
 
-npi$Q1_score <- ifelse(npi$Q1 == npi_key[1], 1, 0)
+npi_clean$Q1_score <- ifelse(npi_clean$Q1 == npi_key[1], 1, 0)
 
 # ...
 
-npi$Q40_score <- ifelse(npi$Q40 == npi_key[40], 1, 0)
+npi_clean$Q40_score <- ifelse(npi_clean$Q40 == npi_key[40], 1, 0)
 ```
 
 Da wir nicht denselben Code -- mit leichten Abwandlungen -- 40 Mal
