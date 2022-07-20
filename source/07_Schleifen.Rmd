@@ -119,7 +119,7 @@ vorliegt, der alle Fälle ohne fehlende Antworten enthält.
 
 ```{r}
 ## Die Variable `npi_clean` enthält die Antworten für das NPI, siehe
-## Kapitel 6
+## Kapitel 5
 
 # for-Schleife für die Kodierung:
 for (i in 1:40) {
