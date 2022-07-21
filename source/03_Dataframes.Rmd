@@ -389,7 +389,7 @@ folgende Aufruf:
 subset(mdf, mdf$Augenfarbe == "blau", c("Item1", "Augenfarbe"))
 ```
 
-Als erstes Argument nimmt die Funktion `subset()` immer den `data.frame` 
+Als erstes Argument nimmt die Funktion `subset()` den `data.frame` 
 an, aus dem wir Daten auslesen wollen. Danach folgen Argumente zur 
 Auswahl von Zeilen und zur Auswahl von Spalten.
 
