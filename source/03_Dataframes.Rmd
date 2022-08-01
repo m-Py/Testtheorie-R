@@ -389,7 +389,7 @@ folgende Aufruf:
 subset(mdf, mdf$Augenfarbe == "blau", c("Item1", "Augenfarbe"))
 ```
 
-Als erstes Argument nimmt die Funktion `subset()` immer den `data.frame` 
+Als erstes Argument nimmt die Funktion `subset()` den `data.frame` 
 an, aus dem wir Daten auslesen wollen. Danach folgen Argumente zur 
 Auswahl von Zeilen und zur Auswahl von Spalten.
 
@@ -792,7 +792,7 @@ mdf[[paste0("Item", 1)]]
 ```
 
 Der `[[·]]`-Zugriff wird in Zusammenspiel mit der Funktion `paste0()` 
-noch einmal interessant werden, wenn wir in [Kapitel 6](#schleifen) mit 
+noch einmal interessant werden, wenn wir in [Kapitel 7](#schleifen) mit 
 *Schleifen* nacheinander auf beliebig viele Spalten von `data.frames` 
 zugreifen. In einer Schleife können wir dann Spaltennamen automatisiert 
 nacheinander austauschen (etwa: `Item_1`, `Item_2`, ...).

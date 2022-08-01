@@ -869,8 +869,7 @@ dieser Variablen dem relativen Anteil der Werte, die 1 bzw. `TRUE` sind.
 Als Beispiel betrachten wir den folgenden Vektor:
 
 ```{r} 
-beispiel_01 <- c(1, 0, 1, 1)
-mean(beispiel_01)
+mean(c(1, 0, 1, 1))
 ```
 
 Der Mittelwert des Vektors ist `(1 + 0 + 1 + 1) / 4`, also 0.75 -- und 
