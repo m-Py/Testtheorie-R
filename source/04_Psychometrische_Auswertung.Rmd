@@ -576,7 +576,10 @@ aufführt, auf der Basis wievieler Item-Teilnahmen die Werte berechnet
 wurden. 
 
 Insgesamt ist das Paket `psych` ein wichtiges `R`-Zusatzpaket 
-für psychometrische Auswertungen. Der Autor des `psych`-Pakets (William Revelle) 
+für psychometrische Auswertungen, das unter anderem Standardimplementierungen 
+der [Parallelanalyse](https://www.rdocumentation.org/packages/psych/versions/2.2.9/topics/fa.parallel) 
+und der [Explorativen Faktorenanalyse](https://www.rdocumentation.org/packages/psych/versions/2.2.9/topics/fa) 
+beinhaltet. Der Autor des `psych`-Pakets (William Revelle) 
 stellt außerdem auf seiner Website (https://personality-project.org/r/psych/) 
 hilfreiche Materialien für die psychometrische Auswertung in `R` zur Verfügung. 
 Dazu gehört auch ein ganzes Buch zur psychometrischen Datenauswertung 
