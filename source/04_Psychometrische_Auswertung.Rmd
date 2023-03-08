@@ -356,7 +356,7 @@ Arbeiten automatisieren können. In [Kapitel 7](#schleifen) lernen wir
 Schleifen kennen, die uns ermöglichen, ohne wesentlich mehr Aufwand für 
 beliebig viele Items korrigierte Trennschärfen zu bestimmen. 
 
-## Cronbachs Alpha
+## Cronbachs Alpha {#alpha}
 
 Als Nächstes bestimmen wir „Cronbachs Alpha“ als Maß für die interne
 Konsistenz der Antworten der Schüler/innen. Cronbachs Alpha ist ein
@@ -376,30 +376,28 @@ bestimmen. Man könnte sich eine eigene Berechnung programmieren, die
 Cronbachs Alpha umsetzt.[^guteuebung] Wir machen uns aber zunutze, dass 
 bereits andere `R`-Nutzer Cronbachs Alpha als Funktion umgesetzt haben, 
 und diese in einem *Paket* zur Verfügung gestellt haben. Eine Umsetzung 
-von Cronbachs Alpha findet sich im Paket `psychometric` 
-[@R-psychometric]. Mit der Funktion `library()` kann ich Pakete laden, 
-die nicht zur Grundausstattung von `R` gehören. Voraussetzung ist, dass 
-ich das Paket auf meinem Rechner installiert habe. Die Erweiterbarkeit 
-durch Pakete ist eine der großen Stärken von `R`.
+von Cronbachs Alpha findet sich im Paket `psych` [@R-psych]. Mit der 
+Funktion `library()` kann ich Pakete laden, die nicht zur 
+Grundausstattung von `R` gehören. Voraussetzung ist, dass ich das Paket 
+auf meinem Rechner installiert habe. Die Erweiterbarkeit durch Pakete 
+ist eine der großen Stärken von `R`.
 
 [^guteuebung]: Das wäre sogar eine gute Übung. Die Formel findet sich
-unter
-[https://de.wikipedia.org/wiki/Cronbachs_Alpha](https://de.wikipedia.org/wiki/Cronbachs_Alpha)
+unter [https://de.wikipedia.org/wiki/Cronbachs_Alpha](https://de.wikipedia.org/wiki/Cronbachs_Alpha)
 
 ```{r}
-# Das Paket `psychometric` enthält eine Funktion, die Cronbachs Alpha
-# berechnet
-library("psychometric")
+# Das Paket `psych` enthält eine Funktion, die Cronbachs Alpha berechnet
+library("psych")
 ```
 
 Falls das Paket nicht installiert ist, kann ich es mit dem folgenden
 Befehl installieren:
 
 ```R
-install.packages("psychometric")
+install.packages("psych")
 ```
 
-Praktischerweise arbeitet die Funktion `alpha()` aus dem `psychometric`
+Praktischerweise arbeitet die Funktion `alpha()` aus dem `psych`
 Paket genau mit dem Standard-Datenformat, das uns vorliegt: Zeilen
 kennzeichnen Testteilnehmer, Spalten kennzeichnen Items. **Wichtig ist
 aber nun**: Wir haben soeben den Testscore als zusätzliche Spalte an die
@@ -421,13 +419,22 @@ keine Variable ist, sondern zu einem `data.frame` gehört. Deswegen muss
 man Spalten mit dem Befehl `data.frame$spalte <- NULL` entfernen. `NULL` 
 ist in `R` ein Wert, der für „Nicht-Existenz“ steht.
 
-Nachdem wir das Paket `psychometric` geladen und die Spalte `score`
+Nachdem wir das Paket `psych` geladen und die Spalte `score`
 entfernt haben, können wir Cronbachs Alpha mit der Funktion `alpha()`
 bestimmen:
 
 ```{r}
-alpha(test_data) # erfordert Laden des Pakets psychometric
+alpha(test_data) # erfordert Laden des Pakets psych
 ```
+
+```{r, echo = FALSE}
+alpha_items <- round(alpha(test_data)$total$raw_alpha, 2)
+```
+
+Wir sehen, dass die Funktion `alpha()` viel Output mit 
+Informationen zum übergebenen Item-Datensatz generiert und uns nicht 
+nur den Wert für Cronbachs Alpha zurückgibt. Dieser kann unter 
+`raw_alpha` abgelesen werden und beträgt `r alpha_items`.
 
 ## Split-Half-Reliabilität
 
@@ -513,13 +520,11 @@ Reliabilität für die doppelte Testlänge schätzen wollen:
 ```{r}
 split_half <- spearman_brown(cor_halfs, 2)
 split_half
-
-## Vergleiche mit Cronbachs Alpha:
-alpha(test_data)
 ```
 
 Wie wir sehen, liegt die Spearman-Brown-korrigierte
-Split-Half-Reliabilität näher an Cronbachs Alpha als die unkorrigierte
+Split-Half-Reliabilität näher an Cronbachs Alpha (`r 
+alpha_items`) als die unkorrigierte
 Korrelation der zwei Testhälften. Das liegt daran, dass die Korrelation
 der zwei Testhälften die Reliabilität systematisch unterschätzt, da
 dieser Schätzer nur auf der Hälfte der Items beruht. Es ist sogar so,
@@ -539,44 +544,37 @@ Pakete zurückgreifen, um Berechnungen durchzuführen. Insbesondere die selbst
 programmierte Berechnung der korrigierten Trennschärfe war, wie oben 
 vorgestellt, recht mühsam und fehleranfällig. Außerdem ergab sie erst einmal 
 nur eine einzige Trennschärfe. Idealerweise hätten wir aber durch nur einen 
-Funktionsaufruf direkt die Trennschärfen aller Items eines Tests bestimmt. Zu 
-diesem Zweck ist die Funktion `item.exam()` nützlich, die durch das Paket 
-`psychometric` zur Verfügung gestellt wird, das wir auch zur Bestimmung von 
-Cronbachs Alpha genutzt haben. 
+Funktionsaufruf direkt die Trennschärfen aller Items eines Tests 
+bestimmt. 
 
-Die Funktion `item.exam()` nimmt einen `data.frame` im psychometrischen 
-Standardformat an: Zeilen sind Testteilnehmer, Spalten sind Items. Für dieses 
-Datenformat gibt `item.exam()` nicht nur die korrigierte Trennschärfen aller 
-Items, sondern auch andere Kennwerte wie die Item-Schwierigkeiten aus. Wir 
-nutzen die Funktion wie folgt:
-
-```{r}
-library("psychometric")
-kennwerte <- item.exam(test_data)
-```
-
-Die Variable `kennwerte` enthält nun einen `data.frame`, der für jedes Item 
-verschiedene psychometrische Kennwerte abbildet; jede Zeile ist ein Item 
-und jede Spalte ist ein Kennwert. 
-
-```{r}
-kennwerte
-```
-
-Die Item-Schwierigkeit befindet sich in der Spalte `Difficulty`; 
-die unkorrigierte Trennschärfe befindet sich in der Spalte `Item.total`;
-die korrigierte Trennschärfe befindet sich in der Spalte `Item.Tot.woi`; für die 
-Bedeutung der anderen Kennwerte sei auf die Dokumentation der Funktion 
-verwiesen, auf die wir mit der `R`-Hilfe in der `R`-Konsole zugreifen können: 
+Zu diesem Zweck greifen wir noch einmal auf das Paket `psych` zurück. 
+Wie wir im [Abschnitt zu Cronbachs Alpha](#alpha) gesehen haben, gibt 
+die Funktion `alpha()` nicht nur den Wert von Cronbachs Alpha zurück, 
+sondern führt gleich noch eine ganze Reihe weiterer Berechnungen für 
+den Item-Datensatz durch, der ihr übergeben wird. Darunter befinden 
+sich auch die unkorrigierten und korrigierten Item-Trennschärfen. Im 
+Output können wir eine Tabelle Item-Kennwerten betrachten: 
 
 ```{r, eval = FALSE}
-?item.exam
+library("psych")
+alpha(test_data)
+# Betrachte hier nur die Tabelle mit den Item-Kennwerten:
 ```
 
-Für Item 2 wird dieselbe korrigierte Trennschärfe ausgegeben, die wir oben 
-[im Abschnitt zu Item-Trennschärfen](#trennschaerfe) per Hand berechnet haben.
+```{r, echo = FALSE}
+round(alpha(test_data)$item.stats, 2)
+```
 
-Neben `psychometric` ist auch das Paket `psych` ein wichtiges `R`-Zusatzpaket 
+Die Spalte mit der Überschrift `raw.r` beinhaltet die unkorrigierten 
+Trennschärfen der Items, die Spalte mit der Überschrift `r.cor` 
+beinhaltet die korrigierten Trennschärfen.  Für Item 2 wird dieselbe 
+korrigierte Trennschärfe ausgegeben, die wir 
+oben [im Abschnitt zu Item-Trennschärfen](#trennschaerfe) per Hand 
+berechnet haben. Interessant ist auch die Spalte `n`, die noch einmal 
+aufführt, auf der Basis wievieler Item-Teilnahmen die Werte berechnet 
+wurden. 
+
+Insgesamt ist das Paket `psych` ein wichtiges `R`-Zusatzpaket 
 für psychometrische Auswertungen. Der Autor des `psych`-Pakets (William Revelle) 
 stellt außerdem auf seiner Website (https://personality-project.org/r/psych/) 
 hilfreiche Materialien für die psychometrische Auswertung in `R` zur Verfügung. 

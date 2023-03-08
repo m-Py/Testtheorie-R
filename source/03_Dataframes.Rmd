@@ -1049,18 +1049,7 @@ Die Variante mit doppeltem Doppelpunkt ist in jedem Fall sicher und sollte
 verwendet werden, wenn aus verschiedenen Paketen Funktionen mit demselben Namen 
 in Konflikt stehen. Wer ganz sicher gehen will, kann bei der Verwendung von 
 Funktionen aus Zusatzpaketen immer den doppelten Doppelpunktoperator nutzen, 
-auch wenn das vermutlich ein bisschen übertrieben ist. In der psychometrischen 
-Auswertung kann sich beispielsweise der Konflikt ergeben, dass in den zwei 
-wichtigen Paketen `psych` [@R-psych] und `psychometric` [@R-psychometric] 
-jeweils eine Funktion `alpha()` zur Berechnung von Cronbachs Alpha zur Verfügung 
-gestellt wird. Beide berechnen zwar -- wie zu erwarten -- Cronbachs Alpha, 
-jedoch gibt `psych::alpha()` noch weitere Ergebnisse aus, wohingegen 
-`psychometric::alpha()` wirklich nur Cronbachs Alpha liefert.
-
-[^psychwichtig]: Das Paket `psych` ist in der psychometrischen Arbeit übrigens 
-äußerst wichtig; beispielsweise enthält es viel genutzten Funktionen für 
-Faktorenanalysen (etwa eine Standardimplementierung der Parallelanalyse), eine 
-Funktion, die Cronbachs Alpha berechnet, und viele mehr.
+auch wenn das vermutlich ein bisschen übertrieben ist.
 
 ### Sortieren: Die Funktion `arrange`() aus dem Paket `dplyr`
 
