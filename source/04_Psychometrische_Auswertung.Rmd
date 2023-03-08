@@ -558,7 +558,8 @@ Output können wir eine Tabelle Item-Kennwerten betrachten:
 ```{r, eval = FALSE}
 library("psych")
 alpha(test_data)
-# Betrachte hier nur die Tabelle mit den Item-Kennwerten:
+
+# Betrachte hier im Output nur die Tabelle mit den Item-Kennwerten:
 ```
 
 ```{r, echo = FALSE}
@@ -566,9 +567,9 @@ round(alpha(test_data)$item.stats, 2)
 ```
 
 Die Spalte mit der Überschrift `raw.r` beinhaltet die unkorrigierten 
-Trennschärfen der Items, die Spalte mit der Überschrift `r.cor` 
+Trennschärfen der Items, die Spalte mit der Überschrift `r.drop` 
 beinhaltet die korrigierten Trennschärfen.  Für Item 2 wird dieselbe 
-korrigierte Trennschärfe ausgegeben, die wir 
+(hier gerundete) korrigierte Trennschärfe ausgegeben, die wir 
 oben [im Abschnitt zu Item-Trennschärfen](#trennschaerfe) per Hand 
 berechnet haben. Interessant ist auch die Spalte `n`, die noch einmal 
 aufführt, auf der Basis wievieler Item-Teilnahmen die Werte berechnet 
