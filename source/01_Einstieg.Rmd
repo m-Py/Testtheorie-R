@@ -93,7 +93,7 @@ Ich danke Juli Tkotz für ihre wertvollen Beiträge und ihr nützliches Feedback
 zum Skript. Hanna Siegers, Marlene Wettstein, Frank Calio, Ingo Weigel,
 Katharina Sophie Apenbrink, Jutta Peterburs, Sara Vera Brockhaus, Sophie
 Schalberger, Marlene Hüsken, Dilara Cagdas, Katharina Rubröder, Freya Heiber,
-Dilara Cagdas, Franziska Schulte und Lotte Wagner-Douglas danke ich für 
+Alessandra Russo, Franziska Schulte und Lotte Wagner-Douglas danke ich für
 Fehlermeldungen.
 
 Zur Erstellung des Skripts wurden `R` [@R-base] und die `R`-Pakete
