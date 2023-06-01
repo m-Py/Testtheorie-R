@@ -6,7 +6,7 @@ in `R` durchführen, sind als Funktionen
 umgesetzt.[^everythingisafunction] Wir haben bereits ausgiebig von 
 Funktionen Gebrauch gemacht. Wir haben beispielsweise mit `subset()` 
 Daten ausgewählt, mit `table()` und `tapply()` deskriptive Statistiken 
-angefordert, und mit `cor()`, `colMeans()` und `psychometric::alpha()` 
+angefordert, und mit `cor()`, `colMeans()` und `psych::alpha()` 
 psychometrische Berechnungen durchgeführt. Dabei haben wir bereits 
 einige Eigenschaften von Funktionen zur Kenntnis genommen, etwa dass sie 
 Namen haben,[^anonym] Argumente annehmen und ihre Rückgabewerte in 
