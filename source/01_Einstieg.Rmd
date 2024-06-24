@@ -128,6 +128,13 @@ heruntergeladen werden.
 Hier könnt ihr beispielsweise über „Download R for Windows“ $\to$
 „install R for the first time” gehen.
 
+Gerade die Arbeit mit Zusatzpaketen erfordert, dass die installierte `R`-Version 
+nicht zu alt sein sollte. Auf manchen älteren Rechnern (gerade auf Macs) scheint 
+es jedoch manchmal ein Problem zu sein, eine aktuelle `R`-Version zu 
+installieren. In dem Fall kann es eine Alternative sein, eine Cloud-basierte 
+Installation zu nutzen, etwa [Posit Cloud](https://posit.cloud/), das RStudio im 
+Browser nutzbar macht.
+
 ### Die `R`-Konsole
 
 Wenn wir `R` und RStudio installiert haben, können wir unsere ersten
@@ -175,6 +182,15 @@ Zum Beispiel können wir die `R`-Konsole als Taschenrechner benutzen:
 
 3 + 5 / 2
 
+```
+
+Es ist ebenfalls nützlich, zu überprüfen, ob die Installation von Zusatzpaketen 
+reibungslos funktioniert. Für die psychometrische Auswertung ist beispielsweise 
+das Paket `psych` verbreitet, das wir mit dem Befehl `install.packages()` 
+installieren können: 
+
+```R
+install.packages("psych")
 ```
 
 ### Der Skript-Editor
