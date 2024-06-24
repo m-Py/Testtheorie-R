@@ -1223,9 +1223,40 @@ die Analyse startet, müssen fehlende Werte gekennzeichnet werden.
 
 ## Präzedenz {#praezedenz}
 
-Durch Klammerung können wir die *Präzedenz* von `R`-Befehlen steuern.
-Präzendenz bezieht sich auf die Reihenfolge, in der `R`-Befehle
-ausgeführt werden. Betrachten wir das folgende Beispiel: 
+Durch Klammerung können wir die *Präzedenz* von `R`-Befehlen steuern. Präzedenz 
+bezieht sich auf die Reihenfolge, in der `R`-Befehle ausgeführt werden. 
+`R`-Befehle werden, wie es auch bei normalen mathematischen Berechnungen der 
+Fall ist (siehe [Punkt vor 
+Strich](https://de.wikipedia.org/wiki/Punktrechnung_vor_Strichrechnung)), nicht 
+unbedingt einfach von links nach rechts durchgeführt. 
+
+Folgender Code zeigt, dass logische Vergleiche wie `>` oder `<` eine höhere 
+Präzedenz haben als das logische ODER:
+
+```{r}
+daten <- 1:7
+daten < 3 | daten > 6
+```
+
+In diesem Fall werden die Unterbefehle `daten < 3` und `daten > 6` separat 
+evaluiert, und die beiden Ergebnisse werden danach mit dem logischen ODER 
+verknüpft. Es wird nicht das Ergebnis von `daten < 3` per ODER mit `daten` 
+verknüpft, und erst im Anschluss die `> 6`-Operation durchgeführt, was bei einer 
+reinen Durchführung von rechts nach links der Fall wäre. Das liegt übrigens 
+nicht daran, dass diese Durchführung auch sinnlos wäre -- das weiß `R` im 
+Zweifel nicht -- `R` geht rein nach Präzedenz der Operatoren vor. 
+
+Um sicherzugehen, sieht man in diesem Fall oft folgenden Code, der durch 
+Klammerung explizit sicherstellt, welche Code-Bestandteile gemeinsam 
+durchgeführt werden:
+
+```{r}
+(daten < 3) | (daten > 6)
+```
+
+Diese Klammerung ist jedoch nicht nötig. 
+
+Betrachten wir noch das folgende weiterführende Beispiel: 
 
 ```{r}
 TRUE | TRUE & FALSE
@@ -1292,10 +1323,17 @@ existiert. Stattdessen erhalten wir einfach wieder `10`:
 10[-8]
 ```
 
-Durch Klammerung können wir das gewünschte Ergebnis erhalten:
+Durch Klammerung oder durch Zwischenspeichern in einer Variablen können wir das 
+gewünschte Ergebnis erhalten:
 
 ```{r}
 (1:10)[-8]
+```
+
+```{r}
+# oder:
+daten <- 1:10
+daten[-8]
 ```
 
 ```{block, type = "block"}
